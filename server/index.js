@@ -1,6 +1,20 @@
 import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
 
+/**
+** Use database 
+*/
+const sequelize = require('./dbconfig')
+
+/** 
+** Test connecton 
+*/
+sequelize.authenticate().then(() => {
+  console.log('Connection has been established successfully.')
+}).catch(err => {
+  console.error('Unable to connect to the database', err)
+})
+
 async function start () {
   const app = new Koa()
   const host = process.env.HOST || '127.0.0.1'
@@ -35,5 +49,4 @@ async function start () {
   app.listen(port, host)
   console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
 }
-
 start()

@@ -1,6 +1,6 @@
 # cdmp(实验设备预约管理平台)
 
-> Nuxt.js project
+> Nuxt.js project with koa
 
 ## Build Setup
 

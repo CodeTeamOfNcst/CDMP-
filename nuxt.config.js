@@ -16,9 +16,19 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css'],
+  css: ['~assets/css/main.css', 'element-ui/lib/theme-chalk/index.css'],
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#3B8070' }
+  loading: { color: '#3B8070' },
+  /**
+  ** 防止重复打包
+  */
+  build: {
+    vendor: ['axios', 'element-ui']
+  },
+  /**
+  ** 添加插件
+  */
+  plugins:['~plugins/element-ui']
 }
