@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const connection = require('../dbconfig')
+const connection = require('../dbconfig/dbconfig')
 
 const MessageKlass = connection.define(
     'MessageKlass',

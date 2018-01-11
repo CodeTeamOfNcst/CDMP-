@@ -27,7 +27,7 @@ a, a:hover, a:focus, a:visited
 
 .page-enter-active, .page-leave-active
 {
-  transition: opacity .5s
+  transition: opacity 1s
 }
 .page-enter, .page-leave-active
 {

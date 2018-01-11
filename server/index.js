@@ -4,7 +4,7 @@ import { Nuxt, Builder } from 'nuxt'
 /**
 ** Use database 
 */
-const sequelize = require('./dbconfig')
+const sequelize = require('./dbconfig/dbconfig')
 
 /** 
 ** Test connecton 

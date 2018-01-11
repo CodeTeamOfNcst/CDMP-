@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const connection = require('../dbconfig')
+const connection = require('../dbconfig/dbconfig')
 
 const Message = connection.define(
     'Message',
@@ -8,6 +8,7 @@ const Message = connection.define(
         content: { type: Sequelize.TEXT, allowNull: true},
         publishDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
         isPublished: { type: Sequelize.BOOLEAN, defaultValue: true },
+        isRead: {type: Sequelize.BOOLEAN, defaultValue: true},
         isUse: {type: Sequelize.BOOLEAN, defaultValue: true},
         //默认添加 createAt 和 updateAt 两个字段 
     }
