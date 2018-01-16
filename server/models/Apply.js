@@ -1,17 +1,14 @@
-const Sequelize = require('sequelize')
-const connection = require('../dbconfig/dbconfig')
-
-const Apply = connection.define(
-    'Apply',
-    {
-        id: { type: Sequelize.INTEGRE, primaryKey: true, autoIncrement: true },
-        submitDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-        startDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-        endDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-        isAgree: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false },
-        vioReason: { type: Sequelize.STRING, allowNull: true },
-        isUse: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true }
-    }
-)
-
-module.exports = Apply
+module.exports = (sequelize, DataTypes) => {
+    return sequelize.define(
+        'Apply',
+        {
+            id: { type: DataTypes.INTEGRE, primaryKey: true, autoIncrement: true },
+            submitDate: { type: DataTypes.DATE, defaultValue: Sequelize.NOW },
+            startDate: { type: DataTypes.DATE, defaultValue: Sequelize.NOW },
+            endDate: { type: DataTypes.DATE, defaultValue: Sequelize.NOW },
+            isAgree: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+            vioReason: { type: DataTypes.STRING, allowNull: true },
+            isUse: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true }
+        }
+    )
+}

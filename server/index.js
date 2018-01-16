@@ -1,6 +1,12 @@
 import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
 
+const path = require('path')
+const koaStatic = require('koa-static')
+const koaSession = require('koa-session')
+const bodyParser = require('koa-bodyparser')
+
+
 /**
 ** Use database 
 */
@@ -19,6 +25,10 @@ async function start () {
   const app = new Koa()
   const host = process.env.HOST || '127.0.0.1'
   const port = process.env.PORT || 3000
+
+  // init middleware 
+  app.use(bodyParser())
+  app.use(koaStatic(__dirname + '/uploads'))
 
   // Import and Set Nuxt.js options
   let config = require('../nuxt.config.js')

@@ -1,17 +1,14 @@
-const Sequelize = require('sequelize')
-const connection = require('../dbconfig/dbconfig')
-
-const Message = connection.define(
-    'Message',
-    {
-        id: { type: Sequelize.INTERGRE, primaryKey: true, autoIncrement: true},
-        content: { type: Sequelize.TEXT, allowNull: true},
-        publishDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-        isPublished: { type: Sequelize.BOOLEAN, defaultValue: true },
-        isRead: {type: Sequelize.BOOLEAN, defaultValue: true},
-        isUse: {type: Sequelize.BOOLEAN, defaultValue: true},
-        //默认添加 createAt 和 updateAt 两个字段 
-    }
-)
-
-module.exports = Message
+module.exports = (sequelize, DataTypes) => {
+    return sequelize.define(
+        'Message',
+        {
+            id: { type: DataTypes.INTERGRE, primaryKey: true, autoIncrement: true},
+            content: { type: DataTypes.TEXT, allowNull: true},
+            publishDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+            isPublished: { type: DataTypes.BOOLEAN, defaultValue: true },
+            isRead: {type: DataTypes.BOOLEAN, defaultValue: true},
+            isUse: {type: DataTypes.BOOLEAN, defaultValue: true},
+            //默认添加 createAt 和 updateAt 两个字段 
+        }
+    )
+}

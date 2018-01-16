@@ -1,13 +1,10 @@
-const Sequelize = require('sequelize')
-const connection = require('../dbconfig/dbconfig')
-
-const DeviceType = connection.define(
-    'DeviceType',
-    {
-        id: { type: Sequelize.INTEGRE, primaryKey: true, autoIncrement: true },
-        name: { type: Sequelize.STRING, allowNull: true, unique: true},
-        isUse: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true }
-    }
-)
-
-module.exports = DeviceType
+module.exports = (sequelize, DataTypes) => {
+    return sequelize.define(
+        'DeviceType',
+        {
+            id: { type: DataTypes.INTEGRE, primaryKey: true, autoIncrement: true },
+            name: { type: DataTypes.STRING, allowNull: true, unique: true},
+            isUse: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true }
+        }
+    )
+}

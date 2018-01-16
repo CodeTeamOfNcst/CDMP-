@@ -1,19 +1,16 @@
-const Sequelize = require('sequelize')
-const connection = require('../dbconfig/dbconfig')
-
-const Device = connection.define(
-    'Device',
-    {
-        id: { type: Sequelize.INTEGRE, primaryKey: true, autoIncrement: true },
-        name: { type: Sequelize.STRING, allowNull: true, unique: true },
-        imgFilePath: { type: Sequelize.STRING, allowNull: true },
-        description: { type: Sequelize.STRING, allowNull: true },
-        dType: { type: Sequelize.STRING, allowNull: true },
-        purchaseDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-        needRepair: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false },
-        canReserve: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true },
-        isUse: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true }
-    }
-)
-
-module.exports = Device
+module.exports = (sequelize, DataTypes) => {
+    return sequelize.define(
+        'Device',
+        {
+            id: { type: DataTypes.INTEGRE, primaryKey: true, autoIncrement: true },
+            name: { type: DataTypes.STRING, allowNull: true, unique: true },
+            imgFilePath: { type: DataTypes.STRING, allowNull: true },
+            description: { type: DataTypes.STRING, allowNull: true },
+            dType: { type: DataTypes.STRING, allowNull: true },
+            purchaseDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+            needRepair: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+            canReserve: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true },
+            isUse: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true }
+        }
+    )
+}

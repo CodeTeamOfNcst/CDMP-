@@ -1,15 +1,12 @@
-const Sequelize = require('sequelize')
-const connection = require('../dbconfig/dbconfig')
-
-const Rule = connection.define(
-    'Rule',
-    {
-        id: { type: Sequelize.INTEGRE, primaryKey: true, autoIncrement: true },
-        publishDate: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-        content: { type: Sequelize.TEXT, allowNull: true},
-        isPublished: { type: Sequelize.BOOLEAN, defaultValue: true },
-        isUse: {type: Sequelize.BOOLEAN, defaultValue: true}
-    }
-)
-
-module.exports = Rule
+module.exports = (sequelize, DataTypes) => {
+    return sequelize.define(
+        'Rule',
+        {
+            id: { type: DataTypes.INTEGRE, primaryKey: true, autoIncrement: true },
+            publishDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
+            content: { type: DataTypes.TEXT, allowNull: true},
+            isPublished: { type: DataTypes.BOOLEAN, defaultValue: true },
+            isUse: {type: DataTypes.BOOLEAN, defaultValue: true}
+        }
+    )
+}
