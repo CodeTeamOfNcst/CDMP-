@@ -1,18 +1,35 @@
 <template>
-  <section class="container">
-    <img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo" />
-    <h1 class="title">
-      Universal Vue.js Application Framework
-    </h1>
-    <nuxt-link class="button" to="/about">
-      About page
-    </nuxt-link>
-  </section>
+
+    <div class="all">
+        <el-row>
+            <el-col :span="24"><div class="grid-content bg-purple-dark main-top"></div></el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="24"><div class="grid-content bg-purple-dark main-middle"></div></el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="24"><div class="grid-content bg-purple-dark main-footer"></div></el-col>
+        </el-row>
+    </div>
+
+
 </template>
 
 <style scoped>
-.title
-{
-  margin: 50px 0;
-}
+    .all{
+        width:100%;
+        background-color: #41B883;
+        height:auto;
+        min-height: 600px;
+    }
+    .main-top{
+        height:300px;
+    }
+    .main-middle{
+        height:300px;
+    }
+    .main-footer{
+        height:300px;
+    }
+
 </style>

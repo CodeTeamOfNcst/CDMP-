@@ -8,6 +8,7 @@
             <nuxt-link class="button page" to="/">首页</nuxt-link>
             <nuxt-link class="button page" to="/lists">仪器列表</nuxt-link>
             <nuxt-link class="button page" to="/bulletin">通知公告</nuxt-link>
+            <nuxt-link class="button page" to="/rules">规章制度</nuxt-link>
             <nuxt-link class="button page" to="/contact">联系我们</nuxt-link>
         </center>
     </div>
@@ -25,7 +26,7 @@
 
     }
     .nuxt-link-exact-active{
-        background: #063961;
+        background: #6b8db4;
         color:white;
     }
     .headerlist{

@@ -28,8 +28,8 @@
   }
 
   .mainwidth{
-    width: 80%;
-    margin-left: 10%;
+    width: 70%;
+    margin-left: 15%;
     background: white;
   }
   .container
@@ -44,18 +44,18 @@
   .button, .button:visited
   {
     display: inline-block;
-    color: #063961;
+    color: #fff;
     letter-spacing: 1px;
-    background-color: #fff;
-    border: 2px solid #063961;
+    /*background-color: #fff;*/
+    /*border: 2px solid #063961;*/
     text-decoration: none;
     text-transform: uppercase;
-    padding: 15px 45px;
+    padding: 15px 49px;
   }
   .button:hover, .button:focus
   {
     color: #fff;
-    background-color: #063961;
+    background-color: #6b8db4;
   }
 
   .title

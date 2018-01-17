@@ -30,5 +30,5 @@ module.exports = {
   /**
   ** 添加插件
   */
-  plugins:['~plugins/element-ui']
+  plugins: ['~plugins/element-ui']
 }
