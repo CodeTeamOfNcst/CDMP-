@@ -65,7 +65,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -107,7 +107,7 @@ module.exports = {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
 
 
@@ -134,7 +134,7 @@ module.exports = sequelize;
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(5);
+module.exports = __webpack_require__(9);
 
 
 /***/ },
@@ -147,40 +147,64 @@ module.exports = require("koa");
 /* 4 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa-bodyparser");
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("koa-session");
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-module.exports = require("sequelize");
+module.exports = require("koa-static");
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+module.exports = require("nuxt");
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+module.exports = require("path");
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+module.exports = require("sequelize");
+
+/***/ },
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
+/* WEBPACK VAR INJECTION */(function(__dirname) {Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
 
 
 var start = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
     var _this = this;
 
     var app, host, port, config, nuxt, builder;
-    return __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+    return __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -188,8 +212,12 @@ var start = function () {
             host = process.env.HOST || '127.0.0.1';
             port = process.env.PORT || 3000;
 
-            // Import and Set Nuxt.js options
+            // init middleware 
 
+            app.use(bodyParser());
+            app.use(koaStatic(__dirname + '/uploads'));
+
+            // Import and Set Nuxt.js options
             config = __webpack_require__(0);
 
             config.dev = !(app.env === 'production');
@@ -200,19 +228,19 @@ var start = function () {
             // Build in development
 
             if (!config.dev) {
-              _context2.next = 10;
+              _context2.next = 12;
               break;
             }
 
             builder = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt);
-            _context2.next = 10;
+            _context2.next = 12;
             return new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt).build();
 
-          case 10:
+          case 12:
 
             app.use(function () {
-              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-                return __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+                return __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
@@ -246,7 +274,7 @@ var start = function () {
             app.listen(port, host);
             console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-          case 13:
+          case 15:
           case 'end':
             return _context2.stop();
         }
@@ -264,6 +292,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
+var path = __webpack_require__(8);
+var koaStatic = __webpack_require__(6);
+var koaSession = __webpack_require__(5);
+var bodyParser = __webpack_require__(4);
+
 /**
 ** Use database 
 */
@@ -279,6 +312,7 @@ sequelize.authenticate().then(function () {
 });
 
 start();
+/* WEBPACK VAR INJECTION */}.call(exports, "server"))
 
 /***/ }
 /******/ ]);
