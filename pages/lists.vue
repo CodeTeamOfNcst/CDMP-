@@ -5,7 +5,7 @@
             <el-row :gutter="20">
                 <el-col :span="15">
                     <div class="grid-content bg-purple">
-                        <span class="equipment">仪器列表</span>
+                        <span class="bullCont">仪器列表</span>
                     </div>
                 </el-col>
                 <el-col :span="8">
@@ -564,14 +564,6 @@
     a{
         text-decoration:none;
         color: black;
-    }
-    .equipment{
-        width: 100%;
-        height: 100%;
-        text-align: left;
-        line-height: 50px;
-        margin-left: 5px;
-        float: left;
     }
     .keyword{
         width: 240px;

@@ -12,9 +12,6 @@ p{
 ul li{
   list-style: none;
 }
-.page{
-  width: 168px;
-}
 footer
 {
   padding: 20px;
@@ -30,8 +27,6 @@ a, a:hover, a:focus, a:visited
   width: 243px;
   height: 418px;
 }
-
-
 .page-enter-active, .page-leave-active
 {
   transition: opacity 1s

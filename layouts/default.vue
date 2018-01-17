@@ -1,5 +1,4 @@
 <template>
-
   <div class="allBody">
     <my-header/>
     <div class="mainwidth">
