@@ -56,8 +56,8 @@
 <style scoped>
 
 .main-box{
-    margin-left:10%;
-    width:80%;
+    /*margin-left:10%;*/
+    width:100%;
     height:auto;
     text-align: center;
 }
