@@ -14,7 +14,9 @@ ul li{
 }
 footer
 {
-  padding: 20px;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom:20px ;
   text-align: center;
   border-top: 1px solid #ddd;
   background: #ECECEC;

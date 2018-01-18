@@ -3,7 +3,7 @@
         <div class="headerName">
             <div class="leftSty"></div>
             <el-row :gutter="20">
-                <el-col :span="15">
+                <el-col :span="15" class="padding">
                     <div class="grid-content bg-purple">
                         <span class="bullCont">仪器列表</span>
                     </div>
@@ -49,7 +49,7 @@
                     <el-col :span="8" class="leftspan">
                         <div class="grid-content bg-purple bullImg">
                             <a href="details">
-                                <img src="../assets/img/img_3.png" alt="Nuxt.js Logo" class="logo" />
+                                <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
                             </a>
                         </div>
                     </el-col>
@@ -62,13 +62,15 @@
                                             <el-col :span="17">
                                                 <div class="grid-content bg-purple nameFrame">
                                                     <a href="details">
-                                                        <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
+                                                        <p class="bullName">全自动智能倒置显微镜及金相分析系统</p>
                                                     </a>
                                                 </div>
                                             </el-col>
                                             <el-col :span="3">
                                                 <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
+                                                    <a href="/appoint">
+                                                        <el-button type="primary" class="appoint">预约</el-button>
+                                                    </a>
                                                 </div>
                                             </el-col>
                                             <el-col :span="3">
@@ -152,357 +154,7 @@
                 <el-row :gutter="20" class="leftImg">
                     <el-col :span="8" class="leftspan">
                         <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
-                        </div>
-                    </el-col>
-                    <el-col :span="16">
-                        <div class="grid-content bg-purple">
-                            <el-row class="topOneCol">
-                                <el-col :span="24">
-                                    <div class="grid-content bg-purple-dark">
-                                        <el-row>
-                                            <el-col :span="17">
-                                                <div class="grid-content bg-purple nameFrame">
-                                                    <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple">
-                                                    <el-button type="warning" class="appoint">送样</el-button>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="maketop">
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser">
-                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
-                                </el-row>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-            <div class="oneDevice">
-                <el-row :gutter="20" class="leftImg">
-                    <el-col :span="8" class="leftspan">
-                        <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
-                        </div>
-                    </el-col>
-                    <el-col :span="16">
-                        <div class="grid-content bg-purple">
-                            <el-row class="topOneCol">
-                                <el-col :span="24">
-                                    <div class="grid-content bg-purple-dark">
-                                        <el-row>
-                                            <el-col :span="17">
-                                                <div class="grid-content bg-purple nameFrame">
-                                                    <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple">
-                                                    <el-button type="warning" class="appoint">送样</el-button>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="maketop">
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser">
-                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
-                                </el-row>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-            <div class="oneDevice">
-                <el-row :gutter="20" class="leftImg">
-                    <el-col :span="8" class="leftspan">
-                        <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
-                        </div>
-                    </el-col>
-                    <el-col :span="16">
-                        <div class="grid-content bg-purple">
-                            <el-row class="topOneCol">
-                                <el-col :span="24">
-                                    <div class="grid-content bg-purple-dark">
-                                        <el-row>
-                                            <el-col :span="17">
-                                                <div class="grid-content bg-purple nameFrame">
-                                                    <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple">
-                                                    <el-button type="warning" class="appoint">送样</el-button>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="maketop">
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser">
-                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
-                                </el-row>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-            <div class="oneDevice">
-                <el-row :gutter="20" class="leftImg">
-                    <el-col :span="8" class="leftspan">
-                        <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
-                        </div>
-                    </el-col>
-                    <el-col :span="16">
-                        <div class="grid-content bg-purple">
-                            <el-row class="topOneCol">
-                                <el-col :span="24">
-                                    <div class="grid-content bg-purple-dark">
-                                        <el-row>
-                                            <el-col :span="17">
-                                                <div class="grid-content bg-purple nameFrame">
-                                                    <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple">
-                                                    <el-button type="warning" class="appoint">送样</el-button>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="maketop">
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser">
-                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
-                                </el-row>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-            <div class="oneDevice">
-                <el-row :gutter="20" class="leftImg">
-                    <el-col :span="8" class="leftspan">
-                        <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
-                        </div>
-                    </el-col>
-                    <el-col :span="16">
-                        <div class="grid-content bg-purple">
-                            <el-row class="topOneCol">
-                                <el-col :span="24">
-                                    <div class="grid-content bg-purple-dark">
-                                        <el-row>
-                                            <el-col :span="17">
-                                                <div class="grid-content bg-purple nameFrame">
-                                                    <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple">
-                                                    <el-button type="warning" class="appoint">送样</el-button>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="maketop">
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser">
-                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
-                                </el-row>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-            <div class="oneDevice">
-                <el-row :gutter="20" class="leftImg">
-                    <el-col :span="8" class="leftspan">
-                        <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
-                        </div>
-                    </el-col>
-                    <el-col :span="16">
-                        <div class="grid-content bg-purple">
-                            <el-row class="topOneCol">
-                                <el-col :span="24">
-                                    <div class="grid-content bg-purple-dark">
-                                        <el-row>
-                                            <el-col :span="17">
-                                                <div class="grid-content bg-purple nameFrame">
-                                                    <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple">
-                                                    <el-button type="warning" class="appoint">送样</el-button>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="maketop">
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser">
-                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
-                                </el-row>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-            <div class="oneDevice">
-                <el-row :gutter="20" class="leftImg">
-                    <el-col :span="8" class="leftspan">
-                        <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
-                        </div>
-                    </el-col>
-                    <el-col :span="16">
-                        <div class="grid-content bg-purple">
-                            <el-row class="topOneCol">
-                                <el-col :span="24">
-                                    <div class="grid-content bg-purple-dark">
-                                        <el-row>
-                                            <el-col :span="17">
-                                                <div class="grid-content bg-purple nameFrame">
-                                                    <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple">
-                                                    <el-button type="warning" class="appoint">送样</el-button>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="maketop">
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser">
-                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
-                                </el-row>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-            <div class="oneDevice">
-                <el-row :gutter="20" class="leftImg">
-                    <el-col :span="8" class="leftspan">
-                        <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
+                            <img src="../assets/img/img_3.png" alt="Nuxt.js Logo" class="logo" />
                         </div>
                     </el-col>
                     <el-col :span="16">
@@ -573,6 +225,9 @@
         width: 80%;
         float: right;
         height: auto;
+    }
+    .padding{
+        padding: 0px !important;
     }
     .inputCont{
         line-height: 50px;

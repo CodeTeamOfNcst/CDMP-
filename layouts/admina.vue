@@ -1,19 +1,25 @@
 <template>
     <div>
         <my-backheader/>
-        <div class="main_right">
+        <div class="main">
             <nuxt/>
         </div>
-        <my-footer/>
+        <div class="footer_back">
+            <my-footer/>
+        </div>
     </div>
 </template>
 <style scoped>
-/*.main_right{*/
-    /*width: 90%;*/
-    /*height: auto;*/
-    /*min-height: 800px;*/
-    /*float: right;*/
-/*}*/
+.main{
+    width: 90%;
+    float: right;
+    height: 800px;
+}
+    .footer_back{
+        width: 100%;
+        display: block;
+        overflow: hidden;
+    }
 </style>
 
 <script>

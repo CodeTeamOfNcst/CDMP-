@@ -56,8 +56,7 @@
 <style scoped>
     .contentList{
         width: 100%;
-        min-height: 680px;
-        max-height: 680px;
+        height:650px;
     }
     .paging{
         width: 40%;
