@@ -2,11 +2,9 @@
     <div class="mianContent">
         <div class="headerName">
             <div class="leftSty"></div>
-            <span class="bullCont">预约</span>
+            <span class="bullCont">预约管理</span>
         </div>
-        <el-row class="headerline">
-            <el-col :span="24"></el-col>
-        </el-row>
+        <el-row class="headerline"></el-row>
     </div>
 </template>
 <style scoped>

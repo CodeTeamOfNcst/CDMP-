@@ -4,9 +4,7 @@
             <div class="leftSty"></div>
             <span class="bullCont">联系我们</span>
         </div>
-        <el-row class="headerline">
-            <el-col :span="24"></el-col>
-        </el-row>
+        <el-row class="headerline"></el-row>
         <div>
             <p>TEL：123456 </p>
             <p>E-mail：123@qq.com </p>

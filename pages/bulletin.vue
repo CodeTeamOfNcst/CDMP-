@@ -4,9 +4,7 @@
             <div class="leftSty"></div>
             <span class="bullCont">通知公告</span>
         </div>
-        <el-row class="headerline">
-            <el-col :span="24"></el-col>
-        </el-row>
+        <el-row class="headerline"></el-row>
         <div class="contentList">
             <el-row class="strip">
                 <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">学校关于放假期间仪器归还问题（2018.01.15）</a></div></el-col>
