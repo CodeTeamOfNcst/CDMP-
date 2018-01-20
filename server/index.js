@@ -8,18 +8,33 @@ const bodyParser = require('koa-bodyparser')
 
 
 /**
-** Use database 
+** Use database
 */
 const sequelize = require('./dbconfig/dbconfig')
 
-/** 
-** Test connecton 
+/**
+** Test connecton
 */
 sequelize.authenticate().then(() => {
   console.log('Connection has been established successfully.')
 }).catch(err => {
   console.error('Unable to connect to the database', err)
 })
+
+/**
+ ** Sync DB
+ */
+const dbinit = require('./dbconfig/dbinit')
+dbinit.sequelize.sync()
+
+console.log("DataBase Sync Successfully")
+
+/**
+ ** Test
+ */
+const test = require('./test/add_user_test')
+test.test()
+
 
 async function start () {
   const app = new Koa()

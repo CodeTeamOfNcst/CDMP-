@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
         'Message',
         {
-            id: { type: DataTypes.INTERGRE, primaryKey: true, autoIncrement: true},
+            id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
             content: { type: DataTypes.TEXT, allowNull: true},
             publishDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
             isPublished: { type: DataTypes.BOOLEAN, defaultValue: true },
