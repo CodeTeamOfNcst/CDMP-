@@ -1,15 +1,14 @@
 const path = require('path')
 const sequelize = require('../dbconfig/dbconfig')
 
-
-const Apply = sequelize.import('../models/Apply')
-const Device = sequelize.import('../models/Device')
-const DeviceType = sequelize.import('../models/DeviceType')
-const Message = sequelize.import('../models/Message')
-const MessageKlass = sequelize.import('../models/MessageKlass')
-const Rule = sequelize.import('../models/Rule')
-const User = sequelize.import('../models/User')
-const UserKlass = sequelize.import('../models/UserKlass')
+const Apply = sequelize.import('../server/models/Apply')
+const Device = sequelize.import('../server/models/Device')
+const DeviceType = sequelize.import('../server/models/DeviceType')
+const Message = sequelize.import('../server/models/Message')
+const MessageKlass = sequelize.import('../server/models/MessageKlass')
+const Rule = sequelize.import('../server/models/Rule')
+const User = sequelize.import('../server/models/User')
+const UserKlass = sequelize.import('../server/models/UserKlass')
 
 Message.belongsTo(MessageKlass, {as: "messageType"})
 User.belongsTo(UserKlass, {as: "userType"})

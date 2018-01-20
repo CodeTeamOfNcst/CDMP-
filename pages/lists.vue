@@ -23,9 +23,7 @@
                 </el-col>
             </el-row>
         </div>
-        <el-row class="headerline">
-            <el-col :span="24"></el-col>
-        </el-row>
+        <el-row class="headerline"></el-row>
         <!--<el-row :gutter="24">-->
         <!--<el-col :span="5">-->
         <div class="grid-content bg-purple keyword">

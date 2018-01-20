@@ -16,20 +16,23 @@
         </div>
         <div class="main_nav">
             <el-row class="nav_content">
-                <el-col :span="24">
                     <a href="/admin">
-                        <div class="grid-content bg-purple-dark">仪器设备</div>
+                        <div class="grid-content bg-purple-dark">设备管理</div>
                     </a>
-                </el-col>
             </el-row>
             <el-row class="nav_content">
                 <a href="/backappoint">
-                    <div class="grid-content bg-purple-dark">预约</div>
+                    <div class="grid-content bg-purple-dark">预约管理</div>
                 </a>
             </el-row>
             <el-row class="nav_content">
-                <a href="">
-                    <div class="grid-content bg-purple-dark">公告</div>
+                <a href="/announce">
+                    <div class="grid-content bg-purple-dark">公告管理</div>
+                </a>
+            </el-row>
+            <el-row class="nav_content">
+                <a href="/user">
+                    <div class="grid-content bg-purple-dark">用户管理</div>
                 </a>
             </el-row>
         </div>
@@ -77,17 +80,20 @@
     }
     .main_nav{
         width: 9%;
-        min-width: 98px;
+        min-height: 800px;
+        height:auto;
+        /*min-width: 98px;*/
         float: left;
         display: block;
-
+        border-right: 1px solid #ddd;
     }
     .nav_content{
         width: 100%;
-        height: 80px;
+        min-height: 80px;
+        height:auto;
         text-align: center;
         line-height: 80px;
-        border-right: 1px solid #ddd;
+        /*border-right: 1px solid #ddd;*/
         border-bottom: 1px solid #ddd;
     }
     a{

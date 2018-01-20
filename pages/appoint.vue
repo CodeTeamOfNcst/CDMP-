@@ -4,9 +4,7 @@
             <div class="leftSty"></div>
             <span class="bullCont">仪器预约</span>
         </div>
-        <el-row class="headerline">
-            <el-col :span="24"></el-col>
-        </el-row>
+        <el-row class="headerline"></el-row>
         <div class="appointCont">
             <el-row>
                 <el-col :span="24">
@@ -135,17 +133,20 @@
     }
     .instruName p{
         width: 35%;
+        min-width: 73px;
         float: left;
         text-align: right;
         line-height:40px;
     }
     .fillOutName{
         width: 30%;
+        min-width: 214px;
         padding: 3px;
         float: left;
     }
     .fillOutTime{
         width: 30%;
+        min-width: 214px;
         padding: 3px;
         float: left;
     }

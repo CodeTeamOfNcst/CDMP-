@@ -8,9 +8,7 @@
                         <el-col :span="8"><div class="grid-content bg-purple">
                                 <div class="orderbefore"></div>
                                 <span class="order"> <i class="el-icon-d-arrow-right"></i> 通知公告</span>
-                                <el-row class="headerline">
-                                    <el-col :span="24"></el-col>
-                                </el-row>
+                                <el-row class="headerline"></el-row>
                             </div>
 
                             <div >

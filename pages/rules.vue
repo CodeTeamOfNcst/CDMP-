@@ -4,9 +4,7 @@
             <div class="leftSty"></div>
             <span class="bullCont">规章制度</span>
         </div>
-        <el-row class="headerline">
-            <el-col :span="24"></el-col>
-        </el-row>
+        <el-row class="headerline"></el-row>
         <div class="contentList">
             <el-row class="strip">
                 <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">学生实验守则（2017.09.08）</a></div></el-col>

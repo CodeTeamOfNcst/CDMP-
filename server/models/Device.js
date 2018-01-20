@@ -2,7 +2,7 @@ module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
         'Device',
         {
-            id: { type: DataTypes.INTEGRE, primaryKey: true, autoIncrement: true },
+            id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
             name: { type: DataTypes.STRING, allowNull: true, unique: true },
             imgFilePath: { type: DataTypes.STRING, allowNull: true },
             description: { type: DataTypes.STRING, allowNull: true },
