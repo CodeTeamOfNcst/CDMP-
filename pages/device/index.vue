@@ -47,7 +47,7 @@
                     <el-col :span="8" class="leftspan">
                         <div class="grid-content bg-purple bullImg">
                             <a href="details">
-                                <img src="../assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
+                                <img src="~/assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
                             </a>
                         </div>
                     </el-col>
@@ -102,7 +102,7 @@
                 <el-row :gutter="20" class="leftImg">
                     <el-col :span="8" class="leftspan">
                         <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/img_2.png" alt="Nuxt.js Logo" class="logo" />
+                            <img src="~/assets/img/img_2.png" alt="Nuxt.js Logo" class="logo" />
                         </div>
                     </el-col>
                     <el-col :span="16">
@@ -152,7 +152,7 @@
                 <el-row :gutter="20" class="leftImg">
                     <el-col :span="8" class="leftspan">
                         <div class="grid-content bg-purple bullImg">
-                            <img src="../assets/img/img_3.png" alt="Nuxt.js Logo" class="logo" />
+                            <img src="~/assets/img/img_3.png" alt="Nuxt.js Logo" class="logo" />
                         </div>
                     </el-col>
                     <el-col :span="16">

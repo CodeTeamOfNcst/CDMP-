@@ -6,7 +6,7 @@
         <el-breadcrumb-item>仪器列表</el-breadcrumb-item>
         <el-breadcrumb-item>全自动智能倒置显微镜及金相分析系统</el-breadcrumb-item>
     </el-breadcrumb>
-    <img src="../assets/img/equipment1.png" class="equipment">
+    <img src="~/assets/img/equipment1.png" class="equipment">
     <div class="equi-info">
         <div class="equi-name">
             <h2>全自动智能倒置显微镜及金相分析系统</h2>

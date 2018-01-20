@@ -6,7 +6,7 @@
         </div>
         <center class="headerlist">
             <nuxt-link class="button page" to="/">首页</nuxt-link>
-            <nuxt-link class="button page" to="/lists">仪器列表</nuxt-link>
+            <nuxt-link class="button page" to="/device">仪器列表</nuxt-link>
             <nuxt-link class="button page" to="/bulletin">通知公告</nuxt-link>
             <nuxt-link class="button page" to="/rules">规章制度</nuxt-link>
             <nuxt-link class="button page" to="/contact">联系我们</nuxt-link>
