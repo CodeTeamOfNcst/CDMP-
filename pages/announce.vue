@@ -26,6 +26,9 @@
                 </el-form-item>
             </el-form>
         </el-popover>
+        <div v-show="isShow" class="hidden_Content">
+            我是修改内容页面
+        </div>
         <div class="headerName">
             <div class="leftSty"></div>
             <span class="bullCont">公告管理</span>
@@ -72,7 +75,7 @@
                             <td>2018-01-19</td>
                             <td>是</td>
                             <td>
-                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
                                 <el-button type="text" @click="open2" class="delete">删除</el-button>
                             </td>
                         </tr>
@@ -82,7 +85,7 @@
                             <td>2018-01-17</td>
                             <td>是</td>
                             <td>
-                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
                                 <el-button type="text" @click="open2" class="delete">删除</el-button>
                             </td>
                         </tr>
@@ -92,7 +95,7 @@
                             <td>2018-01-15</td>
                             <td>否</td>
                             <td>
-                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
                                 <el-button type="text" @click="open2" class="delete">删除</el-button>
                             </td>
                         </tr>
@@ -102,7 +105,7 @@
                             <td>2018-01-13</td>
                             <td>是</td>
                             <td>
-                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
                                 <el-button type="text" @click="open2" class="delete">删除</el-button>
                             </td>
                         </tr>
@@ -112,7 +115,7 @@
                             <td>2018-01-10</td>
                             <td>是</td>
                             <td>
-                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
                                 <el-button type="text" @click="open2" class="delete">删除</el-button>
                             </td>
                         </tr>
@@ -145,6 +148,15 @@
     .oneline{
         width: 100%;
         height:60px;
+    }
+    .hidden_Content{
+        width: 50%;
+        height: 600px;
+        background: #41B883;
+        position: absolute;
+        z-index: 9999;
+        top: 10%;
+        left:25%;
     }
     .add{
         width: 5%;
@@ -236,11 +248,6 @@
                     });
                 });
             },
-            open5() {
-                this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
-                    dangerouslyUseHTMLString: true
-                });
-            },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
             },
@@ -249,10 +256,14 @@
             },
             onSubmit() {
                 console.log('submit!');
-            }
+            },
+            toggle:function(){
+                this.isShow = !this.isShow;
+            },
         },
         data() {
             return {
+                isShow:false,
                 currentPage4: 4,
                 input10: '',
                 centerDialogVisible: false,
