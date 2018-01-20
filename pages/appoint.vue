@@ -133,17 +133,20 @@
     }
     .instruName p{
         width: 35%;
+        min-width: 73px;
         float: left;
         text-align: right;
         line-height:40px;
     }
     .fillOutName{
         width: 30%;
+        min-width: 214px;
         padding: 3px;
         float: left;
     }
     .fillOutTime{
         width: 30%;
+        min-width: 214px;
         padding: 3px;
         float: left;
     }

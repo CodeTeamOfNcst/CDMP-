@@ -1,5 +1,31 @@
 <template>
     <div class="mianContent">
+        <el-popover
+                ref="popover4"
+                placement="right"
+                width="600"
+                trigger="click">
+            <el-form ref="form" :model="form" label-width="80px">
+                <el-form-item label="公告标题">
+                    <el-input v-model="form.name" clearable></el-input>
+                </el-form-item>
+                <el-form-item label="发布时间">
+                    <el-col :span="11">
+                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="禁用标识">
+                    <el-switch v-model="form.delivery"></el-switch>
+                </el-form-item>
+                <el-form-item label="公告内容">
+                    <el-input type="textarea" v-model="form.desc"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                    <el-button>取消</el-button>
+                </el-form-item>
+            </el-form>
+        </el-popover>
         <div class="headerName">
             <div class="leftSty"></div>
             <span class="bullCont">公告管理</span>
@@ -8,7 +34,7 @@
         <div class="announceCont">
             <div class="oneline">
                 <div class="add">
-                    <el-button type="primary" plain>添加</el-button>
+                    <el-button v-popover:popover4 class="addContent">添加</el-button>
                 </div>
                 <div class="demo-input-suffix search">
                     <el-input
@@ -17,57 +43,94 @@
                             v-model="input21">
                     </el-input>
                 </div>
+                <div class="select">
+                    <el-select v-model="value" placeholder="请选择">
+                        <el-option
+                                v-for="item in options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
             </div>
             <div class="table">
-                <!--<table border="1" class="allContent">-->
-                    <!--<tr>-->
-                        <!--<td>序列</td>-->
-                        <!--<td>公告标题</td>-->
-                        <!--<td>发布时间</td>-->
-                        <!--<td>操作</td>-->
-                    <!--</tr>-->
-                    <!--<tr>-->
-                        <!--<td>1</td>-->
-                        <!--<td>萨克管号地块深V四大皆空挂号费</td>-->
-                        <!--<td>2018-01-19</td>-->
-                        <!--<td>-->
-                            <!--<button>查看</button>-->
-                            <!--<button>删除</button>-->
-                        <!--</td>-->
-                    <!--</tr>-->
-                <!--</table>-->
-                <table>
+                <table border="1">
                     <thead>
-                    <tr>
-                        <th class="byName">序列</th>
-                        <th class="byCity">公告标题</th>
-                        <th class="byRegisterTime">发布时间</th>
-                        <th>是否禁用</th>
-                        <th>操作</th>
-                    </tr>
+                        <tr>
+                            <th class="byName">序列</th>
+                            <th class="byCity">公告标题</th>
+                            <th class="byRegisterTime">发布时间</th>
+                            <th>是否禁用</th>
+                            <th>操作</th>
+                        </tr>
                     </thead>
                     <tbody class="lists">
                         <tr>
                             <td>1</td>
                             <td>即可改变加热棒肯定是分开圣诞节多麻烦纳豆菌</td>
                             <td>2018-01-19</td>
-                            <td>rfgegery54y56</td>
-                            <td><a href="">管理</a><a href="">查看</a></td>
+                            <td>是</td>
+                            <td>
+                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" @click="open2" class="delete">删除</el-button>
+                            </td>
                         </tr>
-                    </tbody>
-                    <tbody class="lists">
-                    <tr>
-                        <td>2</td>
-                        <td>四大皆空发货速度发货的承诺的难处</td>
-                        <td>2018-01-17</td>
-                        <td>rfgegerygsergrvbfdbrf54y56</td>
-                        <td><a href="">管理</a><a href="">查看</a></td>
-                    </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>四大皆空发货速度发货的承诺的难处</td>
+                            <td>2018-01-17</td>
+                            <td>是</td>
+                            <td>
+                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" @click="open2" class="delete">删除</el-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>四大皆空发货速度发货的承诺的难处</td>
+                            <td>2018-01-15</td>
+                            <td>否</td>
+                            <td>
+                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" @click="open2" class="delete">删除</el-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>四大皆空发货速度发货的承诺的难处</td>
+                            <td>2018-01-13</td>
+                            <td>是</td>
+                            <td>
+                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" @click="open2" class="delete">删除</el-button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>水电费如发热五个人结果不让发那个后台金融股豆腐干节日计划不能腐女吧 创项目VB东方红，设计费是你达康书记瑞恩规划惹怒烦得很如</td>
+                            <td>2018-01-10</td>
+                            <td>是</td>
+                            <td>
+                                <el-button type="text" @click="open5" class="watch">查看</el-button>
+                                <el-button type="text" @click="open2" class="delete">删除</el-button>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
+            <div class="page">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage4"
+                        :page-sizes="[10, 20, 30, 40]"
+                        :page-size="10"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="40">
+                </el-pagination>
+            </div>
         </div>
-
     </div>
 </template>
 <style scoped>
@@ -90,10 +153,11 @@
         float: left;
         z-index: 9999;
     }
-    .is-plain{
+    .addContent{
         width: 100%;
         height: 100%;
-        padding: 0;
+        text-align: center;
+        padding: 0px;
     }
     .search{
         width: 15%;
@@ -103,25 +167,117 @@
         margin-left: 10px;
         z-index: 9999;
     }
+    .select{
+        width: 15%;
+        min-width: 170px;
+        height: 40px;
+        float: left;
+        margin-left: 10px;
+        z-index: 9999;
+    }
     .table{
         width: 100%;
-        min-height:650px;
+        min-height:600px;
         height:auto;
+
     }
-    td,th{
-        border-bottom: 1px solid #7f828b ;
-        border-right: 1px solid #7f828b;
+    table{
+        max-width: 1500px;
+        font-family: SimHei;
     }
-    th{
-        border-top:1px solid #7f828b;
+    .page{
+        width: 100%;
+        height:50px;
+        /*text-align: center;*/
     }
-    /*.allContent{*/
-        /*width: 80%;*/
-    /*}*/
+    .watch{
+        padding: 0;
+        border: 1px solid #7f828b;
+        width:44%;
+        min-height: 25px;
+        height: auto;
+        min-width: 37px;
+    }
+    .delete{
+        padding: 0;
+        border: 1px solid #7f828b;
+        width:44%;
+        min-height: 25px;
+        height: auto;
+        min-width: 37px;
+        margin-left: 0px;
+    }
+    td{
+        text-align: center;
+    }
+    td a{
+        min-width: 33px;
+    }
 </style>
 
 <script>
     export default {
         layout: 'admina',
+        methods: {
+            open2() {
+                this.$confirm('此操作将永久删除该公告, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            open5() {
+                this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
+                    dangerouslyUseHTMLString: true
+                });
+            },
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            },
+            onSubmit() {
+                console.log('submit!');
+            }
+        },
+        data() {
+            return {
+                currentPage4: 4,
+                input10: '',
+                centerDialogVisible: false,
+                textarea: '',
+                form: {
+                    name: '',
+                    date1: '',
+                    delivery: false,
+                    desc: ''
+                },
+                options: [{
+                    value: '选项1',
+                    label: '按时间由近及远排序'
+                }, {
+                    value: '选项2',
+                    label: '按时间由远及近排序'
+                }, {
+                    value: '选项3',
+                    label: '显示非禁用类型公告'
+                }, {
+                    value: '选项4',
+                    label: '显示禁用类型公告'
+                }],
+                value: '',
+            };
+        }
     }
 </script>
