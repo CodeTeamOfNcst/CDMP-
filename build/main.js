@@ -65,11 +65,89 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+var path = __webpack_require__(2);
+var sequelize = __webpack_require__(1);
+
+var Apply = sequelize.import('../server/models/Apply');
+var Device = sequelize.import('../server/models/Device');
+var DeviceType = sequelize.import('../server/models/DeviceType');
+var Message = sequelize.import('../server/models/Message');
+var MessageKlass = sequelize.import('../server/models/MessageKlass');
+var Rule = sequelize.import('../server/models/Rule');
+var User = sequelize.import('../server/models/User');
+var UserKlass = sequelize.import('../server/models/UserKlass');
+
+Message.belongsTo(MessageKlass, { as: "messageType" });
+User.belongsTo(UserKlass, { as: "userType" });
+Device.belongsTo(DeviceType, { as: "deviceType" });
+Apply.belongsTo(User, { as: "applyer" });
+Apply.belongsTo(Device, { as: "applyDevice" });
+
+module.exports = {
+    Apply: Apply,
+    Device: Device,
+    DeviceType: DeviceType,
+    Message: Message,
+    MessageKlass: MessageKlass,
+    Rule: Rule,
+    User: User,
+    UserKlass: UserKlass,
+
+    sequelize: sequelize
+};
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
+
+
+// 工作室服务器环境
+// const DATABASE = 'cdmp'
+// const USERNAME = 'root'
+// const PASSWORD = '123456'
+// const DBHOST = '10.55.91.107'
+
+// 本地服务器环境
+
+var DATABASE = 'cdmp';
+var USERNAME = 'root';
+var PASSWORD = 'admin';
+var DBHOST = '127.0.0.1';
+
+var sequelize = new __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a(DATABASE, USERNAME, PASSWORD, {
+    host: DBHOST,
+    dialect: 'mysql',
+
+    pool: {
+        max: 5,
+        min: 10,
+        acquire: 30000,
+        idle: 10000
+    }
+});
+
+module.exports = sequelize;
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+module.exports = require("path");
+
+/***/ },
+/* 3 */
 /***/ function(module, exports) {
 
 module.exports = {
@@ -102,109 +180,89 @@ module.exports = {
 };
 
 /***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_sequelize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_sequelize__);
-
-
-var DATABASE = 'cdmp';
-var USERNAME = 'root';
-var PASSWORD = '123456';
-var DBHOST = '10.55.91.107';
-
-var sequelize = new __WEBPACK_IMPORTED_MODULE_0_sequelize___default.a(DATABASE, USERNAME, PASSWORD, {
-    host: DBHOST,
-    dialect: 'mysql',
-
-    pool: {
-        max: 5,
-        min: 10,
-        acquire: 30000,
-        idle: 10000
-    }
-});
-
-module.exports = sequelize;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(9);
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-module.exports = require("koa");
-
-/***/ },
 /* 4 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = require("koa-bodyparser");
+var databases = __webpack_require__(0);
+
+var User = __webpack_require__(0).User;
+
+var test = function test() {
+    User.create({ account: 'admin', password: '123456', name: 'admin' });
+    console.log("success");
+};
+
+module.exports.test = test;
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-module.exports = require("koa-session");
+module.exports = __webpack_require__(11);
+
 
 /***/ },
 /* 6 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-static");
+module.exports = require("koa");
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-module.exports = require("nuxt");
+module.exports = require("koa-bodyparser");
 
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("koa-session");
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-module.exports = require("regenerator-runtime");
+module.exports = require("koa-static");
 
 /***/ },
 /* 10 */
 /***/ function(module, exports) {
 
-module.exports = require("sequelize");
+module.exports = require("nuxt");
 
 /***/ },
 /* 11 */
+/***/ function(module, exports) {
+
+module.exports = require("regenerator-runtime");
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+module.exports = require("sequelize");
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Admin_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_Admin_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_C_Users_Admin_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
 
 
 var start = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_Admin_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
     var _this = this;
 
     var app, host, port, config, nuxt, builder;
-    return __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+    return __WEBPACK_IMPORTED_MODULE_0_C_Users_Admin_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -218,7 +276,7 @@ var start = function () {
             app.use(koaStatic(__dirname + '/uploads'));
 
             // Import and Set Nuxt.js options
-            config = __webpack_require__(0);
+            config = __webpack_require__(3);
 
             config.dev = !(app.env === 'production');
 
@@ -239,8 +297,8 @@ var start = function () {
           case 12:
 
             app.use(function () {
-              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-                return __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_Admin_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+                return __WEBPACK_IMPORTED_MODULE_0_C_Users_Admin_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
@@ -292,24 +350,38 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-var path = __webpack_require__(8);
-var koaStatic = __webpack_require__(6);
-var koaSession = __webpack_require__(5);
-var bodyParser = __webpack_require__(4);
+var path = __webpack_require__(2);
+var koaStatic = __webpack_require__(9);
+var koaSession = __webpack_require__(8);
+var bodyParser = __webpack_require__(7);
 
 /**
-** Use database 
+** Use database
 */
 var sequelize = __webpack_require__(1);
 
-/** 
-** Test connecton 
+/**
+** Test connecton
 */
 sequelize.authenticate().then(function () {
   console.log('Connection has been established successfully.');
 }).catch(function (err) {
   console.error('Unable to connect to the database', err);
 });
+
+/**
+ ** Sync DB
+ */
+var dbinit = __webpack_require__(0);
+dbinit.sequelize.sync();
+
+console.log("DataBase Sync Successfully");
+
+/**
+ ** Test
+ */
+var test = __webpack_require__(4);
+test.test();
 
 start();
 /* WEBPACK VAR INJECTION */}.call(exports, "server"))
