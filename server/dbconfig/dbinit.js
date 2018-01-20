@@ -17,8 +17,6 @@ Device.belongsTo(DeviceType, {as: "deviceType"})
 Apply.belongsTo(User, {as: "applyer"})
 Apply.belongsTo(Device, {as: "applyDevice"})
 
-
-
 module.exports = {
     Apply,
     Device,
