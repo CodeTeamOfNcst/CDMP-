@@ -7,9 +7,7 @@
                 <p class="bulletinName">学校关于放假期间仪器归还问题</p>
             </span>
         </div>
-        <el-row class="headerline">
-            <el-col :span="24"></el-col>
-        </el-row>
+        <el-row class="headerline"></el-row>
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark detailsCont">

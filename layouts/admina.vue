@@ -10,11 +10,12 @@
     </div>
 </template>
 <style scoped>
-.main{
-    width: 90%;
-    float: right;
-    height: 800px;
-}
+    .main{
+        width: 90%;
+        float: right;
+        min-height: 800px;
+        height:auto;
+    }
     .footer_back{
         width: 100%;
         display: block;
