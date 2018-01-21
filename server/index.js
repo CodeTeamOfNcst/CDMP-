@@ -1,7 +1,7 @@
 import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
 import Assert from 'assert'
-import Cors from 'koa-cors'
+import Cors from 'koa2-cors'
 
 const path = require('path')
 const logger = require('koa-logger')
@@ -34,7 +34,7 @@ async function start () {
      ** Sync DB
     */
     try{
-      await database.sequelize.sync()
+      await database.sequelize.sync({force: true})
       console.log("Database Sync successfully")
     }catch (err) {
       console.error("Unable To Sync Database", err)
@@ -47,7 +47,7 @@ async function start () {
   app.use(bodyParser())
   app.use(session(SESSION_CONFIG, app));
   app.use(koaStatic(__dirname + '/uploads'))
-  app.use(Cors())
+  app.use(Cors())//允许跨域访问
   app.use(router.routes()).use(router.allowedMethods())
 
   // Import and Set Nuxt.js options
