@@ -12,7 +12,7 @@ exports.getDeviceById = async (ctx) => {
  * 返回所有设备的详细信息
  * @param { [object] } ctx 
  */
-exports.getAllDevice = async (ctx) => {
+exports.getAllDevices = async (ctx) => {
 
 }
 
@@ -28,6 +28,6 @@ exports.getDeviceTypeById = async ( ctx ) => {
  * 返回所有的设备类别
  * @param { [object] } ctx 
  */
-exports.getAllDeviceType = async ( ctx ) => {
+exports.getAllDevicesType = async ( ctx ) => {
 
 }

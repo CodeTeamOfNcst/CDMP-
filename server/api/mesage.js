@@ -12,7 +12,7 @@ exports.getMessageById = async ( ctx ) => {
  * 返回所有消息列表
  * @param { [object] } ctx 
  */
-exports.getAllMessage = async ( ctx ) => {
+exports.getAllMessages = async ( ctx ) => {
 
 }
 
@@ -28,6 +28,6 @@ exports.getMessageTypeById = async ( ctx ) => {
  * 返回所有的消息类型
  * @param { [object] } ctx 
  */
-exports.getAllMessageType = async ( ctx ) => {
+exports.getAllMessagesType = async ( ctx ) => {
 
 }

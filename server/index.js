@@ -1,6 +1,8 @@
 import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
-import assert from 'assert'
+import Assert from 'assert'
+import Cors from 'koa-cors'
+
 const path = require('path')
 const logger = require('koa-logger')
 const koaStatic = require('koa-static')
@@ -8,6 +10,7 @@ const session = require('koa-session')
 const bodyParser = require('koa-bodyparser')
 
 const database = require('./dbconfig/dbinit')
+const router = require('./router')()
 
 async function start () {
   const app = new Koa()
@@ -22,7 +25,7 @@ async function start () {
     console.log('Connection has been established successfully.')
   }catch(err){
     console.error('Unable to connect to the database', err)
-    assert.ok(false, 'Unable to connect to the database')
+    Assert.ok(false, 'Unable to connect to the database')
   }
  
   
@@ -35,14 +38,17 @@ async function start () {
       console.log("Database Sync successfully")
     }catch (err) {
       console.error("Unable To Sync Database", err)
-      assert.ok(false,"Unable To Sync Database")
+      Assert.ok(false,"Unable To Sync Database")
     }
   }
+
   // init middleware 
   app.use(logger())
   app.use(bodyParser())
   app.use(session(SESSION_CONFIG, app));
   app.use(koaStatic(__dirname + '/uploads'))
+  app.use(Cors())
+  app.use(router.routes()).use(router.allowedMethods())
 
   // Import and Set Nuxt.js options
   let config = require('../nuxt.config.js')

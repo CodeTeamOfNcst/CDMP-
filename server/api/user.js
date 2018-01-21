@@ -11,7 +11,7 @@ exports.getUserById = async ( ctx ) => {
  * 获取所有的user
  * @param { [object] } ctx 
  */
-exports.getAllUser = async ( ctx ) => {
+exports.getAllUsers = async ( ctx ) => {
     
 }
 
@@ -27,6 +27,6 @@ exports.getUserTypeById = async ( ctx ) => {
  * 返回所有的用户类别
  * @param { [object] } ctx 
  */
-exports.getAllUserType = async ( ctx ) => {
+exports.getAllUsersType = async ( ctx ) => {
 
 }

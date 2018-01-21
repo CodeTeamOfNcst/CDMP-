@@ -14,6 +14,6 @@ exports.getApplyById = async (ctx) => {
  * 返回所有设备的详细信息
  * @param { [object] } ctx 
  */
-exports.getAllApply = async (ctx) => {
+exports.getAllApplys = async (ctx) => {
 
 }
