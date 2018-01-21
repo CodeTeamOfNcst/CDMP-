@@ -2,46 +2,51 @@ import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
 
 const path = require('path')
+const logger = require('koa-logger')
 const koaStatic = require('koa-static')
 const koaSession = require('koa-session')
 const bodyParser = require('koa-bodyparser')
 
-
-/**
-** Use database
-*/
-const sequelize = require('./dbconfig/dbconfig')
+const database = require('./dbconfig/dbinit')
 
 /**
 ** Test connecton
 */
-sequelize.authenticate().then(() => {
+database.sequelize.authenticate().then(() => {
   console.log('Connection has been established successfully.')
 }).catch(err => {
   console.error('Unable to connect to the database', err)
 })
 
-/**
- ** Sync DB
- */
-const dbinit = require('./dbconfig/dbinit')
-dbinit.sequelize.sync()
-
-console.log("DataBase Sync Successfully")
-
-/**
- ** Test
- */
-const test = require('./test/add_user_test')
-test.test()
-
+if(process.env.NODE_ENV === 'development'){
+  
+  /**
+   ** Test
+  */
+  const test = require('./test/add_user_test')
+  test.test()
+}
 
 async function start () {
   const app = new Koa()
   const host = process.env.HOST || '127.0.0.1'
   const port = process.env.PORT || 3000
+  
+  if(process.env.NODE_ENV === "development"){
+    /**
+     ** Sync DB
+    */
+    try{
+      await database.sequelize.sync()
+      console.log("Database Sync successfully")
+    }catch (err) {
+      console.error("Unable To Sync Database", err)
+    }
 
+    
+  }
   // init middleware 
+  app.use(logger())
   app.use(bodyParser())
   app.use(koaStatic(__dirname + '/uploads'))
 
