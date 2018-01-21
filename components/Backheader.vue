@@ -13,33 +13,36 @@
         <div class="main_nav">
             <el-row class="nav_content">
                     <a href="/admin">
-                        <div class="grid-content bg-purple-dark">设备管理</div>
+                        <div class="grid-content bg-purple-dark"><i class="el-icon-menu icon"></i>设备管理</div>
                     </a>
             </el-row>
             <el-row class="nav_content">
                 <a href="/backappoint">
-                    <div class="grid-content bg-purple-dark">预约管理</div>
-                </a>
-            </el-row>
-            <el-row class="nav_content">
-                <a href="/announce">
-                    <div class="grid-content bg-purple-dark">公告管理</div>
+                    <div class="grid-content bg-purple-dark"><i class="el-icon-date icon"></i>预约管理</div>
                 </a>
             </el-row>
             <el-row class="nav_content">
                 <a href="/user">
-                    <div class="grid-content bg-purple-dark">用户管理</div>
+                    <div class="grid-content bg-purple-dark"><i class="el-icon-setting icon"></i>用户管理</div>
                 </a>
             </el-row>
             <el-row class="nav_content">
-                <a href="#">
-                    <div class="grid-content bg-purple-dark">消息管理</div>
+                <a href="/announce">
+                    <div class="grid-content bg-purple-dark"><i class="el-icon-edit icon"></i>公告管理</div>
+                </a>
+            </el-row>
+            <el-row class="nav_content">
+                <a href="/message">
+                    <div class="grid-content bg-purple-dark"><i class="el-icon-message icon"></i>消息管理</div>
                 </a>
             </el-row>
         </div>
     </div>
 </template>
 <style>
+    .icon{
+        margin-right: 5px;
+    }
     .header_img{
         width: 100%;
         min-height: 60px;
@@ -85,7 +88,7 @@
         width: 9%;
         min-height: 800px;
         height:auto;
-        background: #F0F0F0;
+        /*background: #F0F0F0;*/
         /*min-width: 98px;*/
         float: left;
         display: block;
@@ -110,12 +113,12 @@
 <script>
     export default {
         methods: {
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            }
+//            handleOpen(key, keyPath) {
+//                console.log(key, keyPath);
+//            },
+//            handleClose(key, keyPath) {
+//                console.log(key, keyPath);
+//            }
         }
     }
 </script>

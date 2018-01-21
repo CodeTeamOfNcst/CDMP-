@@ -62,8 +62,7 @@
                     <el-table-column
                             prop="date"
                             label="发布日期"
-                            width="110"
-                            align="center">
+                            width="110">
                     </el-table-column>
                     <el-table-column
                             prop="name"
@@ -72,14 +71,12 @@
                     <el-table-column
                             prop="disable"
                             label="是否禁用"
-                            width="110"
-                            align="center">
+                            width="110">
                     </el-table-column>
                     <el-table-column
                             prop="operation"
                             label="操作"
-                            width="110"
-                            align="center">
+                            width="110">
                         <template scope="scope">
                             <a href="announce/edit">
                                 <el-button type="text">编辑</el-button>
@@ -236,23 +233,23 @@
                 }],
                 value: '',
                 tableData: [{
-                    date: '2016-05-02',
-                    name: '不打算更好地光和热股和入股和如果坏热加工好土豪入耳何瑞讲课费缴费是你比较丰富的VB地方是恢复的编号',
+                    date: '2018-01-02',
+                    name: '我校新添大型分析设备构成完备的微结构分析体系',
                     disable: '否',
                     operation:'',
                 }, {
-                    date: '2016-05-04',
-                    name: 'hsdfbsdhfgjhsefgefgfvv ',
+                    date: '2017-10-04',
+                    name: '电子探针JXA-8230工程师培训时间安排 ',
                     disable: '否',
                     operation:'',
                 }, {
-                    date: '2016-05-01',
-                    name: '大型设备仪器维护事宜',
+                    date: '2017-08-01',
+                    name: '大型仪器使用流程培训',
                     disable: '否',
                     operation:'',
                 }, {
-                    date: '2016-05-03',
-                    name: '我学校没有仪器，穷啊',
+                    date: '2017-05-03',
+                    name: '华北理工大学大型仪器使用培训的通知公告',
                     disable: '是',
                     operation:'',
                 }],
