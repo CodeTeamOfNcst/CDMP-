@@ -2,17 +2,13 @@
     <div>
         <div class="header_img">
             <h1>实验设备预约管理平台后台</h1>
-            <el-row>
-                <el-col :span="24">
-                    <div class="grid-content bg-purple-dark userLogout">
-                        <div class="logout">
-                            <el-button class="button_logout">退出</el-button>
-                        </div>
-                        <p>|</p>
-                        <p>admin</p>
-                    </div>
-                </el-col>
-            </el-row>
+            <div class="grid-content bg-purple-dark userLogout">
+                <div class="logout">
+                    <el-button class="button_logout">退出</el-button>
+                </div>
+                <p>|</p>
+                <p>admin</p>
+            </div>
         </div>
         <div class="main_nav">
             <el-row class="nav_content">
@@ -35,19 +31,25 @@
                     <div class="grid-content bg-purple-dark">用户管理</div>
                 </a>
             </el-row>
+            <el-row class="nav_content">
+                <a href="#">
+                    <div class="grid-content bg-purple-dark">消息管理</div>
+                </a>
+            </el-row>
         </div>
     </div>
 </template>
 <style>
     .header_img{
         width: 100%;
-        min-height: 50px;
+        min-height: 60px;
         height:auto;
         overflow: hidden;
-        background: #37474F;
+        background: #44679F;
     }
     .header_img h1{
         float: left;
+        line-height: 60px;
         margin-top: 0;
         margin-bottom: 0;
         margin-left: 10%;
@@ -56,11 +58,12 @@
         text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135 ;
     }
     .userLogout{
-        width: 100%;
-        height:30px;
-        line-height: 30px;
-        background: #37474F;
-        border-bottom: 1px solid #ddd;
+        width: 50%;
+        min-width: 206px;
+        float: right;
+        height:60px;
+        line-height: 60px;
+        background:#44679F;
     }
     .userLogout p{
         padding-left: 20px;
@@ -82,6 +85,7 @@
         width: 9%;
         min-height: 800px;
         height:auto;
+        background: #F0F0F0;
         /*min-width: 98px;*/
         float: left;
         display: block;

@@ -46,7 +46,7 @@
                 <el-row :gutter="20" class="leftImg">
                     <el-col :span="8" class="leftspan">
                         <div class="grid-content bg-purple bullImg">
-                            <a href="details">
+                            <a href="device/details">
                                 <img src="~/assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
                             </a>
                         </div>
@@ -59,14 +59,14 @@
                                         <el-row>
                                             <el-col :span="17">
                                                 <div class="grid-content bg-purple nameFrame">
-                                                    <a href="details">
+                                                    <a href="device/details">
                                                         <p class="bullName">全自动智能倒置显微镜及金相分析系统</p>
                                                     </a>
                                                 </div>
                                             </el-col>
                                             <el-col :span="3">
                                                 <div class="grid-content bg-purple-light button_center" >
-                                                    <a href="/appoint">
+                                                    <a href="device/appoint">
                                                         <el-button type="primary" class="appoint">预约</el-button>
                                                     </a>
                                                 </div>

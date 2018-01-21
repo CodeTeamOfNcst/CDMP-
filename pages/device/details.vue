@@ -11,7 +11,7 @@
         <div class="equi-name">
             <h2>全自动智能倒置显微镜及金相分析系统</h2>
         </div>
-        <a href="/appoint">
+        <a href="appoint">
             <el-button type="success" class="btn-success">预约</el-button>
         </a>
         <el-button type="warning" class="btn-warning">送样</el-button>

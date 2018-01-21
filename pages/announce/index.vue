@@ -18,17 +18,14 @@
                     <el-switch v-model="form.delivery"></el-switch>
                 </el-form-item>
                 <el-form-item label="公告内容">
-                    <el-input type="textarea" v-model="form.desc"></el-input>
+                    <el-input :rows="15" type="textarea" v-model="form.desc" class="textarea" ></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                    <el-button>取消</el-button>
+                    <el-button @click="over">取消</el-button>
                 </el-form-item>
             </el-form>
         </el-popover>
-        <div v-show="isShow" class="hidden_Content">
-            我是修改内容页面
-        </div>
         <div class="headerName">
             <div class="leftSty"></div>
             <span class="bullCont">公告管理</span>
@@ -47,7 +44,7 @@
                     </el-input>
                 </div>
                 <div class="select">
-                    <el-select v-model="value" placeholder="请选择">
+                    <el-select v-model="value" placeholder="默认以时间由近及远排序">
                         <el-option
                                 v-for="item in options"
                                 :key="item.value"
@@ -58,70 +55,41 @@
                 </div>
             </div>
             <div class="table">
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th class="byName">序列</th>
-                            <th class="byCity">公告标题</th>
-                            <th class="byRegisterTime">发布时间</th>
-                            <th>是否禁用</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody class="lists">
-                        <tr>
-                            <td>1</td>
-                            <td>即可改变加热棒肯定是分开圣诞节多麻烦纳豆菌</td>
-                            <td>2018-01-19</td>
-                            <td>是</td>
-                            <td>
-                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
-                                <el-button type="text" @click="open2" class="delete">删除</el-button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>四大皆空发货速度发货的承诺的难处</td>
-                            <td>2018-01-17</td>
-                            <td>是</td>
-                            <td>
-                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
-                                <el-button type="text" @click="open2" class="delete">删除</el-button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>四大皆空发货速度发货的承诺的难处</td>
-                            <td>2018-01-15</td>
-                            <td>否</td>
-                            <td>
-                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
-                                <el-button type="text" @click="open2" class="delete">删除</el-button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>四大皆空发货速度发货的承诺的难处</td>
-                            <td>2018-01-13</td>
-                            <td>是</td>
-                            <td>
-                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
-                                <el-button type="text" @click="open2" class="delete">删除</el-button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>水电费如发热五个人结果不让发那个后台金融股豆腐干节日计划不能腐女吧 创项目VB东方红，设计费是你达康书记瑞恩规划惹怒烦得很如</td>
-                            <td>2018-01-10</td>
-                            <td>是</td>
-                            <td>
-                                <el-button type="text" v-on:click="toggle()" value="toggle" class="watch">修改</el-button>
-                                <el-button type="text" @click="open2" class="delete">删除</el-button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <el-table
+                        :data="tableData"
+                        border
+                        style="width: 70%;">
+                    <el-table-column
+                            prop="date"
+                            label="发布日期"
+                            width="110"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="name"
+                            label="公告标题">
+                    </el-table-column>
+                    <el-table-column
+                            prop="disable"
+                            label="是否禁用"
+                            width="110"
+                            align="center">
+                    </el-table-column>
+                    <el-table-column
+                            prop="operation"
+                            label="操作"
+                            width="110"
+                            align="center">
+                        <template scope="scope">
+                            <a href="announce/edit">
+                                <el-button type="text">编辑</el-button>
+                            </a>
+                            <el-button type="text" @click="open2" style="margin-left: 5px;">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
             </div>
+
             <div class="page">
                 <el-pagination
                         @size-change="handleSizeChange"
@@ -139,24 +107,22 @@
 <style scoped>
     .mianContent{
         width: 100%;
+        min-width:350px;
         height: 100%;
+    }
+    .textarea{
+        height: 350px;
     }
     .announceCont{
         width: 100%;
         margin-top: 5px;
     }
+    th,td{
+        text-align: center;
+    }
     .oneline{
         width: 100%;
         height:60px;
-    }
-    .hidden_Content{
-        width: 50%;
-        height: 600px;
-        background: #41B883;
-        position: absolute;
-        z-index: 9999;
-        top: 10%;
-        left:25%;
     }
     .add{
         width: 5%;
@@ -191,44 +157,26 @@
         width: 100%;
         min-height:600px;
         height:auto;
-
+    }
+    .el-table {
+        font-size: 15px;
+        color: gray;
     }
     table{
         max-width: 1500px;
-        font-family: SimHei;
     }
     .page{
         width: 100%;
         height:50px;
         /*text-align: center;*/
     }
-    .watch{
-        padding: 0;
-        border: 1px solid #7f828b;
-        width:44%;
-        min-height: 25px;
-        height: auto;
-        min-width: 37px;
-    }
-    .delete{
-        padding: 0;
-        border: 1px solid #7f828b;
-        width:44%;
-        min-height: 25px;
-        height: auto;
-        min-width: 37px;
-        margin-left: 0px;
-    }
-    td{
-        text-align: center;
-    }
-    td a{
-        min-width: 33px;
-    }
 </style>
 
 <script>
+    import ElButton from "../../node_modules/element-ui/packages/button/src/button.vue";
+
     export default {
+        components: {ElButton},
         layout: 'admina',
         methods: {
             open2() {
@@ -257,8 +205,8 @@
             onSubmit() {
                 console.log('submit!');
             },
-            toggle:function(){
-                this.isShow = !this.isShow;
+            over(){
+              window.location.reload();
             },
         },
         data() {
@@ -267,7 +215,6 @@
                 currentPage4: 4,
                 input10: '',
                 centerDialogVisible: false,
-                textarea: '',
                 form: {
                     name: '',
                     date1: '',
@@ -288,6 +235,27 @@
                     label: '显示禁用类型公告'
                 }],
                 value: '',
+                tableData: [{
+                    date: '2016-05-02',
+                    name: '不打算更好地光和热股和入股和如果坏热加工好土豪入耳何瑞讲课费缴费是你比较丰富的VB地方是恢复的编号',
+                    disable: '否',
+                    operation:'',
+                }, {
+                    date: '2016-05-04',
+                    name: 'hsdfbsdhfgjhsefgefgfvv ',
+                    disable: '否',
+                    operation:'',
+                }, {
+                    date: '2016-05-01',
+                    name: '大型设备仪器维护事宜',
+                    disable: '否',
+                    operation:'',
+                }, {
+                    date: '2016-05-03',
+                    name: '我学校没有仪器，穷啊',
+                    disable: '是',
+                    operation:'',
+                }],
             };
         }
     }

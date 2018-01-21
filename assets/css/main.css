@@ -6,6 +6,9 @@ html, body
   height: 100vh;
   margin: 0;
 }
+td,th{
+  padding: 4px 0!important;
+}
 p{
   margin: 0;
 }
@@ -23,7 +26,7 @@ footer
 }
 a, a:hover, a:focus, a:visited
 {
-  color: #41B883;
+  color: #3498DB;
 }
 .logo {
   width: 243px;
