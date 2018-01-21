@@ -1,6 +1,7 @@
 const path = require('path')
 const sequelize = require('../dbconfig/dbconfig')
 
+// 这边后期应该加上啊循环自动导入model，先放着
 const Apply = sequelize.import('../server/models/Apply')
 const Device = sequelize.import('../server/models/Device')
 const DeviceType = sequelize.import('../server/models/DeviceType')

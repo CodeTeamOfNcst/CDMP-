@@ -70,47 +70,12 @@ module.exports =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
-
-var path = __webpack_require__(1);
-var sequelize = __webpack_require__(11);
-
-var Apply = sequelize.import('../server/models/Apply');
-var Device = sequelize.import('../server/models/Device');
-var DeviceType = sequelize.import('../server/models/DeviceType');
-var Message = sequelize.import('../server/models/Message');
-var MessageKlass = sequelize.import('../server/models/MessageKlass');
-var Rule = sequelize.import('../server/models/Rule');
-var User = sequelize.import('../server/models/User');
-var UserKlass = sequelize.import('../server/models/UserKlass');
-
-Message.belongsTo(MessageKlass, { as: "messageType" });
-User.belongsTo(UserKlass, { as: "userType" });
-Device.belongsTo(DeviceType, { as: "deviceType" });
-Apply.belongsTo(User, { as: "applyer" });
-Apply.belongsTo(Device, { as: "applyDevice" });
-
-module.exports = {
-    Apply: Apply,
-    Device: Device,
-    DeviceType: DeviceType,
-    Message: Message,
-    MessageKlass: MessageKlass,
-    Rule: Rule,
-    User: User,
-    UserKlass: UserKlass,
-
-    sequelize: sequelize
-};
-
-/***/ },
-/* 1 */
 /***/ function(module, exports) {
 
 module.exports = require("path");
 
 /***/ },
-/* 2 */
+/* 1 */
 /***/ function(module, exports) {
 
 module.exports = {
@@ -143,26 +108,53 @@ module.exports = {
 };
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-var databases = __webpack_require__(0);
+var path = __webpack_require__(0);
+var sequelize = __webpack_require__(11);
 
-var User = __webpack_require__(0).User;
+// 这边后期应该加上啊循环自动导入model，先放着
+var Apply = sequelize.import('../server/models/Apply');
+var Device = sequelize.import('../server/models/Device');
+var DeviceType = sequelize.import('../server/models/DeviceType');
+var Message = sequelize.import('../server/models/Message');
+var MessageKlass = sequelize.import('../server/models/MessageKlass');
+var Rule = sequelize.import('../server/models/Rule');
+var User = sequelize.import('../server/models/User');
+var UserKlass = sequelize.import('../server/models/UserKlass');
 
-var test = function test() {
-    User.create({ account: 'admin', password: '123456', name: 'admin' });
-    console.log("success");
+Message.belongsTo(MessageKlass, { as: "messageType" });
+User.belongsTo(UserKlass, { as: "userType" });
+Device.belongsTo(DeviceType, { as: "deviceType" });
+Apply.belongsTo(User, { as: "applyer" });
+Apply.belongsTo(Device, { as: "applyDevice" });
+
+module.exports = {
+    Apply: Apply,
+    Device: Device,
+    DeviceType: DeviceType,
+    Message: Message,
+    MessageKlass: MessageKlass,
+    Rule: Rule,
+    User: User,
+    UserKlass: UserKlass,
+
+    sequelize: sequelize
 };
 
-module.exports.test = test;
-
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(12);
 
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+module.exports = require("assert");
 
 /***/ },
 /* 5 */
@@ -255,55 +247,80 @@ module.exports = require("sequelize");
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_C_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_assert__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_assert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_assert__);
 
 
 var start = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
     var _this = this;
 
-    var app, host, port, config, nuxt, builder;
-    return __WEBPACK_IMPORTED_MODULE_0_C_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+    var app, host, port, SESSION_CONFIG, config, nuxt, builder;
+    return __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             app = new __WEBPACK_IMPORTED_MODULE_1_koa___default.a();
             host = process.env.HOST || '127.0.0.1';
             port = process.env.PORT || 3000;
-
-            if (false) {
-              _context2.next = 13;
-              break;
-            }
-
+            SESSION_CONFIG = { key: 'koa:sess', maxAge: 86400000, overwrite: true, httpOnly: true, signed: true, rolling: false
+              /**
+              ** Test connecton
+              */
+            };
             _context2.prev = 4;
             _context2.next = 7;
-            return database.sequelize.sync();
+            return database.sequelize.authenticate();
 
           case 7:
-            console.log("Database Sync successfully");
-            _context2.next = 13;
+            console.log('Connection has been established successfully.');
+            _context2.next = 14;
             break;
 
           case 10:
             _context2.prev = 10;
             _context2.t0 = _context2['catch'](4);
 
-            console.error("Unable To Sync Database", _context2.t0);
+            console.error('Unable to connect to the database', _context2.t0);
+            __WEBPACK_IMPORTED_MODULE_3_assert___default.a.ok(false, 'Unable to connect to the database');
 
-          case 13:
+          case 14:
+            if (false) {
+              _context2.next = 25;
+              break;
+            }
+
+            _context2.prev = 15;
+            _context2.next = 18;
+            return database.sequelize.sync();
+
+          case 18:
+            console.log("Database Sync successfully");
+            _context2.next = 25;
+            break;
+
+          case 21:
+            _context2.prev = 21;
+            _context2.t1 = _context2['catch'](15);
+
+            console.error("Unable To Sync Database", _context2.t1);
+            __WEBPACK_IMPORTED_MODULE_3_assert___default.a.ok(false, "Unable To Sync Database");
+
+          case 25:
             // init middleware 
             app.use(logger());
             app.use(bodyParser());
+            app.use(session(SESSION_CONFIG, app));
             app.use(koaStatic(__dirname + '/uploads'));
 
             // Import and Set Nuxt.js options
-            config = __webpack_require__(2);
+            config = __webpack_require__(1);
 
             config.dev = !(app.env === 'production');
 
@@ -313,19 +330,19 @@ var start = function () {
             // Build in development
 
             if (!config.dev) {
-              _context2.next = 23;
+              _context2.next = 36;
               break;
             }
 
             builder = new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt);
-            _context2.next = 23;
+            _context2.next = 36;
             return new __WEBPACK_IMPORTED_MODULE_2_nuxt__["Builder"](nuxt).build();
 
-          case 23:
+          case 36:
 
             app.use(function () {
-              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-                return __WEBPACK_IMPORTED_MODULE_0_C_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+                return __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
@@ -359,12 +376,12 @@ var start = function () {
             app.listen(port, host);
             console.log('Server listening on ' + host + ':' + port); // eslint-disable-line no-console
 
-          case 26:
+          case 39:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, this, [[4, 10]]);
+    }, _callee2, this, [[4, 10], [15, 21]]);
   }));
 
   return function start() {
@@ -377,31 +394,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-var path = __webpack_require__(1);
+var path = __webpack_require__(0);
 var logger = __webpack_require__(7);
 var koaStatic = __webpack_require__(9);
-var koaSession = __webpack_require__(8);
+var session = __webpack_require__(8);
 var bodyParser = __webpack_require__(6);
 
-var database = __webpack_require__(0);
-
-/**
-** Test connecton
-*/
-database.sequelize.authenticate().then(function () {
-  console.log('Connection has been established successfully.');
-}).catch(function (err) {
-  console.error('Unable to connect to the database', err);
-});
-
-if (true) {
-
-  /**
-   ** Test
-  */
-  var test = __webpack_require__(3);
-  test.test();
-}
+var database = __webpack_require__(2);
 
 start();
 /* WEBPACK VAR INJECTION */}.call(exports, "server"))

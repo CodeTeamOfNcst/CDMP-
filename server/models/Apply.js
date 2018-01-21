@@ -1,3 +1,9 @@
+
+/**
+ * 用户设备申请表 
+ * @param { [object] } sequelize 
+ * @param { [object] } DataTypes 
+ */
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define(
         'Apply',
