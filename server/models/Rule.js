@@ -1,13 +1,18 @@
+/**
+ * 公告表
+ * @param { [object] } sequelize 
+ * @param { [object] } DataTypes 
+ */
 module.exports = (sequelize, DataTypes) => {
-    // 公告表
     return sequelize.define(
         'Rule',
         {
             id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-            publishDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-            content: { type: DataTypes.TEXT, allowNull: true},
-            isPublished: { type: DataTypes.BOOLEAN, defaultValue: true },
-            isUse: {type: DataTypes.BOOLEAN, defaultValue: true}
+            publishDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }, //公告正式发布的日期
+            content: { type: DataTypes.TEXT, allowNull: true}, //公告的具体内容 （后期改为富文本？待定）
+            isPublished: { type: DataTypes.BOOLEAN, defaultValue:false }, //公告是否被发布
+            isUse: {type: DataTypes.BOOLEAN, defaultValue: true}  //此条记录是否可用
+            //默认添加 createAt 和 updateAt 两个字段 
         }
     )
 }
