@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import { testGetData, AddUser, addDataToDataBase, getOrCreateData } from './service/test_service'
+import { testGetData, AddUser, addDataToDataBase, getOrCreateData, createData } from './service/test_service'
 
 
 /**
@@ -10,8 +10,8 @@ module.exports = () => {
         prefix: '/api'
     })
 
-    router.get('/test', testGetData)
-    router.get('/initDataBase', getOrCreateData)
+    router.get( '/test', testGetData )
+    router.get( '/initDataBase', createData )
 
     return router
 }

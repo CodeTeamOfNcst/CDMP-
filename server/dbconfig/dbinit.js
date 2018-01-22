@@ -11,11 +11,21 @@ const Rule = sequelize.import('../server/models/Rule')
 const User = sequelize.import('../server/models/User')
 const UserKlass = sequelize.import('../server/models/UserKlass')
 
-Message.belongsTo(MessageKlass, {as: "messageType"})
-User.belongsTo(UserKlass, {as: "userType"})
-Device.belongsTo(DeviceType, {as: "deviceType"})
-Apply.belongsTo(User, {as: "applyer"})
-Apply.belongsTo(Device, {as: "applyDevice"})
+Message.belongsTo(MessageKlass, {as: "messageType"} )
+MessageKlass.hasOne(Message, {as: "message"})
+
+User.belongsTo(UserKlass, {as: "userType"} )
+UserKlass.hasOne(User, {as: "user"})
+
+Device.belongsTo(DeviceType, {as: "deviceType"} )
+DeviceType.hasOne(Device, {as: "device"})
+
+Apply.belongsTo(User, {as: "applyer"} )
+User.hasOne(Apply, {as: "apply"})
+
+Apply.belongsTo(Device, {as: "applyDevice"} )
+Device.hasOne(Apply, {as: "apply"})
+
 
 module.exports = {
     Apply,

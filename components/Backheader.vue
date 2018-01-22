@@ -114,10 +114,10 @@
 </style>
 
 <script>
-    import NuxtLink from '../.nuxt/components/nuxt-link'
+    import  NuxtLink  from '../.nuxt/components/nuxt-link'
 
     export default {
-      components: {NuxtLink},
+      components: { NuxtLink },
       methods: {
 //            handleOpen(key, keyPath) {
 //                console.log(key, keyPath);
