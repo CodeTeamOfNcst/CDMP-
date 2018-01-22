@@ -13,7 +13,7 @@ module.exports.AddUser = async ( ctx, next ) => {
 
 }
 
-module.exports.addDataToDataBase = async ( ctx, next ) => {
+module.exports.findOrCreateData = async ( ctx, next ) => {
 
         let admin = await UserKlass.findOrCreate({ where: { name: '管理员' } })[0] 
         let commonUser = await UserKlass.findOrCreate({ where: { name: '用户' } })[0]
