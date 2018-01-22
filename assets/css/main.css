@@ -33,7 +33,7 @@ footer
   border-top: 1px solid #ddd;
   background: #ECECEC;
 }
-a, a:hover, a:focus, a:visited
+a, a:hover
 {
   color: #3498DB;
 }
