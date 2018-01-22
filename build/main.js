@@ -196,25 +196,25 @@ module.exports = require("koa-bodyparser");
 /* 8 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-cors");
+module.exports = require("koa-logger");
 
 /***/ },
 /* 9 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-logger");
+module.exports = require("koa-session");
 
 /***/ },
 /* 10 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-session");
+module.exports = require("koa-static");
 
 /***/ },
 /* 11 */
 /***/ function(module, exports) {
 
-module.exports = require("koa-static");
+module.exports = require("koa2-cors");
 
 /***/ },
 /* 12 */
@@ -264,8 +264,8 @@ module.exports = sequelize;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
 
 
 var _this = this;
@@ -273,8 +273,8 @@ var _this = this;
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 exports.testGetData = function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-        return __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+        return __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
                     case 0:
@@ -320,24 +320,24 @@ module.exports = require("sequelize");
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__dirname) {Object.defineProperty(exports, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_nuxt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_assert__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_assert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_assert__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_cors__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_cors___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa_cors__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa2_cors__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa2_cors___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa2_cors__);
 
 
 var start = function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
+  var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee2() {
     var _this = this;
 
     var app, host, port, SESSION_CONFIG, config, nuxt, builder;
-    return __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+    return __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
@@ -373,7 +373,7 @@ var start = function () {
 
             _context2.prev = 15;
             _context2.next = 18;
-            return database.sequelize.sync();
+            return database.sequelize.sync({ force: true });
 
           case 18:
             console.log("Database Sync successfully");
@@ -394,7 +394,7 @@ var start = function () {
             app.use(bodyParser());
             app.use(session(SESSION_CONFIG, app));
             app.use(koaStatic(__dirname + '/uploads'));
-            app.use(__WEBPACK_IMPORTED_MODULE_4_koa_cors___default()());
+            app.use(__WEBPACK_IMPORTED_MODULE_4_koa2_cors___default()()); //允许跨域访问
             app.use(router.routes()).use(router.allowedMethods());
 
             // Import and Set Nuxt.js options
@@ -419,8 +419,8 @@ var start = function () {
           case 38:
 
             app.use(function () {
-              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
-                return __WEBPACK_IMPORTED_MODULE_0_C_Users_zhanglingxue_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+              var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.mark(function _callee(ctx, next) {
+                return __WEBPACK_IMPORTED_MODULE_0_c_Users_ChrisProsise_Desktop_CDMP_node_modules_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
@@ -475,9 +475,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 var path = __webpack_require__(1);
-var logger = __webpack_require__(9);
-var koaStatic = __webpack_require__(11);
-var session = __webpack_require__(10);
+var logger = __webpack_require__(8);
+var koaStatic = __webpack_require__(10);
+var session = __webpack_require__(9);
 var bodyParser = __webpack_require__(7);
 
 var database = __webpack_require__(3);
