@@ -177,7 +177,7 @@ module.exports = function () {
     });
 
     router.get('/test', __WEBPACK_IMPORTED_MODULE_1__service_test_service__["testGetData"]);
-    router.get('/initDataBase');
+    router.get('/initDataBase', __WEBPACK_IMPORTED_MODULE_1__service_test_service__["addDataToDataBase"]);
 
     return router;
 };
@@ -455,90 +455,78 @@ module.exports.addDataToDataBase = function () {
                         while (1) {
                                 switch (_context3.prev = _context3.next) {
                                         case 0:
-                                                _context3.prev = 0;
-                                                _context3.next = 3;
-                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["UserKlass"].create({ name: '管理员', isUse: true });
+                                                _context3.next = 2;
+                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["UserKlass"].findOrCreate({ name: '管理员', isUse: true });
 
-                                        case 3:
+                                        case 2:
                                                 admin = _context3.sent;
-                                                _context3.next = 6;
-                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["UserKlass"].create({ name: '用户', isUse: true });
+                                                _context3.next = 5;
+                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["UserKlass"].findOrCreate({ name: '用户', isUse: true });
 
-                                        case 6:
+                                        case 5:
                                                 commonUser = _context3.sent;
-                                                _context3.next = 9;
-                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["UserKlass"].create({ name: '关系用户', isUse: true });
+                                                _context3.next = 8;
+                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["UserKlass"].findOrCreate({ name: '关系用户', isUse: true });
 
-                                        case 9:
+                                        case 8:
                                                 badGay = _context3.sent;
-                                                _context3.next = 12;
-                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["User"].create({ account: 'haoyiqing', password: '123456', name: '郝一擎', email: '1337074512@qq.com', userType: admin });
+                                                _context3.next = 11;
+                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["User"].findOrCreate({ account: 'haoyiqing', password: '123456', name: '郝一擎', email: '1337074512@qq.com', userType: admin });
 
-                                        case 12:
+                                        case 11:
                                                 user1 = _context3.sent;
-                                                _context3.next = 15;
-                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["User"].create({ account: 'zhanglingxue', password: '123456', name: '张凌雪', email: 'zhanglingxue@qq.com', userType: commonUser });
+                                                _context3.next = 14;
+                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["User"].findOrCreate({ account: 'zhanglingxue', password: '123456', name: '张凌雪', email: 'zhanglingxue@qq.com', userType: commonUser });
 
-                                        case 15:
+                                        case 14:
                                                 user2 = _context3.sent;
-                                                _context3.next = 18;
-                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["User"].create({ account: 'wangyangyang', password: '123456', name: '王洋洋', email: 'wangyangyang@qq.com', userType: badGay });
+                                                _context3.next = 17;
+                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["User"].findOrCreate({ account: 'wangyangyang', password: '123456', name: '王洋洋', email: 'wangyangyang@qq.com', userType: badGay });
 
-                                        case 18:
+                                        case 17:
                                                 user3 = _context3.sent;
-                                                _context3.next = 21;
-                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Rule"].create({ publishDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, content: '第一条公告' });
+                                                _context3.next = 20;
+                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Rule"].findOrCreate({ content: '第一条公告', title: '第一条公告' });
 
-                                        case 21:
+                                        case 20:
                                                 rule1 = _context3.sent;
-                                                _context3.next = 24;
-                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Rule"].create({ publishDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, content: '第二条公告' });
+                                                _context3.next = 23;
+                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Rule"].findOrCreate({ content: '第二条公告', title: '第二条公告' });
 
-                                        case 24:
+                                        case 23:
                                                 rule2 = _context3.sent;
-                                                _context3.next = 27;
-                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Rule"].create({ publishDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, content: '第三条公告' });
+                                                _context3.next = 26;
+                                                return __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Rule"].findOrCreate({ content: '第三条公告', title: '第三条公告' });
 
-                                        case 27:
+                                        case 26:
                                                 rule3 = _context3.sent;
-                                                successMessageType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["MessageKlass"].create({ name: '成功' });
-                                                commonMessageType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["MessageKlass"].create({ name: '普通消息' });
-                                                failMessageType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["MessageKlass"].create({ name: '失败消息' });
-                                                successMessage = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Message"].create({ content: '这是一条成功的消息', publishDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, isPublished: false, isRead: false, deviceType: successMessageType });
-                                                commonMessage = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Message"].create({ content: '这是一条普通的消息', publishDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, isPublished: false, isRead: false, deviceType: commonMessageType });
-                                                failMessage = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Message"].create({ content: '这是一条失败的消息', publishDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, isPublished: false, isRead: false, deviceType: failMessageType });
-                                                computerDeviceType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["DeviceType"].create({ name: '计算机系' });
-                                                chemicalDeviceType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["DeviceType"].create({ name: '化学系' });
-                                                metallurgicalDeviceType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["DeviceType"].create({ name: '冶金系' });
-                                                device1 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Device"].create({ name: '计算机系的仪器', description: '这是计算机系的仪器', dType: computerDeviceType, imgFilePath: '/upload/device/device1' });
-                                                device2 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Device"].create({ name: '化工系的仪器', description: '这是化工系的仪器', dType: chemicalDeviceType, imgFilePath: '/upload/device/device2' });
-                                                device3 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Device"].create({ name: '冶金系的仪器', description: '这是冶金系的仪器', dType: metallurgicalDeviceType, imgFilePath: '/upload/device/device3' });
-                                                apply1 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Apply"].create({ startDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, endDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, vioReason: 'user1 想要用计算机系的仪器', applyer: user1, applyDevice: device1 });
-                                                apply2 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Apply"].create({ startDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, endDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, vioReason: 'user2 想要用化学系的仪器', applyer: user2, applyDevice: device2 });
-                                                apply3 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Apply"].create({ startDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, endDate: __WEBPACK_IMPORTED_MODULE_2_sequelize___default.a.NOW, vioReason: 'user3 想要用冶金系的仪器', applyer: user3, applyDevice: device2 });
+                                                successMessageType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["MessageKlass"].findOrCreate({ name: '成功' });
+                                                commonMessageType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["MessageKlass"].findOrCreate({ name: '普通消息' });
+                                                failMessageType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["MessageKlass"].findOrCreate({ name: '失败消息' });
+                                                successMessage = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Message"].findOrCreate({ content: '这是一条成功的消息', isPublished: false, isRead: false, deviceType: successMessageType });
+                                                commonMessage = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Message"].findOrCreate({ content: '这是一条普通的消息', isPublished: false, isRead: false, deviceType: commonMessageType });
+                                                failMessage = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Message"].findOrCreate({ content: '这是一条失败的消息', isPublished: false, isRead: false, deviceType: failMessageType });
+                                                computerDeviceType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["DeviceType"].findOrCreate({ name: '计算机系' });
+                                                chemicalDeviceType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["DeviceType"].findOrCreate({ name: '化学系' });
+                                                metallurgicalDeviceType = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["DeviceType"].findOrCreate({ name: '冶金系' });
+                                                device1 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Device"].findOrCreate({ name: '计算机系的仪器', description: '这是计算机系的仪器', deviceType: computerDeviceType, imgFilePath: '/upload/device/device1' });
+                                                device2 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Device"].findOrCreate({ name: '化工系的仪器', description: '这是化工系的仪器', deviceType: chemicalDeviceType, imgFilePath: '/upload/device/device2' });
+                                                device3 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Device"].findOrCreate({ name: '冶金系的仪器', description: '这是冶金系的仪器', deviceType: metallurgicalDeviceType, imgFilePath: '/upload/device/device3' });
+                                                apply1 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Apply"].findOrCreate({ vioReason: 'user1 想要用计算机系的仪器', applyer: user1, applyDevice: device1 });
+                                                apply2 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Apply"].findOrCreate({ vioReason: 'user2 想要用化学系的仪器', applyer: user2, applyDevice: device2 });
+                                                apply3 = __WEBPACK_IMPORTED_MODULE_1__dbconfig_dbinit__["Apply"].findOrCreate({ vioReason: 'user3 想要用冶金系的仪器', applyer: user3, applyDevice: device2 });
 
 
                                                 ctx.body = {
-                                                        status: 'success!'
-                                                };
-                                                _context3.next = 50;
-                                                break;
-
-                                        case 46:
-                                                _context3.prev = 46;
-                                                _context3.t0 = _context3['catch'](0);
-
-                                                console.error("Add data to database failed because", _context3.t0);
-                                                ctx.body = {
-                                                        status: 'failed'
+                                                        message: 'success!'
                                                 };
 
-                                        case 50:
+                                        case 43:
                                         case 'end':
                                                 return _context3.stop();
                                 }
                         }
-                }, _callee3, _this, [[0, 46]]);
+                }, _callee3, _this);
         }));
 
         return function (_x5, _x6) {
