@@ -12,29 +12,29 @@
         </div>
         <div class="main_nav">
             <el-row class="nav_content">
-                    <a href="/admin">
-                        <div class="grid-content bg-purple-dark"><i class="el-icon-menu icon"></i>设备管理</div>
-                    </a>
+                <nuxt-link to="/admin">
+                    <div class="grid-content bg-purple-dark"><i class="el-icon-menu icon"></i>设备管理</div>
+                </nuxt-link>
             </el-row>
             <el-row class="nav_content">
-                <a href="/backappoint">
-                    <div class="grid-content bg-purple-dark"><i class="el-icon-date icon"></i>预约管理</div>
-                </a>
+                <nuxt-link to="/admin/order">
+                    <div class="grid-content bg-purple-dark"><i class="el-icon-edit icon"></i>预约管理</div>
+                </nuxt-link>
             </el-row>
             <el-row class="nav_content">
-                <a href="/user">
+                <nuxt-link to="/admin/user">
                     <div class="grid-content bg-purple-dark"><i class="el-icon-setting icon"></i>用户管理</div>
-                </a>
+                </nuxt-link>
             </el-row>
             <el-row class="nav_content">
-                <a href="/announce">
-                    <div class="grid-content bg-purple-dark"><i class="el-icon-edit icon"></i>公告管理</div>
-                </a>
+                <nuxt-link to="/admin/announce">
+                    <div class="grid-content bg-purple-dark"><i class="el-icon-view icon"></i>公告管理</div>
+                </nuxt-link>
             </el-row>
             <el-row class="nav_content">
-                <a href="/message">
+                <nuxt-link to="/admin/message">
                     <div class="grid-content bg-purple-dark"><i class="el-icon-message icon"></i>消息管理</div>
-                </a>
+                </nuxt-link>
             </el-row>
         </div>
     </div>
@@ -49,6 +49,9 @@
         height:auto;
         overflow: hidden;
         background: #44679F;
+    }
+    .nuxt-link-exact-active{
+        color: #3498db;
     }
     .header_img h1{
         float: left;
@@ -111,8 +114,11 @@
 </style>
 
 <script>
+    import NuxtLink from '../.nuxt/components/nuxt-link'
+
     export default {
-        methods: {
+      components: {NuxtLink},
+      methods: {
 //            handleOpen(key, keyPath) {
 //                console.log(key, keyPath);
 //            },

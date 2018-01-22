@@ -119,7 +119,8 @@
         <el-row class="submit_appoint">
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark">
-                    <el-button type="info" plain>提交</el-button>
+                    <el-button @click="over" type="info" plain>取消</el-button>
+                    <el-button :plain="true" @click="open2" type="primary">提交</el-button>
                 </div>
             </el-col>
         </el-row>
@@ -163,58 +164,69 @@
 
 <script>
     export default {
-        data() {
-            return {
-                input1: '',
-                input2: '',
-                input3: '',
-                input4: '',
-                input5: '',
-                input6: '',
-                options: [{
-                    value: '选项1',
-                    label: '信息工程学院'
-                }, {
-                    value: '选项2',
-                    label: '化学工程学院'
-                }, {
-                    value: '选项3',
-                    label: '理学院'
-                }, {
-                    value: '选项4',
-                    label: '医学院'
-                }],
-                value: '',
-                pickerOptions2: {
-                    shortcuts: [{
-                        text: '最近一周',
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近一个月',
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }, {
-                        text: '最近三个月',
-                        onClick(picker) {
-                            const end = new Date();
-                            const start = new Date();
-                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                            picker.$emit('pick', [start, end]);
-                        }
-                    }]
-                },
-                value7: ''
-            }
+      methods: {
+        over () {
+          window.history.back(-1);
+        },
+        open2 () {
+          this.$message({
+            message: '提交成功',
+            type: 'success'
+          });
+        },
+        data () {
+          return {
+            input1: '',
+            input2: '',
+            input3: '',
+            input4: '',
+            input5: '',
+            input6: '',
+            options: [{
+              value: '选项1',
+              label: '信息工程学院'
+            }, {
+              value: '选项2',
+              label: '化学工程学院'
+            }, {
+              value: '选项3',
+              label: '理学院'
+            }, {
+              value: '选项4',
+              label: '医学院'
+            }],
+            value: '',
+            pickerOptions2: {
+              shortcuts: [{
+                text: '最近一周',
+                onClick (picker) {
+                  const end = new Date();
+                  const start = new Date();
+                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                  picker.$emit('pick', [start, end]);
+                }
+              }, {
+                text: '最近一个月',
+                onClick (picker) {
+                  const end = new Date();
+                  const start = new Date();
+                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                  picker.$emit('pick', [start, end]);
+                }
+              }, {
+                text: '最近三个月',
+                onClick (picker) {
+                  const end = new Date();
+                  const start = new Date();
+                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                  picker.$emit('pick', [start, end]);
+                }
+              }]
+            },
+            value7: ''
+          }
 
         }
+      }
     }
 </script>
