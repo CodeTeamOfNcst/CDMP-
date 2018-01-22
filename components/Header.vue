@@ -17,8 +17,8 @@
     .header_img{
         width: 100%;
         height: 100px;
-        background-image: url("../assets/img/r_bg.jpg");
-        background-size: 100% 100%;
+        background: url("../assets/img/bg2.png") no-repeat left 100%;
+        /*background-size: 100% 100%;*/
     }
     .header_img h1{
         float: left;
