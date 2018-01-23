@@ -7,19 +7,19 @@
         <el-row class="headerline"></el-row>
         <div class="contentList">
             <el-row class="strip">
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">学生实验守则（2017.09.08）</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="/rules/ruleone">学生实验守则（2017.09.08）</a></div></el-col>
             </el-row>
             <el-row class="strip">
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">测试中心化学药品管理规定（2018.01.01）</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="/rules/ruletwo"> 测试中心化学药品管理规定（2018.01.01）</a></div></el-col>
             </el-row>
             <el-row class="strip">
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#"> 测试中心测试人员守则（2017.08.29）</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="/rules/rulethree"> 测试中心测试人员守则（2017.08.29）</a></div></el-col>
             </el-row>
             <el-row class="strip">
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">安全管理制度（2017.02.09）</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="/rules/rulefour">安全管理制度（2017.02.09）</a></div></el-col>
             </el-row>
             <el-row class="strip">
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#"> 网上预约服务规程（2017.01.28）</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="/rules/rulefive"> 网上预约服务规程（2017.01.28）</a></div></el-col>
             </el-row>
 
         </div>
