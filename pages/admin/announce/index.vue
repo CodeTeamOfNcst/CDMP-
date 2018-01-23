@@ -237,7 +237,6 @@
                     delivery: false,
                     desc: ''
                 },
-
                 options: [{
                     value: '选项1',
                     label: '按时间由近及远排序'
