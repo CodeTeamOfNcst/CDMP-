@@ -33,15 +33,9 @@ async function start () {
     /**
      ** Sync DB
     */
-    try{
-      await database.sequelize.sync({force: true})
-      console.log("Database Sync successfully")
-    }catch (err) {
-      console.error("Unable To Sync Database", err)
-      Assert.ok(false,"Unable To Sync Database")
-    }
+    await database.sequelize.sync({ force: true })
+    console.log("Database Sync successfully")
   }
-
   // init middleware 
   app.use(logger())
   app.use(bodyParser())

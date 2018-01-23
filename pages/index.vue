@@ -4,11 +4,13 @@
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-top">
-                    <el-row>
+                    <el-row class="top-content">
                         <el-col :span="8"><div class="grid-content bg-purple">
                                 <div class="orderbefore"></div>
                                 <span class="order"> <i class="el-icon-d-arrow-right"></i> 通知公告</span>
-                                <el-row class="headerline"></el-row>
+                                <el-row class="headerline">
+                                    <el-col :span="24"></el-col>
+                                </el-row>
                             </div>
 
                             <div >
@@ -47,21 +49,71 @@
                             <el-row class="headerline">
                                 <el-col :span="24"></el-col>
                             </el-row>
+                            <div class="login">
+                                <el-tabs v-model="activeName"  @tab-click="handleClick">
+                                    <el-tab-pane  label="登录" name="first" label-width="80px">
+                                        <el-form  class="loginform" label-width="80px">
+                                            <el-form-item label="用户名">
+                                                <el-input class="input1" ></el-input>
+                                            </el-form-item>
+                                            <el-form-item label="密 码">
+                                                <el-input class="input1" ></el-input>
+                                            </el-form-item>
+                                        </el-form>
+                                        <el-button class="loginbutton" type="primary">登录</el-button>
+                                    </el-tab-pane>
+                                    <el-tab-pane label="注册" name="second" label-width="80px">
+                                        <el-form class="loginform" label-width="80px">
+                                            <el-form-item label="用户名">
+                                                <el-input class="input1"></el-input>
+                                            </el-form-item>
+                                            <el-form-item label="密码">
+                                                <el-input class="input1"></el-input>
+                                            </el-form-item>
+                                            <el-button class="loginbutton" type="primary">注册</el-button>
+                                        </el-form>
+
+                                    </el-tab-pane>
+                                    <el-tab-pane label="管理员登录" name="third" label-width="80px">
+                                        <el-form class="loginform" label-width="80px">
+                                            <el-form-item label="用户名">
+                                                <el-input class="input1" ></el-input>
+                                            </el-form-item>
+                                            <el-form-item label="密码">
+                                                <el-input class="input1"></el-input>
+                                            </el-form-item>
+                                        </el-form>
+                                        <el-button class="loginbutton" type="primary">登录</el-button>
+                                    </el-tab-pane>
+
+
+                                </el-tabs>
+
+                            </div>
                         </div></el-col>
+
+
                     </el-row>
 
 
 
-                </div>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="24">
-                <div class="grid-content bg-purple-dark main-middle">
 
                 </div>
             </el-col>
         </el-row>
+        <!--<el-row>-->
+            <!--<el-col :span="24">-->
+                <!--<div class="grid-content bg-purple-dark main-middle">-->
+                    <!--<el-col :span="8"><div class="grid-content bg-purple">-->
+                        <!--<div class="orderbefore"></div>-->
+                        <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>-->
+                        <!--<el-row class="headerline">-->
+                            <!--<el-col :span="24"></el-col>-->
+                        <!--</el-row>-->
+                    <!--</div></el-col>-->
+                <!--</div>-->
+            <!--</el-col>-->
+        <!--</el-row>-->
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-footer">
@@ -69,7 +121,7 @@
                         <el-row>
                             <el-col :span="16">
                           <div class="orderbefore"></div>
-                          <span class="order"> <i class="el-icon-d-arrow-right"></i> 仪器排行</span>
+                          <span class="order"> <i class="el-icon-d-arrow-right"></i> 仪器展示</span>
                             </el-col>
                         <el-col :span="8">
                             <div class="grid-content bg-purple inputCont">
@@ -138,8 +190,11 @@
         min-height: 600px;
     }
     .main-top{
-        height:300px;
+        height:400px;
     }
+    /*.top-content{*/
+        /*margin-top: 50px;*/
+    /*}*/
     .main-middle{
         height:300px;
     }
@@ -175,42 +230,34 @@
         border:2px solid #3675a8;
         margin:45px 0 0 10px;
     }
+    .login{
+        width: 350px;
+        margin:40px 0 0 50px;
+        height:300px;
+        /*background-color: #41B883;*/
+    }
+
+    .mt-lcontent{
+        margin-top:80px;
+    }
     .el-select{
         width: 130px;
     }
-    /*.ribbon2 {*/
-        /*display: inline-block;*/
-        /*width: 36px;*/
-        /*padding: 5px 0;*/
-        /*background: #7495B7;*/
-        /*top: 95px;*/
-        /*left: 60px;*/
-        /*position: absolute;*/
-        /*text-align: center;*/
-        /*font-size: 13px;*/
-        /*border-top-left-radius: 3px;*/
-        /*float:left;*/
-         /**/
-    /*}*/
-
-    /*.ribbon2:after {*/
-        /*content: "";*/
-        /*position: absolute;*/
-
-    /*}*/
-    /*.ribbon2:after {*/
-        /*height: 0;*/
-        /*width: 0;*/
-        /*border-left: 18px solid #7495B7;*/
-        /*border-right: 18px solid #7495B7;*/
-        /*border-bottom: 16px solid transparent;*/
-        /*bottom: -16px;*/
-        /*left: 0;*/
-
-    /*}*/
-    .mt-lcontent{
-        margin:20px 0 0 5px;
+    .inputCont{
+        margin-right: 80px;
     }
+    .input1{
+        width: 250px;
+
+    }
+    .loginbutton{
+        margin-left: 100px;
+    }
+    .el-tabs__nav-wrap{
+        width:300px;
+    }
+
+
 
 </style>
 <script>
@@ -218,7 +265,21 @@
         data() {
             return {
                 input5: '',
-                select: ''
+                select: '',
+                activeName: 'second',
+
+            }
+
+        },
+
+        data() {
+            return {
+                activeName: 'first'
+            };
+        },
+        methods: {
+            handleClick(tab, event) {
+                console.log(tab, event);
             }
         }
     }

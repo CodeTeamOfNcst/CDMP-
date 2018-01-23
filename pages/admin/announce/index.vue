@@ -4,14 +4,15 @@
                 ref="popover4"
                 placement="right"
                 width="600"
-                trigger="click">
+                trigger="click"
+                v-model="visible2">
             <el-form ref="form" :model="form" label-width="80px">
                 <el-form-item label="公告标题">
                     <el-input v-model="form.name" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="发布时间">
                     <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="禁用标识">
@@ -21,8 +22,8 @@
                     <el-input :rows="15" type="textarea" v-model="form.desc" class="textarea" ></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                    <el-button @click="over">取消</el-button>
+                    <el-button type="primary" @click="visible2 = false">添加</el-button>
+                    <el-button  @click="visible2 = false">取消</el-button>
                 </el-form-item>
             </el-form>
         </el-popover>
@@ -78,15 +79,34 @@
                             label="操作"
                             width="110">
                         <template scope="scope">
-                            <a href="announce/edit">
-                                <el-button type="text">编辑</el-button>
-                            </a>
+                            <el-button type="text" @click="dialogFormVisible = true">编辑</el-button>
                             <el-button type="text" @click="open2" style="margin-left: 5px;">删除</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
-
+            <el-dialog title="编辑公告" :visible.sync="dialogFormVisible">
+                <el-form ref="form" :model="form1" label-width="80px">
+                    <el-form-item label="公告标题">
+                        <el-input v-model="form1.name" clearable></el-input>
+                    </el-form-item>
+                    <el-form-item label="发布时间">
+                        <el-col :span="11">
+                            <el-date-picker type="date" placeholder="选择日期" v-model="form1.date1" style="width: 100%;"></el-date-picker>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="禁用标识">
+                        <el-switch v-model="form1.delivery"></el-switch>
+                    </el-form-item>
+                    <el-form-item label="公告内容">
+                        <el-input :rows="15" type="textarea" v-model="form1.desc" class="textarea" ></el-input>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                </div>
+            </el-dialog>
             <div class="page">
                 <el-pagination
                         @size-change="handleSizeChange"
@@ -165,12 +185,11 @@
     .page{
         width: 100%;
         height:50px;
-        /*text-align: center;*/
     }
 </style>
 
 <script>
-    import ElButton from "../../node_modules/element-ui/packages/button/src/button.vue";
+    import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
 
     export default {
         components: {ElButton},
@@ -199,12 +218,6 @@
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
             },
-            onSubmit() {
-                console.log('submit!');
-            },
-            over(){
-              window.location.reload();
-            },
         },
         data() {
             return {
@@ -213,6 +226,12 @@
                 input10: '',
                 centerDialogVisible: false,
                 form: {
+                    name: '',
+                    date: '',
+                    delivery: false,
+                    desc: ''
+                },
+                form1: {
                     name: '',
                     date1: '',
                     delivery: false,
@@ -253,6 +272,9 @@
                     disable: '是',
                     operation:'',
                 }],
+                dialogFormVisible: false,
+                visible2: false,
+                formLabelWidth: '120px'
             };
         }
     }

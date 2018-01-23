@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
             name: { type: DataTypes.STRING, allowNull: true, unique: true }, //设备名称
             imgFilePath: { type: DataTypes.STRING, allowNull: true }, //设备图片
             description: { type: DataTypes.STRING, allowNull: true }, //设备描述
-            dType: { type: DataTypes.STRING, allowNull: true },  //设备分类
             purchaseDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }, //设备购买日期（+就+上吧）
             needRepair: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }, //设备是否需要维护
             canReserve: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true }, // 设备是否能够被预约（给大佬预留的位置）

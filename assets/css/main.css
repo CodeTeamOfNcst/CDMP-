@@ -6,8 +6,17 @@ html, body
   height: 100vh;
   margin: 0;
 }
+.el-dialog{
+  width: 40%!important;
+  min-width: 400px;
+}
 td,th{
-  padding: 4px 0!important;
+  padding: 0px 0!important;
+  font-family: 幼圆;
+}
+.el-table th{
+  /*background: #ECECEC!important;*/
+  padding: 8px 0!important;
 }
 p{
   margin: 0;
@@ -24,7 +33,7 @@ footer
   border-top: 1px solid #ddd;
   background: #ECECEC;
 }
-a, a:hover, a:focus, a:visited
+a, a:hover
 {
   color: #3498DB;
 }

@@ -2,6 +2,7 @@
     .wrapper
         h1 {{ data }}
         h1 {{title}}
+        h1 {{ addResult }}
 </template>
 
 <script>
@@ -14,7 +15,11 @@ export default {
     },
     async asyncData({}) {
         let { data } = await axios.get(`http://localhost:3000/api/test`)
-        return { title: data.message }
+        let  addDataResult  = await axios.get(`http://localhost:3000/api/initDataBase`)
+        return { 
+            title: data.message,
+            addResult: addDataResult.message
+        }
     }
 }
 </script>

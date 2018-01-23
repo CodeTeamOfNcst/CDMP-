@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         {
             id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
             publishDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }, //公告正式发布的日期
+            title: { type: DataTypes.TEXT, allowNull: true}, // 公告的标题
             content: { type: DataTypes.TEXT, allowNull: true}, //公告的具体内容 （后期改为富文本？待定）
-            isPublished: { type: DataTypes.BOOLEAN, defaultValue:false }, //公告是否被发布
             isUse: {type: DataTypes.BOOLEAN, defaultValue: true}  //此条记录是否可用
             //默认添加 createAt 和 updateAt 两个字段 
         }

@@ -1785,6 +1785,10 @@ date-now@^0.1.4:
   version "0.1.4"
   resolved "http://registry.npm.taobao.org/date-now/download/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
 
+date@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/date/-/date-1.0.2.tgz#9f1503d6519843d94866fc79a91e9be88dcb4776"
+
 de-indent@^1.0.2:
   version "1.0.2"
   resolved "http://registry.npm.taobao.org/de-indent/download/de-indent-1.0.2.tgz#b2038e846dc33baa5796128d0804b455b8c1e21d"

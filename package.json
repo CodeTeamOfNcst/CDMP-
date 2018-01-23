@@ -16,6 +16,7 @@
     "cross-env": "^5.0.1",
     "crypto": "^1.0.1",
     "csrf": "^3.0.6",
+    "date": "^1.0.2",
     "element-ui": "^2.0.10",
     "graphql": "^0.12.3",
     "graphql-date": "^1.0.3",
