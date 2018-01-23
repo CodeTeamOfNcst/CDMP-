@@ -12,7 +12,7 @@
                 </el-form-item>
                 <el-form-item label="发布时间">
                     <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="禁用标识">
@@ -86,20 +86,20 @@
                 </el-table>
             </div>
             <el-dialog title="编辑公告" :visible.sync="dialogFormVisible">
-                <el-form ref="form" :model="form" label-width="80px">
+                <el-form ref="form" :model="form1" label-width="80px">
                     <el-form-item label="公告标题">
-                        <el-input v-model="form.name" clearable></el-input>
+                        <el-input v-model="form1.name" clearable></el-input>
                     </el-form-item>
                     <el-form-item label="发布时间">
                         <el-col :span="11">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+                            <el-date-picker type="date" placeholder="选择日期" v-model="form1.date1" style="width: 100%;"></el-date-picker>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="禁用标识">
-                        <el-switch v-model="form.delivery"></el-switch>
+                        <el-switch v-model="form1.delivery"></el-switch>
                     </el-form-item>
                     <el-form-item label="公告内容">
-                        <el-input :rows="15" type="textarea" v-model="form.desc" class="textarea" ></el-input>
+                        <el-input :rows="15" type="textarea" v-model="form1.desc" class="textarea" ></el-input>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -226,6 +226,12 @@
                 input10: '',
                 centerDialogVisible: false,
                 form: {
+                    name: '',
+                    date: '',
+                    delivery: false,
+                    desc: ''
+                },
+                form1: {
                     name: '',
                     date1: '',
                     delivery: false,

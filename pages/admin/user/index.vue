@@ -107,34 +107,34 @@
                 </el-table>
             </div>
             <el-dialog title="编辑用户" :visible.sync="dialogFormVisible">
-                <el-form ref="form" :model="form" label-width="90px">
+                <el-form ref="form" :model="form1" label-width="90px">
                     <el-form-item label="用户名称" >
                         <el-col :span="18">
-                            <el-input v-model="form.name" clearable></el-input>
+                            <el-input v-model="form1.name" clearable></el-input>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="用户账号">
                         <el-col :span="18">
-                            <el-input v-model="form.account" clearable></el-input>
+                            <el-input v-model="form1.account" clearable></el-input>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="用户密码">
                         <el-col :span="18">
-                            <el-input v-model="form.password" clearable></el-input>
+                            <el-input v-model="form1.password" clearable></el-input>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="用户手机号">
                         <el-col :span="18">
-                            <el-input v-model="form.phone" clearable></el-input>
+                            <el-input v-model="form1.phone" clearable></el-input>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="用户邮箱">
                         <el-col :span="18">
-                            <el-input v-model="form.email" clearable></el-input>
+                            <el-input v-model="form1.email" clearable></el-input>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="禁用标识">
-                        <el-switch v-model="form.delivery"></el-switch>
+                        <el-switch v-model="form1.delivery"></el-switch>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -232,7 +232,7 @@
     layout: 'admina',
     methods: {
       open2() {
-        this.$confirm('此操作将永久删除该公告, 是否继续?', '提示', {
+        this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -268,7 +268,14 @@
           phone:'',
           email:'',
           delivery: false,
-
+        },
+        form1: {
+          name: '',
+          account: '',
+          password:'',
+          phone:'',
+          email:'',
+          delivery: false,
         },
         options: [{
           value: '选项1',
