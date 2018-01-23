@@ -24,8 +24,6 @@
             </el-row>
         </div>
         <el-row class="headerline"></el-row>
-        <!--<el-row :gutter="24">-->
-        <!--<el-col :span="5">-->
         <div class="grid-content bg-purple keyword">
             <div class="chanceKey">
                 <el-row class="keyContent">
@@ -39,8 +37,6 @@
                 </el-row>
             </div>
         </div>
-        <!--</el-col>-->
-        <!--<el-col :span="19">-->
         <div class="grid-content bg-purple key-content">
             <div class="oneDevice">
                 <el-row :gutter="20" class="leftImg">
@@ -60,7 +56,7 @@
                                             <el-col :span="17">
                                                 <div class="grid-content bg-purple nameFrame">
                                                     <a href="device/details">
-                                                        <p class="bullName">全自动智能倒置显微镜及金相分析系统</p>
+                                                        <p class="bullName">{{deviceName}}</p>
                                                     </a>
                                                 </div>
                                             </el-col>
@@ -83,115 +79,15 @@
                             <el-row class="maketop">
                                 <el-row :gutter="20" class="contactUser mainInfor">
                                     <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{userName}}</div></el-col>
                                 </el-row>
                                 <el-row :gutter="20" class="contactUser">
                                     <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{address}}</div></el-col>
                                 </el-row>
                                 <el-row :gutter="20" class="contactUser mainInfor">
                                     <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
-                                </el-row>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-            <div class="oneDevice">
-                <el-row :gutter="20" class="leftImg">
-                    <el-col :span="8" class="leftspan">
-                        <div class="grid-content bg-purple bullImg">
-                            <img src="~/assets/img/img_2.png" alt="Nuxt.js Logo" class="logo" />
-                        </div>
-                    </el-col>
-                    <el-col :span="16">
-                        <div class="grid-content bg-purple">
-                            <el-row class="topOneCol">
-                                <el-col :span="24">
-                                    <div class="grid-content bg-purple-dark">
-                                        <el-row>
-                                            <el-col :span="17">
-                                                <div class="grid-content bg-purple nameFrame">
-                                                    <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple">
-                                                    <el-button type="warning" class="appoint">送样</el-button>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="maketop">
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser">
-                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
-                                </el-row>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
-            <div class="oneDevice">
-                <el-row :gutter="20" class="leftImg">
-                    <el-col :span="8" class="leftspan">
-                        <div class="grid-content bg-purple bullImg">
-                            <img src="~/assets/img/img_3.png" alt="Nuxt.js Logo" class="logo" />
-                        </div>
-                    </el-col>
-                    <el-col :span="16">
-                        <div class="grid-content bg-purple">
-                            <el-row class="topOneCol">
-                                <el-col :span="24">
-                                    <div class="grid-content bg-purple-dark">
-                                        <el-row>
-                                            <el-col :span="17">
-                                                <div class="grid-content bg-purple nameFrame">
-                                                    <p class="bullName">我这个名字老长了我试试能不能隐藏一下哈哈哈</p>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple-light button_center" >
-                                                    <el-button type="primary" class="appoint">预约</el-button>
-                                                </div>
-                                            </el-col>
-                                            <el-col :span="3">
-                                                <div class="grid-content bg-purple">
-                                                    <el-button type="warning" class="appoint">送样</el-button>
-                                                </div>
-                                            </el-col>
-                                        </el-row>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row class="maketop">
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">严春亮</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser">
-                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">核心区教学楼E座304</div></el-col>
-                                </el-row>
-                                <el-row :gutter="20" class="contactUser mainInfor">
-                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
-                                    <el-col :span="16"><div class="grid-content bg-purple">123456</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{phone}}</div></el-col>
                                 </el-row>
                             </el-row>
                         </div>
@@ -199,8 +95,6 @@
                 </el-row>
             </div>
         </div>
-        <!--</el-col>-->
-        <!--</el-row>-->
     </section>
 </template>
 
@@ -321,7 +215,11 @@
         data() {
             return {
                 input5: '',
-                select: ''
+                select: '',
+                deviceName:'全自动智能倒置显微镜及金相分析系统',
+                userName:'李云龙',
+                address:'核心区教学楼E座304',
+                phone:'1234567891',
             }
         }
     }
