@@ -15,7 +15,8 @@
 </template>
 <style scoped>
     .header_img{
-        width: 100%;
+        width: 70%;
+        margin-left:15%;
         height: 100px;
         background: url("../assets/img/bg2.png") no-repeat left 100%;
         /*background-size: 100% 100%;*/
@@ -37,6 +38,8 @@
     }
     .headerlist{
         background-color:#063961;
+        width: 70%;
+        margin-left:15%;
     }
 </style>
 
