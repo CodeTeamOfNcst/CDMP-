@@ -121,9 +121,9 @@ exports.createData = async ( ctx, next ) => {
         let user3 = await User.create( { account: 'wangyangyang', password: '123456', name: '王洋洋', email: 'wangyangyang@qq.com' } )
         await user3.setUserType(badGay)
 
-        let rule1 = await Rule.create( { content: '第一条公告', title: '第一条公告'} )
-        let rule2 = await Rule.create( { content: '第二条公告', title: '第二条公告'} )
-        let rule3 = await Rule.create( { content: '第三条公告', title: '第三条公告'} )
+        await Rule.create( { content: '第一条公告', title: '第一条公告'} )
+        await Rule.create( { content: '第二条公告', title: '第二条公告'} )
+        await Rule.create( { content: '第三条公告', title: '第三条公告'} )
 
         let successMessageType = await MessageKlass.create( { name: '成功' } )
         let commonMessageType = await MessageKlass.create( { name: '普通消息'} )
@@ -156,15 +156,13 @@ exports.createData = async ( ctx, next ) => {
         let apply3 = await Apply.create( { vioReason: 'user3 想要用冶金系的仪器' } )
         await apply3.setApplyer(user3)
         await apply3.setApplyDevice(device3)
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
     }catch(err){
         ctx.body = {
             status: 0,
             message: 'Model Entity has alread exist !! '
         }
     }
-
-
     ctx.body = {
         status: 1,
         message: 'Get Data From Test Get',

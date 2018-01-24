@@ -190,6 +190,7 @@
 
 <script>
     import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
+    import axios from 'axios'
 
     export default {
         components: {ElButton},
@@ -276,6 +277,11 @@
                 visible2: false,
                 formLabelWidth: '120px'
             };
+        },
+        head() {
+            return {
+                title: '公告管理'
+            }
         }
     }
 </script>

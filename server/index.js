@@ -6,7 +6,7 @@ import Cors from 'koa2-cors'
 const path = require('path')
 const logger = require('koa-logger')
 const koaStatic = require('koa-static')
-const session = require('koa-session')
+const session = require('koa-session2')
 const bodyParser = require('koa-bodyparser')
 
 const database = require('./dbconfig/dbinit')
@@ -16,7 +16,7 @@ async function start () {
   const app = new Koa()
   const host = process.env.HOST || '127.0.0.1'
   const port = process.env.PORT || 3000
-  const SESSION_CONFIG = {key: 'koa:sess', maxAge: 86400000,overwrite: true, httpOnly: true, signed: true, rolling: false}
+  const SESSION_CONFIG = {key: 'koa:sess'}
   /**
   ** Test connecton
   */
@@ -33,8 +33,8 @@ async function start () {
     /**
      ** Sync DB
     */
-    await database.sequelize.sync({ force: true })
-    console.log("Database Sync successfully")
+    // await database.sequelize.sync()
+    // console.log("Database Sync successfully")
   }
   // init middleware 
   app.use(logger())

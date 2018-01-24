@@ -16,7 +16,12 @@
 </style>
 
 <script>
-  export default {
-    layout: 'admina',
-  }
+    export default {
+        layout: 'admina',
+        head() {
+            return {
+                title: 'CDMP - 预约管理'
+            }
+        }
+    }
 </script>

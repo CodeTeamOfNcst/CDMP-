@@ -40,35 +40,35 @@
                                 <el-col :span="24"></el-col>
                             </el-row>
                         </div></el-col>
-                        <el-col :span="8"><div class="grid-content bg-purple">
+                        <el-col :span="8"><div class="grid-content bg-purple" v-show="login_show">
                             <div class="orderbefore"></div>
-                            <span class="order"> <i class="el-icon-d-arrow-right"></i> 登录注册</span>
+                            <span class="order"> <i class="el-icon-d-arrow-right"></i> 登录</span>
                             <el-row class="headerline">
                                 <el-col :span="24"></el-col>
                             </el-row>
                             <div class="login">
-                                <el-tabs v-model="activeName"  @tab-click="handleClick">
+                                <el-tabs v-model="activeName">
                                     <el-tab-pane  label="登录" name="first" label-width="80px">
                                         <el-form  class="loginform" label-width="80px">
                                             <el-form-item label="账号">
-                                                <el-input class="input1" v-model="account"></el-input>
+                                                <el-input class="input1" v-model="account"/>
                                             </el-form-item>
                                             <el-form-item label="密码">
-                                                <el-input class="input1" ></el-input>
+                                                <el-input class="input1" v-model="password"/>
                                             </el-form-item>
                                         </el-form>
-                                        <el-button class="loginbutton" type="primary">登录</el-button>
+                                        <el-button class="loginbutton" type="primary" v-on:click="handleUserLogin">登录</el-button>
                                     </el-tab-pane>
                                     <el-tab-pane label="注册" name="second" label-width="80px">
                                         <el-form class="loginform" label-width="80px">
                                             <el-form-item label="账号">
-                                                <el-input class="input1"></el-input>
+                                                <el-input class="input1" v-model="account"/>
                                             </el-form-item>
                                             <el-form-item label="密码">
-                                                <el-input class="input1"></el-input>
+                                                <el-input class="input1" v-model="password"/>
                                             </el-form-item>
                                             <el-form-item label="重复">
-                                                <el-input class="input1"></el-input>
+                                                <el-input class="input1" v-model="repeat_password"/>
                                             </el-form-item>
                                             <el-button class="loginbutton" type="primary">注册</el-button>
                                         </el-form>
@@ -76,10 +76,10 @@
                                     <el-tab-pane label="管理员登录" name="third" label-width="80px">
                                         <el-form class="loginform" label-width="80px">
                                             <el-form-item label="账号">
-                                                <el-input class="input1" ></el-input>
+                                                <el-input class="input1" v-model="account"/>
                                             </el-form-item>
                                             <el-form-item label="密码">
-                                                <el-input class="input1"></el-input>
+                                                <el-input class="input1" v-model="password"/>
                                             </el-form-item>
                                         </el-form>
                                         <el-button class="loginbutton" type="primary">登录</el-button>
@@ -92,19 +92,19 @@
                 </div>
             </el-col>
         </el-row>
-        <!--<el-row>-->
-            <!--<el-col :span="24">-->
-                <!--<div class="grid-content bg-purple-dark main-middle">-->
-                    <!--<el-col :span="8"><div class="grid-content bg-purple">-->
-                        <!--<div class="orderbefore"></div>-->
-                        <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>-->
-                        <!--<el-row class="headerline">-->
-                            <!--<el-col :span="24"></el-col>-->
-                        <!--</el-row>-->
-                    <!--</div></el-col>-->
-                <!--</div>-->
-            <!--</el-col>-->
-        <!--</el-row>-->
+        <el-row>
+            <el-col :span="24">
+                <div class="grid-content bg-purple-dark main-middle">
+                    <el-col :span="8"><div class="grid-content bg-purple">
+                        <div class="orderbefore"></div>
+                        <span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>
+                        <el-row class="headerline">
+                            <el-col :span="24"></el-col>
+                        </el-row>
+                    </div></el-col>
+                </div>
+            </el-col>
+        </el-row>
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-footer">
@@ -193,7 +193,6 @@
         width:100%;
         height:50px;
         /*border-bottom: 1px solid #ececec;*/
-
     }
     .orderbefore{
         width: 5px;
@@ -224,7 +223,6 @@
         height:300px;
         /*background-color: #41B883;*/
     }
-
     .mt-lcontent{
         margin-top:80px;
     }
@@ -244,23 +242,54 @@
     .el-tabs__nav-wrap{
         width:300px;
     }
-
-
-
 </style>
 <script>
+    import axios from 'axios'
     export default {
         data() {
             return {
                 input5: '',
                 select: '',
-                activeName: 'second',
-                account:''
+                activeName: 'first',
+                account: '',
+                password: '',
+                repeat_password: '',
+                login_show: true
             }
         },
         methods: {
-            handleClick(tab, event) {
-                console.log(tab, event);
+             async handleUserLogin(tab, event){
+                let user_account = this.account
+                let user_password = this.password
+                let result = await axios.post('/api/user/login', {
+                    account: user_account,
+                    passwd: user_password
+                })
+                 if(result.data.status === 1) {
+                     //登陆成功
+                     this.$message({
+                         message: result.data.message,
+                         type: 'success'
+                     });
+                     this.login_show = false
+                 }else {
+                    //登陆失败
+                     this.$message.error(result.data.message);
+                 }
+            },
+            async handleAdminLogin(tab, event){
+                let user_account = this.account
+                let user_password = this.password
+            },
+            async handleUserRegist(tab, event){
+                let user_account = this.account
+                let user_password = this.password
+                let user_repeat_password = this.repeat_password
+            }
+        },
+        head() {
+            return {
+                title: 'CDMP 设备预约平台'
             }
         }
     }

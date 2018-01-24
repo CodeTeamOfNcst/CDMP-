@@ -14,8 +14,6 @@
         <a href="appoint">
             <el-button type="success" class="btn-success">预约</el-button>
         </a>
-        <el-button type="warning" class="btn-warning">送样</el-button>
-    
         <div class="equi-describe">
             <el-row :gutter="20" class="row">
                 <el-col :span="4" class="col"><div class="grid-content bg-purpler text" style="margin-left:20px"><p>联系人</p></div></el-col>

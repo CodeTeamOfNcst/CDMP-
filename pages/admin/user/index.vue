@@ -66,6 +66,11 @@
                         border
                         style="width: 70%;">
                     <el-table-column
+                            prop="id"
+                            label="用户名称"
+                            width="110">
+                    </el-table-column>
+                    <el-table-column
                             prop="name"
                             label="用户名称"
                             width="110">
@@ -76,11 +81,6 @@
                             width="170">
                     </el-table-column>
                     <el-table-column
-                            prop="password"
-                            label="用户密码"
-                            width="170">
-                    </el-table-column>
-                    <el-table-column
                             prop="email"
                             label="用户邮箱"
                             width="200">
@@ -88,6 +88,11 @@
                     <el-table-column
                             prop="phone"
                             label="用户手机号"
+                            width="">
+                    </el-table-column>
+                    <el-table-column
+                            prop="klass"
+                            label="用户类别"
                             width="">
                     </el-table-column>
                     <el-table-column
@@ -116,11 +121,6 @@
                     <el-form-item label="用户账号">
                         <el-col :span="18">
                             <el-input v-model="form1.account" clearable></el-input>
-                        </el-col>
-                    </el-form-item>
-                    <el-form-item label="用户密码">
-                        <el-col :span="18">
-                            <el-input v-model="form1.password" clearable></el-input>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="用户手机号">
@@ -226,7 +226,7 @@
 
 <script>
   import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
-
+  import axios from 'axios'
   export default {
     components: {ElButton},
     layout: 'admina',
@@ -291,39 +291,40 @@
           label: '显示禁用类型公告'
         }],
         value: '',
-        tableData: [{
-          name: '张二柱',
-          account: '20164875201',
-          password: '123456',
-          email:'123@qq.com',
-          phone:'15544684297',
-          isUse:'是'
-        }, {
-          name: '李李',
-          account: '20145263487',
-          password: '123456',
-          email:'123@qq.com',
-          phone:'15544684297',
-          isUse:'是',
-        }, {
+        tableData: [
+        {
+          id: '',
           name: '张扬果儿',
           account: '20180564781',
-          password: '123456',
           email:'123@qq.com',
           phone:'15544684297',
           isUse:'否',
-        }, {
+        },
+        {
+          id: '',
           name: '张张',
           account: '20165841263',
-          password: '123456',
           email:'123@qq.com',
           phone:'15544684297',
           isUse:'是',
-        }],
+        }
+        ],
         dialogFormVisible: false,
         formLabelWidth: '120px',
         visible2: false,
       };
+    },
+    async asyncData({}) {
+      let  users  = await axios.get(`/api/user/getAll`)
+      return {
+          tableData: users.data.tableData,
+          options: users.data.userKlasses
+      }
+    },
+    head() {
+        return {
+            title: 'CDMP - 用户管理'
+        }
     }
   }
 </script>

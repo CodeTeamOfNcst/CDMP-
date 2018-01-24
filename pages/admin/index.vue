@@ -1,19 +1,21 @@
 <template>
     <div class="mianContent">
-        <el-popover
+        <div class="popover-el">
+            <el-popover
                 ref="popover4"
                 placement="right"
                 width="600"
+                offset="300"
                 trigger="click"
-                v-model="visible2">
-            <el-form ref="form" :model="form" label-width="100px">
+                v-model="addFormVisible">
+            <el-form ref="addForm" :model="addForm" label-width="100px">
                 <el-form-item label="设备名称">
-                    <el-input v-model="form.name" clearable></el-input>
+                    <el-input v-model="addForm.name" clearable />
                 </el-form-item>
                 <el-form-item label="设备类型">
-                    <el-select v-model="form.desc" placeholder="请选择">
+                    <el-select v-model="addForm.deviceType" placeholder="请选择">
                         <el-option
-                                v-for="item in options"
+                                v-for="item in deviceTypes"
                                 :key="item.value"
                                 :label="item.label"
                                 :value="item.value">
@@ -22,7 +24,7 @@
                 </el-form-item>
                 <el-form-item label="设备购买日期">
                     <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" placeholder="选择日期" v-model="addForm.addDate" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="设备图片">
@@ -32,43 +34,42 @@
                             action="https://jsonplaceholder.typicode.com/posts/"
                             multiple>
                         <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                        <div class="el-upload__text">将文件拖到此处，或 <em>点击上传</em></div>
                         <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="设备描述">
-                    <el-input :rows="5" type="textarea" v-model="form.cont" class="textarea" ></el-input>
+                    <el-input :rows="5" type="textarea" v-model="addForm.describe" class="textarea"  />
                 </el-form-item>
                 <el-form-item label="是否需要维护">
-                    <el-switch v-model="form.repair"></el-switch>
+                    <el-switch v-model="addForm.needRepair" />
                 </el-form-item>
                 <el-form-item label="是否能被预约">
-                    <el-switch v-model="form.order"></el-switch>
+                    <el-switch v-model="addForm.canApply" />
                 </el-form-item>
                 <el-form-item label="禁用标识">
-                    <el-switch v-model="form.delivery"></el-switch>
+                    <el-switch v-model="addForm.isUse" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="visible2 = false">添加</el-button>
-                    <el-button  @click="visible2 = false">取消</el-button>
+                    <el-button type="primary" @click="handleAdd">添加</el-button>
+                    <el-button  @click="addFormVisible = false">取消</el-button>
                 </el-form-item>
             </el-form>
         </el-popover>
+        </div>
         <div class="headerName">
             <div class="leftSty"></div>
             <span class="bullCont">设备管理</span>
         </div>
-        <el-row class="headerline"></el-row>
         <div class="announceCont">
+
             <div class="oneline">
-                <div class="add">
-                    <el-button v-popover:popover4 class="addContent">添加</el-button>
-                </div>
+
                 <div class="demo-input-suffix search">
                     <el-input
                             placeholder="请输入内容"
                             prefix-icon="el-icon-search"
-                            v-model="input21">
+                            v-model="search_context">
                     </el-input>
                 </div>
                 <div class="select">
@@ -81,12 +82,21 @@
                         </el-option>
                     </el-select>
                 </div>
+                <div class="add">
+                    <el-button v-popover:popover4 class="addContent">添加</el-button>
+                </div>
             </div>
+
             <div class="table">
                 <el-table
-                        :data="tableData"
+                        :data="deviceTableData"
                         border
                         style="width: 70%;">
+                    <el-table-column
+                            prop="id"
+                            label="设备id"
+                            width="130">
+                    </el-table-column>
                     <el-table-column
                             prop="date"
                             label="设备购买日期"
@@ -110,33 +120,34 @@
                             label="操作"
                             width="110">
                         <template scope="scope">
-                            <el-button type="text" @click="dialogFormVisible = true">编辑</el-button>
-                            <el-button type="text" @click="open2" style="margin-left: 5px;">删除</el-button>
+                            <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
+                            <el-button type="text" @click="handleForbid(scope.row)" style="margin-left: 5px;">禁用</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
-            <el-dialog title="编辑设备" :visible.sync="dialogFormVisible">
-                <el-form :model="form1">
-                    <el-form-item label="设备名称" :label-width="formLabelWidth">
-                        <el-input v-model="form1.name" clearable></el-input>
+
+            <el-dialog title="编辑设备" :visible.sync="editFormVisibel">
+                <el-form :model="editForm">
+                    <el-form-item label="设备名称" :label-width="editFormLabelWidth">
+                        <el-input v-model="editForm.name" clearable></el-input>
                     </el-form-item>
-                    <el-form-item label="设备类型" :label-width="formLabelWidth">
-                        <el-select v-model="form1.desc" placeholder="请选择">
+                    <el-form-item label="设备类型" :label-width="editFormLabelWidth">
+                        <el-select v-model="editForm.deviceType" placeholder="请选择">
                             <el-option
-                                    v-for="item in options"
+                                    v-for="item in deviceTypes"
                                     :key="item.value"
                                     :label="item.label"
                                     :value="item.value">
                             </el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="设备购买日期" :label-width="formLabelWidth">
+                    <el-form-item label="设备购买日期" :label-width="editFormLabelWidth">
                         <el-col :span="11">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="form1.date" style="width: 100%;"></el-date-picker>
+                            <el-date-picker type="date" placeholder="选择日期" v-model="editForm.date" style="width: 100%;"></el-date-picker>
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="设备图片" :label-width="formLabelWidth">
+                    <el-form-item label="设备图片" :label-width="editFormLabelWidth">
                         <el-upload
                                 class="upload-demo"
                                 action="https://jsonplaceholder.typicode.com/posts/"
@@ -151,29 +162,30 @@
                             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
                         </el-upload>
                     </el-form-item>
-                    <el-form-item label="设备描述" :label-width="formLabelWidth">
-                        <el-input :rows="5" type="textarea" v-model="form1.cont" class="textarea" ></el-input>
+                    <el-form-item label="设备描述" :label-width="editFormLabelWidth">
+                        <el-input :rows="5" type="textarea" v-model="editForm.describe" class="textarea" />
                     </el-form-item>
-                    <el-form-item label="是否需要维护" :label-width="formLabelWidth">
-                        <el-switch v-model="form1.repair"></el-switch>
+                    <el-form-item label="是否需要维护" :label-width="editFormLabelWidth">
+                        <el-switch v-model="editForm.needRepair"/>
                     </el-form-item>
-                    <el-form-item label="是否能被预约" :label-width="formLabelWidth">
-                        <el-switch v-model="form1.order"></el-switch>
+                    <el-form-item label="是否能被预约" :label-width="editFormLabelWidth">
+                        <el-switch v-model="editForm.canApply"/>
                     </el-form-item>
-                    <el-form-item label="禁用标识" :label-width="formLabelWidth">
-                        <el-switch v-model="form1.delivery"></el-switch>
+                    <el-form-item label="禁用标识" :label-width="editFormLabelWidth">
+                        <el-switch v-model="editForm.isUse"/>
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                    <el-button @click="editFormVisibel = false">取 消</el-button>
+                    <el-button type="primary" @click="handleSubmitEdit">提 交</el-button>
                 </div>
             </el-dialog>
+
             <div class="page">
                 <el-pagination
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage4"
+                        :current-page="currentPage"
                         :page-sizes="[10, 20, 30, 40]"
                         :page-size="10"
                         layout="total, sizes, prev, pager, next, jumper"
@@ -254,14 +266,79 @@
 </style>
 
 <script>
-//    import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
-
-
+import axios from 'axios'
 export default {
     layout: 'admina',
         methods: {
-            open2() {
-                this.$confirm('此操作将永久删除该设备, 是否继续?', '提示', {
+            async handleAdd() {
+                // 处理新建仪器设备
+                let deviceName = this.addForm.name
+                let deviceTypeId = this.addForm.deviceType
+                let deviceAddDate = this.addForm.addDate
+                let deviceDescribe = this.addForm.describe
+
+                let deviceNeedRepair = this.addForm.needRepair
+                let deviceCanApply = this.addForm.canApply
+                let deviceIsUse = this.addForm.isUse
+
+                if(deviceName && deviceTypeId && deviceAddDate && deviceDescribe){
+                    let result = await axios.post('/api/device/add', {
+                        name: deviceName,
+                        TypeId: deviceTypeId,
+                        addDate: deviceAddDate,
+                        describe: deviceDescribe,
+                        needRepair: deviceNeedRepair,
+                        canApply: deviceCanApply,
+                        isUse: deviceIsUse
+                    })
+                    if(result.data.stauts === 1){
+                        this.$message({
+                            message: result.data.message,
+                            type: 'success'
+                        });
+                    }else {
+                        this.$message.error({message: result.data.message});
+                    }
+                }else {
+                    this.$message.error('请填写所有项');
+                }
+                this.addFormVisible = false
+            },
+            async handleEdit(row) {
+                let rowId = row.id
+                this.editForm.id = rowId
+                let resData = await axios.post('/api/device/getById',{
+                    id: rowId
+                })
+                console.log(resData.data.device)
+                if(resData.data.status === 1){
+                    this.editForm.name = resData.data.device.name
+                    this.editForm.deviceType = resData.data.device.device_type
+                    this.editForm.date = resData.data.devicePushcaseDate
+                    this.editForm.describe = resData.data.device.description
+                    this.editForm.needRepair = resData.data.device.needRepair
+                    this.editForm.canApply = resData.data.device.canApply
+                    this.editForm.isUse = resData.data.device.isUse
+                    this.editFormVisibel = true
+                }else {
+                    this.$message.error(resData.data.message);
+                }
+            },
+            async handleSubmitEdit() {
+                let resData = await axios.post('/api/device/modifyById',{
+                    id: this.editForm.id,
+                    deviceTypeId: this.editForm.deviceType,
+                    date: this.editForm.date,
+                    describe: this.editForm.describe,
+                    needRepair: this.editForm.needRepair,
+                    canApply: this.editForm.canApply,
+                    isUse: this.editForm.isUse
+                })
+                editFormVisibel = false
+            },
+            handleForbid(row) {
+                console.log(row.date)
+                this.$confirm('此操作将禁用该设备, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
@@ -273,7 +350,7 @@ export default {
                 }).catch(() => {
                     this.$message({
                         type: 'info',
-                        message: '已取消删除'
+                        message: '取消'
                     });
                 });
             },
@@ -298,24 +375,18 @@ export default {
         },
         data() {
             return {
-                fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
+                fileList: [{name: '', url: ''}],
                 isShow:false,
-                currentPage4: 4,
+                currentPage: 4,
                 input10: '',
                 centerDialogVisible: false,
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {value: '选项3', label: '蚵仔煎'}, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
+                search_context:'',
+                deviceTypes: [
+                    {
+                        value: '选项1',
+                        label: '黄金糕'
+                    }
+                ],
                 value:'',
                 options1: [{
                     value: '选项1',
@@ -330,53 +401,51 @@ export default {
                     value: '选项4',
                     label: '按购买日期由近及远排序'
                 }],
-                form: {
+                addForm: {
                     name: '',
-                    delivery: false,
-                    desc: '',
-                    cont:'',
-                    date:'',
-                    repair:'',
-                    order:'',
+                    deviceType: '',
+                    addDate: '',
+                    describe: '',
+                    needRepair: false,
+                    canApply: true,
+                    isUse: true,
                 },
-                form1: {
+                editForm: {
+                    id: '',
                     name: '',
-                    delivery: false,
-                    desc: '',
-                    cont:'',
-                    date:'',
-                    repair:'',
-                    order:'',
+                    deviceType: '',
+                    addDate: '',
+                    describe: '',
+                    needRepair: false,
+                    canApply: true,
+                    isUse: true,
                 },
-                tableData: [{
-                    date: '2018-01-02',
-                    name: '全自动智能倒置显微镜及金相分析系统',
-                    disable: '否',
-                    type: 'DMI5000M 03040121',
-                    operation:'',
-                }, {
-                    date: '2017-10-04',
-                    name: '原子吸收光谱仪 ',
-                    disable: '否',
-                    type:'Z-2010',
-                    operation:'',
-                }, {
-                    date: '2017-08-01',
-                    name: '激光拉曼光谱仪 ',
-                    disable: '否',
-                    type:'DXR 03040404',
-                    operation:'',
-                }, {
-                    date: '2017-05-03',
-                    name: '聚焦离子束场发射扫描电子显微镜',
-                    disable: '是',
-                    type:'Scios03040702',
-                    operation:'',
-                }],
-                dialogFormVisible: false,
-                visible2: false,
-                formLabelWidth: '120px'
+                deviceTableData: [
+                    {
+                        id: '',
+                        date: '',
+                        name: '',
+                        disable: '',
+                        type: '',
+                        operation:'',
+                    }
+                ],
+                editFormVisibel: false,
+                addFormVisible: false,
+                editFormLabelWidth: '120px'
             };
+        },
+        async asyncData({}) {
+            let  devices  = await axios.get(`/api/device/getAll`)
+            return {
+                deviceTableData: devices.data.Devices,
+                deviceTypes: devices.data.DeviceTypes
+            }
+        },
+        head() {
+            return {
+                title: 'CDMP - 设备管理'
+            }
         }
     }
 </script>

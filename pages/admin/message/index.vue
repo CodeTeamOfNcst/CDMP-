@@ -16,7 +16,12 @@
 </style>
 
 <script>
-  export default {
-    layout: 'admina',
-  }
+    export default {
+        layout: 'admina',
+        head(){
+            return {
+                title: 'CDMP - 消息管理'
+            }
+        }
+    }
 </script>

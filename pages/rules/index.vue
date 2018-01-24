@@ -73,7 +73,7 @@
 import axios from 'axios'
 export default {
   async asyncData({}) {
-      let  createResult  = await axios.get(`http://localhost:3000/api/initDataBase`)
+      let  createResult  = await axios.get(`/api/initDataBase`)
       return {
           result: createResult.data.message
       }
