@@ -156,10 +156,11 @@ exports.createData = async ( ctx, next ) => {
         let apply3 = await Apply.create( { vioReason: 'user3 想要用冶金系的仪器' } )
         await apply3.setApplyer(user3)
         await apply3.setApplyDevice(device3)
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     }catch(err){
         ctx.body = {
             status: 0,
-            message: 'Model Entity has alread exist !! ' + str(err)
+            message: 'Model Entity has alread exist !! '
         }
     }
 
@@ -168,4 +169,6 @@ exports.createData = async ( ctx, next ) => {
         status: 1,
         message: 'Get Data From Test Get',
     }
+    
+    
 }

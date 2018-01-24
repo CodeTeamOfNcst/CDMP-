@@ -21,7 +21,9 @@
             <el-row class="strip">
                 <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="/rules/rulefive"> 网上预约服务规程（2017.01.28）</a></div></el-col>
             </el-row>
-
+            <el-row class="strip">
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="/rules/rulefive"> {{ result }}</a></div></el-col>
+            </el-row>
         </div>
         <el-row>
             <el-col :span="24">
@@ -67,8 +69,14 @@
     }
 
 </style>
-
 <script>
-
-
+import axios from 'axios'
+export default {
+  async asyncData({}) {
+      let  createResult  = await axios.get(`http://localhost:3000/api/initDataBase`)
+      return {
+          result: createResult.data.message
+      }
+  }
+}
 </script>

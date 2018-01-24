@@ -12,7 +12,6 @@
                                     <el-col :span="24"></el-col>
                                 </el-row>
                             </div>
-
                             <div >
                                 <el-row class="mt-lcontent">
                                     <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">学校关于放假期间仪器归还问题（2018.01.15）</a></div></el-col>
@@ -32,8 +31,6 @@
                                 <el-row class="strip">
                                     <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">特大型仪器使用流程培训（2017.01.26）</a></div></el-col>
                                 </el-row>
-
-
                             </div>
                         </el-col>
                         <el-col :span="8"><div class="grid-content bg-purple-light">
@@ -53,10 +50,10 @@
                                 <el-tabs v-model="activeName"  @tab-click="handleClick">
                                     <el-tab-pane  label="登录" name="first" label-width="80px">
                                         <el-form  class="loginform" label-width="80px">
-                                            <el-form-item label="用户名">
-                                                <el-input class="input1" ></el-input>
+                                            <el-form-item label="账号">
+                                                <el-input class="input1" v-model="account"></el-input>
                                             </el-form-item>
-                                            <el-form-item label="密 码">
+                                            <el-form-item label="密码">
                                                 <el-input class="input1" ></el-input>
                                             </el-form-item>
                                         </el-form>
@@ -64,19 +61,21 @@
                                     </el-tab-pane>
                                     <el-tab-pane label="注册" name="second" label-width="80px">
                                         <el-form class="loginform" label-width="80px">
-                                            <el-form-item label="用户名">
+                                            <el-form-item label="账号">
                                                 <el-input class="input1"></el-input>
                                             </el-form-item>
                                             <el-form-item label="密码">
                                                 <el-input class="input1"></el-input>
                                             </el-form-item>
+                                            <el-form-item label="重复">
+                                                <el-input class="input1"></el-input>
+                                            </el-form-item>
                                             <el-button class="loginbutton" type="primary">注册</el-button>
                                         </el-form>
-
                                     </el-tab-pane>
                                     <el-tab-pane label="管理员登录" name="third" label-width="80px">
                                         <el-form class="loginform" label-width="80px">
-                                            <el-form-item label="用户名">
+                                            <el-form-item label="账号">
                                                 <el-input class="input1" ></el-input>
                                             </el-form-item>
                                             <el-form-item label="密码">
@@ -85,19 +84,11 @@
                                         </el-form>
                                         <el-button class="loginbutton" type="primary">登录</el-button>
                                     </el-tab-pane>
-
-
                                 </el-tabs>
-
                             </div>
-                        </div></el-col>
-
-
+                        </div>
+                        </el-col>
                     </el-row>
-
-
-
-
                 </div>
             </el-col>
         </el-row>
@@ -169,13 +160,10 @@
                         <img src="../assets/img/equipment1.png" class="mf-img">
                         <p><a>仪器名称</a></p>
                     </div>
-
                 </div>
             </el-col>
         </el-row>
     </div>
-
-
 </template>
 
 <style scoped>
@@ -267,15 +255,8 @@
                 input5: '',
                 select: '',
                 activeName: 'second',
-
+                account:''
             }
-
-        },
-
-        data() {
-            return {
-                activeName: 'first'
-            };
         },
         methods: {
             handleClick(tab, event) {
