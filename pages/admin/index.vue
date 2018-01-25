@@ -171,7 +171,7 @@
                     <el-form-item label="是否能被预约" :label-width="editFormLabelWidth">
                         <el-switch v-model="editForm.canApply"/>
                     </el-form-item>
-                    <el-form-item label="禁用标识" :label-width="editFormLabelWidth">
+                    <el-form-item label="可用标识" :label-width="editFormLabelWidth">
                         <el-switch v-model="editForm.isUse"/>
                     </el-form-item>
                 </el-form>
@@ -312,47 +312,78 @@ export default {
                 })
                 console.log(resData.data.device)
                 if(resData.data.status === 1){
+
                     this.editForm.name = resData.data.device.name
                     this.editForm.deviceType = resData.data.device.device_type
-                    this.editForm.date = resData.data.devicePushcaseDate
+                    this.editForm.addDate = resData.data.purchaseDate
                     this.editForm.describe = resData.data.device.description
                     this.editForm.needRepair = resData.data.device.needRepair
-                    this.editForm.canApply = resData.data.device.canApply
+                    this.editForm.canApply = resData.data.device.canReserve
                     this.editForm.isUse = resData.data.device.isUse
+
                     this.editFormVisibel = true
                 }else {
                     this.$message.error(resData.data.message);
                 }
             },
             async handleSubmitEdit() {
-                let resData = await axios.post('/api/device/modifyById',{
-                    id: this.editForm.id,
-                    deviceTypeId: this.editForm.deviceType,
-                    date: this.editForm.date,
-                    describe: this.editForm.describe,
-                    needRepair: this.editForm.needRepair,
-                    canApply: this.editForm.canApply,
-                    isUse: this.editForm.isUse
-                })
-                editFormVisibel = false
+                try{
+                    let resData = await axios.post('/api/device/modifyById',{
+                        id: this.editForm.id,
+                        name: this.editForm.name,
+                        deviceTypeId: this.editForm.deviceType,
+                        date: this.editForm.date,
+                        describe: this.editForm.describe,
+                        needRepair: this.editForm.needRepair,
+                        canApply: this.editForm.canApply,
+                        isUse: this.editForm.isUse
+                    })
+                    console.log(resData)
+                    if( resData.data.status === 1 ){
+                        this.$message({
+                            type: 'success',
+                            message: result.data.message
+                        });
+
+                    }else {
+                        this.$message.error( resData.data.status );
+                    }
+                }catch(err){
+                    console.log(err)
+                    this.$message.error('服务器异常');
+                }
+                this.editFormVisibel = false
             },
-            handleForbid(row) {
+            async handleForbid(row) {
                 console.log(row.date)
-                this.$confirm('此操作将禁用该设备, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }).catch(() => {
+                try{
+                    await this.$confirm('此操作将禁用该设备, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    })
+                    let result = await axios.post('/api/device/deleteById', {
+                        id: row.id
+                    })
+                    if(result.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: result.data.message
+                        });
+                        window.location.reload()
+                    }else {
+                        this.$message({
+                            type: 'info',
+                            message: result.data.message
+                        });
+                    }
+                }catch (err){
+                    console.log(err)
                     this.$message({
                         type: 'info',
-                        message: '取消'
+                        message: ` 取消 由于 ${ err }`
                     });
-                });
+                }
             },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);

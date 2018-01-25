@@ -1,4 +1,4 @@
-import { sequelize, Device, DeviceType } from '../dbconfig/dbinit'
+import { Device, DeviceType } from '../dbconfig/dbinit'
 import moment from 'moment'
 exports.addDevice = async ( ctx, next ) => {
     let postData = ctx.request.body
@@ -9,9 +9,10 @@ exports.addDevice = async ( ctx, next ) => {
             description: postData.describe,
             purchaseDate: postData.addDate,
             needRepair: postData.needRepair,
-            canApply: postData.canApply,
+            canReserve: postData.canApply,
             isUse: postData.isUse
         })
+        await newDevice.save()
         let deviceType = await DeviceType.findOne({where: {id: postData.TypeId}})
         await newDevice.setDeviceType(deviceType)
         await newDevice.save()
@@ -34,7 +35,9 @@ exports.delteDeviceById = async ( ctx, next ) => {
     let postData = ctx.request.body
     let deviceId = postData.id
     try{
-        let result = await deleteDevice.update({isUse: false},{where: { id: deviceId}})
+        let deleteDevice = await  Device.findOne({ where: { id: deviceId }})
+        let result = await deleteDevice.update({ isUse: false })
+        deleteDevice.save()
         ctx.body = {
             status: 1,
             message: 'success'
@@ -52,10 +55,30 @@ exports.modifyDeviceById = async ( ctx, next ) => {
     let device_id = ctx.request.body.id
     let type_id = ctx.request.body.deviceTypeId
     try {
-        let thisDevice = await Device.findOne({where: {id: device_id}})
+        let thisDevice = await Device.findOne({ where: { id: device_id } })
         let thisType = await  DeviceType.findOne({where: { id: type_id }})
-
-
+        await thisDevice.setDeviceType(thisType)
+        console.log(postData)
+        await thisDevice.update({
+            name: postData.name,
+            purchaseDate: postData.date,
+            needRepair: postData.needRepair,
+            canReserve : postData.canApply || true,
+            isUse: postData.isUse,
+            description: postData.describe
+        })
+        await thisDevice.setDeviceType(thisType)
+        await thisDevice.save()
+        ctx.body = {
+            status: 1,
+            message: '修改成功'
+        }
+    }catch (err) {
+        console.log( err )
+        ctx.body = {
+            status: 0,
+            message: `更新失败，由于 ${ err }`
+        }
     }
 }
 
@@ -66,10 +89,19 @@ exports.getDeviceById = async ( ctx, next ) => {
     try{
         let thisDevice = await Device.findOne({where: { id:deviceId } })
         let deviceType = await DeviceType.findOne({where: { id:thisDevice.device_type }})
+
+        let device = {
+            name: thisDevice.name,
+            imgFilePath: thisDevice.imgFilePath,
+            description: thisDevice.description,
+            purchaseDate: moment(thisDevice.createdAt).format('YYYY-MM-DD'),
+            needRepair: thisDevice.needRepair,
+            canReserve: thisDevice.canReserve,
+            device_type: deviceType.id,
+            isUse: thisDevice.isUse
+        }
         ctx.body = {
-            device: thisDevice,
-            devicePushcaseDate: moment(thisDevice.createdAt).format('YYYY-MM-DD'),
-            deviceTypeName: deviceType.name,
+            device: device,
             status: 1,
             message: 'success'
         }
@@ -102,7 +134,7 @@ exports.getAllDevice = async ( ctx, next ) => {
             label: devicesType[i].name
         })
     }
-    console.log(Devices)
+
     ctx.body ={
         Devices: Devices,
         DeviceTypes: DevicesTypes

@@ -5,40 +5,57 @@
                 placement="right"
                 width="400"
                 trigger="click"
-                v-model="visible2">
-            <el-form ref="form" :model="form" label-width="90px">
+                v-model="addFromVisible">
+            <el-form ref="addForm" :model="addForm" label-width="90px">
                 <el-form-item label="用户名称" >
                     <!--<div style="width: 20%;float: left">用户名称</div>-->
                     <el-col :span="18">
-                        <el-input v-model="form.name" clearable></el-input>
+                        <el-input v-model="addForm.name" clearable/>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="用户账号">
                     <el-col :span="18">
-                        <el-input v-model="form.account" clearable></el-input>
+                        <el-input v-model="addForm.account" clearable/>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="用户类别">
+                    <el-col :span="18">
+                        <el-select v-model="addForm.userType" placeholder="请选择用户类别">
+                            <el-option
+                                    v-for="item in userKlasses"
+                                    :key="item.id"
+                                    :label="item.name"
+                                    :value="item.id">
+                            </el-option>
+                        </el-select>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="用户密码">
                     <el-col :span="18">
-                        <el-input v-model="form.password" clearable></el-input>
+                        <el-input v-model="addForm.password" clearable type="password"/>
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="重复密码">
+                    <el-col :span="18">
+                        <el-input v-model="addForm.repeat" clearable type="password"/>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="用户手机号">
                     <el-col :span="18">
-                        <el-input v-model="form.phone" clearable></el-input>
+                        <el-input v-model="addForm.phone" clearable/>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="用户邮箱">
                     <el-col :span="18">
-                        <el-input v-model="form.email" clearable></el-input>
+                        <el-input v-model="addForm.email" clearable/>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="禁用标识">
-                    <el-switch v-model="form.delivery"></el-switch>
+                    <el-switch v-model="addForm.isUse"/>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="visible2 = false">添加</el-button>
-                    <el-button  @click="visible2 = false">取消</el-button>
+                    <el-button type="primary" @click="handleAdd">添加</el-button>
+                    <el-button  @click="handleAddCancel">取消</el-button>
                 </el-form-item>
             </el-form>
         </el-popover>
@@ -46,18 +63,28 @@
             <div class="leftSty"></div>
             <span class="bullCont">用户管理</span>
         </div>
-        <el-row class="headerline"></el-row>
+        <el-row class="headerline"/>
         <div class="announceCont">
             <div class="oneline">
-                <div class="add">
-                    <el-button v-popover:popover4 class="addContent">添加</el-button>
-                </div>
                 <div class="demo-input-suffix search">
                     <el-input
                             placeholder="请输入内容"
                             prefix-icon="el-icon-search"
-                            v-model="input21">
+                            v-model="searchInput">
                     </el-input>
+                </div>
+                <div class="select">
+                    <el-select v-model="searchType" placeholder="请选择">
+                        <el-option
+                                v-for="item in searchOption"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </div>
+                <div class="add">
+                    <el-button v-popover:popover4 class="addContent">添加</el-button>
                 </div>
             </div>
             <div class="table">
@@ -67,13 +94,12 @@
                         style="width: 70%;">
                     <el-table-column
                             prop="id"
-                            label="用户名称"
+                            label="用户id"
                             width="110">
                     </el-table-column>
                     <el-table-column
                             prop="name"
-                            label="用户名称"
-                            width="110">
+                            label="用户名称">
                     </el-table-column>
                     <el-table-column
                             prop="account"
@@ -83,7 +109,7 @@
                     <el-table-column
                             prop="email"
                             label="用户邮箱"
-                            width="200">
+                            width="350">
                     </el-table-column>
                     <el-table-column
                             prop="phone"
@@ -105,48 +131,60 @@
                             label="操作"
                             width="100">
                         <template scope="scope">
-                            <el-button type="text" @click="dialogFormVisible = true">编辑</el-button>
-                            <el-button type="text" @click="open2" style="margin-left: 5px;">删除</el-button>
+                            <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
+                            <el-button type="text" @click="handleDelete(scope.row)" style="margin-left: 5px;">禁用</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
-            <el-dialog title="编辑用户" :visible.sync="dialogFormVisible">
-                <el-form ref="form" :model="form1" label-width="90px">
+            <el-dialog title="编辑用户" :visible.sync="editFromVisible">
+                <el-form ref="form" :model="editForm" label-width="90px">
                     <el-form-item label="用户名称" >
                         <el-col :span="18">
-                            <el-input v-model="form1.name" clearable></el-input>
+                            <el-input v-model="editForm.name" clearable />
                         </el-col>
                     </el-form-item>
                     <el-form-item label="用户账号">
                         <el-col :span="18">
-                            <el-input v-model="form1.account" clearable></el-input>
+                            <el-input v-model="editForm.account" clearable />
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="用户类别">
+                        <el-col :span="18">
+                            <el-select v-model="editForm.userType" placeholder="请选择用户类别">
+                                <el-option
+                                        v-for="item in userKlasses"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                </el-option>
+                            </el-select>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="用户手机号">
                         <el-col :span="18">
-                            <el-input v-model="form1.phone" clearable></el-input>
+                            <el-input v-model="editForm.phone" clearable />
                         </el-col>
                     </el-form-item>
                     <el-form-item label="用户邮箱">
                         <el-col :span="18">
-                            <el-input v-model="form1.email" clearable></el-input>
+                            <el-input v-model="editForm.email" clearable />
                         </el-col>
                     </el-form-item>
                     <el-form-item label="禁用标识">
-                        <el-switch v-model="form1.delivery"></el-switch>
+                        <el-switch v-model="editForm.isUse" />
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                    <el-button @click="handleEditCancle">取 消</el-button>
+                    <el-button type="primary" @click="handleEditSubmit">提 交</el-button>
                 </div>
             </el-dialog>
             <div class="page">
                 <el-pagination
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage4"
+                        :current-page="currentPage"
                         :page-sizes="[10, 20, 30, 40]"
                         :page-size="10"
                         layout="total, sizes, prev, pager, next, jumper"
@@ -156,6 +194,7 @@
         </div>
     </div>
 </template>
+
 <style scoped>
     .mianContent{
         width: 100%;
@@ -225,106 +264,186 @@
 </style>
 
 <script>
-  import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
-  import axios from 'axios'
-  export default {
-    components: {ElButton},
-    layout: 'admina',
-    methods: {
-      open2() {
-        this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除'
-          });
-        });
-      },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-      },
-    },
-    data() {
-      return {
-        isShow:false,
-        currentPage4: 4,
-        input10: '',
-        centerDialogVisible: false,
-        form: {
-          name: '',
-          account: '',
-          password:'',
-          phone:'',
-          email:'',
-          delivery: false,
+    import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
+    import axios from 'axios'
+    export default {
+        components: {ElButton},
+        layout: 'admina',
+        methods: {
+        async handleAdd(){
+            if( this.addForm.password === this.addForm.repeat ){
+                let PostData = {
+                    name: this.addForm.name,
+                    account: this.addForm.account,
+                    password: this.addForm.password,
+                    userType: this.addForm.userType,
+                    phone: this.addForm.phone,
+                    email: this.addForm.email,
+                    isUse: this.addForm.isUse,
+                };
+                try{
+                    let resData = await axios.post('/api/user/add', {
+                        user: PostData
+                    })
+                    if(resData.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: resData.data.message
+                        });
+                        window.location.reload()
+                    }else {
+                        this.$message.error(resData.data.message);
+                    }
+                }catch (err){
+                    console.log(err)
+                    this.$message.error(`服务器异常，由于 ${err}`);
+                }
+            }else {
+                this.$message.error('两次输入的密码不一致');
+                this.addFromVisible = false
+            }
+
+
         },
-        form1: {
-          name: '',
-          account: '',
-          password:'',
-          phone:'',
-          email:'',
-          delivery: false,
+        handleAddCancel(){
+            this.addFromVisible = false
         },
-        options: [{
-          value: '选项1',
-          label: '按时间由近及远排序'
-        }, {
-          value: '选项2',
-          label: '按时间由远及近排序'
-        }, {
-          value: '选项3',
-          label: '显示非禁用类型公告'
-        }, {
-          value: '选项4',
-          label: '显示禁用类型公告'
-        }],
-        value: '',
-        tableData: [
-        {
-          id: '',
-          name: '张扬果儿',
-          account: '20180564781',
-          email:'123@qq.com',
-          phone:'15544684297',
-          isUse:'否',
+        async handleEdit(row) {
+            let resData = await axios.post('/api/user/getById', {
+                id: row.id
+            });
+            if(resData.data.status === 1){
+                this.editForm = resData.data.user
+            }else {
+                this.$message.error(resData.data.message);
+            }
+            this.editFromVisible = true
         },
-        {
-          id: '',
-          name: '张张',
-          account: '20165841263',
-          email:'123@qq.com',
-          phone:'15544684297',
-          isUse:'是',
-        }
-        ],
-        dialogFormVisible: false,
-        formLabelWidth: '120px',
-        visible2: false,
-      };
-    },
-    async asyncData({}) {
-      let  users  = await axios.get(`/api/user/getAll`)
-      return {
-          tableData: users.data.tableData,
-          options: users.data.userKlasses
-      }
-    },
-    head() {
-        return {
-            title: 'CDMP - 用户管理'
+        async handleEditSubmit(row){
+            let resData = await axios.post('/api/user/modifyById', {
+                user: this.editForm
+            });
+            if(resData.data.status === 1){
+                this.$message({
+                    type: 'success',
+                    message: resData.data.message
+                })
+                window.location.reload()
+            }else {
+                this.$message.error(resData.data.message);
+            }
+            this.editFromVisible = false
+        },
+        handleEditCancle(){
+            this.editFromVisible = false
+        },
+        async handleDelete(row) {
+            try{
+                await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                })
+                let resData = await axios.post('/api/user/deleteById', {
+                    id: row.id
+                })
+                if(resData.data.status === 1){
+                    this.$message({
+                        type: 'success',
+                        message: '成功禁用!'
+                    })
+                    window.location.reload()
+                }else {
+                    this.$message.error(resData.data.message);
+                }
+            }catch (err){
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });
+            }
+        },
+        handleSizeChange(val) {
+            console.log(`每页 ${val} 条`);
+        },
+        handleCurrentChange(val) {
+            console.log(`当前页: ${val}`);
+        },
+        },
+        data() {
+            return {
+                isShow:false,
+                currentPage: 4,
+                centerDialogVisible: false,
+                addForm: {
+                    name: '',
+                    account: '',
+                    password: '',
+                    userType: '',
+                    repeat: '',
+                    phone: '',
+                    email: '',
+                    isUse: false,
+                },
+                editForm: {
+                    id:'',
+                    name: '',
+                    account: '',
+                    userType: '',
+                    phone:'',
+                    email:'',
+                    isUse: false,
+                },
+                userKlasses: [
+                    {
+                        id: '1',
+                        name: '管理员'
+                    },
+                ],
+                value: '',
+                tableData: [
+                    {
+                        id: '1',
+                        name: '张扬果儿',
+                        account: '20180564781',
+                        email:'123@qq.com',
+                        phone:'15544684297',
+                        klass:'',
+                        isUse:'否',
+                    }
+                ],
+                editFromVisible: false,
+                formLabelWidth: '120px',
+                addFromVisible: false,
+                searchInput: '',
+                searchType: '',
+                searchOption: [
+                    {
+                        value: '1',
+                        label: '人员类别'
+                    },
+                    {
+                        value: '2',
+                        label: '用户名'
+                    },
+                    {
+                        value: '3',
+                        label: '注册时间'
+                    }
+                ],
+            };
+        },
+        async asyncData({}) {
+            let  users  = await axios.get(`/api/user/getAll`)
+            return {
+                tableData: users.data.tableData,
+                userKlasses: users.data.userKlasses
+            }
+        },
+        head() {
+            return {
+                title: 'CDMP - 用户管理'
+            }
         }
     }
-  }
 </script>

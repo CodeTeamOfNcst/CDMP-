@@ -110,52 +110,56 @@ exports.getOrCreateData = async ( ctx, next ) => {
  */
 exports.createData = async ( ctx, next ) => {
     try{
-        let admin = await UserKlass.create( { name: '管理员' } )
-        let commonUser = await UserKlass.create( { name: '用户' } )
-        let badGay = await UserKlass.create( { name: '关系用户' } )
+        let admin = await UserKlass.create( { name: '管理员' } );
+        let commonUser = await UserKlass.create( { name: '用户' } );
+        let badGay = await UserKlass.create( { name: '关系用户' } );
 
         let user1 = await User.create( { account: 'haoyiqing', password: '123456', name: '郝一擎', email: '1337074512@qq.com' } )
-        await user1.setUserType(admin)
+        await user1.setUserType(admin);
         let user2 = await User.create( { account: 'zhanglingxue', password: '123456', name: '张凌雪', email: 'zhanglingxue@qq.com' } )
-        await user2.setUserType(commonUser)
+        await user2.setUserType(commonUser);
         let user3 = await User.create( { account: 'wangyangyang', password: '123456', name: '王洋洋', email: 'wangyangyang@qq.com' } )
-        await user3.setUserType(badGay)
+        await user3.setUserType(badGay);
 
-        await Rule.create( { content: '第一条公告', title: '第一条公告'} )
-        await Rule.create( { content: '第二条公告', title: '第二条公告'} )
-        await Rule.create( { content: '第三条公告', title: '第三条公告'} )
+        await Rule.create( { content: '第一条公告', title: '第一条公告'} );
+        await Rule.create( { content: '第二条公告', title: '第二条公告'} );
+        await Rule.create( { content: '第三条公告', title: '第三条公告'} );
 
-        let successMessageType = await MessageKlass.create( { name: '成功' } )
-        let commonMessageType = await MessageKlass.create( { name: '普通消息'} )
-        let failMessageType = await MessageKlass.create( { name: '失败消息'} )
+        let successMessageType = await MessageKlass.create( { name: '成功' } );
+        let commonMessageType = await MessageKlass.create( { name: '普通消息'} );
+        let failMessageType = await MessageKlass.create( { name: '失败消息'} );
 
-        let successMessage = await Message.create( { content: '这是一条成功的消息', isPublished: false, isRead: false } )
-        await successMessage.setMessageType(successMessageType)
-        let commonMessage = await Message.create( { content: '这是一条普通的消息', isPublished: false, isRead: false } )
-        await commonMessage.setMessageType(commonMessageType)
-        let failMessage = await Message.create( { content: '这是一条失败的消息', isPublished: false, isRead: false } )
-        failMessage.setMessageType(failMessageType)
+        let successMessage = await Message.create( { content: '这是一条成功的消息', isPublished: false, isRead: false } );
+        await successMessage.setMessageType(successMessageType);
+        await  successMessage.setMessageUser(user1);
+        let commonMessage = await Message.create( { content: '这是一条普通的消息', isPublished: false, isRead: false } );
+        await commonMessage.setMessageType(commonMessageType);
+        await  commonMessage.setMessageUser(user2);
+        let failMessage = await Message.create( { content: '这是一条失败的消息', isPublished: false, isRead: false } );
+        failMessage.setMessageType(failMessageType);
+        await  failMessage.setMessageUser(user3);
 
-        let computerDeviceType = await DeviceType.create( { name: '计算机系' } )
-        let chemicalDeviceType = await DeviceType.create( { name: '化学系' } )
-        let metallurgicalDeviceType = await DeviceType.create( { name: '冶金系' } )
 
-        let device1 = await Device.create( { name: '计算机系的仪器', description: '这是计算机系的仪器', imgFilePath: '/upload/device/device1' } )
-        await device1.setDeviceType(computerDeviceType)
-        let device2 = await Device.create( { name: '化工系的仪器', description: '这是化工系的仪器', imgFilePath: '/upload/device/device2' } )
-        await device2.setDeviceType(chemicalDeviceType)
-        let device3 = await Device.create( { name: '冶金系的仪器', description: '这是冶金系的仪器', imgFilePath: '/upload/device/device3' } )
-        await device3.setDeviceType(metallurgicalDeviceType)
+        let computerDeviceType = await DeviceType.create( { name: '计算机系' } );
+        let chemicalDeviceType = await DeviceType.create( { name: '化学系' } );
+        let metallurgicalDeviceType = await DeviceType.create( { name: '冶金系' } );
 
-        let apply1 = await Apply.create( { vioReason: 'user1 想要用计算机系的仪器' } )
-        await apply1.setApplyer(user1)
-        await apply1.setApplyDevice(device1)
-        let apply2 = await Apply.create( { vioReason: 'user2 想要用化学系的仪器' } )
-        await apply2.setApplyer(user2)
-        await apply2.setApplyDevice(device2)
-        let apply3 = await Apply.create( { vioReason: 'user3 想要用冶金系的仪器' } )
-        await apply3.setApplyer(user3)
-        await apply3.setApplyDevice(device3)
+        let device1 = await Device.create( { name: '计算机系的仪器', description: '这是计算机系的仪器', imgFilePath: '/upload/device/device1' } );
+        await device1.setDeviceType(computerDeviceType);
+        let device2 = await Device.create( { name: '化工系的仪器', description: '这是化工系的仪器', imgFilePath: '/upload/device/device2' } );
+        await device2.setDeviceType(chemicalDeviceType);
+        let device3 = await Device.create( { name: '冶金系的仪器', description: '这是冶金系的仪器', imgFilePath: '/upload/device/device3' } );
+        await device3.setDeviceType(metallurgicalDeviceType);
+
+        let apply1 = await Apply.create( { vioReason: 'user1 想要用计算机系的仪器' } );
+        await apply1.setApplyer(user1);
+        await apply1.setApplyDevice(device1);
+        let apply2 = await Apply.create( { vioReason: 'user2 想要用化学系的仪器' } );
+        await apply2.setApplyer(user2);
+        await apply2.setApplyDevice(device2);
+        let apply3 = await Apply.create( { vioReason: 'user3 想要用冶金系的仪器' } );
+        await apply3.setApplyer(user3);
+        await apply3.setApplyDevice(device3);
 
     }catch(err){
         ctx.body = {
