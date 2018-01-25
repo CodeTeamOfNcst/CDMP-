@@ -1,24 +1,48 @@
 import Koa from 'koa'
 import { Nuxt, Builder } from 'nuxt'
+import Assert from 'assert'
+import Cors from 'koa2-cors'
 
-/**
-** Use database 
-*/
-const sequelize = require('./dbconfig')
+const path = require('path')
+const logger = require('koa-logger')
+const koaStatic = require('koa-static')
+const session = require('koa-session2')
+const bodyParser = require('koa-bodyparser')
 
-/** 
-** Test connecton 
-*/
-sequelize.authenticate().then(() => {
-  console.log('Connection has been established successfully.')
-}).catch(err => {
-  console.error('Unable to connect to the database', err)
-})
+const database = require('./dbconfig/dbinit')
+const router = require('./router')()
 
 async function start () {
   const app = new Koa()
   const host = process.env.HOST || '127.0.0.1'
   const port = process.env.PORT || 3000
+  const SESSION_CONFIG = {key: 'koa:sess'}
+  /**
+  ** Test connecton
+  */
+  try{
+    await database.sequelize.authenticate()
+    console.log('Connection has been established successfully.')
+  }catch(err){
+    console.error('Unable to connect to the database', err)
+    Assert.ok(false, 'Unable to connect to the database')
+  }
+ 
+  
+  if(process.env.NODE_ENV === "development"){
+    /**
+     ** Sync DB
+    */
+    // await database.sequelize.sync()
+    // console.log("Database Sync successfully")
+  }
+  // init middleware 
+  app.use(logger())
+  app.use(bodyParser())
+  app.use(session(SESSION_CONFIG, app));
+  app.use(koaStatic(__dirname + '/uploads'))
+  app.use(Cors())//允许跨域访问
+  app.use(router.routes()).use(router.allowedMethods())
 
   // Import and Set Nuxt.js options
   let config = require('../nuxt.config.js')
