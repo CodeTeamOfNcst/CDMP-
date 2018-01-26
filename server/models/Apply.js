@@ -18,4 +18,4 @@ module.exports = (sequelize, DataTypes) => {
             //默认添加 createAt 和 updateAt 两个字段 
         }
     )
-}
+};

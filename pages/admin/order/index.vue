@@ -7,18 +7,18 @@
                 trigger="click"
                 v-model="addFromVisible">
             <el-form ref="addForm" :model="addForm" label-width="90px">
-                <el-form-item label="用户名称" >
+                <el-form-item label="申请用户" >
                     <!--<div style="width: 20%;float: left">用户名称</div>-->
                     <el-col :span="18">
                         <el-input v-model="addForm.name" clearable/>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="用户账号">
+                <el-form-item label="申请设备">
                     <el-col :span="18">
                         <el-input v-model="addForm.account" clearable/>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="用户类别">
+                <el-form-item label="开始使用时间">
                     <el-col :span="18">
                         <el-select v-model="addForm.userType" placeholder="请选择用户类别">
                             <el-option
@@ -30,22 +30,22 @@
                         </el-select>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="用户密码">
+                <el-form-item label="结束使用时间">
                     <el-col :span="18">
                         <el-input v-model="addForm.password" clearable type="password"/>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="重复密码">
+                <el-form-item label="申请理由">
                     <el-col :span="18">
                         <el-input v-model="addForm.repeat" clearable type="password"/>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="用户手机号">
+                <el-form-item label="是否同意">
                     <el-col :span="18">
                         <el-input v-model="addForm.phone" clearable/>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="用户邮箱">
+                <el-form-item label="是否可用">
                     <el-col :span="18">
                         <el-input v-model="addForm.email" clearable/>
                     </el-col>
@@ -202,9 +202,6 @@
         min-width:350px;
         height: 100%;
     }
-    .textarea{
-        height: 350px;
-    }
     .announceCont{
         width: 100%;
         margin-top: 5px;
@@ -282,18 +279,14 @@
                     this.$message.error('两次输入的密码不一致');
                     this.addFromVisible = false
                 }
-
-
             },
             handleAddCancel(){
                 this.addFromVisible = false
             },
             handleEdit(row) {
-
                 this.editFromVisible = true
             },
             handleEditSubmit(row){
-
                 this.editFromVisible = false
             },
             handleEditCancle(){
@@ -330,9 +323,10 @@
                 currentPage: 4,
                 centerDialogVisible: false,
                 addForm: {
-                    name: '',
-                    account: '',
-                    password: '',
+                    userName: '',
+                    userId:'',
+                    deviceName: '',
+                    deviceId: '',
                     userType: '',
                     repeat: '',
                     phone: '',
