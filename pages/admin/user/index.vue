@@ -22,10 +22,10 @@
                     <el-col :span="18">
                         <el-select v-model="addForm.userType" placeholder="请选择用户类别">
                             <el-option
-                                    v-for="item in userKlasses"
-                                    :key="item.id"
-                                    :label="item.name"
-                                    :value="item.id">
+                                v-for="item in userKlasses"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
                             </el-option>
                         </el-select>
                     </el-col>
@@ -93,38 +93,38 @@
                         border
                         style="width: 70%;">
                     <el-table-column
-                            prop="id"
+                            prop="user.id"
                             label="用户id"
                             width="110">
                     </el-table-column>
                     <el-table-column
-                            prop="name"
+                            prop="user.name"
                             label="用户名称">
                     </el-table-column>
                     <el-table-column
-                            prop="account"
+                            prop="user.account"
                             label="用户账号"
                             width="170">
                     </el-table-column>
                     <el-table-column
-                            prop="email"
                             label="用户邮箱"
                             width="350">
+                        <template scope="scope">{{ scope.row.user.email || '暂未填写'}}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="phone"
                             label="用户手机号"
                             width="">
+                        <template scope="scope">{{ scope.row.user.phone || '暂未填写'}}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="klass"
                             label="用户类别"
                             width="">
+                        <template scope="scope">{{ scope.row.userType.name || '暂未填写'}}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="isUse"
                             label="是否禁用"
                             width="100">
+                        <template scope="scope">{{ scope.row.user.isUse ? '可用': '禁用'}}</template>
                     </el-table-column>
                     <el-table-column
                             prop="operation"
@@ -310,10 +310,11 @@
         },
         async handleEdit(row) {
             let resData = await axios.post('/api/user/getById', {
-                id: row.id
+                id: row.user.id
             });
             if(resData.data.status === 1){
                 this.editForm = resData.data.user
+                console.log(this.editForm)
             }else {
                 this.$message.error(resData.data.message);
             }
@@ -339,13 +340,13 @@
         },
         async handleDelete(row) {
             try{
-                await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                await this.$confirm('此操作将失效该用户, 是否继续?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'
                 })
                 let resData = await axios.post('/api/user/deleteById', {
-                    id: row.id
+                    id: row.user.id
                 })
                 if(resData.data.status === 1){
                     this.$message({
@@ -376,6 +377,7 @@
                 currentPage: 4,
                 centerDialogVisible: false,
                 addForm: {
+                    id:'',
                     name: '',
                     account: '',
                     password: '',
@@ -403,13 +405,25 @@
                 value: '',
                 tableData: [
                     {
-                        id: '1',
-                        name: '张扬果儿',
-                        account: '20180564781',
-                        email:'123@qq.com',
-                        phone:'15544684297',
-                        klass:'',
-                        isUse:'否',
+                        user: {
+                            account:"haoyiqing",
+                            createdAt:"2018-01-25T04:04:23.000Z",
+                            email:"1337074512@qq.com",
+                            id:1,
+                            isUse:false,
+                            name:"郝一擎",
+                            password:"123456",
+                            phone:null,
+                            updatedAt:"2018-01-25T06:05:46.000Z",
+                            user_type:1
+                        },
+                        userType: {
+                            createdAt:"2018-01-25T04:04:22.000Z",
+                            id:1,
+                            isUse:true,
+                            name:"管理员",
+                            updatedAt:"2018-01-25T04:04:22.000Z"
+                        }
                     }
                 ],
                 editFromVisible: false,
@@ -433,11 +447,16 @@
                 ],
             };
         },
+        mounted() {
+            // 挂载数据
+            this.userKlasses = this.userKlassDetail;
+            this.tableData = this.usersDetail
+        },
         async asyncData({}) {
-            let  users  = await axios.get(`/api/user/getAll`)
+            let  users  = await axios.get(`/api/user/getAll`);
             return {
-                tableData: users.data.tableData,
-                userKlasses: users.data.userKlasses
+                usersDetail: users.data.usersDetail,
+                userKlassDetail: users.data.userKlassDetail
             }
         },
         head() {

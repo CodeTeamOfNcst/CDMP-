@@ -45,30 +45,21 @@ exports.checkAdminLogIn = async ( ctx, next ) => {
 
 exports.getAllUser = async ( ctx, next ) => {
 
-    let Users = await User.findAll()
-    let UserKlasses = await  UserKlass.findAll()
-    let UserKlassDetail = []
-    for(let i = 0; i < UserKlasses.length ; i++ ){
-        UserKlassDetail.push({
-            id: UserKlasses[i].id,
-            name: UserKlasses[i].name
-        })
-    }
-    let UsersDetail = []
-    for(let i = 0; i < Users.length; i ++ ){
+    let Users = await User.findAll();
+    let UserKlasses = await  UserKlass.findAll();
+    let UsersDetail = [];
+    for(let index in Users){
+        let userType = await Users[index].getUserType();
         UsersDetail.push({
-            id: Users[i].id,
-            name: Users[i].name,
-            account: Users[i].account ? Users[i].account : '尚未填写',
-            email: Users[i].email ? Users[i].email :  '尚未填写',
-            phone: Users[i].phone ? Users[i].phone :  '尚未填写',
-            klass: UserKlasses[ Users[i].user_type - 1 ].name,
-            isUse: Users[i].isUse ? '可用': '禁用'
+            user: Users[index],
+            userType: userType
         })
     }
     ctx.body = {
-        tableData: UsersDetail,
-        userKlasses: UserKlassDetail
+        status: 1,
+        message: '获取数据成功',
+        usersDetail: UsersDetail,
+        userKlassDetail: UserKlasses
     }
 };
 
@@ -76,10 +67,11 @@ exports.getUserById = async ( ctx, next ) => {
     let userId = ctx.request.body.id;
 
     try{
-        let user = await User.findOne({ where: {id: userId}});
+        let user = await User.findOne({ where: { id: userId }});
         let userType = await user.getUserType();
         console.log(userType);
         let userData = {
+            id: user.id,
             name: user.name,
             account: user.account,
             userType: userType.id,
@@ -148,8 +140,8 @@ exports.deleteUserById = async ( ctx, next ) => {
 exports.modifyUserById = async ( ctx, next ) => {
     let user = ctx.request.body.user;
     try{
-        let thisUser = await User.findOne({where:{id:user.id}});
-        let thisUserType = await User.findOne({where: {id:user.userType}})
+        let thisUser = await User.findOne({where:{ id:user.id }});
+        let thisUserType = await User.findOne({where: { id:user.userType }});
         await thisUser.update({
             account: user.account,
             name: user.name,
@@ -157,8 +149,8 @@ exports.modifyUserById = async ( ctx, next ) => {
             email: user.email,
             isUse: user.isUse
         })
-        thisUser.setUserType(thisUserType)
-        thisUser.save()
+        thisUser.setUserType(thisUserType);
+        thisUser.save();
 
         ctx.body = {
             status: 1,
@@ -169,5 +161,22 @@ exports.modifyUserById = async ( ctx, next ) => {
             status: 0,
             message: `更新失败， 原因${err}`
         }
+    }
+};
+
+exports.onlyGetAllUser = async ( ctx, next ) => {
+    let users = await User.findAll();
+    let thisUsers = []
+    for(let index in users){
+        thisUsers.push({
+            key: users[index].id + '-' + users[index].name,
+            value: users[index].id
+        })
+    }
+    console.log(thisUsers)
+    ctx.body = {
+        users: thisUsers,
+        status: 1,
+        message: '成功获取用户数据'
     }
 };

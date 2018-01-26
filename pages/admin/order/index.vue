@@ -94,37 +94,37 @@
                         style="width: 70%;">
                     <el-table-column
                             prop="id"
-                            label="用户id"
+                            label="申请id"
                             width="110">
                     </el-table-column>
                     <el-table-column
                             prop="name"
-                            label="用户名称"
+                            label="申请用户"
                             width="110">
                     </el-table-column>
                     <el-table-column
                             prop="account"
-                            label="用户账号"
+                            label="申请设备"
                             width="170">
                     </el-table-column>
                     <el-table-column
                             prop="email"
-                            label="用户邮箱"
+                            label="开始使用时间"
                             width="200">
                     </el-table-column>
                     <el-table-column
                             prop="phone"
-                            label="用户手机号"
+                            label="结束使用时间"
                             width="">
                     </el-table-column>
                     <el-table-column
                             prop="klass"
-                            label="用户类别"
+                            label="申请理由"
                             width="">
                     </el-table-column>
                     <el-table-column
                             prop="isUse"
-                            label="是否禁用"
+                            label="是否同意"
                             width="100">
                     </el-table-column>
                     <el-table-column

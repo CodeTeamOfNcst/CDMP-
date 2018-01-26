@@ -125,7 +125,7 @@ exports.createData = async ( ctx, next ) => {
         await Rule.create( { content: '第二条公告', title: '第二条公告'} );
         await Rule.create( { content: '第三条公告', title: '第三条公告'} );
 
-        let successMessageType = await MessageKlass.create( { name: '成功' } );
+        let successMessageType = await MessageKlass.create( { name: '成功消息' } );
         let commonMessageType = await MessageKlass.create( { name: '普通消息'} );
         let failMessageType = await MessageKlass.create( { name: '失败消息'} );
 

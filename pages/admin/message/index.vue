@@ -17,7 +17,7 @@
                     <el-col :span="11">
                         <el-select v-model="addForm.type" placeholder="请选择消息类别">
                             <el-option
-                                    v-for="item in userKlasses"
+                                    v-for="item in MessageTypes"
                                     :key="item.id"
                                     :label="item.name"
                                     :value="item.id">
@@ -25,14 +25,7 @@
                         </el-select>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="是否已读">
-                    <el-col :span="14">
-                        <el-switch v-model="addForm.isRead"
-                                   active-text="已读"
-                                   inactive-text="未读"
-                        />
-                    </el-col>
-                </el-form-item>
+
                 <el-form-item label="选择发送用户">
                     <el-col :span="18">
                         <el-transfer
@@ -51,8 +44,22 @@
                                inactive-text="禁用"
                     />
                 </el-form-item>
+                <el-form-item label="是否已读">
+                    <el-col :span="14">
+                        <el-switch v-model="addForm.isRead"
+                                   active-text="已读"
+                                   inactive-text="未读"
+                        />
+                    </el-col>
+                </el-form-item>
+                <el-form-item label="是否发布">
+                    <el-switch v-model="addForm.isPublished"
+                               active-text="发布"
+                               inactive-text="未发布"
+                    />
+                </el-form-item>
                 <el-form-item label="消息内容">
-                    <el-input :rows="10" type="textarea" v-model="addForm.content" class="textarea" />
+                    <el-input :rows="1" type="text" v-model="addForm.content" class="textarea" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="handleAdd">添加</el-button>
@@ -64,7 +71,6 @@
             <div class="leftSty"></div>
             <span class="bullCont">消息管理</span>
         </div>
-        <el-row class="headerline"/>
         <div class="announceCont">
             <div class="oneline">
                 <div class="demo-input-suffix search">
@@ -85,7 +91,7 @@
                     </el-select>
                 </div>
                 <div class="add">
-                    <el-button v-popover:popover4 class="addContent">添加</el-button>
+                    <el-button v-popover:popover4 class="addContent" @click="handleAddOpen">新增</el-button>
                 </div>
             </div>
             <div class="table">
@@ -94,39 +100,45 @@
                         border
                         style="width: 70%;">
                     <el-table-column
-                            prop="id"
+                            prop="message.id"
                             label="消息id"
                             width="110">
                     </el-table-column>
                     <el-table-column
-                            prop="type"
+                            prop="messageTypeName"
                             label="消息类别"
                             width="110">
                     </el-table-column>
                     <el-table-column
-                            prop="publishDate"
+                            prop="message.publishDate"
                             label="消息发布日期"
-                            width="170">
+                            width="150">
                     </el-table-column>
                     <el-table-column
-                            prop="isPublished"
                             label="消息是否发布"
+                            width="120">
+                        <template scope="scope">{{ scope.row.message.isPublished ? '已发布': '未发布'}}</template>
+                    </el-table-column>
+                    <el-table-column
+                            prop="messageUserName"
+                            label="用户"
+                            width="100">
+                    </el-table-column>
+                    <el-table-column
+                            fit="false"
+                            label="消息内容"
                             width="200">
+                        <template scope="scope">{{ scope.row.message.content.substr(0,10)}}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="user"
-                            label="消息对应用户"
-                            width="">
+                            label="已读"
+                            width="100">
+                        <template scope="scope">{{ scope.row.message.isRead ? '是': '否'}}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="isRead"
-                            label="消息是否已读"
-                            width="">
-                    </el-table-column>
-                    <el-table-column
-                            prop="isUse"
                             label="是否禁用"
                             width="100">
+                        <template scope="scope">{{ scope.row.message.isUse ? '可用': '不可用'}}</template>
                     </el-table-column>
                     <el-table-column
                             prop="operation"
@@ -140,39 +152,44 @@
                 </el-table>
             </div>
             <el-dialog title="编辑消息" :visible.sync="editFromVisible">
-                <el-form ref="form" :model="editForm" label-width="90px">
-                    <el-form-item label="消息类别" >
-                        <el-col :span="18">
-                            <el-input v-model="editForm.type" clearable />
+                <el-form ref="form" :model="editForm" label-width="110px">
+                    <el-form-item label="消息类别">
+                        <el-col :span="11">
+                            <el-select v-model="editForm.type" placeholder="请选择消息类别">
+                                <el-option
+                                        v-for="item in userKlasses"
+                                        :key="item.id"
+                                        :label="item.name"
+                                        :value="item.id">
+                                </el-option>
+                            </el-select>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="消息发布日期">
-                        <el-col :span="18">
-                            <el-input v-model="editForm.publishDate" clearable />
+                        <el-col :span="11">
+                            <el-date-picker type="date" placeholder="选择日期" v-model="editForm.publishDate" style="width: 100%;"></el-date-picker>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="消息用户">
                         <el-col :span="18">
-                            <el-autocomplete
-                                    v-model="editForm.user"
-                                    :fetch-suggestions="findUserSearchAsync"
-                                    placeholder="请输入内容"
-                                    @select="handleSelectUser"
-                            />
+                            <el-input v-model="editForm.user" disabled="true"/>
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="用户手机号">
+                    <el-form-item label="消息内容">
                         <el-col :span="18">
-                            <el-input v-model="editForm.phone" clearable />
+                            <el-input v-model="editForm.content" clearable />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="用户邮箱">
+                    <el-form-item label="是否已读">
                         <el-col :span="18">
-                            <el-input v-model="editForm.email" clearable />
+                            <el-switch v-model="editForm.isRead" />
                         </el-col>
                     </el-form-item>
                     <el-form-item label="禁用标识">
                         <el-switch v-model="editForm.isUse" />
+                    </el-form-item>
+                    <el-form-item label="是否发布">
+                        <el-switch v-model="editForm.isPublished" />
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -200,9 +217,6 @@
         width: 100%;
         min-width:350px;
         height: 100%;
-    }
-    .textarea{
-        height: 350px;
     }
     .announceCont{
         width: 100%;
@@ -270,52 +284,91 @@
         components: {ElButton},
         layout: 'admina',
         methods: {
-            handleSelectUser(){
-
-            },
-            findUserSearchAsync(){
-
-            },
             userFilterMethod(query, item){
-                return item.label.indexOf(query) > -1
+                return item.key.indexOf(query) > -1;
             },
-            handleAdd(){
-                if( this.addForm.password === this.addForm.repeat ){
-                    let letPostData = {
-                        name: this.addForm.name,
-                        account: this.addForm.account,
-                        password: this.addFrom.password,
+            handleAddOpen() {
+
+            },
+            async handleAdd(){
+                if( this.addForm.selected_user.length !== 0){
+                    let resData = await axios.post('api/message/add', {
+                        message: this.addForm
+                    });
+                    if(resData.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: resData.data.message
+                        });
+                        window.location.reload()
+                    }else{
+                        this.$message.error(resData.data.message);
                     }
                 }else {
-                    this.$message.error('两次输入的密码不一致');
+                    this.$message.error('至少选择一个用户');
                     this.addFromVisible = false
                 }
             },
             handleAddCancel(){
+                console.log(this.addForm.selected_user);
                 this.addFromVisible = false
             },
-            handleEdit(row) {
-
+            async handleEdit(row) {
+                let resData = await axios.post('/api/message/getById', {
+                    id: row.message.id
+                });
+                if(resData.data.status === 1){
+                    this.editForm.id = row.message.id;
+                    this.editForm.type = resData.data.thisMessage.message_type;
+                    this.editForm.user = resData.data.user;
+                    this.editForm.publishDate = resData.data.thisMessage.publishDate;
+                    this.editForm.isPublished = resData.data.thisMessage.isPublished;
+                    this.editForm.isRead = resData.data.thisMessage.isRead;
+                    this.editForm.isUse = resData.data.thisMessage.isUse;
+                    this.editForm.content = resData.data.thisMessage.content;
+                    console.log(this.editForm)
+                }else {
+                    this.$message.error(resData.data.message)
+                }
                 this.editFromVisible = true
             },
-            handleEditSubmit(row){
-
+            async handleEditSubmit(){
+                let resData = await axios.post('/api/message/modifyById',{
+                    message: this.editForm
+                });
+                if(resData.data.status === 1){
+                    this.$message({
+                        type: 'success',
+                        message: resData.data.message
+                    });
+                    window.location.reload()
+                }else {
+                    this.$message.error(resData.data.message)
+                }
                 this.editFromVisible = false
             },
             handleEditCancle(){
                 this.editFromVisible = false
             },
-            async handleDelete() {
+            async handleDelete(row) {
                 try{
-                    await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    await this.$confirm('此操作将使该记录失效, 是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
-                    })
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    })
+                    });
+                    let resData = await axios.post('/api/message/deleteById',{
+                        id: row.message.id
+                    });
+                    if(resData.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: resData.data.message
+                        })
+                        window.location.reload()
+                    }else {
+                        this.$message.error(resData.data.message)
+                    }
                 }catch (err){
                     this.$message({
                         type: 'info',
@@ -336,12 +389,13 @@
                 currentPage: 4,
                 centerDialogVisible: false,
                 addForm: {
-                    selected_user: [],
-                    content: '',
-                    type: '',
                     publishDate: '',
+                    type: '',
+                    selected_user: [],
                     isUse: false,
-                    isRead: false
+                    isRead: false,
+                    isPublished: false,
+                    content: '',
                 },
                 editForm: {
                     id: '',
@@ -349,11 +403,11 @@
                     user: '',
                     publishDate: '',
                     content: '',
-                    password: '',
-                    phone: '',
-                    email: '',
+                    isPublished: '',
+                    isRead: '',
                     isUse: false,
                 },
+                //
                 userKlasses: [
                     {
                         id: '选项1',
@@ -366,24 +420,17 @@
                         type: '成功消息',
                         publishDate:'2017-08-26',
                         isPublished: '已发布',
-                        user: '张凌雪',
+                        content: '这是一条系统消息',
+                        name: '张凌雪',
                         isRead:'未读',
                         isUse:'否',
                     }
                 ],
                 userTransferData:[
                     {
-                        key: '2',
-                        label: '张凌雪',
-                    },
-                    {
-                        key: '3',
-                        label: '王洋洋',
-                    },
-                    {
-                        key: '1',
-                        label: '郝一擎',
-                    },
+                        key: '',
+                        label: ''
+                    }
                 ],
                 editFromVisible: false,
                 formLabelWidth: '120px',
@@ -400,13 +447,41 @@
                         label: '用户名'
                     }
                 ],
+                // 从数据库加载的数据， 这里只是数据的格式
+                Messages: [
+                    {
+                        message: {
+                            content:"这是一条成功的消息",
+                            createdAt:"2018-01-25",
+                            id:1,
+                            isPublished:false,
+                            isRead: false,
+                            isUse:true,
+                            message_type:1,
+                            message_user:1,
+                            publishDate:"2018-01-25T12:04:23.000Z",
+                            updatedAt:"2018-01-25T12:04:23.000Z",
+                        },
+                        messageTypeName: '成功消息',
+                        messageUserName: '张凌雪'
+                    },
+                ],
+                MessageTypes: []
             };
         },
+        mounted() {
+            // 将信息挂载
+            this.tableData = this.Messages;
+        },
         async asyncData({}) {
-            let  users  = await axios.get(`/api/user/getAll`)
-            return {
-                tableData: users.data.tableData,
-                userKlasses: users.data.userKlasses
+            let  resData  = await axios.get(`/api/message/getAll`);
+            let resUserData = await axios.get('/api/user/onlyAll');
+            if(resData.data.status === 1 && resUserData.data.status === 1){
+                return {
+                    Messages: resData.data.Messages,
+                    MessageTypes: resData.data.MessageTypes,
+                    userTransferData: resUserData.data.users
+                }
             }
         },
         head() {

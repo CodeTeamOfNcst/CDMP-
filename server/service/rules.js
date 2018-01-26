@@ -1,5 +1,4 @@
 import { Rule } from '../dbconfig/dbinit'
-import moment from "moment";
 
 exports.addRule = async ( ctx, next ) => {
     let postData = ctx.request.body
@@ -34,7 +33,7 @@ exports.getAllRules = async ( ctx, next ) => {
                 title: rules[i].title,
                 content: rules[i].content,
                 isUse: rules[i].isUse ? '可用': '禁用',
-                publishDate: moment(rules[i].publishDate).format('YYYY-MM-DD'),
+                publishDate: rules[i].publishDate,
             })
         }
         ctx.body = {
