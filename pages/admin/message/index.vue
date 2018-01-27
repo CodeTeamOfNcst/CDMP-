@@ -171,9 +171,11 @@
                         </el-col>
                     </el-form-item>
                     <el-form-item label="消息用户">
-                        <el-col :span="18">
-                            <el-input v-model="editForm.user" disabled="true"/>
-                        </el-col>
+                        <div style="width: 60%;">
+                            <el-col :span="18">
+                                <el-input v-model="editForm.user" disabled="true"/>
+                            </el-col>
+                        </div>
                     </el-form-item>
                     <el-form-item label="消息内容">
                         <el-col :span="18">
@@ -216,6 +218,12 @@
         min-width:350px;
         height: 100%;
     }
+    .el-col-14 {
+        width: 45%;
+    }
+    .el-col-11 {
+        width: 45%;
+    }
     .announceCont{
         width: 100%;
         margin-top: 5px;
@@ -226,13 +234,6 @@
     .oneline{
         width: 100%;
         height:60px;
-    }
-    .add{
-        width: 5%;
-        min-width: 31px;
-        height: 40px;
-        float: left;
-        z-index: 9999;
     }
     .addContent{
         width: 100%;
@@ -245,7 +246,6 @@
         min-width: 120px;
         height: 40px;
         float: left;
-        margin-left: 10px;
         z-index: 9999;
     }
     .select{
