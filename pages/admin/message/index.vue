@@ -199,13 +199,11 @@
             </el-dialog>
             <div class="page">
                 <el-pagination
-                        @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage"
-                        :page-sizes="[10, 20, 30, 40]"
+                        :current-page.sync="currentPage"
                         :page-size="10"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="40">
+                        layout="total, prev, pager, next"
+                        :total="itemCounts">
                 </el-pagination>
             </div>
         </div>
@@ -376,18 +374,20 @@
                     });
                 }
             },
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+            async handleCurrentChange(val) {
+                let resData = await axios.get(`/api/message/getAll/${val}`)
+                if(resData.data.status === 1){
+                    this.tableData = resData.data.Messages;
+                }else {
+                    this.$message.error(resData.data.message)
+                }
             },
         },
         data() {
             return {
                 isShow:false,
                 currentPage: 4,
-                centerDialogVisible: false,
+                itemCounts: null,
                 addForm: {
                     publishDate: '',
                     type: '',
@@ -472,12 +472,14 @@
         mounted() {
             // 将信息挂载
             this.tableData = this.Messages;
+            this.itemCounts = this.counts;
         },
         async asyncData({}) {
-            let  resData  = await axios.get(`/api/message/getAll`);
+            let  resData  = await axios.get(`/api/message/getAll/1`);
             let resUserData = await axios.get('/api/user/onlyAll');
             if(resData.data.status === 1 && resUserData.data.status === 1){
                 return {
+                    counts: resData.data.counts,
                     Messages: resData.data.Messages,
                     MessageTypes: resData.data.MessageTypes,
                     userTransferData: resUserData.data.users

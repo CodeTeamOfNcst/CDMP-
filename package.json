@@ -28,6 +28,7 @@
     "koa-session2": "^2.2.5",
     "koa-static": "^4.0.2",
     "koa2-cors": "^2.0.5",
+    "math": "^0.0.3",
     "moment": "^2.20.1",
     "multer": "^1.3.0",
     "mysql2": "^1.5.1",

@@ -120,13 +120,11 @@
             </el-dialog>
             <div class="page">
                 <el-pagination
-                        @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage"
-                        :page-sizes="[10, 20, 30, 40]"
+                        :current-page.sync="currentPage"
                         :page-size="10"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="40">
+                        layout="total, prev, pager, next"
+                        :total="itemCounts">
                 </el-pagination>
             </div>
         </div>
@@ -297,18 +295,20 @@
                     });
                 }
             },
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+            async handleCurrentChange(val) {
+                let resData = await axios.get(`/api/rule/getAll/${val}`)
+                if(resData.data.status === 1){
+                    this.tableData = resData.data.rulesDetail;
+                }else {
+                    this.$message.error(resData.data.message)
+                }
             },
         },
         data() {
             return {
-                isShow:false,
+                isShow: false,
                 currentPage: 4,
-                input10: '',
+                itemCounts: null,
                 centerDialogVisible: false,
                 addForm: {
                     publishDate: '',
@@ -358,12 +358,18 @@
             }
         },
         async asyncData(){
-            let resData = await axios.get('/api/rule/getAll')
+            let resData = await axios.get('/api/rule/getAll/1');
             if( resData.data.status === 1 ){
                 return{
-                    tableData: resData.data.rulesDetail
+                    counts: resData.data.counts,
+                    rules: resData.data.rulesDetail
                 }
             }
+        },
+        mounted(){
+            this.itemCounts = this.counts;
+            this.tableData = this.rules;
+            this.itemCounts = this.counts;
         }
 
     }

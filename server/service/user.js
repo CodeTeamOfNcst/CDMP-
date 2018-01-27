@@ -1,6 +1,7 @@
 import { User, UserKlass } from '../dbconfig/dbinit'
-import moment from 'moment'
+import math from 'math'
 
+const ItemPerPage = 10 ;
 exports.logIn = async ( ctx, next ) => {
     let account = ctx.request.body.account
     let password = ctx.request.body.passwd
@@ -45,7 +46,7 @@ exports.checkAdminLogIn = async ( ctx, next ) => {
 
 exports.getAllUser = async ( ctx, next ) => {
 
-    let Users = await User.findAll();
+    let Users = await User.findAll({ offset: (parseInt(ctx.params.page || 1) - 1) * ItemPerPage, limit: ItemPerPage });
     let UserKlasses = await  UserKlass.findAll();
     let UsersDetail = [];
     for(let index in Users){
@@ -55,7 +56,9 @@ exports.getAllUser = async ( ctx, next ) => {
             userType: userType
         })
     }
+    let count = await User.count();
     ctx.body = {
+        counts: count,
         status: 1,
         message: '获取数据成功',
         usersDetail: UsersDetail,

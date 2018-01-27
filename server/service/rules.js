@@ -1,5 +1,7 @@
 import { Rule } from '../dbconfig/dbinit'
+import math from 'math'
 
+const ItemPerPage = 10 ;
 exports.addRule = async ( ctx, next ) => {
     let postData = ctx.request.body
     try{
@@ -24,7 +26,7 @@ exports.addRule = async ( ctx, next ) => {
 };
 
 exports.getAllRules = async ( ctx, next ) => {
-    let rules = await Rule.findAll()
+    let rules = await Rule.findAll({ offset: (parseInt(ctx.params.page || 1) - 1) * ItemPerPage, limit: ItemPerPage });
     try{
         let rulesDetail = []
         for(let i = 0; i < rules.length; i++){
@@ -36,7 +38,9 @@ exports.getAllRules = async ( ctx, next ) => {
                 publishDate: rules[i].publishDate,
             })
         }
+        let count = await Rule.count();
         ctx.body = {
+            counts: count,
             rulesDetail: rulesDetail,
             status: 1,
             message: '从服务端获取所有数据成功'

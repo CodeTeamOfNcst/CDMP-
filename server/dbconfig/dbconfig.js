@@ -25,6 +25,6 @@ const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
     },
     timezone: '+08:00',
 
-})
+});
 
-module.exports = sequelize
+module.exports = sequelize;

@@ -11,6 +11,7 @@ const Rule = sequelize.import('../server/models/Rule')
 const User = sequelize.import('../server/models/User')
 const UserKlass = sequelize.import('../server/models/UserKlass')
 
+
 Message.belongsTo(MessageKlass, {as: "MessageType", foreignKey: 'message_type', foreignKeyContraints: false})
 MessageKlass.hasOne(Message, {as: "Message", foreignKey: 'message_type', foreignKeyContraints:false})
 
@@ -39,6 +40,6 @@ module.exports = {
     Rule,
     User,
     UserKlass,
-    
+
     sequelize
 }

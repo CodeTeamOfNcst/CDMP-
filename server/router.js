@@ -24,7 +24,7 @@ module.exports = () => {
 
 
     // 设备管理相关
-    router.get( '/device/getAll', getAllDevice );
+    router.get( '/device/getAll/:page?', getAllDevice );
     router.get('/device/onlyAll', onluGetAllDevice );
     router.post( '/device/add', addDevice );
     router.post( '/device/getById', getDeviceById );
@@ -32,7 +32,7 @@ module.exports = () => {
     router.post( '/device/deleteById', delteDeviceById );
 
     // 人员管理相关
-    router.get('/user/getAll', getAllUser );
+    router.get('/user/getAll/:page?', getAllUser );
     router.get('/user/onlyAll', onlyGetAllUser );
     router.post('/user/add', addUser );
     router.post('/user/getById', getUserById );
@@ -40,21 +40,21 @@ module.exports = () => {
     router.post('/user/deleteById', deleteUserById );
 
     // 公告管理相关
-    router.get('/rule/getAll', getAllRules );
+    router.get('/rule/getAll/:page?', getAllRules );
     router.post('/rule/add', addRule );
     router.post('/rule/getById', getRuleById );
     router.post('/rule/modifyById', modifyRule );
     router.post('/rule/deleteById', deleteRule );
 
     // 消息管理相关
-    router.get('/message/getAll', getAllMessage );
+    router.get('/message/getAll/:page?', getAllMessage );
     router.post('/message/add', addMessage );
     router.post('/message/getById', getMessageById );
     router.post('/message/modifyById', modifyMessageById );
     router.post('/message/deleteById', deletseMessageById );
 
     // 预约申请管理
-    router.get('/apply/getAll', getAllApply );
+    router.get('/apply/getAll/:page?', getAllApply );
     router.post('/apply/add', addApply );
     router.post('/apply/getById', getApplyById );
     router.post('/apply/modifyById', modifyApplyById );

@@ -1,5 +1,6 @@
 import { Device, DeviceType } from '../dbconfig/dbinit'
 
+const ItemPerPage = 10 ;
 exports.addDevice = async ( ctx, next ) => {
     let postData = ctx.request.body;
     console.log(postData);
@@ -126,7 +127,7 @@ exports.getDeviceById = async ( ctx, next ) => {
 };
 
 exports.getAllDevice = async ( ctx, next ) => {
-    let devices = await Device.findAll();
+    let devices = await Device.findAll({ offset: (parseInt(ctx.params.page || 1) - 1) * ItemPerPage, limit: ItemPerPage });
     let devicesType = await DeviceType.findAll();
     let Devices = [];
     let DevicesTypes = [];
@@ -146,8 +147,12 @@ exports.getAllDevice = async ( ctx, next ) => {
             label: devicesType[i].name
         })
     }
-
+    let count = await Device.count();
+    console.log(count);
     ctx.body ={
+        status: 1,
+        message: '成功获取数据',
+        counts: count,
         Devices: Devices,
         DeviceTypes: DevicesTypes
     }
