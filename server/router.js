@@ -2,11 +2,11 @@ import Router from 'koa-router'
 
 import { testGetData, AddUser, addDataToDataBase, getOrCreateData, createData } from './service/test_service'
 import { logIn }from './service/user'
-import { getAllDevice, addDevice, getDeviceById, modifyDeviceById, delteDeviceById } from './service/device'
+import { getAllDevice, addDevice, getDeviceById, modifyDeviceById, delteDeviceById, onluGetAllDevice } from './service/device'
 import { getAllUser, deleteUserById, getUserById, addUser, modifyUserById, onlyGetAllUser } from './service/user'
 import { getAllRules, addRule, deleteRule, modifyRule, getRuleById } from './service/rules'
 import { getAllMessage,addMessage, getMessageById, modifyMessageById, deletseMessageById } from './service/message'
-
+import { getAllApply, addApply, getApplyById, modifyApplyById, deleteApplyById } from './service/apply'
 /**
  * 全局 service router 定义
  */
@@ -25,6 +25,7 @@ module.exports = () => {
 
     // 设备管理相关
     router.get( '/device/getAll', getAllDevice );
+    router.get('/device/onlyAll', onluGetAllDevice );
     router.post( '/device/add', addDevice );
     router.post( '/device/getById', getDeviceById );
     router.post( '/device/modifyById', modifyDeviceById );
@@ -51,6 +52,13 @@ module.exports = () => {
     router.post('/message/getById', getMessageById );
     router.post('/message/modifyById', modifyMessageById );
     router.post('/message/deleteById', deletseMessageById );
+
+    // 预约申请管理
+    router.get('/apply/getAll', getAllApply );
+    router.post('/apply/add', addApply );
+    router.post('/apply/getById', getApplyById );
+    router.post('/apply/modifyById', modifyApplyById );
+    router.post('/apply/deleteById', deleteApplyById );
 
     return router
 };
