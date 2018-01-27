@@ -8,10 +8,11 @@
                         <el-col :span="8"><div class="grid-content bg-purple">
                                 <div class="orderbefore"></div>
                                 <span class="order"> <i class="el-icon-d-arrow-right"></i> 通知公告</span>
-                                <el-row class="headerline">
-                                    <el-col :span="24"></el-col>
-                                </el-row>
+
                             </div>
+                            <!--<el-row class="headerline">-->
+                                <!--<el-col :span="24"></el-col>-->
+                            <!--</el-row>-->
                             <div >
                                 <el-row class="mt-lcontent">
                                     <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">学校关于放假期间仪器归还问题（2018.01.15）</a></div></el-col>
@@ -36,20 +37,20 @@
                         <el-col :span="8"><div class="grid-content bg-purple-light">
                             <div class="orderbefore"></div>
                             <span class="order"> <i class="el-icon-d-arrow-right"></i> 图片展示</span>
-                            <el-row class="headerline">
-                                <el-col :span="24"></el-col>
-                            </el-row>
+                            <!--<el-row class="headerline">-->
+                                <!--<el-col :span="24"></el-col>-->
+                            <!--</el-row>-->
                         </div></el-col>
                         <el-col :span="8"><div class="grid-content bg-purple" v-show="login_show">
-                            <div class="orderbefore"></div>
-                            <span class="order"> <i class="el-icon-d-arrow-right"></i> 登录</span>
-                            <el-row class="headerline">
-                                <el-col :span="24"></el-col>
-                            </el-row>
+                            <!--<div class="orderbefore"></div>-->
+                            <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 登录</span>-->
+                            <!--<el-row class="headerline">-->
+                                <!--<el-col :span="24"></el-col>-->
+                            <!--</el-row>-->
                             <div class="login">
                                 <el-tabs v-model="activeName">
                                     <el-tab-pane  label="登录" name="first" label-width="80px">
-                                        <el-form  class="loginform" label-width="80px">
+                                        <el-form  class="loginform" label-width="60px">
                                             <el-form-item label="账号">
                                                 <el-input class="input1" v-model="account"/>
                                             </el-form-item>
@@ -60,21 +61,21 @@
                                         <el-button class="loginbutton" type="primary" v-on:click="handleUserLogin">登录</el-button>
                                     </el-tab-pane>
                                     <el-tab-pane label="注册" name="second" label-width="80px">
-                                        <el-form class="loginform" label-width="80px">
+                                        <el-form class="loginform" label-width="70px">
                                             <el-form-item label="账号">
                                                 <el-input class="input1" v-model="account"/>
                                             </el-form-item>
                                             <el-form-item label="密码">
                                                 <el-input class="input1" v-model="password"/>
                                             </el-form-item>
-                                            <el-form-item label="重复">
+                                            <el-form-item label="确认密码">
                                                 <el-input class="input1" v-model="repeat_password"/>
                                             </el-form-item>
                                             <el-button class="loginbutton" type="primary">注册</el-button>
                                         </el-form>
                                     </el-tab-pane>
                                     <el-tab-pane label="管理员登录" name="third" label-width="80px">
-                                        <el-form class="loginform" label-width="80px">
+                                        <el-form class="loginform" label-width="60px">
                                             <el-form-item label="账号">
                                                 <el-input class="input1" v-model="account"/>
                                             </el-form-item>
@@ -92,19 +93,19 @@
                 </div>
             </el-col>
         </el-row>
-        <el-row>
-            <el-col :span="24">
-                <div class="grid-content bg-purple-dark main-middle">
-                    <el-col :span="8"><div class="grid-content bg-purple">
-                        <div class="orderbefore"></div>
-                        <span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>
-                        <el-row class="headerline">
-                            <el-col :span="24"></el-col>
-                        </el-row>
-                    </div></el-col>
-                </div>
-            </el-col>
-        </el-row>
+        <!--<el-row>-->
+            <!--<el-col :span="24">-->
+                <!--<div class="grid-content bg-purple-dark main-middle">-->
+                    <!--<el-col :span="8"><div class="grid-content bg-purple">-->
+                        <!--<div class="orderbefore"></div>-->
+                        <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>-->
+                        <!--<el-row class="headerline">-->
+                            <!--<el-col :span="24"></el-col>-->
+                        <!--</el-row>-->
+                    <!--</div></el-col>-->
+                <!--</div>-->
+            <!--</el-col>-->
+        <!--</el-row>-->
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-footer">
@@ -179,6 +180,7 @@
     }
     .main-top{
         height:400px;
+        margin-top: 50px;
     }
     /*.top-content{*/
         /*margin-top: 50px;*/
@@ -218,8 +220,8 @@
         margin:45px 0 0 10px;
     }
     .login{
-        width: 350px;
-        margin:40px 0 0 50px;
+        width: 330px;
+        margin:40px 0 0 5px;
         height:300px;
         /*background-color: #41B883;*/
     }
@@ -236,12 +238,18 @@
         width: 250px;
 
     }
+    .loginform{
+        margin-top:30px;
+    }
     .loginbutton{
-        margin-left: 100px;
+        margin-left: 130px;
     }
     .el-tabs__nav-wrap{
         width:300px;
     }
+    /*.headerline{*/
+        /*margin-top: 50px;*/
+    /*}*/
 </style>
 <script>
     import axios from 'axios'

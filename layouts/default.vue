@@ -49,7 +49,7 @@
     /*border: 2px solid #063961;*/
     text-decoration: none;
     text-transform: uppercase;
-    padding: 15px 49px;
+    padding: 15px 2.1%;
   }
   .button:hover, .button:focus
   {
