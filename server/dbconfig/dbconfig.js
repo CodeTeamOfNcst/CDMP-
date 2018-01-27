@@ -10,7 +10,7 @@ import Sequelize from 'sequelize'
 
 const DATABASE = 'cdmp'
 const USERNAME = 'root'
-const PASSWORD = 'admin'
+const PASSWORD = '123456'
 const DBHOST=  '127.0.0.1'      
 
 const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
@@ -25,6 +25,6 @@ const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
     },
     timezone: '+08:00',
 
-})
+});
 
-module.exports = sequelize
+module.exports = sequelize;

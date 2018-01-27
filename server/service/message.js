@@ -1,5 +1,7 @@
 import { Message, MessageKlass, User, UserKlass } from '../dbconfig/dbinit'
+import math from 'math'
 
+const ItemPerPage = 10 ;
 exports.addMessage = async ( ctx, next ) => {
     let message = ctx.request.body.message;
     try{
@@ -94,7 +96,7 @@ exports.modifyMessageById = async ( ctx, next ) => {
  */
 exports.getAllMessage = async ( ctx, next ) => {
 
-    let messages = await Message.findAll();
+    let messages = await Message.findAll({ offset: (parseInt(ctx.params.page || 1) - 1) * ItemPerPage, limit: ItemPerPage });
     let messageTypes = await MessageKlass.findAll()
     let Messages = [];
     // 格式化返回的数据
@@ -107,7 +109,9 @@ exports.getAllMessage = async ( ctx, next ) => {
             messageUserName: messageUser.name
         });
     }
+    let count = await Message.count()
     ctx.body = {
+        counts: count,
         MessageTypes: messageTypes,
         Messages: Messages,
         status: 1,

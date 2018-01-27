@@ -31,7 +31,7 @@
                         </el-select>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="结束使用时间">
+                <el-form-item label="使用时间">
                     <el-date-picker
                             v-model="addForm.date"
                             type="daterange"
@@ -149,41 +149,41 @@
                 <el-form ref="form" :model="editForm" label-width="90px">
                     <el-form-item label="申请人" >
                         <el-col :span="18">
-                            <el-input v-model="editForm.name" clearable />
+                            <el-input v-model="editForm.user"  :disabled="true"/>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="申请设备">
                         <el-col :span="18">
-                            <el-input v-model="editForm.account" clearable />
+                            <el-input v-model="editForm.device"  :disabled="true"/>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="开始时间">
                         <el-col :span="18">
-                            <el-select v-model="editForm.userType" placeholder="请选择用户类别">
-                                <el-option
-                                        v-for="item in users"
-                                        :key="item.id"
-                                        :label="item.name"
-                                        :value="item.id">
-                                </el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                    <el-form-item label="结束时间">
-                        <el-col :span="18">
-                            <el-input v-model="editForm.phone" clearable />
+                            <el-date-picker
+                                    v-model="editForm.date"
+                                    type="daterange"
+                                    range-separator="至"
+                                    start-placeholder="开始使用日期"
+                                    end-placeholder="结束使用日期">
+                            </el-date-picker>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="申请理由">
                         <el-col :span="18">
-                            <el-input v-model="editForm.email" clearable />
+                            <el-input v-model="editForm.vioReason" clearable type="textarea"/>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="是否同意">
-                        <el-switch v-model="editForm.isUse" />
+                        <el-switch v-model="editForm.isAgree"
+                                   active-text="同意"
+                                   inactive-text="拒绝"
+                        />
                     </el-form-item>
                     <el-form-item label="是否禁用">
-                        <el-switch v-model="editForm.isUse" />
+                        <el-switch v-model="editForm.isUse"
+                                   active-text="可用"
+                                   inactive-text="禁用"
+                        />
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -193,13 +193,11 @@
             </el-dialog>
             <div class="page">
                 <el-pagination
-                        @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage"
-                        :page-sizes="[10, 20, 30, 40]"
+                        :current-page.sync="currentPage"
                         :page-size="10"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="40">
+                        layout="total, prev, pager, next"
+                        :total="itemCounts">
                 </el-pagination>
             </div>
         </div>
@@ -290,14 +288,15 @@
             },
             async handleAdd(){
                 // 之后要加上手动验证逻辑
-                let resData = axios.post('api/device/add', {
+                let resData = await axios.post('api/apply/add', {
                     device: this.addForm
                 });
-                if(resData.data.status === 1){
+                if( resData.data.status === 1){
                     this.$message({
                         message: resData.data.message,
                         type: 'success'
                     });
+                    window.location.reload()
                 }else {
                     this.$message.error(resData.data.message)
                 }
@@ -310,47 +309,79 @@
                     id: row.apply.id
                 });
                 if( resData.data.status === 1){
+                    this.editForm.id = resData.data.apply.id;
+                    this.editForm.user = resData.data.applyUser.name;
+                    this.editForm.device = resData.data.applyDevice.name;
+                    this.editForm.date = [resData.data.apply.startDate, resData.data.apply.endDate];
+                    this.editForm.vioReason= resData.data.apply.vioReason;
+                    this.editForm.isAgree= resData.data.apply.isAgree;
+                    this.editForm.isUse= resData.data.apply.isUse;
+
                     this.editFromVisible = true
                 }else {
                     this.$message.error(resData.data.message)
                 }
             },
-            handleEditSubmit(){
+            async handleEditSubmit(){
+                let resData = await axios.post('/api/apply/modifyById', {
+                    apply: this.editForm
+                });
+                if(resData.data.status === 1){
+                    this.$message({
+                        type: 'success',
+                        message: resData.data.message
+                    });
+                    window.location.reload()
+                }else {
+                    this.$message.error(resData.data.message);
+                }
                 this.editFromVisible = false
             },
             handleEditCancle(){
                 this.editFromVisible = false
             },
-            async handleDelete() {
+            async handleDelete(row) {
                 try{
-                    await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    await this.$confirm('此操作将禁用该用户, 是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
                     });
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    })
-                }catch (err){
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
+                    let resData = await axios.post('/api/apply/deleteById', {
+                        id: row.apply.id
                     });
+                    if(resData.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: resData.data.message
+                        });
+                        window.location.reload()
+                    }else {
+                        this.$message.error(resData.data.message);
+                    }
+                }catch (err){
+                    this.$message.error('已取消');
                 }
             },
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+            async handleCurrentChange(val) {
+                let resData = await axios.get(`/api/apply/getAll/${val}`);
+                if(resData.data.status === 1){
+                    this.tableData = resData.data.applys
+                }else {
+                    this.$message.error(resData.data.message)
+                }
             },
         },
         data() {
             return {
                 isShow:false,
-                currentPage: 4,
-                centerDialogVisible: false,
+                currentPage: 1,
+                itemCounts:1,
+                editFromVisible: false,
+                formLabelWidth: '120px',
+                addFromVisible: false,
+                searchInput: '',
+                searchType: '',
                 addForm: {
                     user: '',
                     device:'',
@@ -361,12 +392,12 @@
 
                 },
                 editForm: {
+                    id:"",
                     user: '',
                     device: '',
-                    startDate:'',
-                    endDate: '',
-                    phone:'',
-                    email:'',
+                    date:[],
+                    vioReason:'',
+                    isAgree:'',
                     isUse: false,
                 },
                 users: [
@@ -413,11 +444,6 @@
                         }
                     }
                 ],
-                editFromVisible: false,
-                formLabelWidth: '120px',
-                addFromVisible: false,
-                searchInput: '',
-                searchType: '',
                 searchOption: [
                     {
                         value: '1',
@@ -439,10 +465,11 @@
             };
         },
         async asyncData({}) {
-            let  resData  = await axios.get(`/api/apply/getAll`);
+            let  resData  = await axios.get(`/api/apply/getAll/1`);
             if(resData.data.status === 1){
                 let applys = resData.data.applys;
                 return {
+                    counts: resData.data.counts,
                     applys: applys
                 }
             }else {
@@ -452,7 +479,8 @@
             }
         },
         mounted(){
-            this.tableData = this.applys
+            this.tableData = this.applys;
+            this.itemCounts = this.counts;
         },
         head() {
             return {

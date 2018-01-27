@@ -89,7 +89,7 @@
 
             <div class="table">
                 <el-table
-                        :data="deviceTableData"
+                        :data="tableData"
                         border
                         style="width: 70%;">
                     <el-table-column
@@ -183,13 +183,11 @@
 
             <div class="page">
                 <el-pagination
-                        @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage"
-                        :page-sizes="[10, 20, 30, 40]"
+                        :current-page.sync="currentPage"
                         :page-size="10"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="40">
+                        layout="total, prev, pager, next"
+                        :total="itemCounts">
                 </el-pagination>
             </div>
         </div>
@@ -272,14 +270,13 @@ export default {
         methods: {
             async handleAdd() {
                 // 处理新建仪器设备
-                let deviceName = this.addForm.name
-                let deviceTypeId = this.addForm.deviceType
-                let deviceAddDate = this.addForm.addDate
-                let deviceDescribe = this.addForm.describe
-
-                let deviceNeedRepair = this.addForm.needRepair
-                let deviceCanApply = this.addForm.canApply
-                let deviceIsUse = this.addForm.isUse
+                let deviceName = this.addForm.name;
+                let deviceTypeId = this.addForm.deviceType;
+                let deviceAddDate = this.addForm.addDate;
+                let deviceDescribe = this.addForm.describe;
+                let deviceNeedRepair = this.addForm.needRepair;
+                let deviceCanApply = this.addForm.canApply;
+                let deviceIsUse = this.addForm.isUse;
 
                 if(deviceName && deviceTypeId && deviceAddDate && deviceDescribe){
                     let result = await axios.post('/api/device/add', {
@@ -291,13 +288,14 @@ export default {
                         canApply: deviceCanApply,
                         isUse: deviceIsUse
                     })
-                    if(result.data.stauts === 1){
+                    if(result.data.status === 1){
                         this.$message({
                             message: result.data.message,
                             type: 'success'
                         });
+                        window.location.reload()
                     }else {
-                        this.$message.error({message: result.data.message});
+                        this.$message.error(result.data.message);
                     }
                 }else {
                     this.$message.error('请填写所有项');
@@ -305,21 +303,20 @@ export default {
                 this.addFormVisible = false
             },
             async handleEdit(row) {
-                let rowId = row.id
-                this.editForm.id = rowId
+                let rowId = row.id;
+                this.editForm.id = rowId;
                 let resData = await axios.post('/api/device/getById',{
                     id: rowId
-                })
-                console.log(resData.data.device)
+                });
                 if(resData.data.status === 1){
 
-                    this.editForm.name = resData.data.device.name
-                    this.editForm.deviceType = resData.data.device.device_type
-                    this.editForm.addDate = resData.data.purchaseDate
-                    this.editForm.describe = resData.data.device.description
-                    this.editForm.needRepair = resData.data.device.needRepair
-                    this.editForm.canApply = resData.data.device.canReserve
-                    this.editForm.isUse = resData.data.device.isUse
+                    this.editForm.name = resData.data.device.name;
+                    this.editForm.deviceType = resData.data.device.device_type;
+                    this.editForm.addDate = resData.data.purchaseDate;
+                    this.editForm.describe = resData.data.device.description;
+                    this.editForm.needRepair = resData.data.device.needRepair;
+                    this.editForm.canApply = resData.data.device.canReserve;
+                    this.editForm.isUse = resData.data.device.isUse;
 
                     this.editFormVisibel = true
                 }else {
@@ -349,22 +346,20 @@ export default {
                         this.$message.error( resData.data.status );
                     }
                 }catch(err){
-                    console.log(err)
                     this.$message.error('服务器异常');
                 }
                 this.editFormVisibel = false
             },
             async handleForbid(row) {
-                console.log(row.date);
                 try{
                     await this.$confirm('此操作将禁用该设备, 是否继续?', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
-                    })
+                    });
                     let result = await axios.post('/api/device/deleteById', {
                         id: row.id
-                    })
+                    });
                     if(result.data.status === 1){
                         this.$message({
                             type: 'success',
@@ -378,18 +373,19 @@ export default {
                         });
                     }
                 }catch (err){
-                    console.log(err)
                     this.$message({
                         type: 'info',
                         message: ` 取消 由于 ${ err }`
                     });
                 }
             },
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+            async handleCurrentChange(val) {
+                let resData = await axios.get(`/api/device/getAll/${val}`);
+                if(resData.data.status === 1){
+                    this.tableData = resData.data.Devices
+                }else {
+                    this.$message.error(resData.data.message)
+                }
             },
             handleRemove(file, fileList) {
                 console.log(file, fileList);
@@ -407,10 +403,9 @@ export default {
         data() {
             return {
                 fileList: [{name: '', url: ''}],
-                isShow:false,
-                currentPage: 4,
-                input10: '',
-                centerDialogVisible: false,
+                currentPage:1,
+                itemCounts: null,
+                editFormLabelWidth:'90',
                 search_context:'',
                 deviceTypes: [
                     {
@@ -451,7 +446,7 @@ export default {
                     canApply: true,
                     isUse: true,
                 },
-                deviceTableData: [
+                tableData: [
                     {
                         id: '',
                         date: '',
@@ -463,20 +458,24 @@ export default {
                 ],
                 editFormVisibel: false,
                 addFormVisible: false,
-                editFormLabelWidth: '120px'
             };
         },
         async asyncData({}) {
-            let  devices  = await axios.get(`/api/device/getAll`)
+            let  resData  = await axios.get(`/api/device/getAll/1`);
             return {
-                deviceTableData: devices.data.Devices,
-                deviceTypes: devices.data.DeviceTypes
+                counts: resData.data.counts,
+                devices: resData.data.Devices,
+                deviceTypes: resData.data.DeviceTypes
             }
         },
         head() {
             return {
                 title: 'CDMP - 设备管理'
             }
+        },
+        mounted(){
+            this.itemCounts = this.counts;
+            this.tableData = this.devices
         }
     }
 </script>

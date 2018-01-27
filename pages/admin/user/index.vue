@@ -182,13 +182,11 @@
             </el-dialog>
             <div class="page">
                 <el-pagination
-                        @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage"
-                        :page-sizes="[10, 20, 30, 40]"
+                        :current-page.sync="currentPage"
                         :page-size="10"
-                        layout="total, sizes, prev, pager, next, jumper"
-                        :total="40">
+                        layout="total, prev, pager, next"
+                        :total="itemCounts">
                 </el-pagination>
             </div>
         </div>
@@ -364,18 +362,19 @@
                 });
             }
         },
-        handleSizeChange(val) {
-            console.log(`每页 ${val} 条`);
-        },
-        handleCurrentChange(val) {
-            console.log(`当前页: ${val}`);
+        async handleCurrentChange(val) {
+            let resData = await axios.get(`/api/user/getAll/${val}`);
+            if(resData.data.status === 1){
+                this.tableData = resData.data.usersDetail
+            }else {
+                this.$message.error(resData.data.message)
+            }
         },
         },
         data() {
             return {
-                isShow:false,
-                currentPage: 4,
-                centerDialogVisible: false,
+                currentPage: 1,
+                itemCounts: null,
                 addForm: {
                     id:'',
                     name: '',
@@ -450,13 +449,15 @@
         mounted() {
             // 挂载数据
             this.userKlasses = this.userKlassDetail;
-            this.tableData = this.usersDetail
+            this.tableData = this.usersDetail;
+            this.itemCounts = this.counts;
         },
         async asyncData({}) {
-            let  users  = await axios.get(`/api/user/getAll`);
+            let resData  = await axios.get(`/api/user/getAll/1`);
             return {
-                usersDetail: users.data.usersDetail,
-                userKlassDetail: users.data.userKlassDetail
+                counts: resData.data.counts,
+                usersDetail: resData.data.usersDetail,
+                userKlassDetail: resData.data.userKlassDetail
             }
         },
         head() {
