@@ -94,6 +94,230 @@
                     </el-col>
                 </el-row>
             </div>
+            <div class="oneDevice">
+                <el-row :gutter="20" class="leftImg">
+                    <el-col :span="8" class="leftspan">
+                        <div class="grid-content bg-purple bullImg">
+                            <a href="device/details">
+                                <img src="~/assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="16">
+                        <div class="grid-content bg-purple">
+                            <el-row class="topOneCol">
+                                <el-col :span="24">
+                                    <div class="grid-content bg-purple-dark">
+                                        <el-row>
+                                            <el-col :span="17">
+                                                <div class="grid-content bg-purple nameFrame">
+                                                    <a href="device/details">
+                                                        <p class="bullName">{{deviceName}}</p>
+                                                    </a>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <div class="grid-content bg-purple-light button_center" >
+                                                    <a href="device/appoint">
+                                                        <el-button type="primary" class="appoint">预约</el-button>
+                                                    </a>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <div class="grid-content bg-purple">
+                                                    <el-button type="warning" class="appoint">送样</el-button>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <el-row class="maketop">
+                                <el-row :gutter="20" class="contactUser mainInfor">
+                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{userName}}</div></el-col>
+                                </el-row>
+                                <el-row :gutter="20" class="contactUser">
+                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{address}}</div></el-col>
+                                </el-row>
+                                <el-row :gutter="20" class="contactUser mainInfor">
+                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{phone}}</div></el-col>
+                                </el-row>
+                            </el-row>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+            <div class="oneDevice">
+                <el-row :gutter="20" class="leftImg">
+                    <el-col :span="8" class="leftspan">
+                        <div class="grid-content bg-purple bullImg">
+                            <a href="device/details">
+                                <img src="~/assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="16">
+                        <div class="grid-content bg-purple">
+                            <el-row class="topOneCol">
+                                <el-col :span="24">
+                                    <div class="grid-content bg-purple-dark">
+                                        <el-row>
+                                            <el-col :span="17">
+                                                <div class="grid-content bg-purple nameFrame">
+                                                    <a href="device/details">
+                                                        <p class="bullName">{{deviceName}}</p>
+                                                    </a>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <div class="grid-content bg-purple-light button_center" >
+                                                    <a href="device/appoint">
+                                                        <el-button type="primary" class="appoint">预约</el-button>
+                                                    </a>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <div class="grid-content bg-purple">
+                                                    <el-button type="warning" class="appoint">送样</el-button>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <el-row class="maketop">
+                                <el-row :gutter="20" class="contactUser mainInfor">
+                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{userName}}</div></el-col>
+                                </el-row>
+                                <el-row :gutter="20" class="contactUser">
+                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{address}}</div></el-col>
+                                </el-row>
+                                <el-row :gutter="20" class="contactUser mainInfor">
+                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{phone}}</div></el-col>
+                                </el-row>
+                            </el-row>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+            <div class="oneDevice">
+                <el-row :gutter="20" class="leftImg">
+                    <el-col :span="8" class="leftspan">
+                        <div class="grid-content bg-purple bullImg">
+                            <a href="device/details">
+                                <img src="~/assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="16">
+                        <div class="grid-content bg-purple">
+                            <el-row class="topOneCol">
+                                <el-col :span="24">
+                                    <div class="grid-content bg-purple-dark">
+                                        <el-row>
+                                            <el-col :span="17">
+                                                <div class="grid-content bg-purple nameFrame">
+                                                    <a href="device/details">
+                                                        <p class="bullName">{{deviceName}}</p>
+                                                    </a>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <div class="grid-content bg-purple-light button_center" >
+                                                    <a href="device/appoint">
+                                                        <el-button type="primary" class="appoint">预约</el-button>
+                                                    </a>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <div class="grid-content bg-purple">
+                                                    <el-button type="warning" class="appoint">送样</el-button>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <el-row class="maketop">
+                                <el-row :gutter="20" class="contactUser mainInfor">
+                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{userName}}</div></el-col>
+                                </el-row>
+                                <el-row :gutter="20" class="contactUser">
+                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{address}}</div></el-col>
+                                </el-row>
+                                <el-row :gutter="20" class="contactUser mainInfor">
+                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{phone}}</div></el-col>
+                                </el-row>
+                            </el-row>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+            <div class="oneDevice">
+                <el-row :gutter="20" class="leftImg">
+                    <el-col :span="8" class="leftspan">
+                        <div class="grid-content bg-purple bullImg">
+                            <a href="device/details">
+                                <img src="~/assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
+                            </a>
+                        </div>
+                    </el-col>
+                    <el-col :span="16">
+                        <div class="grid-content bg-purple">
+                            <el-row class="topOneCol">
+                                <el-col :span="24">
+                                    <div class="grid-content bg-purple-dark">
+                                        <el-row>
+                                            <el-col :span="17">
+                                                <div class="grid-content bg-purple nameFrame">
+                                                    <a href="device/details">
+                                                        <p class="bullName">{{deviceName}}</p>
+                                                    </a>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <div class="grid-content bg-purple-light button_center" >
+                                                    <a href="device/appoint">
+                                                        <el-button type="primary" class="appoint">预约</el-button>
+                                                    </a>
+                                                </div>
+                                            </el-col>
+                                            <el-col :span="3">
+                                                <div class="grid-content bg-purple">
+                                                    <el-button type="warning" class="appoint">送样</el-button>
+                                                </div>
+                                            </el-col>
+                                        </el-row>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <el-row class="maketop">
+                                <el-row :gutter="20" class="contactUser mainInfor">
+                                    <el-col :span="8"><div class="grid-content bg-purple">联系人</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{userName}}</div></el-col>
+                                </el-row>
+                                <el-row :gutter="20" class="contactUser">
+                                    <el-col :span="8"><div class="grid-content bg-purple">地址</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{address}}</div></el-col>
+                                </el-row>
+                                <el-row :gutter="20" class="contactUser mainInfor">
+                                    <el-col :span="8"><div class="grid-content bg-purple">电话</div></el-col>
+                                    <el-col :span="16"><div class="grid-content bg-purple">{{phone}}</div></el-col>
+                                </el-row>
+                            </el-row>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
         </div>
     </section>
 </template>
