@@ -5,25 +5,25 @@
                 placement="right"
                 width="600"
                 trigger="click"
-                v-model="visible2">
-            <el-form ref="form" :model="form" label-width="80px">
+                v-model="addFormVisible">
+            <el-form ref="addForm" :model="addForm" label-width="80px">
                 <el-form-item label="公告标题">
-                    <el-input v-model="form.name" clearable></el-input>
+                    <el-input v-model="addForm.title" clearable />
                 </el-form-item>
                 <el-form-item label="发布时间">
                     <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="form.date" style="width: 100%;"></el-date-picker>
+                        <el-date-picker type="date" placeholder="选择日期" v-model="addForm.publishDate" style="width: 100%;"></el-date-picker>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="禁用标识">
-                    <el-switch v-model="form.delivery"></el-switch>
+                    <el-switch v-model="addForm.isUse" />
                 </el-form-item>
                 <el-form-item label="公告内容">
-                    <el-input :rows="15" type="textarea" v-model="form.desc" class="textarea" ></el-input>
+                    <el-input :rows="15" type="textarea" v-model="addForm.content" class="textarea" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="visible2 = false">添加</el-button>
-                    <el-button  @click="visible2 = false">取消</el-button>
+                    <el-button type="primary" @click="handleAdd">添加</el-button>
+                    <el-button  @click="handleAddCancel">取消</el-button>
                 </el-form-item>
             </el-form>
         </el-popover>
@@ -31,17 +31,14 @@
             <div class="leftSty"></div>
             <span class="bullCont">公告管理</span>
         </div>
-        <el-row class="headerline"></el-row>
+        <el-row class="headerline" />
         <div class="announceCont">
             <div class="oneline">
-                <div class="add">
-                    <el-button v-popover:popover4 class="addContent">添加</el-button>
-                </div>
                 <div class="demo-input-suffix search">
                     <el-input
                             placeholder="请输入内容"
                             prefix-icon="el-icon-search"
-                            v-model="input21">
+                            v-model="searchValue">
                     </el-input>
                 </div>
                 <div class="select">
@@ -54,6 +51,9 @@
                         </el-option>
                     </el-select>
                 </div>
+                <div class="add">
+                    <el-button v-popover:popover4 class="addContent">添加</el-button>
+                </div>
             </div>
             <div class="table">
                 <el-table
@@ -61,16 +61,27 @@
                         border
                         style="width: 70%;">
                     <el-table-column
-                            prop="date"
+                            prop="id"
+                            label="公告 id"
+                            width="110">
+                    </el-table-column>
+                    <el-table-column
+                            prop="publishDate"
                             label="发布日期"
                             width="110">
                     </el-table-column>
                     <el-table-column
-                            prop="name"
-                            label="公告标题">
+                            prop="title"
+                            label="公告标题"
+                            width="200">
                     </el-table-column>
                     <el-table-column
-                            prop="disable"
+                            prop="content"
+                            label="公告内容"
+                            width="400">
+                    </el-table-column>
+                    <el-table-column
+                            prop="isUse"
                             label="是否禁用"
                             width="110">
                     </el-table-column>
@@ -79,39 +90,39 @@
                             label="操作"
                             width="110">
                         <template scope="scope">
-                            <el-button type="text" @click="dialogFormVisible = true">编辑</el-button>
-                            <el-button type="text" @click="open2" style="margin-left: 5px;">删除</el-button>
+                            <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
+                            <el-button type="text" @click="forbidRule(scope.row)" style="margin-left: 5px;">禁用</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
             </div>
-            <el-dialog title="编辑公告" :visible.sync="dialogFormVisible">
-                <el-form ref="form" :model="form1" label-width="80px">
+            <el-dialog title="编辑公告" :visible.sync="editFormVisible">
+                <el-form ref="form" :model="editForm" label-width="80px">
                     <el-form-item label="公告标题">
-                        <el-input v-model="form1.name" clearable></el-input>
+                        <el-input v-model="editForm.title" clearable />
                     </el-form-item>
                     <el-form-item label="发布时间">
                         <el-col :span="11">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="form1.date1" style="width: 100%;"></el-date-picker>
+                            <el-date-picker type="date" placeholder="选择日期" v-model="editForm.publishDate" style="width: 100%;"></el-date-picker>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="禁用标识">
-                        <el-switch v-model="form1.delivery"></el-switch>
+                        <el-switch v-model="editForm.isUse" />
                     </el-form-item>
                     <el-form-item label="公告内容">
-                        <el-input :rows="15" type="textarea" v-model="form1.desc" class="textarea" ></el-input>
+                        <el-input :rows="15" type="textarea" v-model="editForm.content" class="textarea" />
                     </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                    <el-button @click="handleEditSubmit" type="primary">提 交</el-button>
+                    <el-button  @click="handleEditCanacel">取 消</el-button>
                 </div>
             </el-dialog>
             <div class="page">
                 <el-pagination
                         @size-change="handleSizeChange"
                         @current-change="handleCurrentChange"
-                        :current-page="currentPage4"
+                        :current-page="currentPage"
                         :page-sizes="[10, 20, 30, 40]"
                         :page-size="10"
                         layout="total, sizes, prev, pager, next, jumper"
@@ -193,25 +204,98 @@
     import axios from 'axios'
 
     export default {
-        components: {ElButton},
+        components: { ElButton },
         layout: 'admina',
         methods: {
-            open2() {
-                this.$confirm('此操作将永久删除该公告, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
+            async handleAdd(){
+                try{
+                    let resData = await axios.post('/api/rule/add',{
+                        rule: this.addForm
                     });
-                }).catch(() => {
+                    if(resData.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: resData.data.message
+                        });
+                        window.location.reload()
+                    }else {
+                        this.$message.error(resData.data.message);
+                    }
+                }catch (err){
+                    this.$message.error(`${err}`);
+                }
+
+                this.addFormVisible = false
+            },
+            handleAddCancel(){
+                this.$message({
+                    type: 'info',
+                    message: '已取消'
+                });
+                this.addFormVisible = false
+            },
+            async handleEdit(row){
+                try{
+                    let resData = await axios.post('/api/rule/getById',{
+                        id: row.id
+                    });
+                    if(resData.data.status === 1){
+                        this.editForm = resData.data.rule
+                    }else {
+                        this.$message.error(resData.data.message);
+                    }
+                }catch(err) {
+                    this.$message.error(`异常 由于 ${err}`);
+                }
+                this.editFormVisible = true
+            },
+            async handleEditSubmit(){
+                try{
+                    let resData = await axios.post('/api/rule/modifyById',{
+                        rule: this.editForm
+                    })
+                    if(resData.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: resData.data.message
+                        });
+                        window.location.reload()
+                    }else {
+                        this.$message.error(resData.data.message);
+                    }
+                }catch (err){
+                    this.$message.error(`异常 由于 ${err}`);
+                }
+                this.editFormVisible = false
+            },
+            handleEditCanacel(){
+                this.editFormVisible = false
+            },
+            async forbidRule(row) {
+                try{
+                    await this.$confirm('此操作将永久删除该公告, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    });
+                    let resData = await axios.post('/api/rule/deleteById', {
+                        id: row.id
+                    });
+                    if(resData.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: '成功禁用'
+                        });
+                        window.location.reload()
+                    }else {
+                        this.$message.error(resData.data.message);
+                    }
+                }catch (err){
                     this.$message({
                         type: 'info',
-                        message: '已取消删除'
+                        message: '已取消'
                     });
-                });
+                }
             },
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
@@ -223,20 +307,21 @@
         data() {
             return {
                 isShow:false,
-                currentPage4: 4,
+                currentPage: 4,
                 input10: '',
                 centerDialogVisible: false,
-                form: {
-                    name: '',
-                    date: '',
-                    delivery: false,
-                    desc: ''
+                addForm: {
+                    publishDate: '',
+                    title: '',
+                    content:'',
+                    isUse: '',
                 },
-                form1: {
-                    name: '',
-                    date1: '',
-                    delivery: false,
-                    desc: ''
+                editForm: {
+                    id:'',
+                    publishDate: '',
+                    title: '',
+                    content:'',
+                    isUse: '',
                 },
                 options: [{
                     value: '选项1',
@@ -253,35 +338,33 @@
                 }],
                 value: '',
                 tableData: [{
-                    date: '2018-01-02',
-                    name: '我校新添大型分析设备构成完备的微结构分析体系',
-                    disable: '否',
+                    id: '1',
+                    publishDate: '2018-01-02',
+                    title: '我校新添大型分析设备构成完备的微结构分析体系',
+                    content:'',
+                    isUse: '否',
                     operation:'',
-                }, {
-                    date: '2017-10-04',
-                    name: '电子探针JXA-8230工程师培训时间安排 ',
-                    disable: '否',
-                    operation:'',
-                }, {
-                    date: '2017-08-01',
-                    name: '大型仪器使用流程培训',
-                    disable: '否',
-                    operation:'',
-                }, {
-                    date: '2017-05-03',
-                    name: '华北理工大学大型仪器使用培训的通知公告',
-                    disable: '是',
-                    operation:'',
-                }],
-                dialogFormVisible: false,
-                visible2: false,
-                formLabelWidth: '120px'
+                }
+                ],
+                editFormVisible: false,
+                addFormVisible: false,
+                formLabelWidth: '120px',
+                searchValue: ''
             };
         },
         head() {
             return {
-                title: '公告管理'
+                title: 'CDMP - 公告管理'
+            }
+        },
+        async asyncData(){
+            let resData = await axios.get('/api/rule/getAll')
+            if( resData.data.status === 1 ){
+                return{
+                    tableData: resData.data.rulesDetail
+                }
             }
         }
+
     }
 </script>
