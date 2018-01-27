@@ -8,10 +8,10 @@ import Sequelize from 'sequelize'
 
 // 本地服务器环境
 
-const DATABASE = 'cdmp'
-const USERNAME = 'root'
-const PASSWORD = '123456'
-const DBHOST=  '127.0.0.1'      
+const DATABASE = 'cdmp';
+const USERNAME = 'root';
+const PASSWORD = 'admin';
+const DBHOST=  '127.0.0.1';
 
 const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
     host: DBHOST,

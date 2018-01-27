@@ -114,21 +114,69 @@ exports.createData = async ( ctx, next ) => {
         let commonUser = await UserKlass.create( { name: '用户' } );
         let badGay = await UserKlass.create( { name: '关系用户' } );
 
-        let user1 = await User.create( { account: 'haoyiqing', password: '123456', name: '郝一擎', email: '1337074512@qq.com' } )
+        let user1 = await User.create( { account: 'haoyiqing', password: '123456', name: '郝一擎', email: '1337074512@qq.com' } );
         await user1.setUserType(admin);
-        let user2 = await User.create( { account: 'zhanglingxue', password: '123456', name: '张凌雪', email: 'zhanglingxue@qq.com' } )
+        let user2 = await User.create( { account: 'zhanglingxue', password: '123456', name: '张凌雪', email: 'zhanglingxue@qq.com' } );
         await user2.setUserType(commonUser);
-        let user3 = await User.create( { account: 'wangyangyang', password: '123456', name: '王洋洋', email: 'wangyangyang@qq.com' } )
+        let user3 = await User.create( { account: 'huiliyi', password: '123456', name: '上杉绘梨衣', email: 'shangshanhuiliyi@qq.com' } );
         await user3.setUserType(badGay);
+        let user4 = await User.create( { account: 'lumingfei', password: '123456', name: '路明非', email: 'lumingfei@qq.com' } );
+        await user4.setUserType(commonUser);
+        let user4 = await User.create( { account: 'chenwenwen', password: '123456', name: '陈雯雯', email: 'chenwenwen@qq.com' } );
+        await user4.setUserType(badGay);
+        let user4 = await User.create( { account: 'chenmotong', password: '123456', name: '陈墨瞳', email: 'chenmotong@qq.com' } );
+        await user4.setUserType(commonUser);
+        let user4 = await User.create( { account: 'kaisa', password: '123456', name: '凯撒', email: 'kaisa@qq.com' } );
+        await user4.setUserType(badGay);
+        let user4 = await User.create( { account: 'chuzihang', password: '123456', name: '楚子航', email: 'chuzihang@qq.com' } );
+        await user4.setUserType(commonUser);
+        let user4 = await User.create( { account: 'lumingze', password: '123456', name: '路明泽', email: 'lumingze@qq.com' } );
+        await user4.setUserType(badGay);
+        let user4 = await User.create( { account: 'liuzhenhan', password: '123456', name: '刘震撼', email: 'liuzhenhan@qq.com' } );
+        await user4.setUserType(commonUser);
+        let user4 = await User.create( { account: 'hailun', password: '123456', name: '海伦', email: 'hailun@qq.com' } );
+        await user4.setUserType(badGay);
+        let user4 = await User.create( { account: 'halibote', password: '123456', name: '哈利珀特', email: 'halibote@qq.com' } );
+        await user4.setUserType(commonUser);
+        let user4 = await User.create( { account: 'ningyu', password: '123456', name: '凝玉', email: 'ningyu@qq.com' } );
+        await user4.setUserType(badGay);
 
         await Rule.create( { content: '第一条公告', title: '第一条公告'} );
         await Rule.create( { content: '第二条公告', title: '第二条公告'} );
         await Rule.create( { content: '第三条公告', title: '第三条公告'} );
+        await Rule.create( { content: '第四条公告', title: '第四条公告'} );
+        await Rule.create( { content: '第五条公告', title: '第五条公告'} );
+        await Rule.create( { content: '第六条公告', title: '第六条公告'} );
+        await Rule.create( { content: '第七条公告', title: '第七条公告'} );
+        await Rule.create( { content: '第八条公告', title: '第八条公告'} );
+        await Rule.create( { content: '第九条公告', title: '第九条公告'} );
+        await Rule.create( { content: '第十条公告', title: '第十条公告'} );
+        await Rule.create( { content: '第十一条公告', title: '第十一条公告'} );
+        await Rule.create( { content: '第十二条公告', title: '第十二条公告'} );
+
 
         let successMessageType = await MessageKlass.create( { name: '成功消息' } );
         let commonMessageType = await MessageKlass.create( { name: '普通消息'} );
         let failMessageType = await MessageKlass.create( { name: '失败消息'} );
 
+        let successMessage = await Message.create( { content: '这是一条成功的消息', isPublished: false, isRead: false } );
+        await successMessage.setMessageType(successMessageType);
+        await  successMessage.setMessageUser(user1);
+        let commonMessage = await Message.create( { content: '这是一条普通的消息', isPublished: false, isRead: false } );
+        await commonMessage.setMessageType(commonMessageType);
+        await  commonMessage.setMessageUser(user2);
+        let failMessage = await Message.create( { content: '这是一条有生之年系列失败的消息', isPublished: false, isRead: false } );
+        failMessage.setMessageType(failMessageType);
+        await  failMessage.setMessageUser(user3);
+        let successMessage = await Message.create( { content: '这是一条活久见成功的消息', isPublished: false, isRead: false } );
+        await successMessage.setMessageType(successMessageType);
+        await  successMessage.setMessageUser(user1);
+        let commonMessage = await Message.create( { content: '这是一条2333普通的消息', isPublished: false, isRead: false } );
+        await commonMessage.setMessageType(commonMessageType);
+        await  commonMessage.setMessageUser(user2);
+        let failMessage = await Message.create( { content: '这是一条红红红火火晃晃呼呼失败的消息', isPublished: false, isRead: false } );
+        failMessage.setMessageType(failMessageType);
+        await  failMessage.setMessageUser(user3);
         let successMessage = await Message.create( { content: '这是一条成功的消息', isPublished: false, isRead: false } );
         await successMessage.setMessageType(successMessageType);
         await  successMessage.setMessageUser(user1);
