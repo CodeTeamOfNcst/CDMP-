@@ -127,7 +127,7 @@
                     <el-table-column
                             fit="false"
                             label="消息内容"
-                            width="200">
+                            width="">
                         <template scope="scope">{{ scope.row.message.content.substr(0,10)}}</template>
                     </el-table-column>
                     <el-table-column

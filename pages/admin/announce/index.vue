@@ -73,12 +73,12 @@
                     <el-table-column
                             prop="title"
                             label="公告标题"
-                            width="200">
+                            width="250">
                     </el-table-column>
                     <el-table-column
                             prop="content"
                             label="公告内容"
-                            width="400">
+                            width="">
                     </el-table-column>
                     <el-table-column
                             prop="isUse"
