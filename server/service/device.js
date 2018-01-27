@@ -52,7 +52,7 @@ exports.delteDeviceById = async ( ctx, next ) => {
             message: `置不可用失败， 原因 ${err}`
         }
     }
-}
+};
 
 exports.modifyDeviceById = async ( ctx, next ) => {
     let postData = ctx.request.body;
@@ -88,7 +88,7 @@ exports.modifyDeviceById = async ( ctx, next ) => {
             message: `更新失败，由于 ${ err }`
         }
     }
-}
+};
 
 exports.getDeviceById = async ( ctx, next ) => {
     let postData = ctx.request.body;
@@ -133,7 +133,7 @@ exports.getAllDevice = async ( ctx, next ) => {
     for(let i = 0 ; i< devices.length; i++ ){
         Devices.push({
             id: devices[i].id,
-            date: devices[i].createdAt,
+            date: devices[i].purchaseDate,
             name: devices[i].name,
             disable: devices[i].isUse ? '可用': '禁用',
             type: devicesType[devices[i].device_type - 1].name,
@@ -150,5 +150,22 @@ exports.getAllDevice = async ( ctx, next ) => {
     ctx.body ={
         Devices: Devices,
         DeviceTypes: DevicesTypes
+    }
+};
+
+exports.onluGetAllDevice = async ( ctx, next ) => {
+    let devices = await Device.findAll();
+    let thisDevices = [];
+    for(let i = 0; i < devices.length; i++ ){
+        thisDevices.push({
+            key: devices[i].id,
+            value: devices[i].id + devices[i].name
+        })
+    }
+    console.log(thisDevices);
+    ctx.body = {
+        devices: thisDevices,
+        status: 1,
+        message: '获取数据成功'
     }
 };

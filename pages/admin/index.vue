@@ -337,12 +337,12 @@ export default {
                         needRepair: this.editForm.needRepair,
                         canApply: this.editForm.canApply,
                         isUse: this.editForm.isUse
-                    })
-                    console.log(resData)
+                    });
+
                     if( resData.data.status === 1 ){
                         this.$message({
                             type: 'success',
-                            message: result.data.message
+                            message: resData.data.message
                         });
 
                     }else {
@@ -355,7 +355,7 @@ export default {
                 this.editFormVisibel = false
             },
             async handleForbid(row) {
-                console.log(row.date)
+                console.log(row.date);
                 try{
                     await this.$confirm('此操作将禁用该设备, 是否继续?', '提示', {
                         confirmButtonText: '确定',

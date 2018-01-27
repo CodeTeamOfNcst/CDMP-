@@ -3,55 +3,57 @@
         <el-popover
                 ref="popover4"
                 placement="right"
-                width="400"
+                width="500"
                 trigger="click"
                 v-model="addFromVisible">
-            <el-form ref="addForm" :model="addForm" label-width="90px">
-                <el-form-item label="申请用户" >
-                    <!--<div style="width: 20%;float: left">用户名称</div>-->
+            <el-form ref="addForm" :model="addForm" label-width="100px">
+                <el-form-item label="申请用户">
                     <el-col :span="18">
-                        <el-input v-model="addForm.name" clearable/>
+                        <el-select v-model="addForm.user" filterable placeholder="请选择用户">
+                            <el-option
+                                    v-for="item in users"
+                                    :key="item.value"
+                                    :label="item.key"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="申请设备">
                     <el-col :span="18">
-                        <el-input v-model="addForm.account" clearable/>
-                    </el-col>
-                </el-form-item>
-                <el-form-item label="开始使用时间">
-                    <el-col :span="18">
-                        <el-select v-model="addForm.userType" placeholder="请选择用户类别">
+                        <el-select v-model="addForm.device" filterable placeholder="请选择对应的设备">
                             <el-option
-                                    v-for="item in userKlasses"
-                                    :key="item.id"
-                                    :label="item.name"
-                                    :value="item.id">
+                                    v-for="item in devices"
+                                    :key="item.key"
+                                    :label="item.value"
+                                    :value="item.key">
                             </el-option>
                         </el-select>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="结束使用时间">
-                    <el-col :span="18">
-                        <el-input v-model="addForm.password" clearable type="password"/>
-                    </el-col>
+                    <el-date-picker
+                            v-model="addForm.date"
+                            type="daterange"
+                            range-separator="至"
+                            start-placeholder="开始使用日期"
+                            end-placeholder="结束使用日期">
+                    </el-date-picker>
                 </el-form-item>
                 <el-form-item label="申请理由">
                     <el-col :span="18">
-                        <el-input v-model="addForm.repeat" clearable type="password"/>
+                        <el-input v-model="addForm.vioReason" clearable type="textarea"/>
                     </el-col>
                 </el-form-item>
                 <el-form-item label="是否同意">
                     <el-col :span="18">
-                        <el-input v-model="addForm.phone" clearable/>
+                        <el-switch v-model="addForm.isAgree"/>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="是否可用">
+                <el-form-item label="是否禁用">
                     <el-col :span="18">
-                        <el-input v-model="addForm.email" clearable/>
+                        <el-switch v-model="addForm.isUse"/>
                     </el-col>
-                </el-form-item>
-                <el-form-item label="禁用标识">
-                    <el-switch v-model="addForm.isUse"/>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="handleAdd">添加</el-button>
@@ -84,7 +86,7 @@
                     </el-select>
                 </div>
                 <div class="add">
-                    <el-button v-popover:popover4 class="addContent">添加</el-button>
+                    <el-button v-popover:popover4 @click="handleAddOpen" class="addContent">添加</el-button>
                 </div>
             </div>
             <div class="table">
@@ -93,39 +95,44 @@
                         border
                         style="width: 70%;">
                     <el-table-column
-                            prop="id"
                             label="申请id"
                             width="110">
+                        <template scope="scope">{{ scope.row.apply.id }}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="name"
                             label="申请用户"
                             width="110">
+                        <template scope="scope">{{ scope.row.applyUser.name }}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="account"
                             label="申请设备"
                             width="170">
+                        <template scope="scope">{{ scope.row.applyDevice.name }}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="email"
                             label="开始使用时间"
                             width="200">
+                        <template scope="scope">{{ scope.row.apply.startDate }}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="phone"
                             label="结束使用时间"
                             width="">
+                        <template scope="scope">{{ scope.row.apply.endDate }}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="klass"
                             label="申请理由"
                             width="">
+                        <template scope="scope">{{ scope.row.apply.vioReason ? scope.row.apply.vioReason.substr(0,10) : '暂未填写' }}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="isUse"
                             label="是否同意"
                             width="100">
+                        <template scope="scope">{{ scope.row.apply.isAgree ? '是': '否' }}</template>
+                    </el-table-column>
+                    <el-table-column
+                            label="是否禁用"
+                            width="100">
+                        <template scope="scope">{{ scope.row.apply.isUse ? '可用': '禁用' }}</template>
                     </el-table-column>
                     <el-table-column
                             prop="operation"
@@ -138,23 +145,23 @@
                     </el-table-column>
                 </el-table>
             </div>
-            <el-dialog title="编辑用户" :visible.sync="editFromVisible">
+            <el-dialog title="编辑申请表" :visible.sync="editFromVisible">
                 <el-form ref="form" :model="editForm" label-width="90px">
-                    <el-form-item label="用户名称" >
+                    <el-form-item label="申请人" >
                         <el-col :span="18">
                             <el-input v-model="editForm.name" clearable />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="用户账号">
+                    <el-form-item label="申请设备">
                         <el-col :span="18">
                             <el-input v-model="editForm.account" clearable />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="用户类别">
+                    <el-form-item label="开始时间">
                         <el-col :span="18">
                             <el-select v-model="editForm.userType" placeholder="请选择用户类别">
                                 <el-option
-                                        v-for="item in userKlasses"
+                                        v-for="item in users"
                                         :key="item.id"
                                         :label="item.name"
                                         :value="item.id">
@@ -162,17 +169,20 @@
                             </el-select>
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="用户手机号">
+                    <el-form-item label="结束时间">
                         <el-col :span="18">
                             <el-input v-model="editForm.phone" clearable />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="用户邮箱">
+                    <el-form-item label="申请理由">
                         <el-col :span="18">
                             <el-input v-model="editForm.email" clearable />
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="禁用标识">
+                    <el-form-item label="是否同意">
+                        <el-switch v-model="editForm.isUse" />
+                    </el-form-item>
+                    <el-form-item label="是否禁用">
                         <el-switch v-model="editForm.isUse" />
                     </el-form-item>
                 </el-form>
@@ -268,25 +278,44 @@
         components: {ElButton},
         layout: 'admina',
         methods: {
-            handleAdd(){
-                if( this.addForm.password === this.addForm.repeat ){
-                    let letPostData = {
-                        name: this.addForm.name,
-                        account: this.addForm.account,
-                        password: this.addFrom.password,
-                    }
+            async handleAddOpen(){
+                let resDataUser = await axios.get('/api/user/onlyAll');
+                let resDataDevice = await axios.get('/api/device/onlyAll');
+                if(resDataUser.data.status === 1 && resDataDevice.data.status === 1){
+                    this.users = resDataUser.data.users;
+                    this.devices = resDataDevice.data.devices
                 }else {
-                    this.$message.error('两次输入的密码不一致');
-                    this.addFromVisible = false
+                    this.$message.error('从服务端获取信息失败')
+                }
+            },
+            async handleAdd(){
+                // 之后要加上手动验证逻辑
+                let resData = axios.post('api/device/add', {
+                    device: this.addForm
+                });
+                if(resData.data.status === 1){
+                    this.$message({
+                        message: resData.data.message,
+                        type: 'success'
+                    });
+                }else {
+                    this.$message.error(resData.data.message)
                 }
             },
             handleAddCancel(){
                 this.addFromVisible = false
             },
-            handleEdit(row) {
-                this.editFromVisible = true
+            async handleEdit(row) {
+                let resData = await axios.post('/api/apply/getById', {
+                    id: row.apply.id
+                });
+                if( resData.data.status === 1){
+                    this.editFromVisible = true
+                }else {
+                    this.$message.error(resData.data.message)
+                }
             },
-            handleEditSubmit(row){
+            handleEditSubmit(){
                 this.editFromVisible = false
             },
             handleEditCancle(){
@@ -298,7 +327,7 @@
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         type: 'warning'
-                    })
+                    });
                     this.$message({
                         type: 'success',
                         message: '删除成功!'
@@ -323,43 +352,65 @@
                 currentPage: 4,
                 centerDialogVisible: false,
                 addForm: {
-                    userName: '',
-                    userId:'',
-                    deviceName: '',
-                    deviceId: '',
-                    userType: '',
-                    repeat: '',
-                    phone: '',
-                    email: '',
+                    user: '',
+                    device:'',
+                    date: '',
+                    vioReason: '',
+                    isAgree: '',
                     isUse: false,
+
                 },
                 editForm: {
-                    name: '',
-                    account: '',
-                    password:'',
-                    userType: '',
+                    user: '',
+                    device: '',
+                    startDate:'',
+                    endDate: '',
                     phone:'',
                     email:'',
                     isUse: false,
                 },
-                userKlasses: [
+                users: [
                     {
-                        id: '选项1',
-                        name: '按时间由近及远排序'
+                        key: '1-用户名',
+                        value: '1'
                     },
+                ],
+                devices:[
+                    {
+                        key: '设备1',
+                        value: '1'
+                    }
                 ],
                 value: '',
                 tableData: [
                     {
-                        id: '1',
-                        user: '张扬果儿',
-                        device: '20180564781',
-                        isAgree:'',
-                        phone:'',
-                        isUse:'',
-                        startDate: '',
-                        endDate:'',
-
+                        apply:{
+                            id: '1',
+                            user: '张扬果儿',
+                            device: '第一台设备',
+                            startDate: '',
+                            endDate:'',
+                            vioReason:'',
+                            isAgree:'',
+                            isUse:''
+                        },
+                        applyUser:{
+                            id: '',
+                            account: '',
+                            name: '',
+                            phone:'',
+                            email: '',
+                            isUse: ''
+                        },
+                        applyDevice:{
+                            id: '',
+                            name: '',
+                            description: '',
+                            purchaseDate: '',
+                            needRepair: '',
+                            canReserve: '',
+                            isUse: ''
+                        }
                     }
                 ],
                 editFromVisible: false,
@@ -388,11 +439,20 @@
             };
         },
         async asyncData({}) {
-            let  users  = await axios.get(`/api/user/getAll`)
-            return {
-                tableData: users.data.tableData,
-                userKlasses: users.data.userKlasses
+            let  resData  = await axios.get(`/api/apply/getAll`);
+            if(resData.data.status === 1){
+                let applys = resData.data.applys;
+                return {
+                    applys: applys
+                }
+            }else {
+                return {
+                    applys: []
+                }
             }
+        },
+        mounted(){
+            this.tableData = this.applys
         },
         head() {
             return {
