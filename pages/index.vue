@@ -48,8 +48,8 @@
                                 <!--<el-col :span="24"></el-col>-->
                             <!--</el-row>-->
                             <div class="login">
-                                <el-tabs v-model="activeName">
-                                    <el-tab-pane  label="登录" name="first" label-width="80px">
+                                <el-tabs v-model="activeName" type="card">
+                                    <el-tab-pane  label="登录" name="first" label-width="70px">
                                         <el-form  class="loginform" label-width="60px">
                                             <el-form-item label="账号">
                                                 <el-input class="input1" v-model="account"/>
@@ -59,6 +59,7 @@
                                             </el-form-item>
                                         </el-form>
                                         <el-button class="loginbutton" type="primary" v-on:click="handleUserLogin">登录</el-button>
+                                        <div v-show="isShow" style="width: 100px;height: 100px;background: red"></div>
                                     </el-tab-pane>
                                     <el-tab-pane label="注册" name="second" label-width="80px">
                                         <el-form class="loginform" label-width="70px">
@@ -131,9 +132,9 @@
                         </el-row>
                     </div>
 
-                    <el-row class="headerline">
-                        <el-col :span="24"></el-col>
-                    </el-row>
+                    <!--<el-row class="headerline">-->
+                        <!--<el-col :span="24"></el-col>-->
+                    <!--</el-row>-->
                     <div class="eqimg">
                         <!--<div class="ribbon"><span class="ribbon2">No.1</span></div>-->
                         <img src="../assets/img/equipment1.png" class="mf-img">
@@ -221,7 +222,7 @@
     }
     .login{
         width: 330px;
-        margin:40px 0 0 5px;
+        margin: 5px 0 0 5px;
         height:300px;
         /*background-color: #41B883;*/
     }
@@ -242,7 +243,7 @@
         margin-top:30px;
     }
     .loginbutton{
-        margin-left: 130px;
+        margin:20px 0 0 130px;
     }
     .el-tabs__nav-wrap{
         width:300px;
