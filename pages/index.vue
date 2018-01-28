@@ -34,13 +34,13 @@
                                 </el-row>
                             </div>
                         </el-col>
-                        <el-col :span="8"><div class="grid-content bg-purple-light">
-                            <div class="orderbefore"></div>
-                            <span class="order"> <i class="el-icon-d-arrow-right"></i> 图片展示</span>
-                            <!--<el-row class="headerline">-->
-                                <!--<el-col :span="24"></el-col>-->
-                            <!--</el-row>-->
-                        </div></el-col>
+                        <!--<el-col :span="8"><div class="grid-content bg-purple-light">-->
+                            <!--<div class="orderbefore"></div>-->
+                            <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 图片展示</span>-->
+                            <!--&lt;!&ndash;<el-row class="headerline">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<el-col :span="24"></el-col>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</el-row>&ndash;&gt;-->
+                        <!--</div></el-col>-->
                         <el-col :span="8"><div class="grid-content bg-purple" v-show="login_show">
                             <!--<div class="orderbefore"></div>-->
                             <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 登录</span>-->

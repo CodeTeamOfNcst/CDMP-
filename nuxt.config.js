@@ -25,10 +25,10 @@ module.exports = {
   ** 防止重复打包
   */
   build: {
-    vendor: ['axios', 'element-ui','vuex', 'moment', 'math']
+    vendor: ['axios', 'element-ui','vuex', 'moment']
   },
   /**
   ** 添加插件
   */
   plugins: ['~plugins/element-ui', '~plugins/axios', '~plugins/vuex']
-}
+};

@@ -66,7 +66,7 @@
                                 label="操作"
                                 width="120"
                                 align="left">
-                            <template scope="scope">
+                            <template slot-scope="scope">
                                 <el-button type="text" @click="open2">移除</el-button>
                             </template>
                         </el-table-column>

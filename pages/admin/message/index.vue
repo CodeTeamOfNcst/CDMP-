@@ -25,7 +25,6 @@
                         </el-select>
                     </el-col>
                 </el-form-item>
-
                 <el-form-item label="选择发送用户">
                     <el-col :span="18">
                         <el-transfer
@@ -59,7 +58,7 @@
                     />
                 </el-form-item>
                 <el-form-item label="消息内容">
-                    <el-input :rows="1" type="text" v-model="addForm.content" class="textarea" />
+                    <el-input :rows="1" type="textarea" v-model="addForm.content" class="textarea" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="handleAdd">添加</el-button>
@@ -117,7 +116,7 @@
                     <el-table-column
                             label="消息是否发布"
                             width="120">
-                        <template scope="scope">{{ scope.row.message.isPublished ? '已发布': '未发布'}}</template>
+                        <template slot-scope="scope">{{ scope.row.message.isPublished ? '已发布': '未发布'}}</template>
                     </el-table-column>
                     <el-table-column
                             prop="messageUserName"
@@ -128,23 +127,23 @@
                             fit="false"
                             label="消息内容"
                             width="">
-                        <template scope="scope">{{ scope.row.message.content.substr(0,10)}}</template>
+                        <template slot-scope="scope">{{ scope.row.message.content.substr(0,10)}}</template>
                     </el-table-column>
                     <el-table-column
                             label="已读"
                             width="100">
-                        <template scope="scope">{{ scope.row.message.isRead ? '是': '否'}}</template>
+                        <template slot-scope="scope">{{ scope.row.message.isRead ? '是': '否'}}</template>
                     </el-table-column>
                     <el-table-column
                             label="是否禁用"
                             width="100">
-                        <template scope="scope">{{ scope.row.message.isUse ? '可用': '不可用'}}</template>
+                        <template slot-scope="scope">{{ scope.row.message.isUse ? '可用': '不可用'}}</template>
                     </el-table-column>
                     <el-table-column
                             prop="operation"
                             label="操作"
                             width="100">
-                        <template scope="scope">
+                        <template slot-scope="scope">
                             <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
                             <el-button type="text" @click="handleDelete(scope.row)" style="margin-left: 5px;">禁用</el-button>
                         </template>
@@ -179,7 +178,7 @@
                     </el-form-item>
                     <el-form-item label="消息内容">
                         <el-col :span="18">
-                            <el-input v-model="editForm.content" clearable />
+                            <el-input v-model="editForm.content" clearable type="textarea"/>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="是否已读">

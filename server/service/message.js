@@ -1,5 +1,4 @@
 import { Message, MessageKlass, User, UserKlass } from '../dbconfig/dbinit'
-import math from 'math'
 
 const ItemPerPage = 10 ;
 exports.addMessage = async ( ctx, next ) => {

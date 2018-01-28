@@ -97,48 +97,48 @@
                     <el-table-column
                             label="申请id"
                             width="110">
-                        <template scope="scope">{{ scope.row.apply.id }}</template>
+                        <template slot-scope="scope">{{ scope.row.apply.id }}</template>
                     </el-table-column>
                     <el-table-column
                             label="申请用户"
                             width="110">
-                        <template scope="scope">{{ scope.row.applyUser.name }}</template>
+                        <template slot-scope="scope">{{ scope.row.applyUser.name }}</template>
                     </el-table-column>
                     <el-table-column
                             label="申请设备"
                             width="170">
-                        <template scope="scope">{{ scope.row.applyDevice.name }}</template>
+                        <template slot-scope="scope">{{ scope.row.applyDevice.name }}</template>
                     </el-table-column>
                     <el-table-column
                             label="开始使用时间"
                             width="200">
-                        <template scope="scope">{{ scope.row.apply.startDate }}</template>
+                        <template slot-scope="scope">{{ scope.row.apply.startDate }}</template>
                     </el-table-column>
                     <el-table-column
                             label="结束使用时间"
                             width="">
-                        <template scope="scope">{{ scope.row.apply.endDate }}</template>
+                        <template slot-scope="scope">{{ scope.row.apply.endDate }}</template>
                     </el-table-column>
                     <el-table-column
                             label="申请理由"
                             width="">
-                        <template scope="scope">{{ scope.row.apply.vioReason ? scope.row.apply.vioReason.substr(0,10) : '暂未填写' }}</template>
+                        <template slot-scope="scope">{{ scope.row.apply.vioReason ? scope.row.apply.vioReason.substr(0,10) : '暂未填写' }}</template>
                     </el-table-column>
                     <el-table-column
                             label="是否同意"
                             width="100">
-                        <template scope="scope">{{ scope.row.apply.isAgree ? '是': '否' }}</template>
+                        <template slot-scope="scope">{{ scope.row.apply.isAgree ? '是': '否' }}</template>
                     </el-table-column>
                     <el-table-column
                             label="是否禁用"
                             width="100">
-                        <template scope="scope">{{ scope.row.apply.isUse ? '可用': '禁用' }}</template>
+                        <template slot-scope="scope">{{ scope.row.apply.isUse ? '可用': '禁用' }}</template>
                     </el-table-column>
                     <el-table-column
                             prop="operation"
                             label="操作"
                             width="100">
-                        <template scope="scope">
+                        <template slot-scope="scope">
                             <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
                             <el-button type="text" @click="handleDelete(scope.row)" style="margin-left: 5px;">禁用</el-button>
                         </template>

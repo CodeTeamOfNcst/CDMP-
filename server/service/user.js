@@ -1,5 +1,4 @@
 import { User, UserKlass } from '../dbconfig/dbinit'
-import math from 'math'
 
 const ItemPerPage = 10 ;
 exports.logIn = async ( ctx, next ) => {

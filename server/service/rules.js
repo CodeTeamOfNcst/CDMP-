@@ -1,5 +1,4 @@
 import { Rule } from '../dbconfig/dbinit'
-import math from 'math'
 
 const ItemPerPage = 10 ;
 exports.addRule = async ( ctx, next ) => {

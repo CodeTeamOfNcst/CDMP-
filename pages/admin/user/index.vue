@@ -109,28 +109,28 @@
                     <el-table-column
                             label="用户邮箱"
                             width="350">
-                        <template scope="scope">{{ scope.row.user.email || '暂未填写'}}</template>
+                        <template slot-scope="scope">{{ scope.row.user.email || '暂未填写'}}</template>
                     </el-table-column>
                     <el-table-column
                             label="用户手机号"
                             width="">
-                        <template scope="scope">{{ scope.row.user.phone || '暂未填写'}}</template>
+                        <template slot-scope="scope">{{ scope.row.user.phone || '暂未填写'}}</template>
                     </el-table-column>
                     <el-table-column
                             label="用户类别"
                             width="">
-                        <template scope="scope">{{ scope.row.userType.name || '暂未填写'}}</template>
+                        <template slot-scope="scope">{{ scope.row.userType.name || '暂未填写'}}</template>
                     </el-table-column>
                     <el-table-column
                             label="是否禁用"
                             width="100">
-                        <template scope="scope">{{ scope.row.user.isUse ? '可用': '禁用'}}</template>
+                        <template slot-scope="scope">{{ scope.row.user.isUse ? '可用': '禁用'}}</template>
                     </el-table-column>
                     <el-table-column
                             prop="operation"
                             label="操作"
                             width="100">
-                        <template scope="scope">
+                        <template slot-scope="scope">
                             <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
                             <el-button type="text" @click="handleDelete(scope.row)" style="margin-left: 5px;">禁用</el-button>
                         </template>

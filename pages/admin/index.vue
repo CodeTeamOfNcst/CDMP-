@@ -33,28 +33,26 @@
                         </el-col>
                     </div>
                 </el-form-item>
-                <el-form-item label="设备图片">
-                    <el-upload
-                            class="upload-demo"
-                            drag
-                            action="https://jsonplaceholder.typicode.com/posts/"
-                            multiple>
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text">将文件拖到此处，或 <em>点击上传</em></div>
-                        <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
-                    </el-upload>
-                </el-form-item>
                 <el-form-item label="设备描述">
                     <el-input :rows="3" type="textarea" v-model="addForm.describe" class="textarea"  />
                 </el-form-item>
                 <el-form-item label="是否需要维护">
-                    <el-switch v-model="addForm.needRepair" />
+                    <el-switch v-model="addForm.needRepair"
+                               active-text="维护中"
+                               inactive-text="可预约"
+                    />
                 </el-form-item>
                 <el-form-item label="是否能被预约">
-                    <el-switch v-model="addForm.canApply" />
+                    <el-switch v-model="addForm.canApply"
+                               active-text="可预约"
+                               inactive-text="不可预约"
+                    />
                 </el-form-item>
                 <el-form-item label="禁用标识">
-                    <el-switch v-model="addForm.isUse" />
+                    <el-switch v-model="addForm.isUse"
+                               active-text="可用"
+                               inactive-text="禁用"
+                    />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="handleAdd">添加</el-button>
@@ -125,7 +123,7 @@
                             prop="operation"
                             label="操作"
                             width="110">
-                        <template scope="scope">
+                        <template slot-scope="scope">
                             <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
                             <el-button type="text" @click="handleForbid(scope.row)" style="margin-left: 5px;">禁用</el-button>
                         </template>
@@ -133,7 +131,7 @@
                 </el-table>
             </div>
 
-            <el-dialog title="编辑设备" :visible.sync="editFormVisibel">
+            <el-dialog title="编辑设备" :visible.sync="editFormVisibel" @close="editDialogClose">
                 <el-form :model="editForm" >
                     <el-form-item label="设备名称" :label-width="editFormLabelWidth">
                         <div class="inputName">
@@ -154,22 +152,17 @@
                     </el-form-item>
                     <el-form-item label="设备购买日期" :label-width="editFormLabelWidth">
                         <el-col :span="11">
-                            <el-date-picker type="date" placeholder="选择日期" v-model="editForm.date" style="width: 100%;"></el-date-picker>
+                            <el-date-picker type="date" placeholder="选择日期" v-model="editForm.addDate" style="width: 100%;"></el-date-picker>
                         </el-col>
                     </el-form-item>
-                    <el-form-item label="设备图片" :label-width="editFormLabelWidth">
+                    <el-form-item label="设备图片">
                         <el-upload
-                                class="upload-demo"
-                                action="https://jsonplaceholder.typicode.com/posts/"
-                                :on-preview="handlePreview"
-                                :on-remove="handleRemove"
-                                :before-remove="beforeRemove"
-                                multiple
-                                :limit="3"
-                                :on-exceed="handleExceed"
-                                :file-list="fileList">
-                            <el-button size="small" type="primary">点击上传</el-button>
-                            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                                action="/api/upload/imageUpload"
+                                :show-file-list="false"
+                                :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload">
+                            <img v-if="editForm.deviceImageUrl" :src="editForm.deviceImageUrl" class="avatar">
+                            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                         </el-upload>
                     </el-form-item>
                     <el-form-item label="设备描述" :label-width="editFormLabelWidth">
@@ -178,10 +171,18 @@
                     <el-form-item label="是否需要维护" :label-width="editFormLabelWidth">
                         <el-switch v-model="editForm.needRepair"/>
                     </el-form-item>
-                    <el-form-item label="是否能被预约" :label-width="editFormLabelWidth">
+                    <el-form-item label="是否能被预约"
+                                  :label-width="editFormLabelWidth"
+                                  active-text="可预约"
+                                  inactive-text="不可预约">
+                    >
                         <el-switch v-model="editForm.canApply"/>
                     </el-form-item>
-                    <el-form-item label="可用标识" :label-width="editFormLabelWidth">
+                    <el-form-item label="可用标识"
+                                  :label-width="editFormLabelWidth"
+                                  active-text="可用"
+                                  inactive-text="禁用"
+                    >
                         <el-switch v-model="editForm.isUse"/>
                     </el-form-item>
                 </el-form>
@@ -272,6 +273,29 @@
         width: 100%;
         height:50px;
     }
+    .avatar-uploader .el-upload {
+        border: 4px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
 </style>
 
 <script>
@@ -279,6 +303,30 @@ import axios from 'axios'
 export default {
     layout: 'admina',
         methods: {
+            async editDialogClose(){
+                let resData = await axios.post('/api/upload/deleteTempFile', {
+                    path: this.editForm.deviceImageUrl
+                });
+                if(resData.data.status === 1){
+                    console.log(resData.data.message)
+                }else {
+                    this.$message.error('服务器异常，请联系管理员')
+                }
+            },
+            handleAvatarSuccess(res, file) {
+                this.editForm.deviceImageUrl = res.imgPath;  // 将返回的图片url存储到editForm数据中
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
             async handleAdd() {
                 // 处理新建仪器设备
                 let deviceName = this.addForm.name;
@@ -288,7 +336,6 @@ export default {
                 let deviceNeedRepair = this.addForm.needRepair;
                 let deviceCanApply = this.addForm.canApply;
                 let deviceIsUse = this.addForm.isUse;
-
                 if(deviceName && deviceTypeId && deviceAddDate && deviceDescribe){
                     let result = await axios.post('/api/device/add', {
                         name: deviceName,
@@ -320,7 +367,6 @@ export default {
                     id: rowId
                 });
                 if(resData.data.status === 1){
-
                     this.editForm.name = resData.data.device.name;
                     this.editForm.deviceType = resData.data.device.device_type;
                     this.editForm.addDate = resData.data.purchaseDate;
@@ -328,23 +374,25 @@ export default {
                     this.editForm.needRepair = resData.data.device.needRepair;
                     this.editForm.canApply = resData.data.device.canReserve;
                     this.editForm.isUse = resData.data.device.isUse;
-
-                    this.editFormVisibel = true
+                    this.editForm.deviceImageUrl = resData.data.device.imgFilePath;
+                    this.editFormVisibel = true;
                 }else {
-                    this.$message.error(resData.data.message);
+                    this.$message.error(resData.data.message + '请联系管理员');
                 }
             },
             async handleSubmitEdit() {
                 try{
                     let resData = await axios.post('/api/device/modifyById',{
+                        path: this.editForm.deviceImageUrl,
                         id: this.editForm.id,
                         name: this.editForm.name,
                         deviceTypeId: this.editForm.deviceType,
-                        date: this.editForm.date,
+                        date: this.editForm.addDate,
                         describe: this.editForm.describe,
                         needRepair: this.editForm.needRepair,
                         canApply: this.editForm.canApply,
-                        isUse: this.editForm.isUse
+                        isUse: this.editForm.isUse,
+                        path: this.editForm.deviceImageUrl,
                     });
 
                     if( resData.data.status === 1 ){
@@ -352,7 +400,7 @@ export default {
                             type: 'success',
                             message: resData.data.message
                         });
-
+                        window.location.reload()
                     }else {
                         this.$message.error( resData.data.status );
                     }
@@ -398,22 +446,9 @@ export default {
                     this.$message.error(resData.data.message)
                 }
             },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
-            },
-            handlePreview(file) {
-                console.log(file);
-            },
-            handleExceed(files, fileList) {
-                this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-            },
-            beforeRemove(file, fileList) {
-                return this.$confirm(`确定移除 ${ file.name }？`);
-            },
         },
         data() {
             return {
-                fileList: [{name: '', url: ''}],
                 currentPage:1,
                 itemCounts: null,
                 editFormLabelWidth:'100px',
@@ -426,16 +461,16 @@ export default {
                 ],
                 value:'',
                 options1: [{
-                    value: '选项1',
+                    value: '1',
                     label: '待维护仪器'
                 }, {
-                    value: '选项2',
+                    value: '2',
                     label: '可预约仪器'
                 }, {
-                    value: '选项3',
+                    value: '3',
                     label: '禁用仪器'
                 }, {
-                    value: '选项4',
+                    value: '4',
                     label: '按购买日期由近及远排序'
                 }],
                 addForm: {
@@ -456,6 +491,7 @@ export default {
                     needRepair: false,
                     canApply: true,
                     isUse: true,
+                    deviceImageUrl: null,
                 },
                 tableData: [
                     {

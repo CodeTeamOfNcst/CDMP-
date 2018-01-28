@@ -101,7 +101,7 @@
                         <p>预约时间:</p>
                         <div class="fillOutTime">
                             <el-date-picker
-                                    v-model="value7"
+                                    v-model="date"
                                     type="daterange"
                                     align="right"
                                     unlink-panels
@@ -176,6 +176,7 @@
         },
         data () {
           return {
+              date:'',
             input1: '',
             input2: '',
             input3: '',
