@@ -2,6 +2,12 @@ import { Apply,Device,DeviceType,Message,MessageKlass,Rule,User,UserKlass, } fro
 
 import { getOrCreate } from '../util/modelFns'
 
+/**
+ * 测试koa自带的上下文封装
+ * @param ctx
+ * @param next
+ * @returns {Promise<void>}
+ */
 module.exports.testGetData = async (ctx, next) => {
     ctx.body = {
         status: 1,
@@ -13,7 +19,7 @@ module.exports.AddUser = async ( ctx, next ) => {
 }
 
 /**
- * 寻找或者创建数据 同样有bug
+ * 寻找或者创建数据 同样有bug 而且不小，我实在不想填坑了
  * @param { [object] } ctx 
  * @param { [object] } next 
  */
@@ -59,7 +65,7 @@ module.exports.findOrCreateData = async ( ctx, next ) => {
 }
 
 /**
- * 尝试获取或创建的方式添加数据有巨大的bug
+ * 尝试获取或创建的方式添加数据有巨大的 bug 懒得填坑了
  * @param { [object] } ctx 
  * @param { [object] } next 
  */
@@ -177,15 +183,33 @@ exports.createData = async ( ctx, next ) => {
         let failMessage3 = await Message.create( { content: '这是一条红红红火火晃晃呼呼失败的消息', isPublished: false, isRead: false } );
         failMessage3.setMessageType(failMessageType);
         await  failMessage3.setMessageUser(user3);
-        let successMessage4 = await Message.create( { content: '这是一条成功的消息', isPublished: false, isRead: false } );
+        let successMessage4 = await Message.create( { content: '这是一条失踪人口回归成功的消息', isPublished: false, isRead: false } );
         await successMessage4.setMessageType(successMessageType);
         await  successMessage4.setMessageUser(user1);
-        let commonMessage5 = await Message.create( { content: '这是一条普通的消息', isPublished: false, isRead: false } );
+        let commonMessage5 = await Message.create( { content: '这是一条高产似母猪的消息', isPublished: false, isRead: false } );
         await commonMessage5.setMessageType(commonMessageType);
         await  commonMessage5.setMessageUser(user2);
-        let failMessage6 = await Message.create( { content: '这是一条失败的消息', isPublished: false, isRead: false } );
+        let failMessage6 = await Message.create( { content: '这是一条您预约的设备成功被别人抢走了失败的消息', isPublished: false, isRead: false } );
         failMessage6.setMessageType(failMessageType);
         await  failMessage6.setMessageUser(user3);
+        let failMessage7 = await Message.create( { content: '这是一条立浮华之世失败的消息', isPublished: false, isRead: false } );
+        failMessage7.setMessageType(failMessageType);
+        await  failMessage7.setMessageUser(user3);
+        let failMessage8 = await Message.create( { content: '这是一条奏天籁之音的消息', isPublished: false, isRead: false } );
+        failMessage8.setMessageType(failMessageType);
+        await  failMessage8.setMessageUser(user3);
+        let failMessage9 = await Message.create( { content: '这是一条你关注的微博推送了新的消息', isPublished: false, isRead: false } );
+        failMessage9.setMessageType(failMessageType);
+        await  failMessage9.setMessageUser(user3);
+        let failMessage10 = await Message.create( { content: '这是一条我实在想不出来编什么好的消息', isPublished: false, isRead: false } );
+        failMessage10.setMessageType(failMessageType);
+        await  failMessage10.setMessageUser(user3);
+        let failMessage11 = await Message.create( { content: '这是一条您已被思特沃科学院录取的消息', isPublished: false, isRead: false } );
+        failMessage11.setMessageType(failMessageType);
+        await  failMessage11.setMessageUser(user3);
+        let failMessage12 = await Message.create( { content: '这是一条考试永远不挂科的好消息', isPublished: false, isRead: false } );
+        failMessage12.setMessageType(failMessageType);
+        await  failMessage12.setMessageUser(user3);
 
 
         let computerDeviceType = await DeviceType.create( { name: '计算机系' } );
