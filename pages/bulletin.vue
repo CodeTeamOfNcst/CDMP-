@@ -8,6 +8,10 @@
         <div class="contentList">
             <el-row class="strip">
                 <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
             </el-row>
         </div>
         <el-row>

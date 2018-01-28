@@ -8,7 +8,9 @@
                 v-model="addFormVisible">
             <el-form ref="addForm" :model="addForm" label-width="80px">
                 <el-form-item label="公告标题">
-                    <el-input v-model="addForm.title" clearable />
+                    <div class="inputName">
+                        <el-input v-model="addForm.title" clearable />
+                    </div>
                 </el-form-item>
                 <el-form-item label="发布时间">
                     <el-col :span="11">
@@ -99,7 +101,9 @@
             <el-dialog title="编辑公告" :visible.sync="editFormVisible">
                 <el-form ref="form" :model="editForm" label-width="80px">
                     <el-form-item label="公告标题">
+                        <div class="inputName">
                         <el-input v-model="editForm.title" clearable />
+                        </div>
                     </el-form-item>
                     <el-form-item label="发布时间">
                         <el-col :span="11">
@@ -136,6 +140,12 @@
         min-width:350px;
         height: 100%;
     }
+    .inputName{
+        width: 72%;
+    }
+    .el-col-11 {
+        width: 72%;
+    }
     .textarea{
         height: 350px;
     }
@@ -150,13 +160,6 @@
         width: 100%;
         height:60px;
     }
-    .add{
-        width: 5%;
-        min-width: 31px;
-        height: 40px;
-        float: left;
-        z-index: 9999;
-    }
     .addContent{
         width: 100%;
         height: 100%;
@@ -168,7 +171,6 @@
         min-width: 120px;
         height: 40px;
         float: left;
-        margin-left: 10px;
         z-index: 9999;
     }
     .select{

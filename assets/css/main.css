@@ -10,6 +10,19 @@ html, body
   width: 40%!important;
   min-width: 400px;
 }
+.el-select{
+  width: 100%;
+}
+
+.add{
+  width: 5%;
+  margin-left: 5px;
+  min-width: 31px;
+  height: 40px;
+  float: left;
+  z-index: 9999;
+}
+
 td,th{
   padding: 0px 0!important;
   font-family: 幼圆;

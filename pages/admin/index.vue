@@ -10,22 +10,28 @@
                 v-model="addFormVisible">
             <el-form ref="addForm" :model="addForm" label-width="100px">
                 <el-form-item label="设备名称">
-                    <el-input v-model="addForm.name" clearable />
+                    <div class="inputName">
+                        <el-input v-model="addForm.name" clearable />
+                    </div>
                 </el-form-item>
                 <el-form-item label="设备类型">
-                    <el-select v-model="addForm.deviceType" placeholder="请选择">
-                        <el-option
-                                v-for="item in deviceTypes"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
-                        </el-option>
-                    </el-select>
+                    <div class="deviceSelect">
+                        <el-select v-model="addForm.deviceType" placeholder="请选择">
+                            <el-option
+                                    v-for="item in deviceTypes"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
                 </el-form-item>
                 <el-form-item label="设备购买日期">
-                    <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="addForm.addDate" style="width: 100%;"></el-date-picker>
-                    </el-col>
+                    <div class="timeDevice" style="width: 100%;">
+                        <el-col :span="11">
+                            <el-date-picker type="date" placeholder="选择日期" v-model="addForm.addDate" style="width: 100%;"></el-date-picker>
+                        </el-col>
+                    </div>
                 </el-form-item>
                 <el-form-item label="设备图片">
                     <el-upload
@@ -39,7 +45,7 @@
                     </el-upload>
                 </el-form-item>
                 <el-form-item label="设备描述">
-                    <el-input :rows="5" type="textarea" v-model="addForm.describe" class="textarea"  />
+                    <el-input :rows="3" type="textarea" v-model="addForm.describe" class="textarea"  />
                 </el-form-item>
                 <el-form-item label="是否需要维护">
                     <el-switch v-model="addForm.needRepair" />
@@ -128,19 +134,23 @@
             </div>
 
             <el-dialog title="编辑设备" :visible.sync="editFormVisibel">
-                <el-form :model="editForm">
+                <el-form :model="editForm" >
                     <el-form-item label="设备名称" :label-width="editFormLabelWidth">
-                        <el-input v-model="editForm.name" clearable></el-input>
+                        <div class="inputName">
+                            <el-input v-model="editForm.name" clearable></el-input>
+                        </div>
                     </el-form-item>
                     <el-form-item label="设备类型" :label-width="editFormLabelWidth">
-                        <el-select v-model="editForm.deviceType" placeholder="请选择">
-                            <el-option
-                                    v-for="item in deviceTypes"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
+                        <div class="deviceSelect">
+                            <el-select v-model="editForm.deviceType" placeholder="请选择">
+                                <el-option
+                                        v-for="item in deviceTypes"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </div>
                     </el-form-item>
                     <el-form-item label="设备购买日期" :label-width="editFormLabelWidth">
                         <el-col :span="11">
@@ -163,7 +173,7 @@
                         </el-upload>
                     </el-form-item>
                     <el-form-item label="设备描述" :label-width="editFormLabelWidth">
-                        <el-input :rows="5" type="textarea" v-model="editForm.describe" class="textarea" />
+                        <el-input :rows="3" type="textarea" v-model="editForm.describe" class="textarea" />
                     </el-form-item>
                     <el-form-item label="是否需要维护" :label-width="editFormLabelWidth">
                         <el-switch v-model="editForm.needRepair"/>
@@ -197,6 +207,15 @@
     .el-form-item {
         margin-bottom: 8px;
     }
+    .el-col-11 {
+        width: 72%!important;
+    }
+    .inputName{
+        width: 72%;
+    }
+    .deviceSelect {
+        width:72%;
+    }
     .mianContent{
         width: 100%;
         min-width:350px;
@@ -216,13 +235,6 @@
         width: 100%;
         height:60px;
     }
-    .add{
-        width: 5%;
-        min-width: 31px;
-        height: 40px;
-        float: left;
-        z-index: 9999;
-    }
     .addContent{
         width: 100%;
         height: 100%;
@@ -234,7 +246,6 @@
         min-width: 120px;
         height: 40px;
         float: left;
-        margin-left: 10px;
         z-index: 9999;
     }
     .select{
@@ -405,7 +416,7 @@ export default {
                 fileList: [{name: '', url: ''}],
                 currentPage:1,
                 itemCounts: null,
-                editFormLabelWidth:'90',
+                editFormLabelWidth:'100px',
                 search_context:'',
                 deviceTypes: [
                     {

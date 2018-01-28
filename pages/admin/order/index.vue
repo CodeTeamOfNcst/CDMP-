@@ -205,6 +205,9 @@
 </template>
 
 <style scoped>
+    .el-col-18 {
+        width: 88%;
+    }
     .mianContent{
         width: 100%;
         min-width:350px;
@@ -221,13 +224,6 @@
         width: 100%;
         height:60px;
     }
-    .add{
-        width: 5%;
-        min-width: 31px;
-        height: 40px;
-        float: left;
-        z-index: 9999;
-    }
     .addContent{
         width: 100%;
         height: 100%;
@@ -239,7 +235,6 @@
         min-width: 120px;
         height: 40px;
         float: left;
-        margin-left: 10px;
         z-index: 9999;
     }
     .select{
