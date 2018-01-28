@@ -1,4 +1,6 @@
 import { Device, DeviceType } from '../dbconfig/dbinit'
+import fs from 'fs'
+import uuid from 'uuid'
 
 const ItemPerPage = 10 ;
 exports.addDevice = async ( ctx, next ) => {
@@ -59,10 +61,27 @@ exports.modifyDeviceById = async ( ctx, next ) => {
     let postData = ctx.request.body;
     let device_id = ctx.request.body.id;
     let type_id = ctx.request.body.deviceTypeId;
+    let imagePath = ctx.request.body.path;
     try {
         let thisDevice = await Device.findOne({
                 where: { id: device_id }
         });
+        if( thisDevice.imgFilePath !== imagePath && imagePath){  // 判断是否上传了新的图片，没有则不改变图片
+            let oldPath = thisDevice.imgFilePath;
+            let targetPath = 'uploads/deviceImages/' + uuid.v1() + '.jpg'; //图片路径不一致，将图片copy到文件夹下
+            if(fs.existsSync('static/' + imagePath)){
+                fs.readFile('static/' + imagePath, ( err, data ) => {
+                    fs.writeFile('static/'+ targetPath, data,  (err) =>
+                    {
+                        if(err) console.log(err)
+                    })
+                });
+                thisDevice.update({
+                    imgFilePath: targetPath //直接将可以作为图片路径显示的路径存储在数据库中
+                });
+                if(fs.existsSync('static/' + oldPath) && oldPath) fs.unlink('static/' + oldPath)
+            }
+        }
         let thisType = await  DeviceType.findOne({
             where: { id: type_id }
         });
@@ -107,7 +126,7 @@ exports.getDeviceById = async ( ctx, next ) => {
             name: thisDevice.name,
             imgFilePath: thisDevice.imgFilePath,
             description: thisDevice.description,
-            purchaseDate: thisDevice.createdAt,
+            purchaseDate: thisDevice.purchaseDate,
             needRepair: thisDevice.needRepair,
             canReserve: thisDevice.canReserve,
             device_type: deviceType.id,
@@ -148,7 +167,6 @@ exports.getAllDevice = async ( ctx, next ) => {
         })
     }
     let count = await Device.count();
-    console.log(count);
     ctx.body ={
         status: 1,
         message: '成功获取数据',

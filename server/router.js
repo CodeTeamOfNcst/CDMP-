@@ -1,4 +1,6 @@
 import Router from 'koa-router'
+const multer = require('koa-multer');
+const upload = multer({ dest: './static/uploads' });
 
 import { testGetData, AddUser, addDataToDataBase, getOrCreateData, createData } from './service/test_service'
 import { logIn }from './service/user'
@@ -7,6 +9,7 @@ import { getAllUser, deleteUserById, getUserById, addUser, modifyUserById, onlyG
 import { getAllRules, addRule, deleteRule, modifyRule, getRuleById } from './service/rules'
 import { getAllMessage,addMessage, getMessageById, modifyMessageById, deletseMessageById } from './service/message'
 import { getAllApply, addApply, getApplyById, modifyApplyById, deleteApplyById } from './service/apply'
+import { imageUploadToTemp, deleteTempFile, copyTempFileToDir } from './service/upload'
 /**
  * 全局 service router 定义
  */
@@ -60,5 +63,9 @@ module.exports = () => {
     router.post('/apply/modifyById', modifyApplyById );
     router.post('/apply/deleteById', deleteApplyById );
 
+    // 处理图片上传
+    router.post('/upload/imageUpload', upload.single('file'), imageUploadToTemp );
+    router.post('/upload/deleteTempFile', deleteTempFile );
+    router.post('/upload/copyTempFileToDir', copyTempFileToDir);
     return router
 };

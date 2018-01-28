@@ -91,7 +91,7 @@
                             prop="operation"
                             label="操作"
                             width="110">
-                        <template scope="scope">
+                        <template slot-scope="scope">
                             <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
                             <el-button type="text" @click="forbidRule(scope.row)" style="margin-left: 5px;">禁用</el-button>
                         </template>
