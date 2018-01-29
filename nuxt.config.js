@@ -16,7 +16,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css', 'element-ui/lib/theme-chalk/index.css'],
+  css: ['~assets/css/main.css', 'element-ui/lib/theme-chalk/index.css', 'video.js/dist/video-js.css'],
   /*
   ** Customize the progress-bar color
   */
@@ -30,5 +30,5 @@ module.exports = {
   /**
   ** 添加插件
   */
-  plugins: ['~plugins/element-ui', '~plugins/axios', '~plugins/vuex']
+  plugins: ['~plugins/element-ui', '~plugins/axios', '~plugins/vuex', { src: '~plugins/nuxt-video-player-plugin.js', ssr: false }]
 };

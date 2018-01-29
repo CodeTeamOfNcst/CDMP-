@@ -157,7 +157,10 @@ exports.getAllDevice = async ( ctx, next ) => {
             name: devices[i].name,
             disable: devices[i].isUse ? '可用': '禁用',
             type: devicesType[devices[i].device_type - 1].name,
-            operation:''
+            type_id: devicesType[devices[i].device_type - 1].id,
+            imgFilePath: devices[i].imgFilePath,
+            canReserve:devices[i].canReserve,
+            show: true,
         })
     }
     for(let i = 0; i<devicesType.length; i++ ){

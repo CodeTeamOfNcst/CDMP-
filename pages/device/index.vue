@@ -27,19 +27,12 @@
             <el-row class="headerline"></el-row>
             <div class="grid-content bg-purple keyword">
                 <div class="chanceKey">
-                    <el-menu>
-                        <el-menu-item index="1">
-                            <span slot="title">全部设备</span>
-                        </el-menu-item>
-                        <el-menu-item index="2">
-                            <span slot="title">冶金学院</span>
-                        </el-menu-item>
-                        <el-menu-item index="3">
-                            <span slot="title">计算机系</span>
-                        </el-menu-item>
-                        <el-menu-item index="4">
-                            <span slot="title">化工系</span>
-                        </el-menu-item>
+                    <el-menu @select="typeSelect">
+                        <div v-for="deviceType in deviceTypes">
+                            <el-menu-item :index="deviceType.value" >
+                                <span slot="">{{deviceType.label}}</span>
+                            </el-menu-item>
+                        </div>
                     </el-menu>
                 </div>
             </div>
@@ -50,7 +43,7 @@
                             <el-col :span="8" class="leftspan">
                                 <div class="grid-content bg-purple bullImg">
                                     <a href="device/details">
-                                        <img src="~/assets/img/yiqi.png" alt="Nuxt.js Logo" class="logo" />
+                                        <img :src="device.imgFilePath" alt="Nuxt.js Logo" class="logo" />
                                     </a>
                                 </div>
                             </el-col>
@@ -63,13 +56,13 @@
                                                     <el-col :span="17">
                                                         <div class="grid-content bg-purple nameFrame">
                                                             <a href="device/details">
-                                                                <p class="bullName">{{deviceName}}</p>
+                                                                <p class="bullName">{{device.name}}</p>
                                                             </a>
                                                         </div>
                                                     </el-col>
                                                     <el-col :span="3">
                                                         <div class="grid-content bg-purple-light button_center" >
-                                                            <a href="device/appoint">
+                                                            <a :href="`device/appoint/${device.id}`">
                                                                 <el-button type="primary" class="appoint">预约</el-button>
                                                             </a>
                                                         </div>
@@ -81,15 +74,15 @@
                                     <el-row class="maketop">
                                         <el-row :gutter="20" class="contactUser mainInfor">
                                             <el-col :span="8"><div class="grid-content bg-purple">购买日期</div></el-col>
-                                            <el-col :span="16"><div class="grid-content bg-purple">{{userName}}</div></el-col>
+                                            <el-col :span="16"><div class="grid-content bg-purple">{{device.date}}</div></el-col>
                                         </el-row>
                                         <el-row :gutter="20" class="contactUser">
                                             <el-col :span="8"><div class="grid-content bg-purple">设备分类</div></el-col>
-                                            <el-col :span="16"><div class="grid-content bg-purple">{{address}}</div></el-col>
+                                            <el-col :span="16"><div class="grid-content bg-purple">{{device.type}}</div></el-col>
                                         </el-row>
                                         <el-row :gutter="20" class="contactUser mainInfor">
-                                            <el-col :span="8"><div class="grid-content bg-purple">预约状态</div></el-col>
-                                            <el-col :span="16"><div class="grid-content bg-purple">{{phone}}</div></el-col>
+                                            <el-col :span="8"><div class="grid-content bg-purple">设备状态</div></el-col>
+                                            <el-col :span="16"><div class="grid-content bg-purple">{{device.canReserve ? '可预约': '不可预约' }}</div></el-col>
                                         </el-row>
                                     </el-row>
                                 </div>
@@ -107,6 +100,7 @@
                             <el-pagination
                                     :page-size="10"
                                     background
+                                    @current-change="handlePageChange"
                                     layout="prev, pager, next"
                                     :total="deviceCounts" class="lalala">
                             </el-pagination>
@@ -241,28 +235,19 @@
                 deviceCounts: null,
                 devices:[
                     {
-                        deviceName:'全自动智能倒置显微镜及金相分析系统',
-                        userName:'李云龙',
-                        address:'核心区教学楼E座304',
-                        phone:'1234567891',
-                    },
+                        id: 'id',
+                        date: 'purchaseDate',
+                        name: 'name',
+                        disable: '',
+                        type: 'name',
+                        imgFilePath: 'imgFilePath',
+                        canReserve:'canReserve',
+                    }
+                ],
+                deviceTypes:[
                     {
-                        deviceName:'全自动智能倒置显微镜及金相分析系统',
-                        userName:'李云龙',
-                        address:'核心区教学楼E座304',
-                        phone:'1234567891',
-                    },
-                    {
-                        deviceName:'全自动智能倒置显微镜及金相分析系统',
-                        userName:'李云龙',
-                        address:'核心区教学楼E座304',
-                        phone:'1234567891',
-                    },
-                    {
-                        deviceName:'全自动智能倒置显微镜及金相分析系统',
-                        userName:'李云龙',
-                        address:'核心区教学楼E座304',
-                        phone:'1234567891',
+                        key: 1,
+                        label: '计算机系'
                     }
                 ],
                 input5: '',
@@ -273,9 +258,23 @@
                 phone:'1234567891',
             }
         },
+        methods:{
+            typeSelect(index, path){
+                //  根据选择的内容筛选相应的仪器设备
+                console.log(index)
+            },
+            async handlePageChange(page){
+                console.log(page);
+                let resData = await axios.get(`/api/device/getAll/${page}`);
+                if(resData.data.status === 1){
+                    this.devices = resData.data.Devices;
+                }else {
+                    this.$message.error(resData.data.message)
+                }
+            }
+        },
         mounted(){
             this.deviceCounts = this.counts;
-            console.log(this.devices)
         },
         async asyncData({}) {
             let  resData  = await axios.get(`/api/device/getAll/1`);
