@@ -4,13 +4,13 @@
             <!--<img src="../assets/img/r_bg.jpg"/>-->
             <h1>实验设备预约管理平台</h1>
         </div>
-        <center class="headerlist">
+        <div class="headerlist">
             <nuxt-link class="button page" to="/" :class="head-tag">首页</nuxt-link>
             <nuxt-link class="button page" to="/device">仪器列表</nuxt-link>
             <nuxt-link class="button page" to="/bulletin">通知公告</nuxt-link>
             <!--<nuxt-link class="button page" to="/rules">规章制度</nuxt-link>-->
             <nuxt-link class="button page" to="/contact">个人中心</nuxt-link>
-        </center>
+        </div>
     </div>
 </template>
 <style scoped>
@@ -30,8 +30,9 @@
         text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135 ;
     }
     .page{
-        width: 190px;
+        width: 221px;
         font-family: SimHei;
+        text-align: center;
     }
     .nuxt-link-exact-active{
         background: #6b8db4;
