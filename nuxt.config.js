@@ -25,7 +25,7 @@ module.exports = {
   ** 防止重复打包
   */
   build: {
-    vendor: ['axios', 'element-ui','vuex', 'moment']
+    vendor: ['axios', 'element-ui', 'vuex', 'moment']
   },
   /**
   ** 添加插件

@@ -48,19 +48,35 @@
                             <!--<el-row class="headerline">-->
                                 <!--<el-col :span="24"></el-col>-->
                             <!--</el-row>-->
+
                             <div class="login">
                                 <el-tabs v-model="activeName" type="card">
                                     <el-tab-pane  label="登录" name="first" label-width="70px">
                                         <el-form  class="loginform" label-width="60px">
-                                            <el-form-item label="账号">
-                                                <el-input class="input1" v-model="account"/>
-                                            </el-form-item>
-                                            <el-form-item label="密码">
-                                                <el-input class="input1" v-model="password"/>
-                                            </el-form-item>
+                                            <div id="example">
+                                                <div id="login">
+                                                    <template v-if="userName">
+                                                        <span class="welcome">欢迎您，{{animateUserName}}</span>
+                                                        <a class="OriginLogout" href="#none" @click="logout" >退出登录</a>
+
+                                                    </template>
+                                                    <template v-else>
+                                                        <el-form-item label="账号">
+                                                            <el-input type="text" class="input1" v-model="inputUserName"/>
+                                                        </el-form-item>
+                                                        <el-form-item label="密码">
+                                                            <el-input class="input1" v-model="password"/>
+                                                        </el-form-item>
+                                                        <!--<el-button class="originLogin"><a href="#none" @click="login">登录</a></el-button>-->
+                                                        <!--<input  placeholder="请输入用户名" v-model="inputUserName"/>-->
+                                                        <a href="#none" class="OriginLogin" @click="login">登录</a>
+                                                        <div class="error">{{errorTip}}</div>
+                                                    </template>
+                                                </div>
+                                            </div>
+
                                         </el-form>
-                                        <el-button class="loginbutton" type="primary" v-on:click="handleUserLogin">登录</el-button>
-                                        <div v-show="isShow" style="width: 100px;height: 100px;background: red"></div>
+
                                     </el-tab-pane>
                                     <el-tab-pane label="注册" name="second" label-width="80px">
                                         <el-form class="loginform" label-width="70px">
@@ -104,6 +120,7 @@
                         <!--<el-row class="headerline">-->
                             <!--<el-col :span="24"></el-col>-->
                         <!--</el-row>-->
+
                     </div></el-col>
                 </div>
             </el-col>
@@ -246,6 +263,28 @@
     .loginbutton{
         margin:20px 0 0 130px;
     }
+    .welcome{
+        margin-left: 25%;
+        font-size: 25px;
+    }
+    .OriginLogin{
+        display:block;
+        margin:30px 0 0  43%;
+        background-color: #3498DB;
+        width:50px;
+        height:30px;
+        text-align: center;
+        border-radius: 5px;
+    }
+    .OriginLogout{
+        display:block;
+        margin:20px 0 0 35%;
+        background-color: #3498DB;
+        width:70px;
+        height:30px;
+        border-radius: 5px;
+
+    }
     .el-tabs__nav-wrap{
         width:300px;
     }
@@ -257,7 +296,10 @@
 
 //    import VueAwesomeSwiper from 'vue-awesome-swiper'
     import axios from 'axios'
+import ElButton from "../node_modules/element-ui/packages/button/src/button.vue";
     export default {
+//        ,
+        components: {ElButton},
         data() {
             return {
                 input5: '',
@@ -266,10 +308,28 @@
                 account: '',
                 password: '',
                 repeat_password: '',
-                login_show: true
+                login_show: true,
+                userName: '',
+                inputUserName: '',
+                animateUserName: '',
+                errorTip: '',
+                intervalId: 0
             }
         },
         methods: {
+            login: function () {
+                var _this = this
+                if(_this.inputUserName) {
+                    _this.userName = _this.inputUserName
+                    _this.inputUserName = ''
+                } else {
+                    _this.errorTip = '请先输入用户名！'
+                }
+            },
+            logout: function () {
+                var _this = this
+                _this.userName = ''
+            },
              async handleUserLogin(tab, event){
                 let user_account = this.account
                 let user_password = this.password
@@ -302,6 +362,25 @@
         head() {
             return {
                 title: 'CDMP 设备预约平台'
+            }
+        },
+        watch: {
+            inputUserName: function () {
+                var _this = this
+                _this.errorTip = ''
+            },
+            userName: function () {
+                var _this = this
+                var len = 1
+                this.animateUserName = ''
+                clearInterval(_this.intervalId)
+                _this.intervalId = setInterval(function () {
+                    if(len <= _this.userName.length) {
+                        _this.animateUserName = _this.userName.substr(0, len++)
+                    } else {
+                        clearInterval(_this.intervalId)
+                    }
+                }, 50)
             }
         }
     }
