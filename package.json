@@ -37,8 +37,10 @@
     "ramda": "^0.25.0",
     "sequelize": "^4.32.2",
     "source-map-support": "^0.4.15",
+    "swiper": "^4.1.0",
     "uuid": "^3.2.1",
     "vue": "^2.5.13",
+    "vue-awesome-swiper": "^3.1.2",
     "vue-server-renderer": "2.5.13",
     "vue-template-compiler": "2.5.13",
     "vuex": "^3.0.1"

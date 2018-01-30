@@ -1,3 +1,4 @@
+
 <template>
 
     <div class="all">
@@ -34,13 +35,13 @@
                                 </el-row>
                             </div>
                         </el-col>
-                        <!--<el-col :span="8"><div class="grid-content bg-purple-light">-->
-                            <!--<div class="orderbefore"></div>-->
-                            <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 图片展示</span>-->
-                            <!--&lt;!&ndash;<el-row class="headerline">&ndash;&gt;-->
-                                <!--&lt;!&ndash;<el-col :span="24"></el-col>&ndash;&gt;-->
-                            <!--&lt;!&ndash;</el-row>&ndash;&gt;-->
-                        <!--</div></el-col>-->
+                        <el-col :span="8"><div class="grid-content bg-purple-light">
+                            <div class="orderbefore"></div>
+                            <span class="order"> <i class="el-icon-d-arrow-right"></i> 图片展示</span>
+                            <!--<el-row class="headerline">-->
+                                <!--<el-col :span="24"></el-col>-->
+                            <!--</el-row>-->
+                        </div></el-col>
                         <el-col :span="8"><div class="grid-content bg-purple" v-show="login_show">
                             <!--<div class="orderbefore"></div>-->
                             <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 登录</span>-->
@@ -94,19 +95,19 @@
                 </div>
             </el-col>
         </el-row>
-        <!--<el-row>-->
-            <!--<el-col :span="24">-->
-                <!--<div class="grid-content bg-purple-dark main-middle">-->
-                    <!--<el-col :span="8"><div class="grid-content bg-purple">-->
-                        <!--<div class="orderbefore"></div>-->
-                        <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>-->
+        <el-row>
+            <el-col :span="24">
+                <div class="grid-content bg-purple-dark main-middle">
+                    <el-col :span="8"><div class="grid-content bg-purple">
+                        <div class="orderbefore"></div>
+                        <span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>
                         <!--<el-row class="headerline">-->
                             <!--<el-col :span="24"></el-col>-->
                         <!--</el-row>-->
-                    <!--</div></el-col>-->
-                <!--</div>-->
-            <!--</el-col>-->
-        <!--</el-row>-->
+                    </div></el-col>
+                </div>
+            </el-col>
+        </el-row>
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-footer">
@@ -222,7 +223,7 @@
     }
     .login{
         width: 330px;
-        margin: 5px 0 0 5px;
+        margin: 35px 0 0 5px;
         height:300px;
         /*background-color: #41B883;*/
     }
@@ -253,6 +254,8 @@
     /*}*/
 </style>
 <script>
+
+//    import VueAwesomeSwiper from 'vue-awesome-swiper'
     import axios from 'axios'
     export default {
         data() {
