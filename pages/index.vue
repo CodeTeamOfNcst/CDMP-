@@ -4,124 +4,74 @@
     <div class="all">
         <el-row>
             <el-col :span="24">
-                <div class="grid-content bg-purple-dark main-top">
-                    <el-row class="top-content">
-                        <el-col :span="8"><div class="grid-content bg-purple">
-                                <div class="orderbefore"></div>
-                                <span class="order"> <i class="el-icon-d-arrow-right"></i> 通知公告</span>
-
-                            </div>
-                            <!--<el-row class="headerline">-->
-                                <!--<el-col :span="24"></el-col>-->
-                            <!--</el-row>-->
-                            <div >
-                                <el-row class="mt-lcontent">
-                                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">学校关于放假期间仪器归还问题（2018.01.15）</a></div></el-col>
-                                </el-row>
-                                <el-row class="strip">
-                                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">关于大型仪器共享方案（2018.01.01）</a></div></el-col>
-                                </el-row>
-                                <el-row class="strip">
-                                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">我就发发公告（2017.08.29）</a></div></el-col>
-                                </el-row>
-                                <el-row class="strip">
-                                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">你猜这条公告是啥（2017.02.09）</a></div></el-col>
-                                </el-row>
-                                <el-row class="strip">
-                                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">大型仪器使用流程培训（2017.01.28）</a></div></el-col>
-                                </el-row>
-                                <el-row class="strip">
-                                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="#">特大型仪器使用流程培训（2017.01.26）</a></div></el-col>
-                                </el-row>
-                            </div>
-                        </el-col>
-                        <el-col :span="8"><div class="grid-content bg-purple-light">
-                            <div class="orderbefore"></div>
-                            <span class="order"> <i class="el-icon-d-arrow-right"></i> 图片展示</span>
-                            <!--<el-row class="headerline">-->
-                                <!--<el-col :span="24"></el-col>-->
-                            <!--</el-row>-->
-                        </div></el-col>
-                        <el-col :span="8"><div class="grid-content bg-purple" v-show="login_show">
-                            <!--<div class="orderbefore"></div>-->
-                            <!--<span class="order"> <i class="el-icon-d-arrow-right"></i> 登录</span>-->
-                            <!--<el-row class="headerline">-->
-                                <!--<el-col :span="24"></el-col>-->
-                            <!--</el-row>-->
-
-                            <div class="login">
-                                <el-tabs v-model="activeName" type="card">
-                                    <el-tab-pane  label="登录" name="first" label-width="70px">
-                                        <el-form  class="loginform" label-width="60px">
-                                            <div id="example">
-                                                <div id="login">
-                                                    <template v-if="userName">
-                                                        <span class="welcome">欢迎您，{{animateUserName}}</span>
-                                                        <a class="OriginLogout" href="#none" @click="logout" >退出登录</a>
-
-                                                    </template>
-                                                    <template v-else>
-                                                        <el-form-item label="账号">
-                                                            <el-input type="text" class="input1" v-model="inputUserName"/>
-                                                        </el-form-item>
-                                                        <el-form-item label="密码">
-                                                            <el-input class="input1" v-model="password"/>
-                                                        </el-form-item>
-                                                        <!--<el-button class="originLogin"><a href="#none" @click="login">登录</a></el-button>-->
-                                                        <!--<input  placeholder="请输入用户名" v-model="inputUserName"/>-->
-                                                        <a href="#none" class="OriginLogin" @click="login">登录</a>
-                                                        <div class="error">{{errorTip}}</div>
-                                                    </template>
-                                                </div>
-                                            </div>
-
-                                        </el-form>
-
-                                    </el-tab-pane>
-                                    <el-tab-pane label="注册" name="second" label-width="80px">
-                                        <el-form class="loginform" label-width="70px">
-                                            <el-form-item label="账号">
-                                                <el-input class="input1" v-model="account"/>
-                                            </el-form-item>
-                                            <el-form-item label="密码">
-                                                <el-input class="input1" v-model="password"/>
-                                            </el-form-item>
-                                            <el-form-item label="确认密码">
-                                                <el-input class="input1" v-model="repeat_password"/>
-                                            </el-form-item>
-                                            <el-button class="loginbutton" type="primary">注册</el-button>
-                                        </el-form>
-                                    </el-tab-pane>
-                                    <el-tab-pane label="管理员登录" name="third" label-width="80px">
-                                        <el-form class="loginform" label-width="60px">
-                                            <el-form-item label="账号">
-                                                <el-input class="input1" v-model="account"/>
-                                            </el-form-item>
-                                            <el-form-item label="密码">
-                                                <el-input class="input1" v-model="password"/>
-                                            </el-form-item>
-                                        </el-form>
-                                        <el-button class="loginbutton" type="primary">登录</el-button>
-                                    </el-tab-pane>
-                                </el-tabs>
-                            </div>
-                        </div>
-                        </el-col>
-                    </el-row>
-                </div>
-            </el-col>
-        </el-row>
-        <el-row>
-            <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-middle">
-                    <el-col :span="8"><div class="grid-content bg-purple">
+                    <el-col :span="16"><div class="grid-content bg-purple">
                         <div class="orderbefore"></div>
                         <span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>
-                        <!--<el-row class="headerline">-->
-                            <!--<el-col :span="24"></el-col>-->
-                        <!--</el-row>-->
+                    </div>
+                        <el-col :span="20" :offset="2"><div class="video grid-content bg-purple"></div></el-col>
+                    </el-col>
+                    <el-col :span="8"><div class="grid-content bg-purple" v-show="login_show">
+                        <el-col :span="24"><div class="login grid-content bg-purple">
+                            <el-tabs v-model="activeName" type="card">
+                                <el-tab-pane  label="登录" name="first" label-width="70px">
+                                    <el-form  class="loginform" label-width="60px">
+                                        <div id="example">
+                                            <div id="login">
+                                                <template v-if="userName">
+                                                    <span class="welcome">欢迎您，{{animateUserName}}</span>
+                                                    <a class="OriginLogout" href="#none" @click="logout" >退出登录</a>
+                                                </template>
+                                                <template v-else>
+                                                    <el-form-item label="账号">
+                                                        <el-input type="text" class="input1" v-model="inputUserName"/>
+                                                    </el-form-item>
+                                                    <el-form-item label="密码">
+                                                        <el-input class="input1" v-model="password"/>
+                                                    </el-form-item>
+                                                    <!--<el-button class="originLogin"><a href="#none" @click="login">登录</a></el-button>-->
+                                                    <!--<input  placeholder="请输入用户名" v-model="inputUserName"/>-->
+                                                    <a href="#none" class="OriginLogin" @click="login">登录</a>
+                                                    <div class="error">{{errorTip}}</div>
+                                                </template>
+                                            </div>
+                                        </div>
 
-                    </div></el-col>
+                                    </el-form>
+
+                                </el-tab-pane>
+                                <el-tab-pane label="注册" name="second" label-width="80px">
+                                    <el-form class="loginform" label-width="70px">
+                                        <el-form-item label="账号">
+                                            <el-input class="input1" v-model="account"/>
+                                        </el-form-item>
+                                        <el-form-item label="密码">
+                                            <el-input class="input1" v-model="password"/>
+                                        </el-form-item>
+                                        <el-form-item label="确认密码">
+                                            <el-input class="input1" v-model="repeat_password"/>
+                                        </el-form-item>
+                                        <el-button class="loginbutton" type="primary">注册</el-button>
+                                    </el-form>
+                                </el-tab-pane>
+                                <el-tab-pane label="管理员登录" name="third" label-width="80px">
+                                    <el-form class="loginform" label-width="60px">
+                                        <el-form-item label="账号">
+                                            <el-input class="input1" v-model="account"/>
+                                        </el-form-item>
+                                        <el-form-item label="密码">
+                                            <el-input class="input1" v-model="password"/>
+                                        </el-form-item>
+                                    </el-form>
+                                    <el-button class="loginbutton" type="primary">登录</el-button>
+                                </el-tab-pane>
+                            </el-tabs>
+                        </div></el-col>
+
+
+
+                    </div>
+                    </el-col>
                 </div>
             </el-col>
         </el-row>
@@ -239,9 +189,9 @@
         margin:45px 0 0 10px;
     }
     .login{
-        width: 330px;
-        margin: 35px 0 0 5px;
-        height:300px;
+        /*width: 330px;*/
+        margin: 65px 0 0 5px;
+        height:320px;
         /*background-color: #41B883;*/
     }
     .mt-lcontent{
@@ -261,7 +211,7 @@
         margin-top:30px;
     }
     .loginbutton{
-        margin:20px 0 0 130px;
+        margin-left:130px;
     }
     .welcome{
         margin-left: 25%;
@@ -285,12 +235,15 @@
         border-radius: 5px;
 
     }
+    .video{
+        margin-top: 30px;
+        height:300px;
+        background-color: #3498DB;
+    }
     .el-tabs__nav-wrap{
         width:300px;
     }
-    /*.headerline{*/
-        /*margin-top: 50px;*/
-    /*}*/
+
 </style>
 <script>
 
