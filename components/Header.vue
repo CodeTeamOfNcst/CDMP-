@@ -5,11 +5,21 @@
             <h1>实验设备预约管理平台</h1>
         </div>
         <div class="headerlist">
-            <nuxt-link class="button page" to="/">首页</nuxt-link>
-            <nuxt-link class="button page" to="/device">仪器列表</nuxt-link>
-            <nuxt-link class="button page" to="/bulletin">通知公告</nuxt-link>
+            <el-row>
+                <el-col :span="6"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/">首页</nuxt-link></div></el-col>
+                <el-col :span="6"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/device">仪器列表</nuxt-link></div></el-col>
+                <el-col :span="6"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/bulletin">通知公告</nuxt-link></div></el-col>
+                <el-col :span="6"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/personal">个人中心</nuxt-link></div></el-col>
+            </el-row>
+            <!--<nuxt-link class="button page" to="/">首页</nuxt-link>-->
+            <!--<nuxt-link class="button page" to="/device">仪器列表</nuxt-link>-->
+            <!--<nuxt-link class="button page" to="/bulletin">通知公告</nuxt-link>-->
+            <!--&lt;!&ndash;<nuxt-link class="button page" to="/rules">规章制度</nuxt-link>&ndash;&gt;-->
+            <!--<nuxt-link class="button page" to="/personal">个人中心</nuxt-link>-->
+
+
             <!--<nuxt-link class="button page" to="/rules">规章制度</nuxt-link>-->
-            <nuxt-link class="button page" to="/personal">个人中心</nuxt-link>
+
         </div>
     </div>
 </template>
@@ -36,11 +46,15 @@
     .nuxt-link-exact-active{
         background: #6b8db4;
         color:white;
+
     }
     .headerlist{
         background-color:#063961;
         width: 70%;
         margin-left:15%;
+    }
+    .headerEle{
+        text-align: center;
     }
 </style>
 
