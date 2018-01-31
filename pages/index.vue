@@ -107,33 +107,39 @@
                     <!--<el-row class="headerline">-->
                         <!--<el-col :span="24"></el-col>-->
                     <!--</el-row>-->
-                    <div class="eqimg">
-                        <!--<div class="ribbon"><span class="ribbon2">No.1</span></div>-->
-                        <img src="../assets/img/equipment1.png" class="mf-img">
-                        <p><a>仪器名称</a></p>
-                    </div>
-                    <div class="eqimg">
-                        <!--<div class="ribbon"><span class="ribbon2">No.1</span></div>-->
-                        <img src="../assets/img/equipment1.png" class="mf-img">
-                        <p><a>仪器名称</a></p>
-                    </div>
-                    <div class="eqimg">
-                        <!--<div class="ribbon"><span class="ribbon2">No.1</span></div>-->
-                        <img src="../assets/img/equipment1.png" class="mf-img">
-                        <p><a>仪器名称</a></p>
-                    </div>
-                    <div class="eqimg">
-                        <img src="../assets/img/equipment1.png" class="mf-img">
-                        <p><a>仪器名称</a></p>
-                    </div>
-                    <div class="eqimg">
-                        <img src="../assets/img/equipment1.png" class="mf-img">
-                        <p><a>仪器名称</a></p>
-                    </div>
-                    <div class="eqimg">
-                        <img src="../assets/img/equipment1.png" class="mf-img">
-                        <p><a>仪器名称</a></p>
-                    </div>
+                    <!--<div class="eqimg">-->
+                        <!--&lt;!&ndash;<div class="ribbon"><span class="ribbon2">No.1</span></div>&ndash;&gt;-->
+                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
+                        <!--<p><a>仪器名称</a></p>-->
+                    <!--</div>-->
+                    <!--<div class="eqimg">-->
+                        <!--&lt;!&ndash;<div class="ribbon"><span class="ribbon2">No.1</span></div>&ndash;&gt;-->
+                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
+                        <!--<p><a>仪器名称</a></p>-->
+                    <!--</div>-->
+                    <!--<div class="eqimg">-->
+                        <!--&lt;!&ndash;<div class="ribbon"><span class="ribbon2">No.1</span></div>&ndash;&gt;-->
+                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
+                        <!--<p><a>仪器名称</a></p>-->
+                    <!--</div>-->
+                    <!--<div class="eqimg">-->
+                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
+                        <!--<p><a>仪器名称</a></p>-->
+                    <!--</div>-->
+                    <!--<div class="eqimg">-->
+                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
+                        <!--<p><a>仪器名称</a></p>-->
+                    <!--</div>-->
+                    <!--<div class="eqimg">-->
+                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
+                        <!--<p><a>仪器名称</a></p>-->
+                    <!--</div>-->
+                    <el-carousel :interval="3000" type="card" height="200px" width="900px">
+                        <el-carousel-item v-for="item in 8" :key="item">
+                            <!--<h3>{{ item }}</h3>-->
+                            <img src="../static/uploads/deviceImages/0003c590-041d-11e8-89a7-898d3de41d42.jpg"/>
+                        </el-carousel-item>
+                    </el-carousel>
                 </div>
 
             </el-col>
@@ -142,6 +148,25 @@
 </template>
 
 <style scoped>
+    .el-carousel__item h3 {
+        color: #475669;
+        font-size: 14px;
+        opacity: 0.75;
+        line-height: 200px;
+        margin: 20px 5px 0 0;
+    }
+
+    .el-carousel__item:nth-child(2n) {
+        width:274px;
+        margin-left: 110px;
+        background-color: #99a9bf;
+    }
+
+    .el-carousel__item:nth-child(2n+1) {
+        width:274px;
+        margin-left: 110px;
+        background-color: #d3dce6;
+    }
     a{
         text-decoration: none;
         color:black;
