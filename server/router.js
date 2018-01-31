@@ -10,6 +10,7 @@ import { getAllRules, addRule, deleteRule, modifyRule, getRuleById } from './ser
 import { getAllMessage,addMessage, getMessageById, modifyMessageById, deletseMessageById } from './service/message'
 import { getAllApply, addApply, getApplyById, modifyApplyById, deleteApplyById } from './service/apply'
 import { imageUploadToTemp, deleteTempFile, copyTempFileToDir } from './service/upload'
+import { checkFile, getVedioStream } from './service/video'
 /**
  * 全局 service router 定义
  */
@@ -67,5 +68,9 @@ module.exports = () => {
     router.post('/upload/imageUpload', upload.single('file'), imageUploadToTemp );
     router.post('/upload/deleteTempFile', deleteTempFile );
     router.post('/upload/copyTempFileToDir', copyTempFileToDir);
+
+    // 处理视频流
+    router.get('/video/getStream',checkFile, getVedioStream);
+
     return router
 };
