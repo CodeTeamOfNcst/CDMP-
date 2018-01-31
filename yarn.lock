@@ -7311,6 +7311,10 @@ vue-style-loader@^3.0.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
+vue-swiper@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/vue-swiper/-/vue-swiper-0.5.0.tgz#d6550e0e951a73986d137029126983c7aadaa30e"
+
 vue-template-compiler@2.5.13, vue-template-compiler@^2.5.13:
   version "2.5.13"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.13.tgz#12a2aa0ecd6158ac5e5f14d294b0993f399c3d38"

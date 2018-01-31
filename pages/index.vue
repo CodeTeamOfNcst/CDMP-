@@ -135,6 +135,7 @@
                         <p><a>仪器名称</a></p>
                     </div>
                 </div>
+
             </el-col>
         </el-row>
     </div>
@@ -340,4 +341,20 @@ import ElButton from "../node_modules/element-ui/packages/button/src/button.vue"
             }
         }
     }
+//import Vue from 'vue'
+//import Swiper from 'vue-swiper'
+//new Vue({
+//    el: 'body',
+//    components: {Swiper},
+//    methods: {
+//        onSlideChangeStart (currentPage) {
+//            console.log('onSlideChangeStart', currentPage);
+//        },
+//        onSlideChangeEnd (currentPage) {
+//            console.log('onSlideChangeEnd', currentPage);
+//        }
+//    }
+//});
+
+
 </script>
