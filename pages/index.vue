@@ -11,7 +11,7 @@
                     </div>
                         <el-col :span="20" :offset="2">
                             <div class="video grid-content bg-purple">
-                                <video id="my_video_1" class="video-js vjs-default-skin" width="700px" height="300px" controls
+                                <video id="my_video_1" class="video-js vjs-default-skin" width="600px" height="300px" controls
                                        data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
                                     <source src="/api/video/getStream" type='video/mp4' />
                                 </video>
@@ -167,6 +167,7 @@
         margin-left: 110px;
         background-color: #d3dce6;
     }
+
     a{
         text-decoration: none;
         color:black;
