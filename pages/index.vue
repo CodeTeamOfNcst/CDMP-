@@ -238,7 +238,6 @@
         width:70px;
         height:30px;
         border-radius: 5px;
-
     }
     .video{
         margin-top: 30px;
@@ -251,11 +250,9 @@
 </style>
 <script>
 
-//    import VueAwesomeSwiper from 'vue-awesome-swiper'
     import axios from 'axios'
-import ElButton from "../node_modules/element-ui/packages/button/src/button.vue";
+    import ElButton from "../node_modules/element-ui/packages/button/src/button.vue";
     export default {
-//        ,
         components: {ElButton},
         data() {
             return {
@@ -355,6 +352,5 @@ import ElButton from "../node_modules/element-ui/packages/button/src/button.vue"
 //        }
 //    }
 //});
-
 
 </script>

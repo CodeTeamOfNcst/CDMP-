@@ -3,7 +3,7 @@ const multer = require('koa-multer');
 const upload = multer({ dest: './static/uploads' });
 
 import { testGetData, AddUser, addDataToDataBase, getOrCreateData, createData } from './service/test_service'
-import { logIn }from './service/user'
+import { logIn }from './service/auth'
 import { getAllDevice, addDevice, getDeviceById, modifyDeviceById, delteDeviceById, onluGetAllDevice } from './service/device'
 import { getAllUser, deleteUserById, getUserById, addUser, modifyUserById, onlyGetAllUser } from './service/user'
 import { getAllRules, addRule, deleteRule, modifyRule, getRuleById } from './service/rules'

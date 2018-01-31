@@ -82,7 +82,6 @@
        width: 30%;
        min-width: 287px;
        margin-bottom: 10px;
-
        margin-left: 2.5%;
        float: left;
        display: block;
@@ -154,6 +153,9 @@
                     address: '冶金系'
                 }]
             }
+        },
+        asyncData(context){
+            context.redirect('/device')
         }
     }
 </script>
