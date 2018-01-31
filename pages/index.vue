@@ -39,7 +39,7 @@
                                                         </el-form-item>
                                                         <!--<el-button class="originLogin"><a href="#none" @click="login">登录</a></el-button>-->
                                                         <!--<input  placeholder="请输入用户名" v-model="inputUserName"/>-->
-                                                        <a href="#none" class="OriginLogin" @click="login">登录</a>
+                                                       <a href="#none" class="OriginLogin" @click="login">登录</a>
                                                         <div class="error">{{errorTip}}</div>
                                                     </template>
                                                 </div>
@@ -103,37 +103,6 @@
                         </el-col>
                         </el-row>
                     </div>
-
-                    <!--<el-row class="headerline">-->
-                        <!--<el-col :span="24"></el-col>-->
-                    <!--</el-row>-->
-                    <!--<div class="eqimg">-->
-                        <!--&lt;!&ndash;<div class="ribbon"><span class="ribbon2">No.1</span></div>&ndash;&gt;-->
-                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
-                        <!--<p><a>仪器名称</a></p>-->
-                    <!--</div>-->
-                    <!--<div class="eqimg">-->
-                        <!--&lt;!&ndash;<div class="ribbon"><span class="ribbon2">No.1</span></div>&ndash;&gt;-->
-                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
-                        <!--<p><a>仪器名称</a></p>-->
-                    <!--</div>-->
-                    <!--<div class="eqimg">-->
-                        <!--&lt;!&ndash;<div class="ribbon"><span class="ribbon2">No.1</span></div>&ndash;&gt;-->
-                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
-                        <!--<p><a>仪器名称</a></p>-->
-                    <!--</div>-->
-                    <!--<div class="eqimg">-->
-                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
-                        <!--<p><a>仪器名称</a></p>-->
-                    <!--</div>-->
-                    <!--<div class="eqimg">-->
-                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
-                        <!--<p><a>仪器名称</a></p>-->
-                    <!--</div>-->
-                    <!--<div class="eqimg">-->
-                        <!--<img src="../assets/img/equipment1.png" class="mf-img">-->
-                        <!--<p><a>仪器名称</a></p>-->
-                    <!--</div>-->
                     <el-carousel :interval="3000" type="card" height="200px" width="900px">
                         <el-carousel-item v-for="item in 8" :key="item">
                             <!--<h3>{{ item }}</h3>-->
@@ -155,7 +124,6 @@
         line-height: 200px;
         margin: 20px 5px 0 0;
     }
-
     .el-carousel__item:nth-child(2n) {
         width:274px;
         margin-left: 110px;
@@ -178,13 +146,6 @@
         height:auto;
         min-height: 600px;
     }
-    .main-top{
-        height:400px;
-        margin-top: 50px;
-    }
-    /*.top-content{*/
-        /*margin-top: 50px;*/
-    /*}*/
     .main-middle{
         height:300px;
     }
@@ -208,26 +169,12 @@
         float:left;
         margin:12px 0 0 20px;
     }
-    .eqimg{
-        width:15%;
-        float:left;
-        margin-left: 1%;
-        text-align:center;
-    }
-    .mf-img{
-        border-radius:10px;
-        border:2px solid #3675a8;
-        margin:45px 0 0 10px;
-    }
+
     .login{
-        /*width: 330px;*/
         margin: 65px 0 0 5px;
         height:320px;
-        /*background-color: #41B883;*/
     }
-    .mt-lcontent{
-        margin-top:80px;
-    }
+
     .el-select{
         width: 130px;
     }
@@ -236,7 +183,6 @@
     }
     .input1{
         width: 250px;
-
     }
     .loginform{
         margin-top:30px;
@@ -249,22 +195,27 @@
         font-size: 25px;
     }
     .OriginLogin{
-        display:block;
-        margin:30px 0 0  43%;
-        background-color: #3498DB;
-        width:50px;
-        height:30px;
+        display:inline-block;
+        padding:12px 20px;
+        margin:30px 0 0  36%;
+        background-color: #66b1ff;
         text-align: center;
         border-radius: 5px;
+        color: #fff;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
     }
     .OriginLogout{
-        display:block;
-        margin:20px 0 0 35%;
-        background-color: #3498DB;
-        width:70px;
-        height:30px;
+        display:inline-block;
+        padding:12px 20px;
+        color: #fff;
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        margin:30px 0 0 35%;
+        background-color: #66b1ff;
         border-radius: 5px;
-
     }
     .video{
         margin-top: 30px;
