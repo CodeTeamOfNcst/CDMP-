@@ -9,7 +9,16 @@
                         <div class="orderbefore"></div>
                         <span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>
                     </div>
-                        <el-col :span="20" :offset="2"><div class="video grid-content bg-purple"></div></el-col>
+                        <el-col :span="20" :offset="2">
+                            <div class="video grid-content bg-purple">
+                                <video id="my_video_1" class="video-js vjs-default-skin" width="700px" height="300px"
+                                       controls poster='http://video-js.zencoder.com/oceans-clip.jpg'
+                                       data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
+                                    <source src="https://vjs.zencdn.net/v/oceans.mp4" type='video/mp4' />
+                                    <source src="https://vjs.zencdn.net/v/oceans.webm" type='video/webm' />
+                                </video>
+                            </div>
+                        </el-col>
                     </el-col>
                     <el-col :span="8"><div class="grid-content bg-purple" v-show="login_show">
                         <el-col :span="24"><div class="login grid-content bg-purple">
@@ -238,7 +247,6 @@
     .video{
         margin-top: 30px;
         height:300px;
-        background-color: #3498DB;
     }
     .el-tabs__nav-wrap{
         width:300px;
