@@ -67,10 +67,10 @@ module.exports = () => {
     // 处理图片上传
     router.post('/upload/imageUpload', upload.single('file'), imageUploadToTemp );
     router.post('/upload/deleteTempFile', deleteTempFile );
-    router.post('/upload/copyTempFileToDir', copyTempFileToDir);
+    router.post('/upload/copyTempFileToDir', copyTempFileToDir );
 
     // 处理视频流
-    router.get('/video/getStream',checkFile, getVedioStream);
+    router.get('/video/getStream',checkFile, getVedioStream );
 
     return router
 };

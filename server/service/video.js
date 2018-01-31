@@ -28,10 +28,11 @@ let getContentType = (type)=> {
  */
 module.exports.checkFile = async (ctx, next) => {
     // let filename = ctx.params.filename;
-    // let fileExt = path.extname(filename).toLocaleLowerCase();
-    // let fileAbsolutePath = path.join(path.dirname(__dirname), 'videos', filename);
-    let fileAbsolutePath = ctx.query.filename;
-    let fileExt = path.extname(fileAbsolutePath).toLocaleLowerCase();
+    let filename = 'howToUse.mp4';
+    let fileExt = path.extname(filename).toLocaleLowerCase();
+    let fileAbsolutePath = path.join(path.dirname(__dirname), '../static/video', filename);
+    console.log(fileAbsolutePath);
+    // let fileExt = path.extname(fileAbsolutePath).toLocaleLowerCase();
     if(
         fs.existsSync(fileAbsolutePath) &&
         (
