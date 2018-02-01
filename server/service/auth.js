@@ -12,9 +12,17 @@ exports.logIn = async (ctx, next) => {
             account: account
         }
     });
+    let userType = await user.getUserType()
+    let userIsAdmin = false
+    if(userType.id === 1){
+        userIsAdmin = true
+    }else{
+        userIsAdmin = false
+    }
     if (user && user.password === password) {
         ctx.session.user_account = account;
         ctx.body = {
+            user_is_admin: userIsAdmin,
             status: 1,
             message: '登陆成功'
         }
@@ -49,18 +57,45 @@ exports.logOut = async (ctx, next) => {
     }
 };
 
-exports.adminLogIn = async (ctx, next) => {
-    next()
-};
-
-exports.adminLogOut = async (ctx, next) => {
-
-};
 
 exports.checkLogIn = async (ctx, next) => {
-    next()
+    console.log(ctx.session.user_account)
+    if(ctx.session.user_account){
+        let user = await User.findOne({
+            where: {account: ctx.session.user_account}
+        })
+        ctx.bdoy = {
+            user: user,
+            status: 1,
+            message: '用户已经登陆'
+        }
+    }else{
+        ctx.body = {
+            status: 0,
+            message: "用户暂未登陆"
+        }
+    }
 };
 
-exports.checkAdminLogIn = async (ctx, next) => {
-    next()
-};
+exports.regist =  async (ctx, next) => {
+    let userAccount = ctx.request.body.account
+    let userPasswd = ctx.request.body.passwd
+    let thisUser = await User.findOne({account: userAccount})
+    if(thisUser){
+        ctx.body = {
+            status :0,
+            message: "用户已经存在"
+        }
+    }else{
+        let thisUser = await User.create({
+            account: userAccount,
+            password: userPasswd
+        })
+
+        ctx.body = {
+            user: thisUser,
+            status: 1,
+            message: "创建成功"
+        }
+    }
+}

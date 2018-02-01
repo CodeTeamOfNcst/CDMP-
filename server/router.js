@@ -12,7 +12,10 @@ import {
     createData
 } from './service/test_service'
 import {
-    logIn
+    logIn,
+    checkLogIn,
+    logOut,
+    regist
 } from './service/auth'
 import {
     getAllDevice,
@@ -75,7 +78,10 @@ module.exports = () => {
     router.get('/initDataBase', createData);
 
     // 权限相关
-    router.post('/user/login', logIn);
+    router.post('/auth/login', logIn);
+    router.post('/auth/regist', regist)
+    router.get('/auth/checkLogin', checkLogIn);
+    router.get('/auth/logOut', logOut);
 
 
     // 设备管理相关
