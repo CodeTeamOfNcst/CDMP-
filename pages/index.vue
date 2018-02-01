@@ -234,7 +234,7 @@
                 input5: '',
                 select: '',
                 activeName: 'first',
-                account: '',
+                account: '',   
                 password: '',
                 repeat_password: '',
                 login_show: true,
