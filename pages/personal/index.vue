@@ -154,8 +154,8 @@
                 }]
             }
         },
-        asyncData(context){
-            context.redirect('/device')
-        }
+        // asyncData(context){
+        //     context.redirect('/device')
+        // }
     }
 </script>

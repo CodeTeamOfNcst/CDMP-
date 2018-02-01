@@ -1,6 +1,9 @@
 <template>
+
     <div class="all">
+
         <div class="AnotherLogin">
+            <h2>请先登陆！</h2>
             <el-row :gutter="20">
                 <el-col :span="16" :offset="4"><div class="grid-content bg-purple">
                      <el-form>
@@ -23,6 +26,7 @@
             <el-button class="loginbutton" type="primary">登录</el-button>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -49,5 +53,9 @@ export default {
  
 .loginbutton{
     margin-left: 200px;
+}
+h2{
+    display: block;
+    margin-left:170px;
 }
 </style>

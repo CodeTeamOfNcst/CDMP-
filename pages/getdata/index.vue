@@ -2,16 +2,12 @@
     <section class="container">
         <div class="headerName">
             <div class="leftSty"></div>
-            <span class="bullCont">通知公告</span>
+            <span class="bullCont">规章制度</span>
         </div>
         <el-row class="headerline"></el-row>
         <div class="contentList">
             <el-row class="strip">
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
-                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="noticecont">{{ data }}</a></div></el-col>
+                <el-col :span="24"><div class="grid-content bg-purple-dark"><a href="/rules/rulefive"> {{ result }}</a></div></el-col>
             </el-row>
         </div>
         <el-row>
@@ -29,9 +25,12 @@
 </template>
 
 <style scoped>
+    a{
+        text-decoration: none;
+    }
     .contentList{
         width: 100%;
-        height:650px;
+        height: 650px;
     }
     .paging{
         width: 40%;
@@ -55,19 +54,14 @@
     }
 
 </style>
-
 <script>
+import axios from 'axios'
 export default {
-    data(){
-        return{
-            data:'学校关于放假期间仪器归还问题（2018.01.15）',
-        }
-    },
-    head(){
-        return {
-            title: 'CDMP - 联系我们'
-        }
-    }
+  async asyncData({}) {
+      let  createResult  = await axios.get(`/api/initDataBase`)
+      return {
+          result: createResult.data.message
+      }
+  }
 }
-
 </script>
