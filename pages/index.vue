@@ -1,6 +1,5 @@
 
 <template>
-
     <div class="all">
         <el-row>
             <el-col :span="24">
@@ -21,74 +20,86 @@
                         </el-col>
                     </el-col>
                     <el-col :span="8">
-                        <div class="grid-content bg-purple" v-show="login_show">
+                        <div class="grid-content bg-purple">
                             <el-col :span="24">
-                            <div class="login grid-content bg-purple">
-                                <el-tabs v-model="activeName" type="card">
-                                    <el-tab-pane  label="登录" name="first" label-width="70px">
-                                        <el-form  class="loginform" label-width="60px">
-                                            <div id="example">
-                                                <div id="login">
-                                                    <template v-if="userName">
-                                                        <el-row :gutter="20">
-                                                            <span class="welcome">欢迎您，{{ animateUserName }}</span>
-                                                        </el-row>
+                                <div class="login grid-content bg-purple">
+                                    <div class="Welcome" v-if="login_show === false">
+                                        <template>
+                                            <el-row :gutter="20">
+                                                <span class="welcome">欢迎您，{{ animateUserName }}</span>
+                                            </el-row>
+                                            <el-row>
+                                                <el-col :span="6" :offset="3">
+                                                    <el-button  @click="logout" class="OriginLogout">退出登录</el-button>
+                                                </el-col>
+                                                <el-col :span="6" :offset="3" v-if="user_is_admin === true">
+                                                    <el-button  @click="logout" class="OriginLogout">后台管理</el-button>
+                                                </el-col>
+                                                <el-col :span="6" :offset="3" v-if="user_is_admin === false">
+                                                    <el-button  @click="logout" class="OriginLogout">个人中心</el-button>
+                                                </el-col>
+                                            </el-row>
+                                        </template>
+                                    </div>
+                                    <div v-if="login_show === true">
+                                        <template>
+                                            <el-tabs v-model="activeName" type="card">
+                                            <el-tab-pane  label="登录" name="first" label-width="70px">
+                                                <el-form  class="loginform" label-width="60px">
+                                                    <div id="example">
+                                                        <div id="login">         
+                                                            <template>
+                                                                <el-form-item label="账号">
+                                                                    <el-input type="text" class="input1" v-model="inputUserName"/>
+                                                                </el-form-item>
+                                                                <el-form-item label="密码">
+                                                                    <el-input class="input1" v-model="password" type="password" auto-complete="off"/>
+                                                                </el-form-item>
+                                                                <el-form-item>
+                                                                    <el-row>
+                                                                        <el-col :span="6">
+                                                                            <el-button @click="login">登录</el-button>
+                                                                        </el-col>
+                                                                        <el-col :span="18">
+                                                                            <el-alert
+                                                                                :title="errorTip"
+                                                                                type="info"
+                                                                                center
+                                                                            >
+                                                                            </el-alert>
+                                                                        </el-col>
+                                                                    </el-row>
+                                                                </el-form-item>
+                                                            </template>
+                                                        </div>
+                                                    </div>
+                                                </el-form>
+                                            </el-tab-pane>
+                                            <el-tab-pane label="注册" name="second" label-width="80px">
+                                                <el-form class="loginform" label-width="70px">
+                                                    <el-form-item label="账号">
+                                                        <el-input class="input1" v-model="account" auto-complete="off"/>
+                                                    </el-form-item>
+                                                    <el-form-item label="密码">
+                                                        <el-input class="input1" v-model="password" auto-complete="off" type="password"/>
+                                                    </el-form-item>
+                                                    <el-form-item label="重复">
+                                                        <el-input class="input1" v-model="repeat_password" auto-complete="off" type="password"/>
+                                                    </el-form-item>
+                                                    <el-form-item>
                                                         <el-row>
-                                                            <el-col :span="6" :offset="6">
-                                                                <el-button  @click="logout" class="OriginLogout" >退出登录</el-button>
+                                                            <el-col>
+                                                                <el-button>注册</el-button>
                                                             </el-col>
                                                         </el-row>
-                                                    </template>
-                                                    <template v-else>
-                                                        <el-form-item label="账号">
-                                                            <el-input type="text" class="input1" v-model="inputUserName"/>
-                                                        </el-form-item>
-                                                        <el-form-item label="密码">
-                                                            <el-input class="input1" v-model="password" type="password" auto-complete="off"/>
-                                                        </el-form-item>
-                                                        <el-form-item>
-                                                            <el-row>
-                                                                <el-col :span="6">
-                                                                    <el-button href="#none"  @click="login">登录</el-button>
-                                                                </el-col>
-                                                                <el-col :span="18">
-                                                                    <el-alert
-                                                                        type="info"
-                                                                        :description="errorTip"
-                                                                        center
-                                                                    >
-                                                                    </el-alert>
-                                                                </el-col>
-                                                            </el-row>
-                                                        </el-form-item>
-                                                    </template>
-                                                </div>
-                                            </div>
-                                        </el-form>
-                                    </el-tab-pane>
-                                    <el-tab-pane label="注册" name="second" label-width="80px">
-                                        <el-form class="loginform" label-width="70px">
-                                            <el-form-item label="账号">
-                                                <el-input class="input1" v-model="account" auto-complete="off"/>
-                                            </el-form-item>
-                                            <el-form-item label="密码">
-                                                <el-input class="input1" v-model="password" auto-complete="off" type="password"/>
-                                            </el-form-item>
-                                            <el-form-item label="重复">
-                                                <el-input class="input1" v-model="repeat_password" auto-complete="off" type="password"/>
-                                            </el-form-item>
-                                            <el-form-item>
-                                                <el-row>
-                                                    <el-col>
-                                                        <el-button>注册</el-button>
-                                                    </el-col>
-                                                </el-row>
-                                            </el-form-item>
-                                        </el-form>
-                                    </el-tab-pane>
-                                </el-tabs>
-                            </div>
-                        </el-col>
+                                                    </el-form-item>
+                                                </el-form>
+                                            </el-tab-pane>
+                                        </el-tabs>
+                                    </template>
+                                    </div>
+                                </div>
+                            </el-col>
                         </div>
                     </el-col>
                 </div>
@@ -107,7 +118,7 @@
                             <div class="grid-content bg-purple inputCont">
                                 <div>
                                     <el-input placeholder="请输入内容" v-model="searchInput" class="input-with-select">
-                                        <el-button slot="append" icon="el-icon-search"></el-button>
+                                        <el-button slot="append" icon="el-icon-search" @click="searchBtnClick"></el-button>
                                     </el-input>
                                 </div>
                             </div>
@@ -217,12 +228,12 @@
     }
     .OriginLogout{
         display:inline-block;
-        padding:12px 20px;
+        padding:12px 10px;
         color: #fff;
         line-height: 1;
         white-space: nowrap;
         cursor: pointer;
-        margin:30px 0 0 35%;
+        margin:20px 0 0 5%;
         background-color: #66b1ff;
         border-radius: 5px;
     }
@@ -233,6 +244,9 @@
     .el-tabs__nav-wrap{
         width:300px;
     }
+    .welcome{
+        margin:20px 0 0 5%;
+    }
 
 </style>
 <script>
@@ -242,21 +256,25 @@
         components: {ElButton},
         data() {
             return {
+                login_show: false,
+                user_is_admin: false,
                 searchInput: '',
                 select: '',
                 activeName: 'first',
                 account: '',   
                 password: '',
-                repeat_password: '',
-                login_show: true,
+                repeat_password: '',    
                 userName: '',
                 inputUserName: '',
                 animateUserName: '',
-                errorTip: '',
+                errorTip: '',   
                 intervalId: 0
             }
         },
         methods: {
+            searchBtnClick(){
+                console.log('click')
+            },
             login: function () {
                 var _this = this
                 if(_this.inputUserName) {
@@ -270,28 +288,25 @@
                 var _this = this
                 _this.userName = ''
             },
-             async handleUserLogin(tab, event){
+            async handleUserLogin(tab, event){  // 处理用户登陆
                 let user_account = this.account
                 let user_password = this.password
                 let result = await axios.post('/api/user/login', {
                     account: user_account,
                     passwd: user_password
                 })
-                 if(result.data.status === 1) {
-                     //登陆成功
-                     this.$message({
-                         message: result.data.message,
-                         type: 'success'
-                     });
-                     this.login_show = false
-                 }else {
-                    //登陆失败
-                     this.$message.error(result.data.message);
-                 }
-            },
-            async handleAdminLogin(tab, event){
-                let user_account = this.account
-                let user_password = this.password
+
+                if(result.data.status === 1) {
+                    //登陆成功
+                    this.$message({
+                        message: result.data.message,
+                        type: 'success'
+                    });
+                    this.login_show = false
+                }else {
+                //登陆失败
+                    this.$message.error(result.data.message);
+                }
             },
             async handleUserRegist(tab, event){
                 let user_account = this.account
