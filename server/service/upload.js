@@ -7,27 +7,29 @@ import uuid from 'uuid'
  * @param next
  * @returns {Promise<void>}
  */
-module.exports.imageUploadToTemp = async ( ctx,next ) => {
-    let {originalname, path, mimetype} = ctx.req.file;
+module.exports.imageUploadToTemp = async (ctx, next) => {
+    let {
+        originalname,
+        path,
+        mimetype
+    } = ctx.req.file;
     let temPath = path;
     let randomNumber = Math.random();
-    let targetPath = 'static/uploads/avatars/'+ randomNumber + originalname;
+    let targetPath = 'static/uploads/avatars/' + randomNumber + originalname;
     console.log(targetPath);
     let imgUrlPath = 'uploads/avatars/' + randomNumber + originalname;
-    fs.readFile(temPath, (err, data) =>
-    {
-        if(err) console.log(err);
-        fs.writeFile(targetPath, data,  (err) =>
-        {
-            if(err) console.log(err)
+    fs.readFile(temPath, (err, data) => {
+        if (err) console.log(err);
+        fs.writeFile(targetPath, data, (err) => {
+            if (err) console.log(err)
         })
     });
-    if(fs.existsSync(temPath)){
+    if (fs.existsSync(temPath)) {
         fs.unlink(path)
     }
     ctx.body = {
-        imgPath :imgUrlPath,
-        status :1,
+        imgPath: imgUrlPath,
+        status: 1,
         message: '文件接收成功'
     }
 };
@@ -38,16 +40,16 @@ module.exports.imageUploadToTemp = async ( ctx,next ) => {
  * @param next
  * @returns {Promise<void>}
  */
-module.exports.deleteTempFile = async ( ctx, next ) => {
-    let deletePath = 'static/'+ ctx.request.body.path;
-    if(deletePath.indexOf('avatars') > -1 && fs.existsSync(deletePath)){
+module.exports.deleteTempFile = async (ctx, next) => {
+    let deletePath = 'static/' + ctx.request.body.path;
+    if (deletePath.indexOf('avatars') > -1 && fs.existsSync(deletePath)) {
         console.log(deletePath);
         fs.unlink(deletePath);
         ctx.body = {
             status: 1,
             message: '删除成功'
         }
-    }else {
+    } else {
         ctx.body = {
             status: 1,
             message: '图片链接不存在'
@@ -61,23 +63,22 @@ module.exports.deleteTempFile = async ( ctx, next ) => {
  * @param next
  * @returns {Promise<void>}
  */
-module.exports.copyTempFileToDir = async ( ctx, next) => {
+module.exports.copyTempFileToDir = async (ctx, next) => {
     let filePath = 'static/' + ctx.request.body.path;
     console.log(filePath);
     let targetPath = 'static/uploads/deviceImages/' + uuid.v1() + '.jpg';
     console.log(targetPath);
-    if(fs.existsSync(filePath)){
-        fs.readFile(filePath, ( err, data ) => {
-            fs.writeFile(targetPath, data,  (err) =>
-            {
-                if(err) console.log(err)
+    if (fs.existsSync(filePath)) {
+        fs.readFile(filePath, (err, data) => {
+            fs.writeFile(targetPath, data, (err) => {
+                if (err) console.log(err)
             })
         });
         ctx.body = {
             status: 1,
             message: '成功保存文件'
         }
-    }else {
+    } else {
         ctx.body = {
             status: 1,
             message: '文件目录不存在'

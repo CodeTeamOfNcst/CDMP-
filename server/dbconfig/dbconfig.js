@@ -11,7 +11,7 @@ import Sequelize from 'sequelize'
 const DATABASE = 'cdmp';
 const USERNAME = 'root';
 const PASSWORD = 'admin';
-const DBHOST=  '127.0.0.1';
+const DBHOST = '127.0.0.1';
 
 
 const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {

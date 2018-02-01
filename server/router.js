@@ -60,6 +60,8 @@ import {
     checkFile,
     getVedioStream
 } from './service/video'
+
+
 /**
  * 全局 service router 定义
  */
