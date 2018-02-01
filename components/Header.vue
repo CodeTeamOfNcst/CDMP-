@@ -8,7 +8,7 @@
             <el-row>
                 <el-col :span="6"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/">首页</nuxt-link></div></el-col>
                 <el-col :span="6"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/device">仪器列表</nuxt-link></div></el-col>
-                <el-col :span="6"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/bulletin">通知公告</nuxt-link></div></el-col>
+                <el-col :span="6"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/notice">通知公告</nuxt-link></div></el-col>
                 <el-col :span="6"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/personal">个人中心</nuxt-link></div></el-col>
             </el-row>
             <!--<nuxt-link class="button page" to="/">首页</nuxt-link>-->
@@ -16,10 +16,7 @@
             <!--<nuxt-link class="button page" to="/bulletin">通知公告</nuxt-link>-->
             <!--&lt;!&ndash;<nuxt-link class="button page" to="/rules">规章制度</nuxt-link>&ndash;&gt;-->
             <!--<nuxt-link class="button page" to="/personal">个人中心</nuxt-link>-->
-
-
             <!--<nuxt-link class="button page" to="/rules">规章制度</nuxt-link>-->
-
         </div>
     </div>
 </template>
@@ -28,8 +25,7 @@
         width: 70%;
         margin-left:15%;
         height: 100px;
-        background: url("../assets/img/bg2.png") no-repeat left 100%;
-        /*background-size: 100% 100%;*/
+        background: url("~assets/img/bg2.png") no-repeat left 100%;
     }
     .header_img h1{
         float: left;

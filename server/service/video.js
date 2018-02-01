@@ -31,7 +31,6 @@ module.exports.checkFile = async (ctx, next) => {
     let filename = 'howToUse.mp4';
     let fileExt = path.extname(filename).toLocaleLowerCase();
     let fileAbsolutePath = path.join(path.dirname(__dirname), '../static/video', filename);
-    console.log(fileAbsolutePath);
     // let fileExt = path.extname(fileAbsolutePath).toLocaleLowerCase();
     if (
         fs.existsSync(fileAbsolutePath) &&
@@ -77,7 +76,6 @@ module.exports.getVedioStream = async (ctx, next) => {
         ctx.status = 206;
         ctx.body = fileStream
     } else {
-        console.log(ctx.request.header);
         ctx.status = 200;
         ctx.set('Content-Length', fileSize);
         ctx.set('Content-Type', 'video/mp4');
