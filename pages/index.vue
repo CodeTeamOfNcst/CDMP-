@@ -7,7 +7,9 @@
                 <div class="grid-content bg-purple-dark main-middle">
                     <el-col :span="16"><div class="grid-content bg-purple">
                         <div class="orderbefore"></div>
-                        <span class="order"> <i class="el-icon-d-arrow-right"></i> 系统使用说明</span>
+                        <span class="order"> 
+                            <i class="el-icon-d-arrow-right"></i> 系统使用说明
+                        </span>
                     </div>
                         <el-col :span="20" :offset="2">
                             <div class="video grid-content bg-purple">
@@ -28,20 +30,37 @@
                                             <div id="example">
                                                 <div id="login">
                                                     <template v-if="userName">
-                                                        <span class="welcome">欢迎您，{{ animateUserName }}</span>
-                                                        <a class="OriginLogout" href="#none" @click="logout" >退出登录</a>
+                                                        <el-row :gutter="20">
+                                                            <span class="welcome">欢迎您，{{ animateUserName }}</span>
+                                                        </el-row>
+                                                        <el-row>
+                                                            <el-col :span="6" :offset="6">
+                                                                <el-button  @click="logout" class="OriginLogout" >退出登录</el-button>
+                                                            </el-col>
+                                                        </el-row>
                                                     </template>
                                                     <template v-else>
                                                         <el-form-item label="账号">
                                                             <el-input type="text" class="input1" v-model="inputUserName"/>
                                                         </el-form-item>
                                                         <el-form-item label="密码">
-                                                            <el-input class="input1" v-model="password"/>
+                                                            <el-input class="input1" v-model="password" type="password" auto-complete="off"/>
                                                         </el-form-item>
-                                                        <!--<el-button class="originLogin"><a href="#none" @click="login">登录</a></el-button>-->
-                                                        <!--<input  placeholder="请输入用户名" v-model="inputUserName"/>-->
-                                                       <a href="#none" class="OriginLogin" @click="login">登录</a>
-                                                        <div class="error">{{errorTip}}</div>
+                                                        <el-form-item>
+                                                            <el-row>
+                                                                <el-col :span="6">
+                                                                    <el-button href="#none"  @click="login">登录</el-button>
+                                                                </el-col>
+                                                                <el-col :span="18">
+                                                                    <el-alert
+                                                                        type="info"
+                                                                        :description="errorTip"
+                                                                        center
+                                                                    >
+                                                                    </el-alert>
+                                                                </el-col>
+                                                            </el-row>
+                                                        </el-form-item>
                                                     </template>
                                                 </div>
                                             </div>
@@ -50,27 +69,22 @@
                                     <el-tab-pane label="注册" name="second" label-width="80px">
                                         <el-form class="loginform" label-width="70px">
                                             <el-form-item label="账号">
-                                                <el-input class="input1" v-model="account"/>
+                                                <el-input class="input1" v-model="account" auto-complete="off"/>
                                             </el-form-item>
                                             <el-form-item label="密码">
-                                                <el-input class="input1" v-model="password"/>
+                                                <el-input class="input1" v-model="password" auto-complete="off" type="password"/>
                                             </el-form-item>
-                                            <el-form-item label="确认密码">
-                                                <el-input class="input1" v-model="repeat_password"/>
+                                            <el-form-item label="重复">
+                                                <el-input class="input1" v-model="repeat_password" auto-complete="off" type="password"/>
                                             </el-form-item>
-                                            <el-button class="loginbutton" type="primary">注册</el-button>
-                                        </el-form>
-                                    </el-tab-pane>
-                                    <el-tab-pane label="管理员登录" name="third" label-width="80px">
-                                        <el-form class="loginform" label-width="60px">
-                                            <el-form-item label="账号">
-                                                <el-input class="input1" v-model="account"/>
-                                            </el-form-item>
-                                            <el-form-item label="密码">
-                                                <el-input class="input1" v-model="password"/>
+                                            <el-form-item>
+                                                <el-row>
+                                                    <el-col>
+                                                        <el-button>注册</el-button>
+                                                    </el-col>
+                                                </el-row>
                                             </el-form-item>
                                         </el-form>
-                                        <el-button class="loginbutton" type="primary">登录</el-button>
                                     </el-tab-pane>
                                 </el-tabs>
                             </div>
@@ -92,7 +106,7 @@
                         <el-col :span="8">
                             <div class="grid-content bg-purple inputCont">
                                 <div>
-                                    <el-input placeholder="请输入内容" v-model="input5" class="input-with-select">
+                                    <el-input placeholder="请输入内容" v-model="searchInput" class="input-with-select">
                                         <el-button slot="append" icon="el-icon-search"></el-button>
                                     </el-input>
                                 </div>
@@ -222,14 +236,13 @@
 
 </style>
 <script>
-
     import axios from 'axios'
     import ElButton from "../node_modules/element-ui/packages/button/src/button.vue";
     export default {
         components: {ElButton},
         data() {
             return {
-                input5: '',
+                searchInput: '',
                 select: '',
                 activeName: 'first',
                 account: '',   
@@ -286,11 +299,6 @@
                 let user_repeat_password = this.repeat_password
             }
         },
-        head() {
-            return {
-                title: 'CDMP 设备预约平台'
-            }
-        },
         watch: {
             inputUserName: function () {
                 var _this = this
@@ -311,7 +319,7 @@
             }
         },
         mounted(){
-
+            
         },
         async asyncData(){
             let  resData  = await axios.get(`/api/device/getAll/1`);
@@ -320,7 +328,11 @@
                 devices: resData.data.Devices,
                 deviceTypes: resData.data.DeviceTypes
             }
-        }
-
+        },
+        head() {
+            return {
+                title: 'CDMP 设备预约平台'
+            }
+        },
     }
 </script>
