@@ -102,12 +102,10 @@
                     </div>
                     <el-carousel :interval="3000" type="card" height="200px" width="900px">
                         <el-carousel-item v-for="item in devices" :key="item">
-                            <!--<h3>{{ item }}</h3>-->
-                            <img :src="{{item.imgFilePath}}"/>
+                            <img :src="item.imgFilePath"/>
                         </el-carousel-item>
                     </el-carousel>
                 </div>
-
             </el-col>
         </el-row>
     </div>
