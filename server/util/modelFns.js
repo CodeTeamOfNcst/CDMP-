@@ -7,9 +7,11 @@ import Sequelize from 'sequelize'
  */
 exports.getOrCreate = async (Model, Condition) => {
     try {
-        return await Model.findOne({ where: Condition })
-    }catch(err){
+        return await Model.findOne({
+            where: Condition
+        })
+    } catch (err) {
         console.log('Model entity doesn\'t exist')
-        return await Model.create( Condition )
+        return await Model.create(Condition)
     }
 }

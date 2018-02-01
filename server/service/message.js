@@ -1,10 +1,15 @@
-import { Message, MessageKlass, User, UserKlass } from '../dbconfig/dbinit'
+import {
+    Message,
+    MessageKlass,
+    User,
+    UserKlass
+} from '../dbconfig/dbinit'
 
-const ItemPerPage = 10 ;
-exports.addMessage = async ( ctx, next ) => {
+const ItemPerPage = 10;
+exports.addMessage = async (ctx, next) => {
     let message = ctx.request.body.message;
-    try{
-        for(let index in message.selected_user){
+    try {
+        for (let index in message.selected_user) {
             let newMessage = await Message.create({
                 publishDate: message.publishDate,
                 isUse: message.isUse,
@@ -13,10 +18,14 @@ exports.addMessage = async ( ctx, next ) => {
                 content: message.content
             });
             let messageType = await MessageKlass.findOne({
-                where: {id: message.type }
+                where: {
+                    id: message.type
+                }
             });
-            let messageUser = await  User.findOne({
-                where: { id: message.selected_user[index].split('-')[0] }
+            let messageUser = await User.findOne({
+                where: {
+                    id: message.selected_user[index].split('-')[0]
+                }
             });
             await newMessage.setMessageType(messageType);
             await newMessage.setMessageUser(messageUser);
@@ -26,7 +35,7 @@ exports.addMessage = async ( ctx, next ) => {
                 message: '消息创建成功'
             }
         }
-    }catch (err){
+    } catch (err) {
         ctx.body = {
             status: 0,
             message: `创建失败，由于 ${err}`
@@ -37,11 +46,13 @@ exports.addMessage = async ( ctx, next ) => {
 
 };
 
-exports.deletseMessageById = async ( ctx, next ) => {
+exports.deletseMessageById = async (ctx, next) => {
     let messageId = ctx.request.body.id
-    try{
+    try {
         let thisMessage = await Message.findOne({
-            where: { id:messageId }
+            where: {
+                id: messageId
+            }
         })
         await thisMessage.update({
             isUse: false
@@ -51,7 +62,7 @@ exports.deletseMessageById = async ( ctx, next ) => {
             status: 1,
             message: '禁用成功'
         }
-    }catch (err){
+    } catch (err) {
         ctx.body = {
             status: 0,
             message: `禁用失败 由于 ${err}`
@@ -59,21 +70,25 @@ exports.deletseMessageById = async ( ctx, next ) => {
     }
 };
 
-exports.modifyMessageById = async ( ctx, next ) => {
+exports.modifyMessageById = async (ctx, next) => {
     let postData = ctx.request.body.message;
-    try{
+    try {
         let thisMessage = await Message.findOne({
-            where: { id: postData.id }
+            where: {
+                id: postData.id
+            }
         });
         let thisMessageType = await MessageKlass.findOne({
-            where: { id:postData.type }
+            where: {
+                id: postData.type
+            }
         });
         await thisMessage.update({
             publishDate: postData.publishDate,
             content: postData.content,
-            isPublished:postData.isPublished,
-            isRead:postData.isRead,
-            isUse:postData.isUse
+            isPublished: postData.isPublished,
+            isRead: postData.isRead,
+            isUse: postData.isUse
         });
         await thisMessage.setMessageType(thisMessageType);
         await thisMessage.save()
@@ -81,7 +96,7 @@ exports.modifyMessageById = async ( ctx, next ) => {
             status: 1,
             message: '更新成功'
         }
-    }catch (err){
+    } catch (err) {
         ctx.body = {
             status: 0,
             message: `更新失败， 由于${err}`
@@ -93,13 +108,16 @@ exports.modifyMessageById = async ( ctx, next ) => {
  * 获取所有消息及相关内容
  *
  */
-exports.getAllMessage = async ( ctx, next ) => {
+exports.getAllMessage = async (ctx, next) => {
 
-    let messages = await Message.findAll({ offset: (parseInt(ctx.params.page || 1) - 1) * ItemPerPage, limit: ItemPerPage });
+    let messages = await Message.findAll({
+        offset: (parseInt(ctx.params.page || 1) - 1) * ItemPerPage,
+        limit: ItemPerPage
+    });
     let messageTypes = await MessageKlass.findAll()
     let Messages = [];
     // 格式化返回的数据
-    for(let index in messages){
+    for (let index in messages) {
         let messageType = await messages[index].getMessageType();
         let messageUser = await messages[index].getMessageUser();
         Messages.push({
@@ -118,11 +136,13 @@ exports.getAllMessage = async ( ctx, next ) => {
     }
 };
 
-exports.getMessageById = async ( ctx, next ) => {
+exports.getMessageById = async (ctx, next) => {
     let messageId = ctx.request.body.id;
-    try{
+    try {
         let thisMessage = await Message.findOne({
-            where: {id: messageId}
+            where: {
+                id: messageId
+            }
         });
         let thisMessageTpe = await thisMessage.getMessageType();
         let thisMessageUser = await thisMessage.getMessageUser();
@@ -133,7 +153,7 @@ exports.getMessageById = async ( ctx, next ) => {
             status: 1,
             message: '查询成功'
         }
-    }catch (err){
+    } catch (err) {
         ctx.body = {
             status: 1,
             message: `查询失败 由于 ${err}`

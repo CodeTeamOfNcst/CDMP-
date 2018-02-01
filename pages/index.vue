@@ -18,8 +18,9 @@
                             </div>
                         </el-col>
                     </el-col>
-                    <el-col :span="8"><div class="grid-content bg-purple" v-show="login_show">
-                        <el-col :span="24">
+                    <el-col :span="8">
+                        <div class="grid-content bg-purple" v-show="login_show">
+                            <el-col :span="24">
                             <div class="login grid-content bg-purple">
                                 <el-tabs v-model="activeName" type="card">
                                     <el-tab-pane  label="登录" name="first" label-width="70px">
@@ -27,7 +28,7 @@
                                             <div id="example">
                                                 <div id="login">
                                                     <template v-if="userName">
-                                                        <span class="welcome">欢迎您，{{animateUserName}}</span>
+                                                        <span class="welcome">欢迎您，{{ animateUserName }}</span>
                                                         <a class="OriginLogout" href="#none" @click="logout" >退出登录</a>
                                                     </template>
                                                     <template v-else>
@@ -74,7 +75,7 @@
                                 </el-tabs>
                             </div>
                         </el-col>
-                    </div>
+                        </div>
                     </el-col>
                 </div>
             </el-col>
@@ -92,10 +93,6 @@
                             <div class="grid-content bg-purple inputCont">
                                 <div>
                                     <el-input placeholder="请输入内容" v-model="input5" class="input-with-select">
-                                        <el-select v-model="select" slot="prepend" placeholder="请选择">
-                                            <el-option label="设备名称" value="1"></el-option>
-                                            <el-option label="设备分类" value="2"></el-option>
-                                        </el-select>
                                         <el-button slot="append" icon="el-icon-search"></el-button>
                                     </el-input>
                                 </div>
@@ -104,9 +101,9 @@
                         </el-row>
                     </div>
                     <el-carousel :interval="3000" type="card" height="200px" width="900px">
-                        <el-carousel-item v-for="item in 8" :key="item">
+                        <el-carousel-item v-for="item in devices" :key="item">
                             <!--<h3>{{ item }}</h3>-->
-                            <img src="../static/uploads/deviceImages/0003c590-041d-11e8-89a7-898d3de41d42.jpg"/>
+                            <img :src="{{item.imgFilePath}}"/>
                         </el-carousel-item>
                     </el-carousel>
                 </div>
@@ -314,21 +311,18 @@
                     }
                 }, 50)
             }
-        }
-    }
-//import Vue from 'vue'
-//import Swiper from 'vue-swiper'
-//new Vue({
-//    el: 'body',
-//    components: {Swiper},
-//    methods: {
-//        onSlideChangeStart (currentPage) {
-//            console.log('onSlideChangeStart', currentPage);
-//        },
-//        onSlideChangeEnd (currentPage) {
-//            console.log('onSlideChangeEnd', currentPage);
-//        }
-//    }
-//});
+        },
+        mounted(){
 
+        },
+        async asyncData(){
+            let  resData  = await axios.get(`/api/device/getAll/1`);
+            return {
+                counts: resData.data.counts,
+                devices: resData.data.Devices,
+                deviceTypes: resData.data.DeviceTypes
+            }
+        }
+
+    }
 </script>

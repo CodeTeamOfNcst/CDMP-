@@ -7,7 +7,7 @@ const multer = require('koa-multer')
  * @param {String}
  */
 function mkdirsSync(dirname) {
-    if( fs.existsSync(dirname) ) {
+    if (fs.existsSync(dirname)) {
         return true
     } else if (mkdirsSync(path.dirname(dirname))) {
         fs.mkdirSync(dirname)
@@ -20,11 +20,11 @@ function mkdirsSync(dirname) {
 function readDirFile(name, filedname) {
     let check_file = false;
     let nameList = [];
-    if(!fs.existsSync(path.join(__dirname, '../' + 'uploads'))) {
+    if (!fs.existsSync(path.join(__dirname, '../' + 'uploads'))) {
         fs.mkdirSync(path.join(__dirname, '../' + 'uploads'))
     }
     fs.readdirSync(path.join(__dirname, '../uploads')).forEach((filename) => {
-        if(filedname == filename && filename.indexOf(name) != '-1') {
+        if (filedname == filename && filename.indexOf(name) != '-1') {
             check_file = true
         }
     })
@@ -62,7 +62,7 @@ const storage = multer.diskStorage({
  */
 const upload = multer({
     storage: storage,
-    fileFilter: function(req, file, cb) {
+    fileFilter: function (req, file, cb) {
         let [name, stuf_name] = getStuffixName(file.originalname)
         let check_file = readDirFile(name, req.body.mark + '_' + name + '.' + stuf_name)
         cb(null, !check_file)
