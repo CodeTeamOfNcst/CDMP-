@@ -99,6 +99,8 @@
                     <div class="mf-top">
                         <el-row>
                             <el-col :span="16">
+                                <div class="orderbefore"></div>
+
                                 <span class="order"> <i class="el-icon-d-arrow-right"></i> 仪器展示</span>
                             </el-col>
                         <el-col :span="8">
@@ -126,21 +128,17 @@
 </template>
 
 <style scoped>
-    .el-carousel__item h3 {
-        color: #475669;
-        font-size: 14px;
-        opacity: 0.75;
-        line-height: 200px;
-        margin: 20px 5px 0 0;
-    }
+
     .el-carousel__item:nth-child(2n) {
-        width:274px;
+        width:auto;
+        height:auto;
         margin-left: 110px;
         background-color: #99a9bf;
     }
 
     .el-carousel__item:nth-child(2n+1) {
-        width:274px;
+        width:auto;
+        height:auto;
         margin-left: 110px;
         background-color: #d3dce6;
     }
