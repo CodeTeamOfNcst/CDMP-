@@ -4,6 +4,7 @@ const ItemPerPage = 10 ;
 exports.addRule = async ( ctx, next ) => {
     let postData = ctx.request.body
     try{
+        if((!postData.rule.title) && (!postData.rule.content)) throw("公告标题或内容未定义")
         let newRule = await Rule.create({
             publishDate: postData.rule.publishDate,
             title: postData.rule.title,
@@ -17,7 +18,7 @@ exports.addRule = async ( ctx, next ) => {
         }
     }catch (err){
         ctx.body = {
-            status: 1,
+            status: 0,
             message: `添加失败 由于 ${ err }`
         }
     }
@@ -60,7 +61,7 @@ exports.getRuleById = async ( ctx, next ) => {
         let thisRule = await Rule.findOne({where: {id: ruleId}})
         let rule = {
             id: thisRule.id,
-            publishDate: moment(thisRule.publishDate).format('YYYY-MM-DD'),
+            publishDate: thisRule.publishDate,
             title: thisRule.title,
             content: thisRule.content,
             isUse: thisRule.isUse

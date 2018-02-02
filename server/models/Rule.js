@@ -21,11 +21,11 @@ module.exports = (sequelize, DataTypes) => {
             }, //公告正式发布的日期
             title: {
                 type: DataTypes.TEXT,
-                allowNull: true
+                allowNull: false
             }, // 公告的标题
             content: {
                 type: DataTypes.TEXT,
-                allowNull: true
+                allowNull: false
             }, //公告的具体内容 （后期改为富文本？待定）
             isUse: {
                 type: DataTypes.BOOLEAN,

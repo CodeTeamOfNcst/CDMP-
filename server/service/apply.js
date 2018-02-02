@@ -5,6 +5,10 @@ const ItemPerPage = 10 ;
 exports.addApply = async ( ctx, next ) => {
     let device = ctx.request.body.device;
     try{
+        if((!device.vioReason) || 
+            (!device.user) || 
+            (!device.device)
+        ) throw("预约信息填写有误")
         let newDevice = await Apply.create({
             startDate: device.date[0],
             endDate: device.date[1],

@@ -112,7 +112,7 @@ exports.deleteUserById = async (ctx, next) => {
         }
     } catch (err) {
         ctx.body = {
-            status: 1,
+            status: 0,
             message: `禁用失败，原因 ${err}`
         }
     }

@@ -9,6 +9,8 @@ const ItemPerPage = 10;
 exports.addMessage = async (ctx, next) => {
     let message = ctx.request.body.message;
     try {
+        if(!message.selected_user.lenght && 
+            !(message.selected_user.lenght === 0)) throw("未选择用户")
         for (let index in message.selected_user) {
             let newMessage = await Message.create({
                 publishDate: message.publishDate,
