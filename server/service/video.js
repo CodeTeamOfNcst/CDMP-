@@ -45,6 +45,7 @@ module.exports.checkFile = async (ctx, next) => {
         next() // 转移权限
     } else {
         ctx.status = 200
+        next()
     }
 };
 
@@ -81,4 +82,5 @@ module.exports.getVedioStream = async (ctx, next) => {
         ctx.set('Content-Type', 'video/mp4');
         ctx.body = fs.createReadStream(fileAbsolutePath);
     }
+    next()
 };

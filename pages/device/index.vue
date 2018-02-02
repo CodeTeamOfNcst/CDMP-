@@ -29,7 +29,7 @@
                 <div class="chanceKey">
                     <el-menu @select="typeSelect">
                         <div v-for="deviceType in deviceTypes">
-                            <el-menu-item :index="deviceType.value" >
+                            <el-menu-item index="Number.parseInt(deviceType.value)" >
                                 <span slot="">{{deviceType.label}}</span>
                             </el-menu-item>
                         </div>

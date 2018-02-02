@@ -9,7 +9,7 @@ import Cors from 'koa2-cors'
 const path = require('path')
 const logger = require('koa-logger')
 const koaStatic = require('koa-static')
-const session = require('koa-session2')
+const session = require('koa2-session-store')
 const bodyParser = require('koa-bodyparser')
 
 const database = require('./dbconfig/dbinit')
@@ -19,9 +19,7 @@ async function start() {
     const app = new Koa()
     const host = process.env.HOST || '127.0.0.1'
     const port = process.env.PORT || 3000
-    const SESSION_CONFIG = {
-        key: 'koa:sess'
-    }
+    app.keys = ['dsadasdsada*-*/*-/sda*-d/as*-d/w21*-/31-*sda-d*'];
     /**
      ** Test connecton
      */
@@ -44,9 +42,15 @@ async function start() {
     // init middleware
     app.use(logger())
     app.use(bodyParser())
-    app.use(session(SESSION_CONFIG, app));
+    app.use(session({
+        name: "sessid",
+        secret: "*2-131/*-",
+        cookie: {
+            maxAge: 23333 // just example
+        }
+    }));
     app.use(koaStatic(__dirname + '/uploads'))
-    app.use(Cors()) //允许跨域访问
+    app.use(Cors({credentials: true})) //允许跨域访问
     app.use(router.routes()).use(router.allowedMethods())
 
     // Import and Set Nuxt.js options

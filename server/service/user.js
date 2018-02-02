@@ -28,6 +28,7 @@ exports.getAllUser = async (ctx, next) => {
         usersDetail: UsersDetail,
         userKlassDetail: UserKlasses
     }
+    next()
 };
 
 exports.getUserById = async (ctx, next) => {
@@ -61,6 +62,7 @@ exports.getUserById = async (ctx, next) => {
             message: `查询用户信息失败，原因：${err}`
         }
     }
+    next()
 };
 
 exports.addUser = async (ctx, next) => {
@@ -92,6 +94,7 @@ exports.addUser = async (ctx, next) => {
             message: '创建失败，原因：${err}'
         }
     }
+    next()
 };
 
 exports.deleteUserById = async (ctx, next) => {
@@ -116,6 +119,7 @@ exports.deleteUserById = async (ctx, next) => {
             message: `禁用失败，原因 ${err}`
         }
     }
+    next()
 };
 
 exports.modifyUserById = async (ctx, next) => {
@@ -151,6 +155,7 @@ exports.modifyUserById = async (ctx, next) => {
             message: `更新失败， 原因${err}`
         }
     }
+    next()
 };
 
 exports.onlyGetAllUser = async (ctx, next) => {
@@ -168,4 +173,5 @@ exports.onlyGetAllUser = async (ctx, next) => {
         status: 1,
         message: '成功获取用户数据'
     }
+    next()
 };

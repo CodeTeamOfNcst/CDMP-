@@ -27,7 +27,7 @@
                 <el-col :span="16" :offset="4"><div class="grid-content bg-purple">
                     <el-form>
                         <el-form-item>
-                            <el-input class="input1" v-model="password" placeholder="密码"/>
+                            <el-input class="input1" v-model="password" placeholder="密码" type="password"/>
                         </el-form-item>
                     </el-form>
                 </div></el-col>

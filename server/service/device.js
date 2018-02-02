@@ -38,7 +38,7 @@ exports.addDevice = async (ctx, next) => {
             message: `创建失败，原因： ${err}`
         }
     }
-
+    next()
 };
 
 exports.delteDeviceById = async (ctx, next) => {
@@ -65,6 +65,7 @@ exports.delteDeviceById = async (ctx, next) => {
             message: `置不可用失败， 原因 ${err}`
         }
     }
+    next()
 };
 
 exports.modifyDeviceById = async (ctx, next) => {
@@ -121,6 +122,7 @@ exports.modifyDeviceById = async (ctx, next) => {
             message: `更新失败，由于 ${ err }`
         }
     }
+    next()
 };
 
 exports.getDeviceById = async (ctx, next) => {
@@ -140,6 +142,7 @@ exports.getDeviceById = async (ctx, next) => {
         });
 
         let device = {
+            id: thisDevice.id,
             name: thisDevice.name,
             imgFilePath: thisDevice.imgFilePath,
             description: thisDevice.description,
@@ -160,6 +163,7 @@ exports.getDeviceById = async (ctx, next) => {
             message: `获取详细信息失败， 原因 ${err}`
         }
     }
+    next()
 };
 
 exports.getAllDevice = async (ctx, next) => {
@@ -197,6 +201,7 @@ exports.getAllDevice = async (ctx, next) => {
         Devices: Devices,
         DeviceTypes: DevicesTypes
     }
+    next()
 };
 
 exports.onluGetAllDevice = async (ctx, next) => {
@@ -214,4 +219,5 @@ exports.onluGetAllDevice = async (ctx, next) => {
         status: 1,
         message: '获取数据成功'
     }
+    next()
 };

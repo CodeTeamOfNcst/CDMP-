@@ -51,46 +51,9 @@
             <el-row>
                 <el-col :span="24">
                     <div class="grid-content bg-purple-dark instruName">
-                        <p>学院:</p>
+                        <p>预约理由:</p>
                         <div class="fillOutName">
-                            <el-select v-model="value" placeholder="请选择" class="selectCollege">
-                                <el-option
-                                        v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </div>
-                    </div>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="24">
-                    <div class="grid-content bg-purple-dark instruName">
-                        <p>专业:</p>
-                        <div class="fillOutName">
-                            <el-input v-model="input4" placeholder="请输入内容"></el-input>
-                        </div>
-                    </div>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="24">
-                    <div class="grid-content bg-purple-dark instruName">
-                        <p>学号:</p>
-                        <div class="fillOutName">
-                            <el-input v-model="input5" placeholder="请输入内容"></el-input>
-                        </div>
-                    </div>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="24">
-                    <div class="grid-content bg-purple-dark instruName">
-                        <p>联系电话:</p>
-                        <div class="fillOutName">
-                            <el-input v-model="input6" placeholder="请输入内容"></el-input>
+                            <el-input v-model="input6" placeholder="请输入内容" type="textarea"></el-input>
                         </div>
                     </div>
                 </el-col>
@@ -163,71 +126,40 @@
 </style>
 
 <script>
+    import axios from 'axios'
     export default {
-      methods: {
-        over () {
-          window.history.back(-1);
+        methods: {
+                over () {
+                window.history.back(-1);
+                },
+                open2 () {
+                    this.$message({
+                        message: '提交成功',
+                        type: 'success'
+                    });
+                },
         },
-        open2 () {
-          this.$message({
-            message: '提交成功',
-            type: 'success'
-          });
-        },
-        data () {
-          return {
-              date:'',
-            input1: '',
-            input2: '',
-            input3: '',
-            input4: '',
-            input5: '',
-            input6: '',
-            options: [{
-              value: '选项1',
-              label: '信息工程学院'
-            }, {
-              value: '选项2',
-              label: '化学工程学院'
-            }, {
-              value: '选项3',
-              label: '理学院'
-            }, {
-              value: '选项4',
-              label: '医学院'
-            }],
-            value: '',
-            pickerOptions2: {
-              shortcuts: [{
-                text: '最近一周',
-                onClick (picker) {
-                  const end = new Date();
-                  const start = new Date();
-                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                  picker.$emit('pick', [start, end]);
-                }
-              }, {
-                text: '最近一个月',
-                onClick (picker) {
-                  const end = new Date();
-                  const start = new Date();
-                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                  picker.$emit('pick', [start, end]);
-                }
-              }, {
-                text: '最近三个月',
-                onClick (picker) {
-                  const end = new Date();
-                  const start = new Date();
-                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                  picker.$emit('pick', [start, end]);
-                }
-              }]
-            },
-            value7: ''
-          }
+        data(){
+            return{
 
+            }
+        },
+        async asyncData(context){
+            let checkLogin = await axios.get("/api/auth/checkLogin")
+            if(checkLogin.data.status === 1){
+                let thisUser = checkLogin.data.user
+                let resData = await axios.post('/api/device/getById', {id: context.params.id})
+                let thisDevice;
+                if(resData.data.device){
+                    thisDevice = resData.data.device
+                    return{
+                        thisUser: thisUser,
+                        thisDevice: thisDevice
+                    }
+                }
+            }else{
+                context.redirect('/login')
+            }
         }
-      }
     }
 </script>

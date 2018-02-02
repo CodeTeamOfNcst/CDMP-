@@ -4,7 +4,6 @@ import {
 } from '../dbconfig/dbinit'
 
 exports.logIn = async (ctx, next) => {
-
     let account = ctx.request.body.account;
     let password = ctx.request.body.passwd;
     let user = await User.findOne({
@@ -12,14 +11,16 @@ exports.logIn = async (ctx, next) => {
             account: account
         }
     });
-    let userType = await user.getUserType()
-    let userIsAdmin = false
-    if(userType.id === 1){
-        userIsAdmin = true
-    }else{
-        userIsAdmin = false
-    }
+    
+
     if (user && user.password === password) {
+        let userType = await user.getUserType()
+        let userIsAdmin = false
+        if(userType.id === 1){
+            userIsAdmin = true
+        }else{
+            userIsAdmin = false
+        }
         ctx.session.user_account = account;
         ctx.body = {
             user_is_admin: userIsAdmin,
@@ -27,16 +28,9 @@ exports.logIn = async (ctx, next) => {
             message: '登陆成功'
         }
     } else {
-        if (user) {
-            ctx.body = {
-                status: 0,
-                message: '用户名或密码错误'
-            }
-        } else {
-            ctx.body = {
-                status: 0,
-                message: '请求异常'
-            }
+        ctx.body = {
+            status: 0,
+            message: '用户名或密码错误'
         }
     }
     next()
@@ -44,26 +38,27 @@ exports.logIn = async (ctx, next) => {
 
 exports.logOut = async (ctx, next) => {
     if (ctx.session.user_account) {
-        ctx.session.user_account = null;
+        ctx.session['user_account'] = ''
         ctx.bdoy = {
             status: 1,
-            message: '普通用户注销成功'
+            message: '用户注销成功'
         }
     } else {
         ctx.body = {
-            status: 0,
+            status: 1,
             message: '异常，用户cookie不存在'
         }
     }
+    next()
 };
 
 
 exports.checkLogIn = async (ctx, next) => {
-    console.log(ctx.session.user_account)
     if(ctx.session.user_account){
         let user = await User.findOne({
-            where: {account: ctx.session.user_account}
+            where: { account: ctx.session.user_account }
         })
+        console.log(user)
         ctx.bdoy = {
             user: user,
             status: 1,
@@ -75,12 +70,15 @@ exports.checkLogIn = async (ctx, next) => {
             message: "用户暂未登陆"
         }
     }
+    next()
 };
 
 exports.regist =  async (ctx, next) => {
     let userAccount = ctx.request.body.account
     let userPasswd = ctx.request.body.passwd
-    let thisUser = await User.findOne({account: userAccount})
+    console.log(userAccount)
+    let thisUser = await User.findOne({ where:{account: userAccount}})
+    console.log(thisUser)
     if(thisUser){
         ctx.body = {
             status :0,
@@ -91,11 +89,12 @@ exports.regist =  async (ctx, next) => {
             account: userAccount,
             password: userPasswd
         })
-
+        ctx.session.user_account = userAccount;
         ctx.body = {
             user: thisUser,
             status: 1,
             message: "创建成功"
         }
     }
+    next()
 }

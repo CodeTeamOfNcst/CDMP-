@@ -283,11 +283,6 @@ import { userInfo } from 'os';
                     passwd: user_password
                 })
                 if(resData.data.status === 1) {
-                    //登陆成功
-                    this.$message({
-                        message: resData.data.message,
-                        type: 'success'
-                    });
                     if(resData.data.user_is_admin){
                         this.user_is_admin = true;
                     }
@@ -299,8 +294,8 @@ import { userInfo } from 'os';
                 }
             },
             async handleUserRegist(tab, event){
-                let user_account = this.account
-                let user_password = this.password
+                let user_account = this.user_account
+                let user_password = this.user_password
                 let user_repeat_password = this.repeat_password
                 if(user_password !== user_repeat_password){
                     this.$message.error("两次输入的密码不一致");
@@ -330,6 +325,7 @@ import { userInfo } from 'os';
                         type: 'success'
                     });
                     this.login_show = true
+                    window.location.reload();
                 }else{
                     this.$message.error(resData.data.message);
                 }
@@ -363,7 +359,7 @@ import { userInfo } from 'os';
         },
         async asyncData(){
             let  resData  = await axios.get(`/api/device/getAll/1`);
-            let userData = await axios.get('/api/auth/checkLogin/');
+            let userData = await axios.get('/api/api/auth/checkLogin');
             let user
             if(userData.data.status === 1){
                 user = userData.data.user

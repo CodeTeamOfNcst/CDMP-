@@ -43,9 +43,7 @@ exports.addMessage = async (ctx, next) => {
             message: `创建失败，由于 ${err}`
         }
     }
-
-
-
+    next()
 };
 
 exports.deletseMessageById = async (ctx, next) => {
@@ -70,6 +68,7 @@ exports.deletseMessageById = async (ctx, next) => {
             message: `禁用失败 由于 ${err}`
         }
     }
+    next()
 };
 
 exports.modifyMessageById = async (ctx, next) => {
@@ -104,6 +103,7 @@ exports.modifyMessageById = async (ctx, next) => {
             message: `更新失败， 由于${err}`
         }
     }
+    next()
 };
 
 /**
@@ -136,6 +136,7 @@ exports.getAllMessage = async (ctx, next) => {
         status: 1,
         message: '成功获取信息'
     }
+    next()
 };
 
 exports.getMessageById = async (ctx, next) => {
@@ -161,6 +162,5 @@ exports.getMessageById = async (ctx, next) => {
             message: `查询失败 由于 ${err}`
         }
     }
-
-
+    next()
 };
