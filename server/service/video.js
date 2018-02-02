@@ -82,5 +82,4 @@ module.exports.getVedioStream = async (ctx, next) => {
         ctx.set('Content-Type', 'video/mp4');
         ctx.body = fs.createReadStream(fileAbsolutePath);
     }
-    next()
 };

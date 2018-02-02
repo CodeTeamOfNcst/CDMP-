@@ -331,7 +331,7 @@ import { userInfo } from 'os';
                 }
             },
         },
-        watch: {
+        watch: { //登陆后用户名浮动特效
             userName() {
                 var _this = this
                 var len = 1
@@ -346,28 +346,23 @@ import { userInfo } from 'os';
                 }, 50)
             }
         },
-        mounted(){
-            if(this.user){
-                this.animateUserName = user.account
-                if(user.user_type === 1){
+        async mounted(){
+            // 在这里进行路由鉴权可以实现功能
+            let resData = await axios.get('/api/auth/checkLogin')
+            if(resData.data.status === 1){
+                // 用户已经登陆
+                this.login_show = false;
+                this.animateUserName = resData.data.user.account
+                if(resData.data.user.user_type = 1){
                     this.user_is_admin = true
-                }else{
-                    this.user_is_admin = false
                 }
-                console.log(user)
+            }else{
+                this.login_show = true
             }
         },
         async asyncData(){
             let  resData  = await axios.get(`/api/device/getAll/1`);
-            let userData = await axios.get('/api/api/auth/checkLogin');
-            let user
-            if(userData.data.status === 1){
-                user = userData.data.user
-            }else{
-                user = null;
-            }
             return {
-                user: user,
                 counts: resData.data.counts,
                 devices: resData.data.Devices,
                 deviceTypes: resData.data.DeviceTypes,

@@ -37,7 +37,7 @@ exports.addApply = async ( ctx, next ) => {
             message: `创建失败，由于 ${err}`
         }
     }
-    next()
+    
 };
 
 exports.deleteApplyById = async ( ctx, next ) => {
@@ -59,7 +59,7 @@ exports.deleteApplyById = async ( ctx, next ) => {
             message: `禁用失败 由于 ${err}`
         }
     }
-    next()
+    
 };
 
 exports.modifyApplyById = async ( ctx, next ) => {
@@ -86,7 +86,7 @@ exports.modifyApplyById = async ( ctx, next ) => {
             message: `修改异常，原因 ${err}`
         }
     }
-    next()
+    
 };
 
 exports.getApplyById = async ( ctx, next ) => {
@@ -112,7 +112,7 @@ exports.getApplyById = async ( ctx, next ) => {
             message: `获取信息失败， 由于 ${err}`
         }
     }
-    next()
+    
 };
 
 exports.getAllApply = async ( ctx, next ) => {
@@ -135,7 +135,6 @@ exports.getAllApply = async ( ctx, next ) => {
         status: 1,
         message: '成功获取信息'
     }
-    next()
 };
 
 

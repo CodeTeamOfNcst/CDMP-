@@ -41,6 +41,7 @@ async function start() {
     }
     // init middleware
     app.use(logger())
+    app.use(Cors({credentials: true})) //允许跨域访问
     app.use(bodyParser())
     app.use(session({
         name: "sessid",
@@ -49,23 +50,23 @@ async function start() {
             maxAge: 23333 // just example
         }
     }));
+    
     app.use(koaStatic(__dirname + '/uploads'))
-    app.use(Cors({credentials: true})) //允许跨域访问
     app.use(router.routes()).use(router.allowedMethods())
-
+    
     // Import and Set Nuxt.js options
     let config = require('../nuxt.config.js')
     config.dev = !(app.env === 'production')
 
     // Instantiate nuxt.js
     const nuxt = new Nuxt(config)
-
+    
     // Build in development
     if (config.dev) {
         const builder = new Builder(nuxt)
         await new Builder(nuxt).build()
     }
-
+    
     app.use(async (ctx, next) => {
         await next()
         ctx.status = 200 // koa defaults to 404 when it sees that status is unset

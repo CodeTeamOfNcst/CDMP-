@@ -11,8 +11,6 @@ exports.logIn = async (ctx, next) => {
             account: account
         }
     });
-    
-
     if (user && user.password === password) {
         let userType = await user.getUserType()
         let userIsAdmin = false
@@ -22,6 +20,7 @@ exports.logIn = async (ctx, next) => {
             userIsAdmin = false
         }
         ctx.session.user_account = account;
+        ctx.cookies.set("account", account)
         ctx.body = {
             user_is_admin: userIsAdmin,
             status: 1,
@@ -33,12 +32,12 @@ exports.logIn = async (ctx, next) => {
             message: '用户名或密码错误'
         }
     }
-    next()
 };
 
 exports.logOut = async (ctx, next) => {
     if (ctx.session.user_account) {
         ctx.session['user_account'] = ''
+        ctx.cookies.set("account",'')
         ctx.bdoy = {
             status: 1,
             message: '用户注销成功'
@@ -49,16 +48,15 @@ exports.logOut = async (ctx, next) => {
             message: '异常，用户cookie不存在'
         }
     }
-    next()
 };
 
 
 exports.checkLogIn = async (ctx, next) => {
-    if(ctx.session.user_account){
+    console.log(ctx.cookies.get("account"))
+    if(ctx.cookies.get("account")){
         let user = await User.findOne({
-            where: { account: ctx.session.user_account }
+            where: { account: ctx.cookies.get("account") }
         })
-        console.log(user)
         ctx.bdoy = {
             user: user,
             status: 1,
@@ -70,7 +68,6 @@ exports.checkLogIn = async (ctx, next) => {
             message: "用户暂未登陆"
         }
     }
-    next()
 };
 
 exports.regist =  async (ctx, next) => {
@@ -96,5 +93,4 @@ exports.regist =  async (ctx, next) => {
             message: "创建成功"
         }
     }
-    next()
 }

@@ -32,6 +32,15 @@
                     </el-form>
                 </div></el-col>
             </el-row>
+            <el-row :gutter="20">
+                <el-col :span="16" :offset="4"><div class="grid-content bg-purple">
+                    <el-form>
+                        <el-form-item>
+                            <el-input class="input1" v-model="context" placeholder="上下文内容" type="textarea"/>
+                        </el-form-item>
+                    </el-form>
+                </div></el-col>
+            </el-row>
             <el-button class="loginbutton" type="primary" @click="handleLogIn">登录</el-button>
         </div>
     </div>
@@ -46,8 +55,10 @@ export default {
             password: ''
         }
     },
-    asycnData(){
-
+    async asycnData(context){
+        return {
+            context: context.store
+        }
     },
     methods:{
         async handleLogIn(){
@@ -63,6 +74,7 @@ export default {
                         message: resData.data.message + ' 正在跳转 ^-^',
                         type: 'success'
                     });
+                    localStorage.setItem("account", account);
                     window.history.back()
                 }else{
                     this.$message.error(resData.data.message);

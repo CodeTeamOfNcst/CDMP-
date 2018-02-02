@@ -22,7 +22,7 @@ exports.addRule = async ( ctx, next ) => {
             message: `添加失败 由于 ${ err }`
         }
     }
-    next()
+    
 };
 
 exports.getAllRules = async ( ctx, next ) => {
@@ -52,7 +52,7 @@ exports.getAllRules = async ( ctx, next ) => {
             message: '从服务端获取数据异常'
         }
     }
-    next()
+    
 };
 
 exports.getRuleById = async ( ctx, next ) => {
@@ -77,7 +77,7 @@ exports.getRuleById = async ( ctx, next ) => {
             message: `获取信息失败， 由于 ${err}`
         }
     }
-    next()
+    
 };
 
 exports.modifyRule = async ( ctx, next ) => {
@@ -101,7 +101,7 @@ exports.modifyRule = async ( ctx, next ) => {
             message: `更新失败，由于 ${ err }`
         }
     }
-    next()
+    
 };
 
 exports.deleteRule = async ( ctx, next ) => {
@@ -120,6 +120,6 @@ exports.deleteRule = async ( ctx, next ) => {
             message: `服务端异常 原因：${ err }`
         }
     }
-    next()
+    
 };
 

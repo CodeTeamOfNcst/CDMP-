@@ -49,6 +49,9 @@ export default {
             content:'',
             title:'',
             publishDate: '',
+            input3:'',
+            date:[],
+
 
         }
     },
@@ -58,8 +61,8 @@ export default {
             return{
                 content: resData.data.rule.content,
                 title: resData.data.rule.title,
-                publishDate: resData.data.rule.publishDate
-
+                publishDate: resData.data.rule.publishDate,
+               
             }
         }else{
             return{
@@ -67,6 +70,8 @@ export default {
                 title: '无法正确获取数据'
             }
         }
+    },
+    async mounted(){
     }
 }
 

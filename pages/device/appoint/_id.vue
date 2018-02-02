@@ -13,7 +13,7 @@
                         <div class="fillOutName">
                             <el-input
                                     placeholder="全自动智能倒置显微镜及金相分析系统"
-                                    v-model="input1"
+                                    v-model="device_name"
                                     :disabled="true">
                             </el-input>
                         </div>
@@ -27,7 +27,7 @@
                         <div class="fillOutName">
                             <el-input
                                     placeholder="xxxxxxxxxxxx"
-                                    v-model="input2"
+                                    v-model="deviceType"
                                     :disabled="true">
                             </el-input>
                         </div>
@@ -53,7 +53,7 @@
                     <div class="grid-content bg-purple-dark instruName">
                         <p>预约理由:</p>
                         <div class="fillOutName">
-                            <el-input v-model="input6" placeholder="请输入内容" type="textarea"></el-input>
+                            <el-input v-model="content" placeholder="请输入内容" type="textarea"></el-input>
                         </div>
                     </div>
                 </el-col>
@@ -141,25 +141,21 @@
         },
         data(){
             return{
+                device_name: null,
+                deviceType: null,
+                content: null,
+                date: [],
 
             }
         },
         async asyncData(context){
-            let checkLogin = await axios.get("/api/auth/checkLogin")
-            if(checkLogin.data.status === 1){
-                let thisUser = checkLogin.data.user
-                let resData = await axios.post('/api/device/getById', {id: context.params.id})
-                let thisDevice;
-                if(resData.data.device){
-                    thisDevice = resData.data.device
-                    return{
-                        thisUser: thisUser,
-                        thisDevice: thisDevice
-                    }
-                }
-            }else{
-                context.redirect('/login')
-            }
+          return {
+              context: context.body
+          }
+        },
+        async mounted(){
+            let resData = await axios.get('/api/auth/checkLogIn')
+            console.log(resData.data);   
         }
     }
 </script>
