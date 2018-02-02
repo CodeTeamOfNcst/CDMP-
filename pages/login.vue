@@ -1,38 +1,76 @@
 <template>
-
     <div class="all">
-
         <div class="AnotherLogin">
-            <h2>请先登陆！</h2>
             <el-row :gutter="20">
                 <el-col :span="16" :offset="4"><div class="grid-content bg-purple">
                      <el-form>
-                         <el-form-item label="账号">
-                             <el-input type="text" class="input1" v-model="inputUserName"/>
+                         <el-form-item>
+                             <el-alert
+                                title="请先登陆"
+                                type="error"
+                                show-icon>
+                            </el-alert>
                          </el-form-item>
-
+                     </el-form>
+                </div></el-col>
+            </el-row>
+            <el-row :gutter="20">
+                <el-col :span="16" :offset="4"><div class="grid-content bg-purple">
+                     <el-form>
+                         <el-form-item>
+                             <el-input type="text" class="input1" v-model="account" placeholder="账号"/>
+                         </el-form-item>
                      </el-form>
                 </div></el-col>
             </el-row>
             <el-row :gutter="20">
                 <el-col :span="16" :offset="4"><div class="grid-content bg-purple">
                     <el-form>
-                        <el-form-item label="密码">
-                            <el-input class="input1" v-model="password"/>
+                        <el-form-item>
+                            <el-input class="input1" v-model="password" placeholder="密码"/>
                         </el-form-item>
                     </el-form>
                 </div></el-col>
             </el-row>
-            <el-button class="loginbutton" type="primary">登录</el-button>
+            <el-button class="loginbutton" type="primary" @click="handleLogIn">登录</el-button>
         </div>
     </div>
-
 </template>
 
 <script>
+import axios from 'axios'
 export default {
+    data(){
+        return {
+            account: '',
+            password: ''
+        }
+    },
+    asycnData(){
 
+    },
+    methods:{
+        async handleLogIn(){
+            if(!this.account || !this.password){
+                this.$message.error("请输入用户名和密码");
+            }else{
+                let resData = await axios.post('/api/auth/login',{
+                    account: this.account,
+                    passwd: this.password
+                })
+                if(resData.data.status === 1){
+                    this.$message({
+                        message: resData.data.message + ' 正在跳转 ^-^',
+                        type: 'success'
+                    });
+                    window.history.back()
+                }else{
+                    this.$message.error(resData.data.message);
+                }
+            }
 
+        }
+    }
 }
 </script>
 

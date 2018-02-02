@@ -15,7 +15,7 @@ function mkdirsSync(dirname) {
     }
 }
 /**
- * 遍历目录下的文件
+ * 遍历目录下的文件, 结果没用上
  */
 function readDirFile(name, filedname) {
     let check_file = false;
@@ -31,7 +31,7 @@ function readDirFile(name, filedname) {
     return check_file
 }
 /**
- * 获取文件后缀名
+ * 获取文件后缀名，后面找到了更好的方法替代，没用上
  * @param {String} filename
  */
 function getStuffixName(filename) {
@@ -39,7 +39,7 @@ function getStuffixName(filename) {
     return [nameList[0], nameList[nameList.length - 1]]
 }
 /**
- * 上传文件
+ * 上传文件，中间件用不惯，果断fs手动读写 *-*
  * @param {object} ctx
  * @param {object} options
  */
@@ -54,7 +54,7 @@ const storage = multer.diskStorage({
 })
 
 /**
- * [fileFilter 过滤重复数据]
+ * [fileFilter 过滤重复数据] 后来找到了避免重复的方法，大爱 uuid ^_^
  * @param  {[object]} req  [请求]
  * @param  {[object]} file [文件]
  * @param  {[Function]} cb)
