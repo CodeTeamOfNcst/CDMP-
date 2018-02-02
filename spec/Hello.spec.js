@@ -291,7 +291,7 @@ describe("Basic Syntax",  () => {
     it('根据消息id获取消息的详细信息', async (done) => {
         console.log('\n')
         process.stdout.write('--测试 根据消息id获取消息的详细信息 : -- ');
-        let resData = await axios.post('/api/message/add',{ id: 1}) 
+        let resData = await axios.post('/api/message/getById',{ id: 1}) 
         expect(resData.data.thisMessage).toBeDefined(); 
         done()
     });
@@ -338,22 +338,49 @@ describe("Basic Syntax",  () => {
         done()
     });
 
-    it('根据未提供预约 id 不允许修改预约详情', async (done) => {
+    it('未提供预约 id 不允许修改预约详情', async (done) => {
         console.log('\n')
-        process.stdout.write('--测试 根据未提供预约 id 不允许修改预约详情 : -- ');
+        process.stdout.write('--测试 未提供预约 id 不允许修改预约详情 : -- ');
         let resData = await axios.post('/api/apply/getById') // 未提供id 不允许删除
         expect(resData.data.status).toEqual(0); 
         done()
     });
 
-    it('根据未提供预约 id 不允许修改预约详情', async (done) => {
+    it('未提供预约 id 不允许删除预约', async (done) => {
         console.log('\n')
-        process.stdout.write('--测试 根据未提供预约 id 不允许修改预约详情 : -- ');
-        let resData = await axios.post('/api/apply/getById') // 未提供id 不允许删除
+        process.stdout.write('--测试 未提供预约 id 不允许删除预约 : -- ');
+        let resData = await axios.post('/api/apply/deleteById') // 未提供id 不允许删除
         expect(resData.data.status).toEqual(0); 
         done()
     });
 
+    it('尝试删除不存在的文件', async (done) => {
+        console.log('\n')
+        console.log('------------------------------------- upload service ---------------------------------')
+        console.log('\n')
+        process.stdout.write('--测试 不能够删除不存在的文件: -- ');
+        let resData = await axios.post('/api/upload/deleteTempFile',{path: "一个永远不会存在的路径"})  
+        expect(resData.data.status).toEqual(0);
+        done()
+    });
+
+    it('不能够将一个不存在的临时文件复制到设备图片文件夹下', async (done) => {
+        console.log('\n')
+        process.stdout.write('--测试 不能够将一个不存在的临时文件复制到设备图片文件夹下 : -- ');
+        let resData = await axios.post('/api/upload/copyTempFileToDir',{path: "一个永远不会存在的路径"}) 
+        expect(resData.data.status).toEqual(0); 
+        done()
+    });
+
+    it('尝试获取视频流', async (done) => {
+        console.log('\n')
+        console.log('------------------------------------- video service ---------------------------------')
+        console.log('\n')
+        process.stdout.write('--测试 尝试获取视频流: -- ');
+        let resData = await axios.get('/api/video/getStream')  
+        expect(resData.status).toEqual(200);
+        done()
+    });
 
 });
 

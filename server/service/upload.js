@@ -51,7 +51,7 @@ module.exports.deleteTempFile = async (ctx, next) => {
         }
     } else {
         ctx.body = {
-            status: 1,
+            status: 0,
             message: '图片链接不存在'
         }
     }
@@ -80,7 +80,7 @@ module.exports.copyTempFileToDir = async (ctx, next) => {
         }
     } else {
         ctx.body = {
-            status: 1,
+            status: 0,
             message: '文件目录不存在'
         }
     }

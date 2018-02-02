@@ -28,7 +28,7 @@ let getContentType = (type) => {
  */
 module.exports.checkFile = async (ctx, next) => {
     // let filename = ctx.params.filename;
-    let filename = 'howToUse.mp4';
+    let filename = 'howToUse.mp4'; //这里暂时把视频位置写死
     let fileExt = path.extname(filename).toLocaleLowerCase();
     let fileAbsolutePath = path.join(path.dirname(__dirname), '../static/video', filename);
     // let fileExt = path.extname(fileAbsolutePath).toLocaleLowerCase();
