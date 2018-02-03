@@ -31,7 +31,8 @@ import {
     getUserById,
     addUser,
     modifyUserById,
-    onlyGetAllUser
+    onlyGetAllUser,
+    getPersonal
 } from './service/user'
 import {
     getAllRules,
@@ -52,7 +53,8 @@ import {
     addApply,
     getApplyById,
     modifyApplyById,
-    deleteApplyById
+    deleteApplyById,
+    addApplyFront
 } from './service/apply'
 import {
     imageUploadToTemp,
@@ -99,6 +101,7 @@ module.exports = () => {
     router.post('/user/getById', getUserById);
     router.post('/user/modifyById', modifyUserById);
     router.post('/user/deleteById', deleteUserById);
+    router.post('/user/getPersonal', getPersonal)
 
     // 公告管理相关
     router.get('/rule/getAll/:page?', getAllRules);
@@ -120,6 +123,7 @@ module.exports = () => {
     router.post('/apply/getById', getApplyById);
     router.post('/apply/modifyById', modifyApplyById);
     router.post('/apply/deleteById', deleteApplyById);
+    router.post('/apply/addApplyFront', addApplyFront)
 
     // 处理图片上传
     router.post('/upload/imageUpload', upload.single('file'), imageUploadToTemp);

@@ -264,7 +264,6 @@
                 console.log(index)
             },
             async handlePageChange(page){
-                console.log(page);
                 let resData = await axios.get(`/api/device/getAll/${page}`);
                 if(resData.data.status === 1){
                     this.devices = resData.data.Devices;

@@ -3,40 +3,15 @@
         <div>
             <el-tabs :tab-position="tabPosition" style="height: 200px;">
                 <el-tab-pane label="正在使用仪器">
-                    <div class="history">
-                        <img src="~/assets/img/yiqi.png">
-                        <div class="hisCont">
-                            <p>结点赋给和大局观奋斗的鬼地方</p>
-                            <div class="startTime">开始时间:2018-01-02</div>
-                            <div class="startTime">结束时间:2018-02-22</div>
-                            <div class="startTime">设备类型:化学系</div>
-                        </div>
-                    </div>
-                    <div class="history">
-                        <img src="~/assets/img/img_2.png">
-                        <div class="hisCont">
-                            <p>难道就能进入个人个人结果看没看</p>
-                            <div class="startTime">开始时间:2018-01-02</div>
-                            <div class="startTime">结束时间:2018-02-22</div>
-                            <div class="startTime">设备类型:化学系</div>
-                        </div>
-                    </div>
-                    <div class="history">
-                        <img src="~/assets/img/img_3.png">
-                        <div class="hisCont">
-                            <p>禾嘉股份官方应该发言人关于让他人与他人如热土热火升UN常年第</p>
-                            <div class="startTime">开始时间:2018-01-02</div>
-                            <div class="startTime">结束时间:2018-02-22</div>
-                            <div class="startTime">设备类型:化学系</div>
-                        </div>
-                    </div>
-                    <div class="history">
-                        <img src="~/assets/img/img_3.png">
-                        <div class="hisCont">
-                            <p>禾嘉股份官方应该发言人关于让他人与他人如热土热火升UN常年第</p>
-                            <div class="startTime">开始时间:2018-01-02</div>
-                            <div class="startTime">结束时间:2018-02-22</div>
-                            <div class="startTime">设备类型:化学系</div>
+                    <div v-for="(data,index )in tableData">
+                        <div class="history">
+                            <img :src="data.device.imgFilePath">
+                            <div class="hisCont">
+                                <p>结点赋给和大局观奋斗的鬼地方</p>
+                                <div class="startTime">开始时间:{{data.startDate}}</div>
+                                <div class="startTime">结束时间:{{data.endDate}}</div>
+                                <div class="startTime">设备类型:{{data.deviceType.name}}</div>
+                            </div>
                         </div>
                     </div>
                 </el-tab-pane>
@@ -46,18 +21,24 @@
                             stripe
                             style="width: 100%">
                         <el-table-column
-                                prop="date"
+                                prop="apply.startDate"
+                                label="开始时间"
+                                width="180"
+                                align="left">
+                        </el-table-column>
+                        <el-table-column
+                                prop="apply.endDate"
                                 label="结束时间"
                                 width="180"
                                 align="left">
                         </el-table-column>
                         <el-table-column
-                                prop="name"
+                                prop="device.name"
                                 label="仪器名称"
                                 align="left">
                         </el-table-column>
                         <el-table-column
-                                prop="address"
+                                prop="deviceType.name"
                                 label="仪器类型"
                                 width="350"
                                 align="left">
@@ -67,7 +48,7 @@
                                 width="120"
                                 align="left">
                             <template slot-scope="scope">
-                                <el-button type="text" @click="open2">移除</el-button>
+                                <el-button type="text" @click="open2">取消</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -113,6 +94,7 @@
 </style>
 
 <script>
+    import axios from 'axios'
     export default {
         methods: {
             open2() {
@@ -151,11 +133,43 @@
                     date: '2016-05-03',
                     name: '电感耦合直读光谱仪',
                     address: '冶金系'
-                }]
+                }],
+                tabPosition: '',
+                result: [
+                    {
+                        device: null,
+                        deviceType: null,
+                        apply: null
+                    }
+                ]
             }
         },
-        // asyncData(context){
-        //     context.redirect('/device')
-        // }
+        async mounted(){
+            if( ! this.$store.state.authUser) window.location.href ='/login'
+            this.tableData = this.result
+        },
+        async asyncData({req}){
+            // console.log(req.cookies.get('authUser')) 在这里是访问不到cookies的
+            //手动解析cookie
+            if(req.headers.cookie && req.headers.cookie.indexOf('authUser') > -1){
+                if(req.headers.cookie.split('=')[1]){
+                    //cookie 存在的情况下，不存在则跳转到登陆页面吧
+                let userAccount = req.headers.cookie.split('=')[1]
+                let resData = await axios.post('/api/user/getPersonal', {
+                    account : userAccount
+                })
+                if(resData.data.status === 1){
+                    return {
+                        result: resData.data.result,
+                    }
+                }else{
+                    console.log(resData.data.message)
+                    return {
+                        result: []
+                    }
+                }
+                }
+            }
+        }
     }
 </script>

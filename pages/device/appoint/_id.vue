@@ -13,7 +13,7 @@
                         <div class="fillOutName">
                             <el-input
                                     placeholder="全自动智能倒置显微镜及金相分析系统"
-                                    v-model="device_name"
+                                    v-model="device.name"
                                     :disabled="true">
                             </el-input>
                         </div>
@@ -23,11 +23,11 @@
             <el-row>
                 <el-col :span="24">
                     <div class="grid-content bg-purple-dark instruName">
-                        <p>仪器类型:</p>
+                        <p>仪器分类:</p>
                         <div class="fillOutName">
                             <el-input
                                     placeholder="xxxxxxxxxxxx"
-                                    v-model="deviceType"
+                                    v-model="device.device_type_name"
                                     :disabled="true">
                             </el-input>
                         </div>
@@ -41,7 +41,7 @@
                         <div class="fillOutName">
                             <el-input
                                     placeholder="登录后自动获取"
-                                    v-model="input3"
+                                    v-model="user"
                                     :disabled="true">
                             </el-input>
                         </div>
@@ -53,7 +53,7 @@
                     <div class="grid-content bg-purple-dark instruName">
                         <p>预约理由:</p>
                         <div class="fillOutName">
-                            <el-input v-model="content" placeholder="请输入内容" type="textarea"></el-input>
+                            <el-input v-model="vioReason" placeholder="请输入内容" type="textarea"></el-input>
                         </div>
                     </div>
                 </el-col>
@@ -71,7 +71,6 @@
                                     range-separator="至"
                                     start-placeholder="开始日期"
                                     end-placeholder="结束日期"
-                                    :picker-options="pickerOptions2"
                                     class="timePicker">
                             </el-date-picker>
                         </div>
@@ -82,8 +81,7 @@
         <el-row class="submit_appoint">
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark">
-                    <el-button @click="over" type="info" plain>取消</el-button>
-                    <el-button :plain="true" @click="open2" type="primary">提交</el-button>
+                    <el-button :plain="true" @click="handleSubmit" type="primary">提交</el-button>
                 </div>
             </el-col>
         </el-row>
@@ -129,15 +127,27 @@
     import axios from 'axios'
     export default {
         methods: {
-                over () {
-                window.history.back(-1);
-                },
-                open2 () {
-                    this.$message({
-                        message: '提交成功',
-                        type: 'success'
-                    });
-                },
+                async handleSubmit(){
+                    if(!(this.vioReason) || !(this.date)){
+                        this.$message.error("请填写所有信息")
+                        return
+                    }
+                    let resData = await axios.post('/api/apply/addApplyFront', {
+                        deviceId: this.device.id,
+                        vioReason: this.vioReason,
+                        startDate: this.date[0],
+                        endDate: this.date[1]
+                    })
+                    if(resData.data.status === 1){
+                        this.$message({
+                            message: resData.data.message,
+                            type: 'success'
+                        });
+                        window.location.href = '/device'
+                    }else{
+                        this.$message.error(resData.data.message)
+                    }
+                }
         },
         data(){
             return{
@@ -145,17 +155,25 @@
                 deviceType: null,
                 content: null,
                 date: [],
-
+                vioReason: '',
+                user: null,
+                device: {},
             }
         },
-        async asyncData(context){
-          return {
-              context: context.body
-          }
-        },
         async mounted(){
-            let resData = await axios.get('/api/auth/checkLogIn')
-            console.log(resData.data);   
+            if(this.$store.state.authUser){
+                this.user = this.$store.state.authUser
+            }else{
+                window.location.href ='/login'
+            }
+        },
+        async asyncData({params}){
+            let resData = await axios.post('/api/device/getById', { id: params.id})
+            if(resData.data.status === 1){
+                return {
+                    device: resData.data.device
+                }
+            }
         }
     }
 </script>

@@ -1,6 +1,8 @@
 import {
     User,
-    UserKlass
+    UserKlass,
+    Apply,
+    Device
 } from '../dbconfig/dbinit'
 
 const ItemPerPage = 10;
@@ -175,3 +177,33 @@ exports.onlyGetAllUser = async (ctx, next) => {
     }
     
 };
+
+exports.getPersonal = async (ctx,next) => {
+    try{
+        let userAccount = ctx.request.body.account
+        let thisUser = await User.findOne({
+            where: {account: userAccount}
+        })
+        if(!thisUser) throw("用户不存在")
+        //查询所有申请
+        let result = []
+        let thisApplys = await thisUser.getApply()
+        for(let i=0; i<thisApplys.length; i++){
+            result.push({
+                device: await thisApplys[i].getApplyDevice(),
+                apply: thisApplys[i],
+                deviceType: await (await thisApplys[i].getApplyDevice()).getDeviceType()
+            })
+        }
+        ctx.body = {
+            status : 1,
+            message: 'success',
+            result: result
+        }
+    }catch(err){
+        ctx.body = {
+            status: 0,
+            message : `${err}`
+        }
+    }
+}

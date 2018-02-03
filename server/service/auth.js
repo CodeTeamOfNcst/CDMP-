@@ -19,9 +19,9 @@ exports.logIn = async (ctx, next) => {
         }else{
             userIsAdmin = false
         }
-        ctx.session.user_account = account;
-        ctx.cookies.set("account", account)
+        ctx.cookies.set("authUser", user.account)
         ctx.body = {
+            user: user,
             user_is_admin: userIsAdmin,
             status: 1,
             message: '登陆成功'
@@ -35,30 +35,32 @@ exports.logIn = async (ctx, next) => {
 };
 
 exports.logOut = async (ctx, next) => {
-    if (ctx.session.user_account) {
-        ctx.session['user_account'] = ''
-        ctx.cookies.set("account",'')
+    if (ctx.cookies.get("authUser")) {
+        ctx.cookies.set("authUser",'')
         ctx.bdoy = {
             status: 1,
             message: '用户注销成功'
         }
     } else {
         ctx.body = {
-            status: 1,
-            message: '异常，用户cookie不存在'
+            status: 0,
+            message: '异常，用户不存在'
         }
     }
 };
 
 
 exports.checkLogIn = async (ctx, next) => {
-    console.log(ctx.cookies.get("account"))
-    if(ctx.cookies.get("account")){
+    console.log(ctx.cookies.get("authUser"))
+    if(ctx.cookies.get("authUser")){
         let user = await User.findOne({
-            where: { account: ctx.cookies.get("account") }
+            where: { account: ctx.cookies.get("authUser") }
         })
+        let userType = await user.getUserType()
+        let user_is_admin = userType.id === 1? true: false
         ctx.bdoy = {
             user: user,
+            user_is_admin: user_is_admin,
             status: 1,
             message: '用户已经登陆'
         }
@@ -73,7 +75,6 @@ exports.checkLogIn = async (ctx, next) => {
 exports.regist =  async (ctx, next) => {
     let userAccount = ctx.request.body.account
     let userPasswd = ctx.request.body.passwd
-    console.log(userAccount)
     let thisUser = await User.findOne({ where:{account: userAccount}})
     console.log(thisUser)
     if(thisUser){
@@ -86,7 +87,6 @@ exports.regist =  async (ctx, next) => {
             account: userAccount,
             password: userPasswd
         })
-        ctx.session.user_account = userAccount;
         ctx.body = {
             user: thisUser,
             status: 1,

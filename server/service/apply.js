@@ -137,4 +137,47 @@ exports.getAllApply = async ( ctx, next ) => {
     }
 };
 
+exports.addApplyFront = async ( ctx, next) => {
+    if(ctx.cookies.get("authUser")){
+        try{
+            let thisUserAccount = ctx.cookies.get("authUser")
+            let thisUser = await User.findOne({
+                where: { account:thisUserAccount }
+            });
+            if(thisUser){
+                let thisDevice = await Device.findOne({
+                    where: {id: ctx.request.body.deviceId}
+                })
+                let thisApply = await Apply.create({
+                    vioReason: ctx.request.body.vioReason,
+                    startDate: ctx.request.body.startDate,
+                    endDate: ctx.request.body.endDate
+                })
+                thisApply.setApplyer(thisUser);
+                thisApply.setApplyDevice(thisDevice)
+
+                ctx.body = {
+                    status: 1,
+                    message: '成功'
+                }
+            }else{
+                ctx.body = {
+                    status: 0,
+                    message: '用户不存在'
+                }
+            }
+        }catch(err){
+            console.log(err)
+            ctx.body = {
+                status: 0,
+                message: `异常，由于 ${err}`
+            }
+        }
+    }else{
+        ctx.body = {
+            status: 0,
+            message: '用户未登陆 '
+        }
+    }
+}
 

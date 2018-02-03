@@ -1,9 +1,11 @@
 import {
     Device,
-    DeviceType
+    DeviceType,
+    User
 } from '../dbconfig/dbinit'
 import fs from 'fs'
 import uuid from 'uuid'
+
 
 const ItemPerPage = 10;
 exports.addDevice = async (ctx, next) => {
@@ -126,8 +128,7 @@ exports.modifyDeviceById = async (ctx, next) => {
 };
 
 exports.getDeviceById = async (ctx, next) => {
-    let postData = ctx.request.body;
-    let deviceId = postData.id;
+    let deviceId = ctx.request.body.id;
 
     try {
         let thisDevice = await Device.findOne({
@@ -150,6 +151,7 @@ exports.getDeviceById = async (ctx, next) => {
             needRepair: thisDevice.needRepair,
             canReserve: thisDevice.canReserve,
             device_type: deviceType.id,
+            device_type_name: deviceType.name,
             isUse: thisDevice.isUse
         };
         ctx.body = {
@@ -221,3 +223,4 @@ exports.onluGetAllDevice = async (ctx, next) => {
     }
     
 };
+

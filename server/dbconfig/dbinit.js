@@ -17,7 +17,7 @@ Message.belongsTo(MessageKlass, {
     foreignKey: 'message_type',
     foreignKeyContraints: false
 })
-MessageKlass.hasOne(Message, {
+MessageKlass.hasMany(Message, {
     as: "Message",
     foreignKey: 'message_type',
     foreignKeyContraints: false
@@ -39,7 +39,7 @@ User.belongsTo(UserKlass, {
     foreignKey: "user_type",
     foreignKeyContraints: false
 })
-UserKlass.hasOne(User, {
+UserKlass.hasMany(User, {
     as: "User",
     foreignKey: "user_type",
     foreignKeyContraints: false
@@ -50,7 +50,7 @@ Device.belongsTo(DeviceType, {
     foreignKey: "device_type",
     foreignKeyContraints: false
 })
-DeviceType.hasOne(Device, {
+DeviceType.hasMany(Device, {
     as: "Device",
     foreignKey: "device_type",
     foreignKeyContraints: false,
@@ -61,7 +61,7 @@ Apply.belongsTo(User, {
     foreignKey: "apply_user",
     foreignKeyContraints: false
 })
-User.hasOne(Apply, {
+User.hasMany(Apply, {
     as: "Apply",
     foreignKey: "apply_user",
     foreignKeyContraints: false

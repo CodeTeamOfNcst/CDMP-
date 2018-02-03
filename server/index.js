@@ -41,7 +41,7 @@ async function start() {
     }
     // init middleware
     app.use(logger())
-    app.use(Cors({credentials: true})) //允许跨域访问
+    app.use(Cors()) //允许跨域访问
     app.use(bodyParser())
     app.use(session({
         name: "sessid",

@@ -3,7 +3,6 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'starter',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -25,10 +24,10 @@ module.exports = {
   ** 防止重复打包
   */
   build: {
-    vendor: ['axios', 'element-ui', 'vuex', 'moment']
+    vendor: ['axios', 'element-ui', 'moment']
   },
   /**
   ** 添加插件
   */
-  plugins: ['~plugins/element-ui', '~plugins/axios', '~plugins/vuex']
+  plugins: ['~plugins/element-ui', '~plugins/axios']
 };

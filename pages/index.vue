@@ -238,7 +238,6 @@
 <script>
     import axios from 'axios'
     import { Button } from 'element-ui'
-import { userInfo } from 'os';
     export default {
         components: {
             Button
@@ -347,20 +346,19 @@ import { userInfo } from 'os';
             }
         },
         async mounted(){
-            // 在这里进行路由鉴权可以实现功能
-            let resData = await axios.get('/api/auth/checkLogin')
-            if(resData.data.status === 1){
-                // 用户已经登陆
-                this.login_show = false;
-                this.animateUserName = resData.data.user.account
-                if(resData.data.user.user_type = 1){
-                    this.user_is_admin = true
-                }
+            if(this.$store.state.authUser){
+                this.user = this.$store.state.authUser
+                let resData = await axios.get('/api/auth/checkUserLogin')
+                let user = resData.data.user
+                this.animateUserName = user.account
+                this.user_is_admin = resData.data.user_is_admin
+                login_show = false
             }else{
                 this.login_show = true
             }
         },
-        async asyncData(){
+        async asyncData(context){
+            
             let  resData  = await axios.get(`/api/device/getAll/1`);
             return {
                 counts: resData.data.counts,
