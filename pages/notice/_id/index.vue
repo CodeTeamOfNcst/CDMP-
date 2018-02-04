@@ -4,7 +4,7 @@
             <div class="leftSty"></div>
             <span class="bullCont">
                 <p>通知公告></p>
-                <p class="bulletinName">学校关于放假期间仪器归还问题</p>
+                <p class="bulletinName">{{title}}</p>
             </span>
         </div>
         <el-row class="headerline"></el-row>
@@ -13,9 +13,11 @@
                 <h1>{{title}}</h1>
             </el-col>
             <el-col>
-                <h4>发布时间：{{publishDate}}</h4>
+                <div class="publish-date">
+                    <h4>发布时间：{{publishDate}}</h4>
+                </div>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="20" :offset="2">
                 <div class="grid-content bg-purple-dark detailsCont">
                     <p>{{ content }}</p>
                 </div>
@@ -38,6 +40,10 @@
 .bulletinName{
     color:#7f828b;
     overflow: hidden;
+}
+.publish-date{
+    float: right;
+    margin-right: 10%
 }
 </style>
 
