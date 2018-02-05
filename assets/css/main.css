@@ -1,35 +1,91 @@
 html, body
 {
-  background-color: #fff;
   color: #2e2f30;
   letter-spacing: 0.5px;
   font-family: "Source Sans Pro", Arial, sans-serif;
   height: 100vh;
   margin: 0;
 }
+.el-dialog{
+  width: 40%!important;
+  min-width: 400px;
+}
+.el-select{
+  width: 100%;
+}
 
+.add{
+  width: 5%;
+  margin-left: 5px;
+  min-width: 31px;
+  height: 40px;
+  float: left;
+  z-index: 9999;
+}
+
+td,th{
+  padding: 0px 0!important;
+  font-family: 幼圆;
+}
+.el-table th{
+  /*background: #ECECEC!important;*/
+  padding: 8px 0!important;
+}
+p{
+  margin: 0;
+}
+ul li{
+  list-style: none;
+}
 footer
 {
-  padding: 20px;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom:20px ;
   text-align: center;
   border-top: 1px solid #ddd;
+  background: #ECECEC;
 }
-
-a, a:hover, a:focus, a:visited
+a, a:hover
 {
-  color: #41B883;
+  color: #3498DB;
 }
-
 .logo {
   width: 243px;
-  height: 218px;
+  height: 418px;
 }
-
 .page-enter-active, .page-leave-active
 {
-  transition: opacity .5s
+  transition: opacity 1s
 }
 .page-enter, .page-leave-active
 {
   opacity: 0
 }
+.headerName{
+  width: 100%;
+  height: 50px;
+  padding:0;
+}
+.leftSty{
+  width: 5px;
+  height:30px;
+  margin-top: 10px;
+  float: left;
+  background: #2e2f30;
+}
+.bullCont{
+  width: 90%;
+  height: 100%;
+  text-align: left;
+  line-height: 50px;
+  margin-left: 5px;
+  float: left;
+}
+.headerline{
+  width: 100%;
+  height:1px;
+  background: #ECECEC;
+  margin: 0;
+}
+

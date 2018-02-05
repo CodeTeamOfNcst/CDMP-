@@ -1,5 +1,8 @@
 <template>
   <footer>
-    Visit our website for more documentation : <a href="https://nuxtjs.org" target="_blank">nuxtjs.org</a>
+    <p>Clould Device Manage Platform -_-! 简化版 CDMP-NCST - 智慧应用 -  nuxt & koa  - 管理平台</p>
   </footer>
 </template>
+<style scoped>
+
+</style>
