@@ -13,10 +13,8 @@
             </el-row>
             <!--<nuxt-link class="button page" to="/">首页</nuxt-link>-->
             <!--<nuxt-link class="button page" to="/device">仪器列表</nuxt-link>-->
-            <!--<nuxt-link class="button page" to="/bulletin">通知公告</nuxt-link>-->
-            <!--&lt;!&ndash;<nuxt-link class="button page" to="/rules">规章制度</nuxt-link>&ndash;&gt;-->
+            <!--<nuxt-link class="button page" to="/notice">通知公告</nuxt-link>-->
             <!--<nuxt-link class="button page" to="/personal">个人中心</nuxt-link>-->
-            <!--<nuxt-link class="button page" to="/rules">规章制度</nuxt-link>-->
         </div>
     </div>
 </template>

@@ -10,7 +10,7 @@ import Sequelize from 'sequelize'
 
 const DATABASE = 'cdmp';
 const USERNAME = 'root';
-const PASSWORD = 'admin';
+const PASSWORD = '123456';
 const DBHOST = '127.0.0.1';
 
 

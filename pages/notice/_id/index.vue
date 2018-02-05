@@ -3,8 +3,8 @@
         <div class="headerName">
             <div class="leftSty"></div>
             <span class="bullCont">
-                <p>通知公告></p>
-                <p class="bulletinName">学校关于放假期间仪器归还问题</p>
+                <p>通知公告</p>
+                <!--<p class="bulletinName">学校关于放假期间仪器归还问题</p>-->
             </span>
         </div>
         <el-row class="headerline"></el-row>
