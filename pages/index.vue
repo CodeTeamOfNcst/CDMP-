@@ -346,19 +346,8 @@
             }
         },
         async mounted(){
-            if(this.$store.state.authUser){
-                this.user = this.$store.state.authUser
-                let resData = await axios.get('/api/auth/checkUserLogin')
-                let user = resData.data.user
-                this.animateUserName = user.account
-                this.user_is_admin = resData.data.user_is_admin
-                login_show = false
-            }else{
-                this.login_show = true
-            }
         },
         async asyncData(context){
-            
             let  resData  = await axios.get(`/api/device/getAll/1`);
             return {
                 counts: resData.data.counts,

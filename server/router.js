@@ -23,7 +23,8 @@ import {
     getDeviceById,
     modifyDeviceById,
     delteDeviceById,
-    onluGetAllDevice
+    onluGetAllDevice,
+    getDeviceByTypeId
 } from './service/device'
 import {
     getAllUser,
@@ -93,6 +94,7 @@ module.exports = () => {
     router.post('/device/getById', getDeviceById);
     router.post('/device/modifyById', modifyDeviceById);
     router.post('/device/deleteById', delteDeviceById);
+    router.post('/device/getDeviceByTypeId', getDeviceByTypeId);
 
     // 人员管理相关
     router.get('/user/getAll/:page?', getAllUser);

@@ -224,3 +224,63 @@ exports.onluGetAllDevice = async (ctx, next) => {
     
 };
 
+exports.getDeviceByTypeId = async (ctx, next) => {
+    let typeId = ctx.request.body.type_id
+    try{
+        let thisDeviceType = await DeviceType.findOne({
+            where: {id: typeId}
+        })
+        if(!thisDeviceType)throw("获取信息失败")
+        let devices = await thisDeviceType.getDevice()
+        let result = []
+        for(let i=0; i< devices.length; i++){
+            result.push({
+                id: devices[i].id,
+                date: devices[i].purchaseDate,
+                name: devices[i].name,
+                disable: devices[i].isUse ? '可用' : '禁用',
+                type: thisDeviceType.name,
+                type_id: thisDeviceType.id,
+                imgFilePath: devices[i].imgFilePath,
+                canReserve: devices[i].canReserve,
+                show: true,
+            })
+        }
+        ctx.body = {
+            devices: result,
+            status: 1,
+            message: 'success'
+        }
+    }catch(err){
+        ctx.body = {
+            status: 1,
+            message: `${err}`
+        }
+    }
+}
+
+exports.getDeviceByName = async (ctx, next) => {
+    let searchName = ctx.request.body.search_input
+    let devices = await Device.findAll({
+        where: {name: {$iLike: searchName}}
+    });
+    let result = [];
+    for(let i=0; i< devices.length; i++){
+        result.push({
+            id: devices[i].id,
+            date: devices[i].purchaseDate,
+            name: devices[i].name,
+            disable: devices[i].isUse ? '可用' : '禁用',
+            type: (await devices[i].getDeviceType()).name,
+            type_id:(await devices[i].getDeviceType()).id,
+            imgFilePath: devices[i].imgFilePath,
+            canReserve: devices[i].canReserve,
+            show: true,
+        })
+    }
+    return {
+        devices: result,
+        status: 1,
+        message: 'success'
+    }
+}

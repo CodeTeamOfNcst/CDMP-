@@ -207,3 +207,23 @@ exports.getPersonal = async (ctx,next) => {
         }
     }
 }
+
+exports.getUserByAccount = async ( ctx,next ) => {
+    let userAccount = ctx.request.body.account
+    try{
+        let thisUser = await User.findOne({
+            where: {account: userAccount}
+        })
+        if(!thisUser) throw("获取用户信息失败")
+        ctx.body = {
+            user: thisUser,
+            message: 'success',
+            status: 1
+        }
+    }catch(err){
+        ctx.body = {
+            message: `${err}`,
+            status: 0
+        }
+    }
+}
