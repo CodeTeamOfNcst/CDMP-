@@ -11,9 +11,6 @@
         <div class="equi-name">
             <h2>全自动智能倒置显微镜及金相分析系统</h2>
         </div>
-        <a href="appoint">
-            <el-button type="success" class="btn-success">预约</el-button>
-        </a>
         <div class="equi-describe">
             <el-row :gutter="20" class="row">
                 <el-col :span="4" class="col"><div class="grid-content bg-purpler text" style="margin-left:20px"><p>联系人</p></div></el-col>
@@ -44,9 +41,6 @@
         <div class="equi-main">
             <h4>主要功能及特色</h4>
             <p>DMI5000M是徕卡公司推出的最先进的大型研究级全自动倒置显微镜，光学设计上采用先进的HC无限远轴向、径向双重色差校正光学技术，彻底消除杂散光等干扰因素；在整个光学系统内，对涉及成像质量的所有组件进行最优化组合，实现图像分辨率和反差的最优化，得到锐利图像的同时追求最高分辨率。DMI5000M适用于钢铁、金属、化工材料行业科研、质检、质控。反射光可实现明场、暗场、偏光、微分干涉、荧光观察功能；透射光可实现明场、暗场、偏光、微分干涉观察功能。</p>
-        </div>
-        <div class="equi-main" v:>
-            <h4>主要功能及特色</h4>
         </div>
     </div>
 </div>

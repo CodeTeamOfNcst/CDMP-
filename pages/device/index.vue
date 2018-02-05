@@ -12,12 +12,11 @@
                     <el-col :span="8">
                         <div class="grid-content bg-purple inputCont">
                             <div>
-                                <el-input placeholder="请输入内容" v-model="input5" class="input-with-select">
+                                <el-input placeholder="请输入内容" v-model="search_input" class="input-with-select">
                                     <el-select v-model="select" slot="prepend" placeholder="请选择">
                                         <el-option label="设备名称" value="1"></el-option>
-                                        <el-option label="设备分类" value="2"></el-option>
                                     </el-select>
-                                    <el-button slot="append" icon="el-icon-search"></el-button>
+                                    <el-button slot="append" icon="el-icon-search" @click="search_click"></el-button>
                                 </el-input>
                             </div>
                         </div>
@@ -28,8 +27,11 @@
             <div class="grid-content bg-purple keyword">
                 <div class="chanceKey">
                     <el-menu @select="typeSelect">
+                        <el-menu-item index="-1" >
+                                <span slot="">全部</span>
+                        </el-menu-item>
                         <div v-for="deviceType in deviceTypes">
-                            <el-menu-item index="Number.parseInt(deviceType.value)" >
+                            <el-menu-item :index="deviceType.value" >
                                 <span slot="">{{deviceType.label}}</span>
                             </el-menu-item>
                         </div>
@@ -42,7 +44,7 @@
                         <el-row :gutter="20" class="leftImg">
                             <el-col :span="8" class="leftspan">
                                 <div class="grid-content bg-purple bullImg">
-                                    <a href="device/details">
+                                    <a :href="`device/details/${device.id}`">
                                         <img :src="device.imgFilePath" alt="Nuxt.js Logo" class="logo" />
                                     </a>
                                 </div>
@@ -55,7 +57,7 @@
                                                 <el-row>
                                                     <el-col :span="17">
                                                         <div class="grid-content bg-purple nameFrame">
-                                                            <a href="device/details">
+                                                            <a :href='`device/details/${device.id}`'>
                                                                 <p class="bullName">{{device.name}}</p>
                                                             </a>
                                                         </div>
@@ -93,7 +95,7 @@
             </div>
         </section>
         <section class="el-dialog--center">
-            <div class="grid-content pagination "style="z-index: 999999;">
+            <div class="grid-content pagination" style="z-index: 999999;">
                 <el-row>
                     <el-col :span="24">
                         <div class="grid-content bg-purple-dark paging" >
@@ -250,7 +252,7 @@
                         label: '计算机系'
                     }
                 ],
-                input5: '',
+                search_input: '',
                 select: '',
                 deviceName:'全自动智能倒置显微镜及金相分析系统',
                 userName:'李云龙',
@@ -259,9 +261,20 @@
             }
         },
         methods:{
-            typeSelect(index, path){
+            async typeSelect(index, path){
                 //  根据选择的内容筛选相应的仪器设备
                 console.log(index)
+                if(index == -1){
+                    let  resData  = await axios.get(`/api/device/getAll/1`);
+                    this.devices =  resData.data.Devices
+                }else{
+                    let resData = await axios.post('/api/device/getDeviceByTypeId',{
+                        type_id: Number.parseInt(index)
+                    })
+                    console.log(resData.data.message)
+                    this.devices =  resData.data.devices
+                }
+                // let resData = await axios.post('/api/device/')
             },
             async handlePageChange(page){
                 let resData = await axios.get(`/api/device/getAll/${page}`);
@@ -270,12 +283,23 @@
                 }else {
                     this.$message.error(resData.data.message)
                 }
+            },
+            async search_click(){
+                if(!this.search_input)this.$message.error("请输入搜索内容")
+                let resData = await axios.post('/api/device/getByName',{
+                    search_input: this.search_input
+                })
+                if(resData === 1){
+                    this.devices = resData.data.Devices;
+                }else{
+                    this.$message.error("获取数据失败")
+                }
             }
         },
         mounted(){
             this.deviceCounts = this.counts;
         },
-        async asyncData({}) {
+        async asyncData({}) {  
             let  resData  = await axios.get(`/api/device/getAll/1`);
             return {
                 counts: resData.data.counts,

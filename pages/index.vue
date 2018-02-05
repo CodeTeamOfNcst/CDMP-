@@ -348,7 +348,6 @@
         async mounted(){
         },
         async asyncData(context){
-            
             let  resData  = await axios.get(`/api/device/getAll/1`);
             return {
                 counts: resData.data.counts,
