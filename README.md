@@ -1,4 +1,4 @@
-# nuxt-cdmp(实验设备预约平台)
+# nuxt-cdmp(实验设备预约平台<u>精简版</u>)
 
 > Node.js(v9.4.0) + koa(2.4.1) + vue(2.5) + vuex + sequelize(4.32.2) + （NUXT）SSR
 ## 前言 
@@ -23,35 +23,63 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 ## 部署 <img src="https://img.shields.io/project/deploy-v1.0.0-blue.svg"/>
 
-腾讯云ECS服务器 centos7 
+腾讯云ECS服务器 ubuntu 
 
-0、安装配置 nvm（node） mysql nginx（Tengine）
+0. 安装 yarn
 
-1、下载xftp 连接自己服务器，把自己的项目丢进去。
+      ```bash
+       1. windows 
+           （1）首先安装 chocolaty （cmd 管理员模式下输入以下代码） 
 
-2、cd myproject
+               @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
-3、yarn install（npm install）
+           （2）安装yarn 
 
-4、配置数据库配置文件
+               choco install yarn
+       2.linux
+       	 （1）添加apt仓库
+       	 
+       	 	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -			echo "deb https://dl.yarnpkg.com/debian/ stable main" |
+              sudo tee /etc/apt/sources.list.d/yarn.list
 
-5、配置nginx 文件 进行代理 代理所有80端口
+      	 （2）安装
 
-6、npm run dev
+      	 	sudo apt-get update && sudo apt-get install yarn
+      	 	
+      ```
 
-7、npm run build
+1.  项目使用 node 版本必须在 **9.0** 以上，所以使用 nvm 安装 node，首先安装 nvm
 
-8、上面忘记安装pm2， yarn add pm2 （开启 node server 使用）
+        1. windows
 
-9、pm2 start build/mian.js
+       		choco install nvm   
 
-10、查看 pm2 list 列表，查看启动状态
+        2.  linux
 
-11、pm2 monit  监视所有进程
+        	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
 
-12、开启 ./nginx
+2. 使用 nvm 安装 node 9.4.0
 
-13、如果一切正常，但是访问不通，可以pm2 logs 查看是否报错？
+        nmv install node-9.4.0
+
+3. 安装项目所需环境
+
+        1. 进入项目文件夹
+
+            cd ./CDMP
+        
+        2. 安装所需环境
+
+            yarn install 
+
+3. 项目使用 mysql 作为数据库，需要先导入数据
+4. 运行
+    
+        1. 项目文件夹下打开 bash 运行
+
+            yarn run dev
+
+5. 
 
 ## 完成功能 <img src="https://img.shields.io/badge/complete-v1.0.0-origin.svg"/>
 
@@ -60,8 +88,8 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 3. 课程 按 （智能排序 价格最高 价格最低 老师好评 人气最高） 排序
 4. 课程 按 （班级类型 活动优惠 上课时间（周一到周日） 具体时间（上午下午晚上） 价格区间） 筛选
 5. 完成课程列表的下拉加载更多 
-11. 登录（注册暂无）
-18. 阿里云部署
+6. 登录（注册暂无）
+7. 腾讯云部署
 
 ## 预计功能 <img src="https://img.shields.io/badge/estimate-v1.0.0-ff69b4.svg"/>
 1. 客服
@@ -75,10 +103,12 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 ``` bash
 # install dependencies
-$ npm install  or yarn install
+$ npm install or yarn install
 
 # serve with hot reload at localhost:3000
 $ npm run dev
 
 
 
+
+```
