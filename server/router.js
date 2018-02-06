@@ -47,7 +47,8 @@ import {
     addMessage,
     getMessageById,
     modifyMessageById,
-    deletseMessageById
+    deletseMessageById,
+    search
 } from './service/message'
 import {
     getAllApply,
@@ -118,6 +119,7 @@ module.exports = () => {
     router.post('/message/getById', getMessageById);
     router.post('/message/modifyById', modifyMessageById);
     router.post('/message/deleteById', deletseMessageById);
+    router.post('/message/search', search)
 
     // 预约申请管理
     router.get('/apply/getAll/:page?', getAllApply);

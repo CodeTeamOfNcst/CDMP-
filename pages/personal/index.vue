@@ -121,7 +121,7 @@
             if( ! this.$store.state.authUser) window.location.href ='/login'
             this.tableData = this.result
         },
-        async asyncData({req}){
+        async asyncData({req,redirect}){
             // console.log(req.cookies.get('authUser')) 在这里是访问不到cookies的
             //手动解析cookie
             if(process.server){ //仅从服务端加载的时候才存在req
@@ -146,6 +146,7 @@
                 }
             }else{
                 //客户端渲染的情况，当然也需要
+                redirect('/login')
             }
         }
     }

@@ -4,7 +4,7 @@
             <h1>实验设备预约管理平台后台</h1>
             <div class="grid-content bg-purple-dark userLogout">
                 <div class="logout">
-                    <el-button class="button_logout">退出</el-button>
+                    <el-button class="button_logout" @click="handleLogOugt">退出</el-button>
                 </div>
                 <p>|</p>
                 <p>admin</p>
@@ -119,12 +119,9 @@
     export default {
       components: { NuxtLink },
       methods: {
-//            handleOpen(key, keyPath) {
-//                console.log(key, keyPath);
-//            },
-//            handleClose(key, keyPath) {
-//                console.log(key, keyPath);
-//            }
+        handleLogOugt(){
+            window.location.href = '/'
+        }
         }
     }
 </script>

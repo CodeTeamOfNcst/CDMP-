@@ -77,10 +77,11 @@
                             placeholder="请输入内容"
                             prefix-icon="el-icon-search"
                             v-model="searchInput">
+                            <el-button slot="append" icon="el-icon-search" @click="handleSearch"></el-button>
                     </el-input>
                 </div>
                 <div class="select">
-                    <el-select v-model="searchType" placeholder="请选择">
+                    <el-select v-model="searchType" placeholder="筛选条件">
                         <el-option
                                 v-for="item in searchOption"
                                 :key="item.value"
@@ -281,6 +282,21 @@
         components: {ElButton},
         layout: 'admina',
         methods: {
+            async handleSearch(){
+                if(! this.searchInput){
+                    window.location.reload()
+                }else{
+                    console.log(this.searchInput)
+                    let resData = await axios.post('/api/message/search',{
+                        search: this.searchInput
+                    })
+                    if(resData.data.status === 1){
+                        this.tableData = resData.data.result
+                    }else{
+                        this.$message.error(resData.data.message)
+                    }
+                }
+            },
             userFilterMethod(query, item){
                 return item.key.indexOf(query) > -1;
             },
@@ -439,12 +455,8 @@
                 searchOption: [
                     {
                         value: '1',
-                        label: '人员类别'
+                        label: '消息内容'
                     },
-                    {
-                        value: '2',
-                        label: '用户名'
-                    }
                 ],
                 // 从数据库加载的数据， 这里只是数据的格式
                 Messages: [

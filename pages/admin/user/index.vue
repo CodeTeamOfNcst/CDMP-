@@ -71,6 +71,7 @@
                             placeholder="请输入内容"
                             prefix-icon="el-icon-search"
                             v-model="searchInput">
+                            <el-button slot="append" icon="el-icon-search"></el-button>
                     </el-input>
                 </div>
                 <div class="select">
@@ -80,6 +81,7 @@
                                 :key="item.value"
                                 :label="item.label"
                                 :value="item.value">
+                                
                         </el-option>
                     </el-select>
                 </div>

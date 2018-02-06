@@ -41,6 +41,7 @@
                             placeholder="请输入内容"
                             prefix-icon="el-icon-search"
                             v-model="searchValue">
+                            <el-button slot="append" icon="el-icon-search"></el-button>
                     </el-input>
                 </div>
                 <div class="select">
@@ -325,19 +326,12 @@
                     content:'',
                     isUse: '',
                 },
-                options: [{
+                options: [
+                    {
                     value: '选项1',
-                    label: '按时间由近及远排序'
-                }, {
-                    value: '选项2',
-                    label: '按时间由远及近排序'
-                }, {
-                    value: '选项3',
-                    label: '显示非禁用类型公告'
-                }, {
-                    value: '选项4',
-                    label: '显示禁用类型公告'
-                }],
+                    label: 'id增序排序'
+                    }
+                ],
                 value: '',
                 tableData: [{
                     id: '1',

@@ -4,7 +4,7 @@ import {
     User,
     UserKlass
 } from '../dbconfig/dbinit'
-
+import { Op } from 'sequelize'
 const ItemPerPage = 10;
 exports.addMessage = async (ctx, next) => {
     let message = ctx.request.body.message;
@@ -164,3 +164,35 @@ exports.getMessageById = async (ctx, next) => {
     }
     
 };
+
+exports.search = async (ctx, next) => {
+    let search = ctx.request.body.search
+    try{
+        let searchResult = await Message.findAll({
+            where: {content:{ [Op.like] : `%${search}%`}}
+        })
+        if(! searchResult || searchResult.length === 0) throw("未匹配到结果")
+        console.log(searchResult)
+        let result = []
+        for(let i=0;i<searchResult.length; i++){
+            result.push({
+                message: searchResult[i],
+                messageTypeName: (await searchResult[i].getMessageType()).name,
+                messageUserName: (await searchResult[i].getMessageUser()).name
+            })
+        }
+        console.log(result)
+        ctx.body = {
+            result: result,
+            status: 1,
+            message: 'success'
+        }
+    }catch(err){
+        ctx.body = {
+            status: 0,
+            message: `${err}`
+        }
+    }
+    
+    
+}
