@@ -64,12 +64,12 @@
 
 <style scoped>
     .history{
-       width: 30%;
-       min-width: 287px;
-       margin-bottom: 10px;
-       margin-left: 2.5%;
-       float: left;
-       display: block;
+        width: 30%;
+        min-width: 287px;
+        margin-bottom: 10px;
+        margin-left: 2.5%;
+        float: left;
+        display: block;
     }
     img{
         width: 40%;
@@ -96,6 +96,7 @@
         margin-top: 5px;
     }
 </style>
+
 
 <script>
     import axios from 'axios'
@@ -143,9 +144,9 @@
                         }
                     }
                 }
-            }else{//客户端渲染的情况，当然也需要
+            }else{
+                //客户端渲染的情况，当然也需要
             }
-            
         }
     }
 </script>

@@ -1,13 +1,13 @@
 # nuxt-cdmp(实验设备预约平台<u>精简版</u>)
 
-> Node.js(v9.4.0) + koa(2.4.1) + vue(2.5) + vuex + sequelize(4.32.2) + （NUXT）SSR
+> Node.js(v9.4.0) + koa(2.4.1) + vue(2.5) + vuex + sequelize(4.32.2)+ element-ui(2.1.0) + （NUXT）SSR
 ## 前言 
 
-*本项目纯属个人框架学习阶段练习所用，数据并非真实。
+本项目纯属个人框架学习阶段练习所用，数据并非真实。
 
 github: https://github.com/CodeTeamOfNcst/CDMP-
 
-本平台仿照现有平台进行技术重构，仍在开发阶段，今后会持续进行功能扩充和完善，目前仅完成了部分功能。在此过程中
+本平台仿照[现有平台](http://fxcszx.ncst.edu.cn/)进行技术重构，仍在开发阶段，今后会持续进行功能扩充和完善，目前仅完成了部分功能。
 
 项目持续进行中~
 
@@ -17,50 +17,95 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 优点2：无需考虑数据传输问题，nuxt 会在模板输出之前异步请求数据（需要引入 axios 库），而且对 vuex 有进一步的封装
 
-优点3：内置了 webpack，省去了配置 webpack 的步骤，nuxt 会根据配置打包对应的文件
+优点3：内置了 webpack，省去了配置 webpack 的步骤，nuxt 会根据配置打包对应的文件，方便使用各种模板语言
+
+重点4：nuxt集成了前后端，采用vue编写前台页面，koa编写后台页面（虽然使用koa踩了一个不小的坑。。），ES6编写异步代码，使得逻辑更加清晰。项目使用了较新的ES标准，所以要求于运行node版本在9.0以上。
+
+
+
+## 项目截图 
+
+
+
+
 
 
 
 ## 部署 <img src="https://img.shields.io/project/deploy-v1.0.0-blue.svg"/>
 
-腾讯云ECS服务器 ubuntu 
+腾讯云 ECS 服务器 ubuntu 16.04，[访问这里](http://123.207.72.192/)
 
-0. 安装 yarn
+0、安装node 9.0以上版本
 
-      ```bash
-       1. windows 
-           （1）首先安装 chocolaty （cmd 管理员模式下输入以下代码） 
+​	（1）首先安装 nvm 
 
-               @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+​		linux（ubuntu）下：
 
-           （2）安装yarn 
+​			sudo apt-get install git     
 
-               choco install yarn
-       2.linux
-       	 （1）添加apt仓库
-       	 
-       	 	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -			echo "deb https://dl.yarnpkg.com/debian/ stable main" |
-              sudo tee /etc/apt/sources.list.d/yarn.list
+​			curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
 
-      	 （2）安装
+​		windows（10）下:
 
-      	 	sudo apt-get update && sudo apt-get install yarn
-      	 	
-      ```
+​			首先安装chocolaty，cmd(管理员模式下)
 
-1.  项目使用 node 版本必须在 **9.0** 以上，所以使用 nvm 安装 node，首先安装 nvm
+​			@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
-        1. windows
+​			然后使用 chocolatey 安装  nvm
 
-       		choco install nvm   
+​			choco install nvm
 
-        2.  linux
+​		(2)使用nvm安装 node 9.4.0
 
-        	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+​			nvm install node v9.4.0
 
-2. 使用 nvm 安装 node 9.4.0
+1、安装yarn（方便node包的兼容安装）
 
-        nmv install node-9.4.0
+​		(1) linux 下
+
+​			curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+​			sudo apt-get update && sudo apt-get install yarn
+
+​		（2）windows（10） 下
+
+​			 choco install yarn
+
+2、bash 下进入到项目文件夹内
+
+​		cd CDMP
+
+3、yarn install（npm install由于兼容性的问题，可能会报错）
+
+4、配置数据库配置文件（使用mysql 数据库，linux 和 windows 稍有不同，默认已经安装完成[mysql数据库](https://www.mysql.com/downloads/)）
+
+​		找到项目文件夹下的数据文件 cdmp.sql 利用navicat 新建本地数据库
+
+​		(1)linux 下， 由于 sequelize 的创建数据库的小bug（也可能是我文档没读完整），创建的数据库table名称与定义名称在大小写方面并不相同，所以需要关闭linux下mysql数据库的大小写识别，方式如下
+
+​			nano 	/etc/mysql/mysql.conf.d/mysqld.cnf
+
+​			\#修改数据库大小写识别，增加一行输入：
+
+​			lower_case_table_names=1
+
+​			\#保存退出
+
+​			ctrl + c
+
+​		(2)windows10下 mysql默认不区分数据库table名称大小写 ，可不做修改，直接导入数据文件
+
+​	        (3)修改数据库配置
+
+​			进入数据库配置文件
+
+​		
+
+6、开发环境测试
+
+​		项目文件夹下运行
+
+​			yarn install && yarn run dev
 
 3. 安装项目所需环境
 
@@ -81,7 +126,7 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 5. 
 
-## 完成功能 <img src="https://img.shields.io/badge/complete-v1.0.0-origin.svg"/>
+## 功能完成情况 <img src="https://img.shields.io/badge/complete-v1.0.0-origin.svg"/>
 
 1. 首页渲染
 2. 课程的分类搜索
@@ -91,14 +136,15 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 6. 登录（注册暂无）
 7. 腾讯云部署
 
-## 预计功能 <img src="https://img.shields.io/badge/estimate-v1.0.0-ff69b4.svg"/>
+## 技术难点<img src="https://img.shields.io/badge/estimate-v1.0.0-ff69b4.svg"/>
 1. 客服
 
 （有些页面没有在此处写，根据项目进度往上加~）
-## 个人 <img src="https://img.shields.io/oneself/my-ff69b4.svg"/>
+## 团队 <img src="https://img.shields.io/oneself/my-ff69b4.svg"/>
 
 爱生活 爱技术 爱折腾
 
+<<<<<<< HEAD
 ## Build Setup <img src="https://img.shields.io/badge/build-v1.0.0-blue.svg"/>
 
 ``` bash
@@ -112,3 +158,6 @@ $ npm run dev
 
 
 ```
+=======
+## 
+>>>>>>> develop

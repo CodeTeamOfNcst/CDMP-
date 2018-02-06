@@ -9,8 +9,8 @@
         </div>
         <el-row class="headerline"></el-row>
         <el-row :gutter="20">
-            <el-col :span="4" :offset="10">
-                <h1>{{title}}</h1>
+            <el-col>
+                <h1 style="text-align:center;">{{title}}</h1>
             </el-col>
             <el-col>
                 <div class="publish-date">
