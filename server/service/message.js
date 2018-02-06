@@ -172,7 +172,6 @@ exports.messageSearch = async (ctx, next) => {
             where: {content:{ [Op.like] : `%${search}%`}}
         })
         if(! searchResult || searchResult.length === 0) throw("未匹配到结果")
-        console.log(searchResult)
         let result = []
         for(let i=0;i<searchResult.length; i++){
             result.push({
@@ -181,7 +180,6 @@ exports.messageSearch = async (ctx, next) => {
                 messageUserName: (await searchResult[i].getMessageUser()).name
             })
         }
-        console.log(result)
         ctx.body = {
             result: result,
             status: 1,
@@ -193,6 +191,4 @@ exports.messageSearch = async (ctx, next) => {
             message: `${err}`
         }
     }
-    
-    
 }

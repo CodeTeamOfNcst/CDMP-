@@ -24,7 +24,8 @@ import {
     modifyDeviceById,
     delteDeviceById,
     onluGetAllDevice,
-    getDeviceByTypeId
+    getDeviceByTypeId,
+    deviceSearch
 } from './service/device'
 import {
     getAllUser,
@@ -97,6 +98,7 @@ module.exports = () => {
     router.post('/device/modifyById', modifyDeviceById);
     router.post('/device/deleteById', delteDeviceById);
     router.post('/device/getDeviceByTypeId', getDeviceByTypeId);
+    router.post('/device/search', deviceSearch);
 
     // 人员管理相关
     router.get('/user/getAll/:page?', getAllUser);

@@ -5,7 +5,7 @@ import {
 } from '../dbconfig/dbinit'
 import fs from 'fs'
 import uuid from 'uuid'
-
+import { Op } from 'sequelize'
 
 const ItemPerPage = 10;
 exports.addDevice = async (ctx, next) => {
@@ -282,5 +282,39 @@ exports.getDeviceByName = async (ctx, next) => {
         devices: result,
         status: 1,
         message: 'success'
+    }
+}
+
+exports.deviceSearch = async (ctx, next) => {
+    let search = ctx.request.body.search
+    try{
+        let searchResult = await Device.findAll({
+            where: {name:{ [Op.like] : `%${search}%`}}
+        })
+        if(! searchResult || searchResult.length === 0) throw("未匹配到结果")
+        let result = []
+        for(let i=0;i<searchResult.length; i++){
+            result.push({
+                id: searchResult[i].id,
+                date: searchResult[i].purchaseDate,
+                name: searchResult[i].name,
+                disable: searchResult[i].isUse ? '可用' : '禁用',
+                type: (await searchResult[i].getDeviceType).name,
+                type_id: (await searchResult[i].getDeviceType).id,
+                imgFilePath: searchResult[i].imgFilePath,
+                canReserve: searchResult[i].canReserve,
+                show: true,
+            })
+        }
+        ctx.body = {
+            result: result,
+            status: 1,
+            message: 'success'
+        }
+    }catch(err){
+        ctx.body = {
+            status: 0,
+            message: `${err}`
+        }
     }
 }

@@ -73,8 +73,8 @@
                     <el-input
                             placeholder="请输入内容"
                             prefix-icon="el-icon-search"
-                            v-model="search_context">
-                            <el-button slot="append" icon="el-icon-search"></el-button>
+                            v-model="searchInput">
+                            <el-button slot="append" icon="el-icon-search" @click="handleSearch"></el-button>
                     </el-input>
                 </div>
                 <div class="select">
@@ -304,6 +304,21 @@ import axios from 'axios'
 export default {
     layout: 'admina',
         methods: {
+            async handleSearch(){
+                if(! this.searchInput){
+                    window.location.reload()
+                }else{
+                    console.log(this.searchInput)
+                    let resData = await axios.post('/api/device/search',{
+                        search: this.searchInput
+                    })
+                    if(resData.data.status === 1){
+                        this.tableData = resData.data.result
+                    }else{
+                        this.$message.error(resData.data.message)
+                    }
+                }
+            },
             async editDialogClose(){
                 let resData = await axios.post('/api/upload/deleteTempFile', {
                     path: this.editForm.deviceImageUrl
@@ -453,7 +468,7 @@ export default {
                 currentPage:1,
                 itemCounts: null,
                 editFormLabelWidth:'100px',
-                search_context:'',
+                searchInput:'',
                 deviceTypes: [
                     {
                         value: '选项1',
@@ -461,19 +476,12 @@ export default {
                     }
                 ],
                 value:'',
-                options1: [{
-                    value: '1',
-                    label: '待维护仪器'
-                }, {
-                    value: '2',
-                    label: '可预约仪器'
-                }, {
-                    value: '3',
-                    label: '禁用仪器'
-                }, {
-                    value: '4',
-                    label: '按购买日期由近及远排序'
-                }],
+                options1: [
+                    {
+                        value: '1',
+                        label: '仪器名称'
+                    }
+                ],
                 addForm: {
                     name: '',
                     deviceType: '',
