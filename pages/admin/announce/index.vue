@@ -40,12 +40,12 @@
                     <el-input
                             placeholder="请输入内容"
                             prefix-icon="el-icon-search"
-                            v-model="searchValue">
-                            <el-button slot="append" icon="el-icon-search"></el-button>
+                            v-model="searchInput">
+                            <el-button slot="append" icon="el-icon-search" @click="handleSearch"></el-button>
                     </el-input>
                 </div>
                 <div class="select">
-                    <el-select v-model="value" placeholder="默认以时间由近及远排序">
+                    <el-select v-model="value" placeholder="筛选依据">
                         <el-option
                                 v-for="item in options"
                                 :key="item.value"
@@ -208,6 +208,20 @@
         components: { ElButton },
         layout: 'admina',
         methods: {
+            async handleSearch(){
+                if(! this.searchInput){
+                    window.location.reload()
+                }else{
+                    let resData = await axios.post('/api/rule/search',{
+                        search: this.searchInput
+                    })
+                    if(resData.data.status === 1){
+                        this.tableData = resData.data.result
+                    }else{
+                        this.$message.error(resData.data.message)
+                    }
+                }
+            },
             async handleAdd(){
                 try{
                     let resData = await axios.post('/api/rule/add',{
@@ -329,7 +343,7 @@
                 options: [
                     {
                     value: '选项1',
-                    label: 'id增序排序'
+                    label: '公告标题'
                     }
                 ],
                 value: '',
@@ -345,7 +359,7 @@
                 editFormVisible: false,
                 addFormVisible: false,
                 formLabelWidth: '120px',
-                searchValue: ''
+                searchInput: ''
             };
         },
         head() {

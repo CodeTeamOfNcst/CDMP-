@@ -1,6 +1,7 @@
 import { Rule } from '../dbconfig/dbinit'
 
 const ItemPerPage = 10 ;
+import { Op } from 'sequelize'
 exports.addRule = async ( ctx, next ) => {
     let postData = ctx.request.body
     try{
@@ -123,3 +124,33 @@ exports.deleteRule = async ( ctx, next ) => {
     
 };
 
+exports.ruleSearch = async (ctx, next) => {
+    let search = ctx.request.body.search
+    try{
+        let searchResult = await Rule.findAll({
+            where: { content: { [Op.like] : `%${search}%`}}
+        })
+        console.log(searchResult)
+        if(! searchResult || searchResult.length === 0) throw("未匹配到结果")
+        let result = []
+        for(let i=0;i<searchResult.length; i++){
+            result.push({
+                id: searchResult[i].id,
+                title: searchResult[i].title,
+                content: searchResult[i].content,
+                isUse: searchResult[i].isUse ? '可用': '禁用',
+                publishDate: searchResult[i].publishDate,
+            })
+        }
+        ctx.body = {
+            result: result,
+            status: 1,
+            message: 'success'
+        }
+    }catch(err){
+        ctx.body = {
+            status: 0,
+            message: `${err}`
+        }
+    }
+}

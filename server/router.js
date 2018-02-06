@@ -42,7 +42,8 @@ import {
     addRule,
     deleteRule,
     modifyRule,
-    getRuleById
+    getRuleById,
+    ruleSearch
 } from './service/rules'
 import {
     getAllMessage,
@@ -117,6 +118,7 @@ module.exports = () => {
     router.post('/rule/getById', getRuleById);
     router.post('/rule/modifyById', modifyRule);
     router.post('/rule/deleteById', deleteRule);
+    router.post('/rule/search', ruleSearch);
 
     // 消息管理相关
     router.get('/message/getAll/:page?', getAllMessage);
