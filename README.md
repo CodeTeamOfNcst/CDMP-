@@ -1,4 +1,4 @@
-# nuxt-cdmp(实验设备预约平台<u>精简版</u>)
+# nuxt-cdmp(实验设备预约平台)
 
 > Node.js(v9.4.0) + koa(2.4.1) + vue(2.5) + vuex + sequelize(4.32.2)+ element-ui(2.1.0) + （NUXT）SSR
 ## 前言 
@@ -33,7 +33,7 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 ## 部署 <img src="https://img.shields.io/project/deploy-v1.0.0-blue.svg"/>
 
-腾讯云 ECS 服务器 ubuntu 16.04，[访问这里](http://123.207.72.192/)
+阿里云 ECS 服务器 ubuntu 16.04，[访问这里](http://120.77.87.244)
 
 0、安装node 9.0以上版本
 
@@ -89,75 +89,81 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 ​			lower_case_table_names=1
 
-​			\#保存退出
+​			\#保存退出	
 
-​			ctrl + c
+​			ctrl + c（nano）或 wq（vim）
 
 ​		(2)windows10下 mysql默认不区分数据库table名称大小写 ，可不做修改，直接导入数据文件
 
 ​	        (3)修改数据库配置
 
-​			进入数据库配置文件
+​			修改项目文
 
-​		
+件夹下的 /server/dbconfig/dbconfig 中，根据注释修改数据库host，用户名和密码等
 
-6、开发环境测试
+5、开发环境测试
 
 ​		项目文件夹下运行
 
 ​			yarn install && yarn run dev
 
-3. 安装项目所需环境
+6、部署环境（项目部署仍属于[测试阶段](http://chrisprosise.top/)，不能保证随时可以访问）
 
-        1. 进入项目文件夹
+​		(1)安装 pm2
 
-            cd ./CDMP
-        
-        2. 安装所需环境
+​			yarn install pm2
 
-            yarn install 
+​		(2)创建 build 代码
 
-3. 项目使用 mysql 作为数据库，需要先导入数据
-4. 运行
-    
-        1. 项目文件夹下打开 bash 运行
+​			yarn run build  ( 这里如果计算机内存小于1G则会build失败 -_- ! )
 
-            yarn run dev
+​		(3)pm2 运行项目
 
-5. 
+​			pm2 start build/mian.js
+
+7、查看 pm2 list 列表，查看启动状态
+
+8、pm2 monit  监视所有进程
+
+9、开启 nginx 转发
+
+​	 这里 由于项目中使用的axios 在服务端和客户端都有用到，所以请求头header的设置需要根据nginx 的跨域访问请求进行设置，在这里不多赘述。
+
+## 测试
+
+1. 单元测试
+
+   单元测试由 node 下测试模块 jasmine编写，需要在服务启动的状态下运行。首先全局安装jasmine
+
+   ​	yarn global add jasmine
+
+   运行测试
+
+   ​	yarn run test
+
+2. 压力测试
 
 ## 功能完成情况 <img src="https://img.shields.io/badge/complete-v1.0.0-origin.svg"/>
 
-1. 首页渲染
-2. 课程的分类搜索
-3. 课程 按 （智能排序 价格最高 价格最低 老师好评 人气最高） 排序
-4. 课程 按 （班级类型 活动优惠 上课时间（周一到周日） 具体时间（上午下午晚上） 价格区间） 筛选
-5. 完成课程列表的下拉加载更多 
-6. 登录（注册暂无）
-7. 腾讯云部署
+1. 设备搜索
+2. 公告的编辑查看
+3. 登陆注册功能
+4. 管理员对设备信息的管理
+5. 管理员对预约信息的管理
+6. 调用api查询设备信息
+7. 上传设备图片
+8. 首页添加操作指南视频
+9. 用户对设备进行预约
+10. 用户查看历史预约信息
 
 ## 技术难点<img src="https://img.shields.io/badge/estimate-v1.0.0-ff69b4.svg"/>
-1. 客服
+1. koa处理文件上传逻辑，创建临时存储
+2. 文件流转化视频流解析播放
+3. vuex（用于存储从nuxt处理过的req中提取的cookie，此处和官网有出入）
+4. Vue（相当好的一个框架）
 
-（有些页面没有在此处写，根据项目进度往上加~）
 ## 团队 <img src="https://img.shields.io/oneself/my-ff69b4.svg"/>
 
-爱生活 爱技术 爱折腾
+404 naote Found
 
-<<<<<<< HEAD
-## Build Setup <img src="https://img.shields.io/badge/build-v1.0.0-blue.svg"/>
-
-``` bash
-# install dependencies
-$ npm install or yarn install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-
-
-
-```
-=======
 ## 
->>>>>>> develop
