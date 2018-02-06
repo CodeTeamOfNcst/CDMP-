@@ -169,7 +169,6 @@ exports.onlyGetAllUser = async (ctx, next) => {
             value: users[index].id
         })
     }
-    console.log(thisUsers)
     ctx.body = {
         users: thisUsers,
         status: 1,
