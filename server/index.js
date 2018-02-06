@@ -17,8 +17,10 @@ const router = require('./router')()
 
 async function start() {
     const app = new Koa()
+
     const host =  process.env.HOST || '127.0.0.1';
     const port =  process.env.PORT || 3000;
+
     app.keys = ['dsadasdsada*-*/*-/sda*-d/as*-d/w21*-/31-*sda-d*'];
     /**
      ** Test connecton
