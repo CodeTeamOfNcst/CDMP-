@@ -1,7 +1,7 @@
 <template>
     <section class="container">
         <div v-if="result">
-            <el-tabs :tab-position="tabPosition" style="height: 200px;">
+            <el-tabs :tab-position="tabPosition">
                 <el-tab-pane label="历史预约记录">
                     <div v-for="data in result">
                         <div class="history">
@@ -63,8 +63,12 @@
 </template>
 
 <style scoped>
+    .el-tabs__content{
+        overflow: visible!important;
+    }
     .history{
         width: 30%;
+        height:161px;
         min-width: 287px;
         margin-bottom: 10px;
         margin-left: 2.5%;
@@ -79,9 +83,10 @@
     }
     .hisCont{
         width: 60%;
+
         float: right;
         height: 80%;
-        margin-top: 10%;
+        margin-top: 8%;
     }
     .hisCont p{
         width: 100%;
