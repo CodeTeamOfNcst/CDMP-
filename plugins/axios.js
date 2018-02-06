@@ -1,6 +1,6 @@
 import axios from 'axios'
 
 export default () => {
-    axios.defaults.baseURL = `http://${ process.env.HOST || 'localhost'}:${process.env.PORT || 3000 }`
+    axios.defaults.baseURL = `http://127.0.0.1:3000`
     axios.defaults.withCredentials = true
 }
