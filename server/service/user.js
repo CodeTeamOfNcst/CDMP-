@@ -5,6 +5,7 @@ import {
     Device
 } from '../dbconfig/dbinit'
 
+import { Op } from 'sequelize'
 const ItemPerPage = 10;
 
 exports.getAllUser = async (ctx, next) => {
@@ -223,6 +224,35 @@ exports.getUserByAccount = async ( ctx,next ) => {
         ctx.body = {
             message: `${err}`,
             status: 0
+        }
+    }
+}
+
+exports.userSearch = async (ctx, next) => {
+    let search = ctx.request.body.search
+    try{
+        let searchResult = await User.findAll({
+            where: {name:{ [Op.like] : `%${search}%`}}
+        })
+        if(! searchResult || searchResult.length === 0) throw("未匹配到结果")
+        console.log(searchResult)
+        let result = []
+        for(let i=0;i<searchResult.length; i++){
+            result.push({
+                user: searchResult[i],
+                userType: (await searchResult[i].getUserType()).name,
+            })
+        }
+        console.log(result)
+        ctx.body = {
+            result: result,
+            status: 1,
+            message: 'success'
+        }
+    }catch(err){
+        ctx.body = {
+            status: 0,
+            message: `${err}`
         }
     }
 }

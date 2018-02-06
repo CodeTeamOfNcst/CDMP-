@@ -33,7 +33,8 @@ import {
     addUser,
     modifyUserById,
     onlyGetAllUser,
-    getPersonal
+    getPersonal,
+    userSearch
 } from './service/user'
 import {
     getAllRules,
@@ -48,7 +49,7 @@ import {
     getMessageById,
     modifyMessageById,
     deletseMessageById,
-    search
+    messageSearch
 } from './service/message'
 import {
     getAllApply,
@@ -105,6 +106,7 @@ module.exports = () => {
     router.post('/user/modifyById', modifyUserById);
     router.post('/user/deleteById', deleteUserById);
     router.post('/user/getPersonal', getPersonal)
+    router.post('/user/search', userSearch)
 
     // 公告管理相关
     router.get('/rule/getAll/:page?', getAllRules);
@@ -119,7 +121,7 @@ module.exports = () => {
     router.post('/message/getById', getMessageById);
     router.post('/message/modifyById', modifyMessageById);
     router.post('/message/deleteById', deletseMessageById);
-    router.post('/message/search', search)
+    router.post('/message/search', messageSearch)
 
     // 预约申请管理
     router.get('/apply/getAll/:page?', getAllApply);

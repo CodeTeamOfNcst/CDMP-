@@ -165,7 +165,7 @@ exports.getMessageById = async (ctx, next) => {
     
 };
 
-exports.search = async (ctx, next) => {
+exports.messageSearch = async (ctx, next) => {
     let search = ctx.request.body.search
     try{
         let searchResult = await Message.findAll({
