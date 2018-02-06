@@ -1,5 +1,5 @@
 import { sequelize, Apply, User, Device } from '../dbconfig/dbinit'
-
+import { Op } from 'sequelize'
 const ItemPerPage = 10 ;
 
 exports.addApply = async ( ctx, next ) => {
@@ -177,6 +177,35 @@ exports.addApplyFront = async ( ctx, next) => {
         ctx.body = {
             status: 0,
             message: '用户未登陆 '
+        }
+    }
+}
+
+exports.applySearch = async (ctx, next) => {
+    let search = ctx.request.body.search
+    try{
+        let searchResult = await Apply.findAll({
+            where: { vioReason:{ [Op.like] : `%${search}%`}}
+        })
+        if(! searchResult || searchResult.length === 0) throw("未匹配到结果")
+        let result = []
+        for(let i =0; i< searchResult.length; i++){
+            result.push({
+                apply: searchResult[i],
+                applyUser: await searchResult[i].getApplyer(),
+                applyDevice: await searchResult[i].getApplyDevice()
+            })
+        }
+        ctx.body = {
+            result: result,
+            status: 1,
+            message: 'success'
+        }
+    }catch(err){
+        console.error(err)
+        ctx.body = {
+            status: 0,
+            message: `${err}`
         }
     }
 }

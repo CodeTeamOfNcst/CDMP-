@@ -58,7 +58,8 @@ import {
     getApplyById,
     modifyApplyById,
     deleteApplyById,
-    addApplyFront
+    addApplyFront,
+    applySearch
 } from './service/apply'
 import {
     imageUploadToTemp,
@@ -132,6 +133,7 @@ module.exports = () => {
     router.post('/apply/modifyById', modifyApplyById);
     router.post('/apply/deleteById', deleteApplyById);
     router.post('/apply/addApplyFront', addApplyFront)
+    router.post('/apply/search', applySearch)
 
     // 处理图片上传
     router.post('/upload/imageUpload', upload.single('file'), imageUploadToTemp);

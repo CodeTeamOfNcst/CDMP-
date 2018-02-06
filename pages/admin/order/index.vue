@@ -73,7 +73,7 @@
                             placeholder="请输入内容"
                             prefix-icon="el-icon-search"
                             v-model="searchInput">
-                            <el-button slot="append" icon="el-icon-search"></el-button>
+                            <el-button slot="append" icon="el-icon-search" @click="handleSearch"></el-button>
                     </el-input>
                 </div>
                 <div class="select">
@@ -272,6 +272,21 @@
         components: {ElButton},
         layout: 'admina',
         methods: {
+            async handleSearch(){
+                if(! this.searchInput){
+                    window.location.reload()
+                }else{
+                    console.log(this.searchInput)
+                    let resData = await axios.post('/api/apply/search',{
+                        search: this.searchInput
+                    })
+                    if(resData.data.status === 1){
+                        this.tableData = resData.data.result
+                    }else{
+                        this.$message.error(resData.data.message)
+                    }
+                }
+            },
             async handleAddOpen(){
                 let resDataUser = await axios.get('/api/user/onlyAll');
                 let resDataDevice = await axios.get('/api/device/onlyAll');
@@ -443,19 +458,7 @@
                 searchOption: [
                     {
                         value: '1',
-                        label: '预约设备名称'
-                    },
-                    {
-                        value: '2',
-                        label: '用户名称'
-                    },
-                    {
-                        value: '3',
-                        label: '日期'
-                    },
-                    {
-                        value: '4',
-                        label: '预约时长'
+                        label: '申请理由'
                     }
                 ],
             };
