@@ -1,13 +1,13 @@
 # nuxt-cdmp(实验设备预约平台)
 
-> Node.js(v9.4.0) + koa(2.4.1) + vue(2.5) + vuex + sequelize(4.32.2) + （NUXT）SSR
+> Node.js(v9.4.0) + koa(2.4.1) + vue(2.5) + vuex + sequelize(4.32.2)+ element-ui(2.1.0) + （NUXT）SSR
 ## 前言 
 
-*本项目纯属个人框架学习阶段练习所用，数据并非真实。
+本项目纯属个人框架学习阶段练习所用，数据并非真实。
 
 github: https://github.com/CodeTeamOfNcst/CDMP-
 
-本平台仿照现有平台进行技术重构，仍在开发阶段，今后会持续进行功能扩充和完善，目前仅完成了部分功能。在此过程中
+本平台仿照[现有平台](http://fxcszx.ncst.edu.cn/)进行技术重构，仍在开发阶段，今后会持续进行功能扩充和完善，目前仅完成了部分功能。
 
 项目持续进行中~
 
@@ -17,7 +17,9 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 优点2：无需考虑数据传输问题，nuxt 会在模板输出之前异步请求数据（需要引入 axios 库），而且对 vuex 有进一步的封装
 
-优点3：内置了 webpack，省去了配置 webpack 的步骤，nuxt 会根据配置打包对应的文件
+优点3：内置了 webpack，省去了配置 webpack 的步骤，nuxt 会根据配置打包对应的文件，方便使用各种模板语言
+
+重点4：nuxt集成了前后端，采用vue编写前台页面，koa编写后台页面（虽然使用koa踩了一个不小的坑。。），ES6编写异步代码，使得逻辑更加清晰。项目使用了较新的ES标准，所以要求于运行node版本在9.0以上。
 
 
 
@@ -25,55 +27,85 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 
 
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/show4_gif.gif)
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/show5_gif.gif)
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/show6_gif.gif)
 
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/show7_gif.gif) 
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/show2_gif.gif)
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/show3_gif.gif)
 
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/show8_gif.gif)
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/show9_gif.gif)
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/show10_gif.gif)
 
-## 感谢～ <img src="https://img.shields.io/thank/you-v1.0.0-ff69b4.svg"/>
-
-如果我的项目对您有所帮助，您可以点右上角 "Star" 支持一下 感谢～～！
-
-git clone 项目地址 进入 local文件夹 cd template 里面是本地（node）写死的数据可以 
-
-然后 --  yarn install 和 npm run dev
-
-另一种 也可以找我 拿sql文件，自己跑本地服务
-
-线上项目地址：<a href="hhttp://nodet.cn:3000/" target="_blank" style="color: red;">http://nodet.cn:3000/</a>  （Google Chrome观看更佳）
-
-扫码 进入 项目
-
-![avatar](https://github.com/github1586/bnhcp/blob/master/static/img/myproject.png)
-
-有疑问或者项目有什么问题 可以联系企鹅 995189950 微信搜索：node-s 或者 Issues me
-
-欢迎大家来给我提提意见 互相探讨~
 
 ## 部署 <img src="https://img.shields.io/project/deploy-v1.0.0-blue.svg"/>
 
-阿里云ECS服务器 centos7 
+腾讯云 ECS 服务器 ubuntu 16.04，[访问这里](http://123.207.72.192/)
 
-0、安装配置 nvm（node） mysql nginx（Tengine）
+0、安装node 9.0以上版本
 
-1、下载xftp 连接自己服务器，把自己的项目丢进去。
+​	（1）首先安装 nvm 
 
-2、cd myproject
+​		linux（ubuntu）下：
 
-3、yarn install（npm install）
+​			sudo apt-get install git     
 
-4、配置数据库配置文件
+​			curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
 
-5、配置nginx 文件 进行代理 代理所有80端口
+​		windows（10）下:
 
-6、npm run dev
+​			首先安装chocolaty，cmd(管理员模式下)
+
+​			@"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
+
+​			然后使用 chocolatey 安装  nvm
+
+​			choco install nvm
+
+​		(2)使用nvm安装 node 9.4.0
+
+​			nvm install node v9.4.0
+
+1、安装yarn（方便node包的兼容安装）
+
+​		(1) linux 下
+
+​			curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+​			sudo apt-get update && sudo apt-get install yarn
+
+​		（2）windows（10） 下
+
+​			 choco install yarn
+
+2、bash 下进入到项目文件夹内
+
+​		cd CDMP
+
+3、yarn install（npm install由于兼容性的问题，可能会报错）
+
+4、配置数据库配置文件（使用mysql 数据库，linux 和 windows 稍有不同，默认已经安装完成[mysql数据库](https://www.mysql.com/downloads/)）
+
+​		找到项目文件夹下的数据文件 cdmp.sql 利用navicat 新建本地数据库
+
+​		(1)linux 下， 由于 sequelize 的创建数据库的小bug（也可能是我文档没读完整），创建的数据库table名称与定义名称在大小写方面并不相同，所以需要关闭linux下mysql数据库的大小写识别，方式如下
+
+​			nano 	/etc/mysql/mysql.conf.d/mysqld.cnf
+
+​			\#修改数据库大小写识别，增加一行输入：
+
+​			lower_case_table_names=1
+
+​			\#保存退出
+
+​			ctrl + c
+
+​		(2)windows10下 mysql默认不区分数据库table名称大小写 ，可不做修改，直接导入数据文件
+
+​	        (3)修改数据库配置
+
+​			进入数据库配置文件
+
+​		
+
+6、开发环境测试
+
+​		项目文件夹下运行
+
+​			yarn install && yarn run dev
 
 7、npm run build
 
@@ -89,7 +121,7 @@ git clone 项目地址 进入 local文件夹 cd template 里面是本地（node�
 
 13、如果一切正常，但是访问不通，可以pm2 logs 查看是否报错？
 
-## 完成功能 <img src="https://img.shields.io/badge/complete-v1.0.0-origin.svg"/>
+## 功能完成情况 <img src="https://img.shields.io/badge/complete-v1.0.0-origin.svg"/>
 
 1. 首页渲染
 2. 课程的分类搜索
@@ -110,22 +142,12 @@ git clone 项目地址 进入 local文件夹 cd template 里面是本地（node�
 17. redis (首页缓存 分页缓存）
 18. 阿里云部署
 
-## 预计功能 <img src="https://img.shields.io/badge/estimate-v1.0.0-ff69b4.svg"/>
+## 技术难点<img src="https://img.shields.io/badge/estimate-v1.0.0-ff69b4.svg"/>
 1. 客服
 
 （有些页面没有在此处写，根据项目进度往上加~）
-## 个人 <img src="https://img.shields.io/oneself/my-ff69b4.svg"/>
+## 团队 <img src="https://img.shields.io/oneself/my-ff69b4.svg"/>
 
 爱生活 爱技术 爱折腾
 
-## Build Setup <img src="https://img.shields.io/badge/build-v1.0.0-blue.svg"/>
-
-``` bash
-# install dependencies
-$ npm install  or yarn install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-
-
+## 
