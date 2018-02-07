@@ -29,6 +29,9 @@
 </template>
 
 <style scoped>
+    a{
+        text-decoration: none;
+    }
     .contentList{
         width: 100%;
         height:650px;
