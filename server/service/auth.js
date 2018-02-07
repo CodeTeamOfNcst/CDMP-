@@ -20,6 +20,7 @@ exports.logIn = async (ctx, next) => {
             userIsAdmin = false
         }
         ctx.cookies.set("authUser", user.account)
+        console.log(`用户cookie设置完毕${user.account}`)
         ctx.body = {
             user: user,
             user_is_admin: userIsAdmin,

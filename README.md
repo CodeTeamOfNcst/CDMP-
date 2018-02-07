@@ -179,4 +179,7 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 如果你觉得此项目对你有帮助，不妨留个 star (! ^_^ !)
 
-## 
+##存在的bug
+1. 路由鉴权失败(nuxt 与 koa 结合的 后端渲染 req 对象 为 Http.request 而不是koa的context.request ?) 
+2. cookie 设置失败（ 暂时未找到原因 ）
+

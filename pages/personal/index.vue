@@ -126,33 +126,51 @@
             if( ! this.$store.state.authUser) window.location.href ='/login'
             this.tableData = this.result
         },
-        async asyncData({req,redirect}){
+        async asyncData(context){
             // console.log(req.cookies.get('authUser')) 在这里是访问不到cookies的
             //手动解析cookie
-            if(process.server){ //仅从服务端加载的时候才存在req
-                if(req.headers.cookie && req.headers.cookie.indexOf('authUser') > -1){
-                    if(req.headers.cookie.split('=')[1]){
-                        //cookie 存在的情况下，不存在则跳转到登陆页面吧
-                        let userAccount = req.headers.cookie.split('=')[1]
-                        let resData = await axios.post('/api/user/getPersonal', {
-                            account : userAccount
-                        })
-                        if(resData.data.status === 1){
-                            return {
-                                result: resData.data.result,
-                            }
-                        }else{
-                            console.log(resData.data.message)
-                            return {
-                                result: []
-                            }
+            console.log(context)
+            if(context.isClient){
+                let resData = await axios.post('/api/user/getPersonal', {
+                        account : context.store.state.authUser
+                    })
+                    console.log(context.store.state)
+                    if(resData.data.status === 1){
+                        return {
+                            result: resData.data.result,
+                        }
+                    }else{
+                        console.log(resData.data.message)
+                        return {
+                            result: []
+                        }
+                    }
+            }else{
+                if(context.req.headers.cookie && context.req.headers.cookie.indexOf('authUser') > -1){
+                if(req.headers.cookie.split('=')[1]){
+                    //cookie 存在的情况下，不存在则跳转到登陆页面吧
+                    let userAccount = req.headers.cookie.split('=')[1]
+                    let resData = await axios.post('/api/user/getPersonal', {
+                        account : userAccount
+                    })
+                    if(resData.data.status === 1){
+                        return {
+                            result: resData.data.result,
+                        }
+                    }else{
+                        console.log(resData.data.message)
+                        return {
+                            result: []
                         }
                     }
                 }
-            }else{
-                //客户端渲染的情况，当然也需要
-                redirect('/login')
             }
+            else{
+                //客户端渲染的情况，当然也需要
+                context.redirect('/login')
+            }
+            }
+            
         }
     }
 </script>
