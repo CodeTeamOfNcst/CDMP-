@@ -121,7 +121,7 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 ​			yarn install && yarn run dev
 
-6、部署环境（项目部署仍属于[测试阶段](http://chrisprosise.top/)，不能保证随时可以访问）
+6、部署环境（项目部署仍属于[测试阶段](http://120.77.87.244)，不能保证随时可以访问）
 
 ​		(1)安装 pm2
 
