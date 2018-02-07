@@ -25,11 +25,25 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 ## 项目截图 
 
+1.首页
 
+![首页](./Z_ProjectImgs/首页.png)
 
+2.设备列表
 
+![设备列表](./Z_ProjectImgs/接设备列表.png)
 
+3.设备详情
 
+![设备详情](./Z_ProjectImgs/设备详情页.png)
+
+4.预约管理
+
+![预约管理](./Z_ProjectImgs/预约管理.png)
+
+5设备管理
+
+![设备管理](./Z_ProjectImgs/后台设备.png)
 
 ## 部署 <img src="https://img.shields.io/project/deploy-v1.0.0-blue.svg"/>
 
@@ -141,7 +155,6 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
    ​	yarn run test
 
-2. 压力测试
 
 ## 功能完成情况 <img src="https://img.shields.io/badge/complete-v1.0.0-origin.svg"/>
 
@@ -164,6 +177,6 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 ## 团队 <img src="https://img.shields.io/oneself/my-ff69b4.svg"/>
 
-404 naote Found
+如果你觉得此项目对你有帮助，不妨留个 star (! ^_^ !)
 
 ## 
