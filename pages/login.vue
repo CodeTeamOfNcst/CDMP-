@@ -66,7 +66,7 @@
                         });
                         this.$store.commit('SET_USER', resData.data.user.account)
                         console.log(this.$store.state.authUser)
-                        window.history.back()
+                        window.location.href = '/personal'
                     }else{
                         this.$message.error(resData.data.message);
                     }
