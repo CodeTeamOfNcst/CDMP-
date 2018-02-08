@@ -270,26 +270,20 @@
                 window.location.href = '/device'
             },
             async handleUserLogin(tab, event){  // 处理用户登陆
-                let user_account = this.user_account
-                let user_password = this.user_password
-                if(!user_account && !user_password) 
-                {
-                    this.$message.error("请填写用户名和密码"); 
-                    return
-                };
-                let resData = await axios.post('/api/auth/login', {
-                    account: user_account,
-                    passwd: user_password
-                })
-                if(resData.data.status === 1) {
-                    if(resData.data.user_is_admin){
-                        this.user_is_admin = true;
+                if(!this.account || !this.password){
+                    this.$message.error("请输入用户名和密码");
+                }else{
+                    let resData =  await this.$auth.login({
+                                    data: {
+                                        account: this.account,
+                                        passwd: this.password
+                                    }
+                    })
+                    if(this.$auth.state.user.account){
+                        window.location.reload()
+                    }else{
+                        this.$message.error("用户名或密码错误")
                     }
-                    this.login_show = false
-                    this.animateUserName = user_account
-                }else {
-                //登陆失败
-                    this.$message.error(resData.data.message);
                 }
             },
             async handleUserRegist(tab, event){
@@ -317,17 +311,8 @@
                 }
             },
             async handleUserLogOut(){
-                let resData = await axios.get('/api/auth/logOut');
-                if(resData.data.status === 1){
-                    this.$message({
-                        message: resData.data.message,
-                        type: 'success'
-                    });
-                    this.login_show = true
-                    window.location.reload();
-                }else{
-                    this.$message.error(resData.data.message);
-                }
+                let resData = await this.$auth.logout()
+                window.location.reload()
             },
         },
         watch: { //登陆后用户名浮动特效
@@ -346,6 +331,15 @@
             }
         },
         async mounted(){
+            await this.$auth.fetchUser()
+            console.log(this.$auth.state.user)
+            if(this.$auth.state.user){
+                this.login_show = false,
+                this.animateUserName = this.$auth.state.user.login_account;
+                if(this.$auth.state.user.scope.length === 3){
+                    this.user_is_admin = true
+                }
+            }
         },
         async asyncData(context){
             let  resData  = await axios.get(`/api/device/getAll/1`);

@@ -161,11 +161,8 @@
             }
         },
         async mounted(){
-            if(this.$store.state.authUser){
-                this.user = this.$store.state.authUser
-            }else{
-                window.location.href ='/login'
-            }
+            if(! this.$auth.state.loggedIn) window.location.href ='/login'
+            this.user = this.$auth.state.user.login_account
         },
         async asyncData({params}){
             let resData = await axios.post('/api/device/getById', { id: params.id})

@@ -38,7 +38,6 @@
 </template>
 
 <script>
-    import axios from 'axios'
     export default {
         data(){
             return {
@@ -55,20 +54,16 @@
                 if(!this.account || !this.password){
                     this.$message.error("请输入用户名和密码");
                 }else{
-                    let resData = await axios.post('/api/auth/login',{
-                        account: this.account,
-                        passwd: this.password
+                    let resData =  await this.$auth.login({
+                                    data: {
+                                        account: this.account,
+                                        passwd: this.password
+                                    }
                     })
-                    if(resData.data.status === 1){
-                        this.$message({
-                            message: resData.data.message + ' 正在跳转 ^-^',
-                            type: 'success'
-                        });
-                        this.$store.commit('SET_USER', resData.data.user.account)
-                        console.log(this.$store.state.authUser)
-                        window.location.href = '/personal'
+                    if(this.$auth.state.user.account){
+                        window.location.href = '/'
                     }else{
-                        this.$message.error(resData.data.message);
+                        this.$message.error("用户名或密码错误")
                     }
                 }
             },

@@ -21,6 +21,28 @@ module.exports = {
   */
   loading: { color: '#3B8070' },
   /**
+   * auth 
+   */
+  modules: [
+    '@nuxtjs/auth',
+    '@nuxtjs/axios',
+ ],
+  auth: {
+    endpoints: {
+      login: { url: '/api/auth/login', method: 'post', propertyName: 'user' },
+      logout: { url: '/api/auth/logout', method: 'get' },
+      user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
+    },
+    cookie: {
+      name: 'account',
+      options: {
+        path: '/'
+      }
+    },  
+    fetchUserOnLogin:false,
+    watchLoggedIn: true
+  },
+  /**
   ** 防止重复打包
   */
   build: {
