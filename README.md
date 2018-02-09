@@ -175,11 +175,14 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 3. vuex（用于存储从nuxt处理过的req中提取的cookie，此处和官网有出入）
 4. Vue（相当好的一个框架）
 
-## 团队 <img src="https://img.shields.io/oneself/my-ff69b4.svg"/>
+## 团队 
+@ github[Code Team of NCST](https://github.com/CodeTeamOfNcst/)
+@ github[We Make Bug](https://github.com/wemakebug)
 
 如果你觉得此项目对你有帮助，不妨留个 star (! ^_^ !)
 
 ##存在的bug
-1. 路由鉴权失败(nuxt 与 koa 结合的 后端渲染 req 对象 为 Http.request 而不是koa的context.request ?) 
-2. cookie 设置失败（ 暂时未找到原因 ）
-
+1. ~~路由鉴权失败(nuxt 与 koa 结合的 后端渲染 req 对象 为 Http.request 而不是koa的context.request ?)~~ 已经解决 2018-2-9
+2. ~~cookie 设置失败（ 暂时未找到原因 ）~~ 已经解决 2018-2-9
+3. 线上环境不是最新版本
+4. 最新版本的 GraphiQL 暂未构建完毕
