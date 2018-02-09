@@ -270,13 +270,13 @@
                 window.location.href = '/device'
             },
             async handleUserLogin(tab, event){  // 处理用户登陆
-                if(!this.account || !this.password){
+                if(!this.user_account || !this.user_password){
                     this.$message.error("请输入用户名和密码");
                 }else{
                     let resData =  await this.$auth.login({
                                     data: {
-                                        account: this.account,
-                                        passwd: this.password
+                                        account: this.user_account,
+                                        passwd: this.user_password
                                     }
                     })
                     if(this.$auth.state.user.account){
