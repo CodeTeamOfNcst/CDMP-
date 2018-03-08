@@ -65,6 +65,7 @@
             <div class="leftSty"></div>
             <span class="bullCont">设备管理</span>
         </div>
+        <el-row class="headerline"/>
         <div class="announceCont">
 
             <div class="oneline">
