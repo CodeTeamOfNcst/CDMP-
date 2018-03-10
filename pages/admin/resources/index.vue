@@ -3,30 +3,42 @@
         <el-popover
                 ref="popover4"
                 placement="right"
-                width="600"
+                width="500"
                 trigger="click"
                 v-model="addFormVisible">
-            <el-form ref="addForm" :model="addForm" label-width="80px">
-                <!-- <el-form-item label="公告标题">
-                    <div class="inputName">
-                        <el-input v-model="addForm.title" clearable />
-                    </div>
-                </el-form-item>
-                <el-form-item label="发布时间">
-                    <el-col :span="11">
-                        <el-date-picker type="date" placeholder="选择日期" v-model="addForm.publishDate" style="width: 100%;"></el-date-picker>
+            <el-form ref="addForm" :model="addForm" label-width="100px">
+                <el-form-item label="课题负责人">
+                    <el-col :span="18">
+                        <el-select v-model="addForm.user" filterable placeholder="请选择用户">
+                            <el-option
+                                    v-for="item in users"
+                                    :key="item.value"
+                                    :label="item.key"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
                     </el-col>
                 </el-form-item>
-                <el-form-item label="禁用标识">
-                    <el-switch v-model="addForm.isUse" />
+                <el-form-item label="所在院系">
+                    <el-col :span="18">
+                        <el-input v-model="addForm.department" clearable />
+                    </el-col>
                 </el-form-item>
-                <el-form-item label="公告内容">
-                    <el-input :rows="15" type="textarea" v-model="addForm.content" class="textarea" />
+                <el-form-item label="机时额度">
+                    <el-col :span="18">
+                        <el-input v-model="addForm.department" clearable />
+                    </el-col>
                 </el-form-item>
+                <el-form-item label="是否禁用">
+                    <el-col :span="18">
+                        <el-switch v-model="addForm.isUse"/>
+                    </el-col>
+                </el-form-item>
+
                 <el-form-item>
                     <el-button type="primary" @click="handleAdd">添加</el-button>
                     <el-button  @click="handleAddCancel">取消</el-button>
-                </el-form-item> -->
+                </el-form-item>
             </el-form>
         </el-popover>
         <div class="headerName">
@@ -51,7 +63,7 @@
                     </el-select>
                 </div>
                 <div class="add">
-                    <el-button v-popover:popover4 class="addContent">添加</el-button>
+                    <el-button v-popover:popover4 @click="handleAddOpen" class="addContent">添加</el-button>
                 </div>
             </div>
             <div style="width:1100px;float:left;">
@@ -130,7 +142,7 @@
                     <el-form ref="form" :model="editForm" label-width="100px">
                         <el-form-item label="课程负责人">
                             <el-col :span="11">
-                                <el-input v-model="editForm.chargePerson" clearable />
+                                <el-input v-model="editForm.chargePerson" :disabled="true"/>
                             </el-col>
                         </el-form-item>
                         <el-form-item label="所在院系">
@@ -138,18 +150,19 @@
                                 <el-input v-model="editForm.department" clearable />
                             </el-col>
                         </el-form-item>
-                        <el-form-item label="禁用标识">
-                            <el-switch v-model="editForm.isUse" />
-                        </el-form-item>
                         <el-form-item label="授权作业类型">
                             <el-col :span="11">
                                 <el-input v-model="editForm.authType" clearable />
                             </el-col>
                         </el-form-item>
+                        <el-form-item label="禁用标识">
+                            <el-switch v-model="editForm.isUse" />
+                        </el-form-item>
                         <h3>截至到 2018-03-10 08:09:19 计算资源统计</h3>
                         <el-table
                             :data="tableData1"
                             border
+                            show-summary
                             style="width: 100%">
                             <el-table-column
                                 prop="monthlyTotal"
@@ -333,23 +346,30 @@
                     }
                 }
             },
-            async handleAdd(){
-                try{
-                    let resData = await axios.post('',{
-                        rule: this.addForm
-                    });
-                    if(resData.data.status === 1){
-                        this.$message({
-                            type: 'success',
-                            message: resData.data.message
-                        });
-                        window.location.reload()
-                    }else {
-                        this.$message.error(resData.data.message);
-                    }
-                }catch (err){
-                    this.$message.error(`${err}`);
+            async handleAddOpen(){
+                let resDataUser = await axios.get('/api/user/onlyAll');
+                if(resDataUser.data.status === 1){
+                    this.users = resDataUser.data.users;
+                }else {
+                    this.$message.error('从服务端获取信息失败')
                 }
+            },
+            async handleAdd(){
+                // 之后要加上手动验证逻辑
+                let resData = await axios.post('', {
+                    device: this.addForm
+                });
+                if( resData.data.status === 1){
+                    this.$message({
+                        message: resData.data.message,
+                        type: 'success'
+                    });
+                    window.location.reload()
+                }else {
+                    this.$message.error(resData.data.message)
+                }
+            },
+            handleAddCancel(){
                 this.addFormVisible = false
             },
             async handleEdit(row){
@@ -414,11 +434,49 @@
             },
             handleEditCanacel(){
                 this.editFormVisible = false
-            },           
+            },  
+            getSummaries(param) {
+                const { columns, data } = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = '';
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                        sums[index] += '';
+                    } else {
+                        sums[index] = '';
+                    }
+                });
+                return sums;
+            }         
         },
         data() {
             return {
                 currentPage1: 1,
+                itemCounts:1,
+                addForm: {
+                    user: '',
+                    department: '',
+                    timeLimit:'',
+                    isUse: '',
+                },
+                users: [
+                    {
+                        key: '1-用户名',
+                        value: '1'
+                    },
+                ],
                 tableData: [{
                     id: '1',
                     chargePerson: '魏宝仁',
@@ -429,7 +487,6 @@
                     amountUse:'880.5',
                     maxNumber:'1400',
                     useRatio:'18.20%',
-                    operation:'',
                 },
                 {
                     id: '2',
@@ -441,7 +498,6 @@
                     amountUse:'880.5',
                     maxNumber:'1400',
                     useRatio:'18.20%',
-                    operation:'',
                 }
                 ],
                 editForm: {
@@ -454,35 +510,35 @@
                 tableData1: [{
                     monthlyTotal: 'Jan 2018',
                     homeworkNum: '97',
-                    useTime: '996591.67(0.00)',
+                    useTime: '996591.67',
                     systemPercent:'21.48 %',
                     averNum:'55.00',
                     averWaitTime:'9.52'
                     }, {
                     monthlyTotal: 'Feb 2018',
                     homeworkNum: '92',
-                    useTime: '210116.11(0.00)',
+                    useTime: '210116.11',
                     systemPercent:'13.53 %',
                     averNum:'46.18',
                     averWaitTime:'2.11'
                     }, {
                     monthlyTotal: 'Mar 2018',
                     homeworkNum: '8',
-                    useTime: '923.58(0.00)',
+                    useTime: '923.58',
                     systemPercent:'0.14 %',
                     averNum:'30.25',
                     averWaitTime:'1.55'
                     },
-                    {
-                    monthlyTotal: '年度合计',
-                    homeworkNum: '197',
-                    useTime: '1207631.36(0.00)',
-                    systemPercent:'',
-                    averNum:'',
-                    averWaitTime:''
-                    }
+                    // {
+                    // monthlyTotal: '年度合计',
+                    // homeworkNum: '197',
+                    // useTime: '1207631.36(0.00)',
+                    // systemPercent:'',
+                    // averNum:'',
+                    // averWaitTime:''
+                    // }
                 ],
-                
+                addFormVisible:false,            
                 editFormVisible: false,
             };
         },

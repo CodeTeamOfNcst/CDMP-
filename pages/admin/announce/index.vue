@@ -149,13 +149,14 @@
     }
     .textarea{
         height: 350px;
-        /* white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;  */
     }
     .announceCont{
         width: 100%;
         margin-top: 5px;
+    }
+    tr{
+        height:20px;
+        overflow: hidden;
     }
     th,td{
         text-align: center;
@@ -201,7 +202,6 @@
         width: 100%;
         height:50px;
     }
-    
 </style>
 
 <script>
