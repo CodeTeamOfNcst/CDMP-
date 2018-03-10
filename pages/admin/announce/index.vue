@@ -149,6 +149,9 @@
     }
     .textarea{
         height: 350px;
+        /* white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;  */
     }
     .announceCont{
         width: 100%;
@@ -198,6 +201,7 @@
         width: 100%;
         height:50px;
     }
+    
 </style>
 
 <script>
