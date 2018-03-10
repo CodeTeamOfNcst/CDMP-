@@ -4,20 +4,22 @@
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-middle">
-                    <el-col :span="16"><div class="grid-content bg-purple">
-                        <div class="orderbefore"></div>
-                        <span class="order"> 
-                            <i class="el-icon-d-arrow-right"></i> 系统使用说明
-                        </span>
-                    </div>
-                        <el-col :span="20" :offset="2">
-                            <div class="video grid-content bg-purple">
-                                <video id="my_video_1" class="video-js vjs-default-skin" width="600px" height="300px" controls
-                                       data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
-                                    <source src="/api/video/getStream" type='video/mp4' />
-                                </video>
+                    <el-col :span="16">
+                        <div class="grid-content bg-purple">
+                            <div class="orderbefore"></div>
+                            <span class="order"> 
+                                <i class="el-icon-d-arrow-right"></i> 通知公告
+                                <!-- <span class="noticemore">更多</span> -->
+                            </span>
+                            <div class="indnotice">
+                                
+                                <div v-for="rule in rulesDetail">
+                                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a :href='"/notice/" + rule.id'>{{ rule.title }} 发布时间：{{ rule.publishDate }} </a></div></el-col>
+                                    </div>
                             </div>
-                        </el-col>
+                        </div>
+                         
+                         
                     </el-col>
                     <el-col :span="8">
                         <div class="grid-content bg-purple">
@@ -100,7 +102,6 @@
                         <el-row>
                             <el-col :span="16">
                                 <div class="orderbefore"></div>
-
                                 <span class="order"> <i class="el-icon-d-arrow-right"></i> 仪器展示</span>
                             </el-col>
                         <el-col :span="8">
@@ -131,14 +132,14 @@
     .el-carousel__item:nth-child(2n) {
         width:auto;
         height:auto;
-        margin-left: 110px;
+        margin-left: 170px;
         background-color: #99a9bf;
     }
 
     .el-carousel__item:nth-child(2n+1) {
         width:auto;
         height:auto;
-        margin-left: 110px;
+        margin-left: 170px;
         background-color: #d3dce6;
     }
 
@@ -233,6 +234,10 @@
     .welcome{
         margin:20px 0 0 5%;
     }
+    .indnotice{
+        width:400px;
+        height:300px;
+    }
 
 </style>
 <script>
@@ -256,7 +261,11 @@
                 animateUserName: '',
                 intervalId: 0,
                 user_messages:[],
-                img_key: null
+                img_key: null,
+                data:'学校关于放假期间仪器归还问题（2018.01.15）',
+                ruleCount: null,
+                rulesDetail: null,
+               
             }
         },
         methods: {
@@ -348,7 +357,20 @@
                 devices: resData.data.Devices,
                 deviceTypes: resData.data.DeviceTypes,
             }
+            
         },
+    //     async asyncData(context){
+    //     let resData = await axios.get('api/rule/getAll')
+    //     if(resData.data.status === 1)
+    //         return {
+    //             count: resData.data.counts,
+    //             rulesDetail: resData.data.rulesDetail
+    //         }
+    // },
+     
+    mounted(){
+        this.ruleCount = this.count;
+    },
         head() {
             return {
                 title: 'CDMP 设备预约平台'
