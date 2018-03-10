@@ -58,7 +58,7 @@
                 <el-table
                         :data="tableData"
                         border
-                        style="width: 70%;">
+                        style="width: 100%;">
                     <el-table-column
                             prop="id"
                             label="id"
@@ -115,31 +115,33 @@
                     </el-table-column>
                 </el-table>
             </div>
-            <!-- <el-row>
-                <el-col :span="16">
-                    <div class="grid-content bg-purple-dark">
-                        <el-row>
-                            <el-col :span="24">
-                                <div class="resName">
-                                    <p>云计算资源统计</p>
-                                </div>
-                            </el-col>
-                        </el-row>
-                        <el-row>
-                            <el-col :span="24">
-                                <div class="resContent">
-                                    <p>2018-01-01 00:00:00 至 2018-03-08 17:09:41 总共运行了 1601.16 小时</P>
-                                    <p>目前投入运行的CPU核数：7524</p>
-                                    <p>理论计算资源(扣除系统维护和假期停机时间 0 天)：12047127.84 CPU核小时</p>
-                                    <p>用户计算资源总共使用了：6634752.43 CPU核小时，中心机群实际使用效率：55.07%</p>
-                                    <p>目前用户总共占用了：16.17 TB的存储空间</p>
-                                </div>
-                            </el-col>
-                        </el-row>
-                    </div>
-                </el-col>
-            </el-row> -->
-        
+            <div class="resStatis">
+                <el-row>
+                    <el-col :span="24">
+                        <div class="grid-content bg-purple-dark">
+                            <el-row>
+                                <el-col :span="24">
+                                    <div class="resName" >
+                                        <p>云计算资源统计</p>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                            <el-row>
+                                <el-col :span="24">
+                                    <div class="resContent">
+                                        <p>2018-01-01 00:00:00 至 2018-03-08 17:09:41 总共运行了 1601.16 小时</P>
+                                        <p>目前投入运行的CPU核数：7524</p>
+                                        <p>理论计算资源(扣除系统维护和假期停机时间 0 天)：12047127.84 CPU核小时</p>
+                                        <p>用户计算资源总共使用了：6634752.43 CPU核小时</p>
+                                        <p>中心机群实际使用效率：55.07%</p>
+                                        <p>目前用户总共占用了：16.17 TB的存储空间</p>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
         </div>
     </div>
 </template>
@@ -183,11 +185,18 @@
         border-radius: 4px;
     }
     .bg-purple-dark {
-        /* background-color: #DCDCDC; */
-        border:1px solid #ECECEC;
+        /* border:1px solid #ECECEC; */
     }
     .grid-content {
-        min-height: 150px;
+        min-height: 200px;
+    }
+    .el-table {
+        font-size: 15px;
+        color: gray;
+    }
+    .table{
+        width: 1100px;
+        float: left;
     }
     .resName{
         height:30px;
@@ -197,18 +206,26 @@
         font-weight: 700;
         font-size: 1.2em;
     }
+    .resStatis{
+        width:22%;
+        float:right;
+        margin-right:5%;
+        color:gray;
+        font-family: 幼圆;
+        line-height: 150%;
+        background: #BDE4F4;
+        /* text-shadow: 5px 5px 5px gray; */
+    }
+    .resName{
+        text-align:center;
+    }
     .resContent{
-        width: 98%;
-        height: 120px;
+        width: 98%;  
+        height: 200px;
         float: right;
     }
-    .el-table {
-        font-size: 15px;
-        color: gray;
-    }
-    table{
-        max-width: 1500px;
-    }
+    
+    
 </style>
 
 <script>
