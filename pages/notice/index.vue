@@ -3,6 +3,7 @@
         <div class="headerName">
             <div class="leftSty"></div>
             <span class="bullCont">通知公告</span>
+            
         </div>
         <el-row class="headerline"></el-row>
         <div class="contentList">
