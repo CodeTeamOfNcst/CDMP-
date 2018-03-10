@@ -12,8 +12,8 @@
                 <el-col :span="3"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/notice">通知公告</nuxt-link></div></el-col>
                 <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/usedirection">平台介绍及使用 </nuxt-link></div></el-col>
                 <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/personal">个人中心</nuxt-link></div></el-col>
-                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/personal">下载中心</nuxt-link></div></el-col>
-                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/personal">联系我们</nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/download">下载中心</nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/contact">联系我们</nuxt-link></div></el-col>
 
             </el-row>
             <!--<nuxt-link class="button page" to="/">首页</nuxt-link>-->
