@@ -302,7 +302,6 @@
                 return item.key.indexOf(query) > -1;
             },
             handleAddOpen() {
-
             },
             async handleAdd(){
                 if( this.addForm.selected_user.length !== 0){

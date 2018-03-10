@@ -54,6 +54,7 @@
         height:auto;
         overflow: hidden;
         background: #44679F;
+        /* background: black; */
     }
     .nuxt-link-exact-active{
         color: #3498db;
@@ -75,6 +76,7 @@
         height:60px;
         line-height: 60px;
         background:#44679F;
+        /* background: black; */
     }
     .userLogout p{
         padding-left: 20px;

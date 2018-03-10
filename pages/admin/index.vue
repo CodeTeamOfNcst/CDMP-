@@ -176,7 +176,7 @@
                     <el-form-item label="是否能被预约"
                                   :label-width="editFormLabelWidth"
                                   active-text="可预约"
-                                  inactive-text="不可预约">
+                                  inactive-text="不可预约"
                     >
                         <el-switch v-model="editForm.canApply"/>
                     </el-form-item>
@@ -193,7 +193,6 @@
                     <el-button type="primary" @click="handleSubmitEdit">提 交</el-button>
                 </div>
             </el-dialog>
-
             <div class="page">
                 <el-pagination
                         @current-change="handleCurrentChange"

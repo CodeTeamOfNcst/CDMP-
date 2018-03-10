@@ -54,66 +54,139 @@
                     <el-button v-popover:popover4 class="addContent">添加</el-button>
                 </div>
             </div>
-            <div class="table">
-                <el-table
-                        :data="tableData"
-                        border
-                        style="width: 100%;">
-                    <el-table-column
-                            prop="id"
-                            label="id"
-                            width="60">
-                    </el-table-column>
-                    <el-table-column
-                            prop="chargePerson"
-                            label="课题负责人"
-                            width="110">
-                    </el-table-column>
-                    <el-table-column
-                            prop="department"
-                            label="所在院系"
-                            width="">
-                    </el-table-column>
-                    <el-table-column
-                            prop="timeLimit"
-                            label="机时额度"
-                            width="110">
-                    </el-table-column>
-                    <el-table-column
-                            prop="restTime"
-                            label="剩余机时"
-                            width="110">
-                    </el-table-column>
-                    <el-table-column
-                            prop="amountLimit"
-                            label="存储额度"
-                            width="110">
-                    </el-table-column>
-                    <el-table-column
-                            prop="amountUse"
-                            label="	存储使用"
-                            width="110">
-                    </el-table-column>
-                    <el-table-column
-                            prop="maxNumber"
-                            label="最大核数"
-                            width="110">
-                    </el-table-column>
-                    <el-table-column
-                            prop="useRatio"
-                            label="使用占比"
-                            width="110">
-                    </el-table-column>
-                    <el-table-column
-                            prop="operation"
-                            label="操作"
-                            width="100">
-                        <template slot-scope="scope">
-                            <el-button type="text" @click="handleEdit(scope.row)">查询</el-button>
-                            <!-- <el-button type="text" @click="forbidRule(scope.row)" style="margin-left: 5px;">禁用</el-button> -->
-                        </template>
-                    </el-table-column>
-                </el-table>
+            <div style="width:1100px;float:left;">
+                <div class="table">
+                    <el-table
+                            :data="tableData"
+                            border
+                            style="width: 100%;">
+                        <el-table-column
+                                prop="id"
+                                label="id"
+                                width="60">
+                        </el-table-column>
+                        <el-table-column
+                                prop="chargePerson"
+                                label="课题负责人"
+                                width="110">
+                        </el-table-column>
+                        <el-table-column
+                                prop="department"
+                                label="所在院系"
+                                width="">
+                        </el-table-column>
+                        <el-table-column
+                                prop="timeLimit"
+                                label="机时额度"
+                                width="110">
+                        </el-table-column>
+                        <el-table-column
+                                prop="restTime"
+                                label="剩余机时"
+                                width="110">
+                        </el-table-column>
+                        <el-table-column
+                                prop="amountLimit"
+                                label="存储额度"
+                                width="110">
+                        </el-table-column>
+                        <el-table-column
+                                prop="amountUse"
+                                label="	存储使用"
+                                width="110">
+                        </el-table-column>
+                        <el-table-column
+                                prop="maxNumber"
+                                label="最大核数"
+                                width="110">
+                        </el-table-column>
+                        <el-table-column
+                                prop="useRatio"
+                                label="使用占比"
+                                width="110">
+                        </el-table-column>
+                        <el-table-column
+                                prop="operation"
+                                label="操作"
+                                width="100">
+                            <template slot-scope="scope">
+                                <el-button type="text" @click="handleEdit(scope.row)">查询</el-button>
+                                <el-button type="text" @click="forbidRule(scope.row)" style="margin-left: 5px;">禁用</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+                <div class="page">
+                    <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page.sync="currentPage1"
+                        :page-size="100"
+                        layout="total, prev, pager, next"
+                        :total="1000">
+                    </el-pagination>
+                </div>
+                <el-dialog title="目前用户计算资源" :visible.sync="editFormVisible">
+                    <el-form ref="form" :model="editForm" label-width="100px">
+                        <el-form-item label="课程负责人">
+                            <el-col :span="11">
+                                <el-input v-model="editForm.chargePerson" clearable />
+                            </el-col>
+                        </el-form-item>
+                        <el-form-item label="所在院系">
+                            <el-col :span="11">
+                                <el-input v-model="editForm.department" clearable />
+                            </el-col>
+                        </el-form-item>
+                        <el-form-item label="禁用标识">
+                            <el-switch v-model="editForm.isUse" />
+                        </el-form-item>
+                        <el-form-item label="授权作业类型">
+                            <el-col :span="11">
+                                <el-input v-model="editForm.authType" clearable />
+                            </el-col>
+                        </el-form-item>
+                        <h3>截至到 2018-03-10 08:09:19 计算资源统计</h3>
+                        <el-table
+                            :data="tableData1"
+                            border
+                            style="width: 100%">
+                            <el-table-column
+                                prop="monthlyTotal"
+                                label="月度合计"
+                                width="90">
+                            </el-table-column>
+                            <el-table-column
+                                prop="homeworkNum"
+                                label="作业数"
+                                width="70">
+                            </el-table-column>
+                            <el-table-column
+                                prop="useTime"
+                                label="使用机时(核小时)">
+                            </el-table-column>
+                            <el-table-column
+                                prop="systemPercent"
+                                label="占系统百分比"
+                                width="120">
+                            </el-table-column>
+                            <el-table-column
+                                prop="averNum"
+                                label="作业平均核数"
+                                width="120">
+                            </el-table-column>
+                            <el-table-column
+                                prop="averWaitTime"
+                                label="平均等待时间(小时)"
+                                width="170">
+                            </el-table-column>
+                        </el-table>
+                    </el-form>
+                    <div slot="footer" class="dialog-footer">
+                        <el-button @click="handleEditSubmit" type="primary">提 交</el-button>
+                        <el-button  @click="handleEditCanacel">取 消</el-button>
+                    </div>
+                </el-dialog>
             </div>
             <div class="resStatis">
                 <el-row>
@@ -184,9 +257,6 @@
     .el-col {
         border-radius: 4px;
     }
-    .bg-purple-dark {
-        /* border:1px solid #ECECEC; */
-    }
     .grid-content {
         min-height: 200px;
     }
@@ -196,32 +266,38 @@
     }
     .table{
         width: 1100px;
+        min-height: 600px;
+        /* background: gray; */
         float: left;
     }
-    .resName{
-        height:30px;
+    .page{
         width: 100%;
-    }
-    .resName p{
-        font-weight: 700;
-        font-size: 1.2em;
+        height:50px;
+        float: left;
     }
     .resStatis{
         width:22%;
+        min-width: 246px;
         float:right;
         margin-right:5%;
         color:gray;
         font-family: 幼圆;
         line-height: 150%;
-        background: #BDE4F4;
-        /* text-shadow: 5px 5px 5px gray; */
+        background: #E9E9E5;
+        box-shadow: 1px 1px 6px gray;
     }
     .resName{
+        height:30px;
+        width: 100%;
         text-align:center;
     }
+    .resName p{
+        font-weight: 700;
+        font-size: 1.2em;
+    }
     .resContent{
-        width: 98%;  
-        height: 200px;
+        width: 100%;  
+        min-height: 200px;
         float: right;
     }
     
@@ -237,11 +313,17 @@
         },
         layout: 'admina',
         methods: {
+            handleSizeChange(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange(val) {
+                console.log(`当前页: ${val}`);
+            },
             async handleSearch(){
                 if(! this.searchInput){
                     window.location.reload()
                 }else{
-                    let resData = await axios.post('/api/rule/search',{
+                    let resData = await axios.post('',{
                         search: this.searchInput
                     })
                     if(resData.data.status === 1){
@@ -253,7 +335,7 @@
             },
             async handleAdd(){
                 try{
-                    let resData = await axios.post('/api/rule/add',{
+                    let resData = await axios.post('',{
                         rule: this.addForm
                     });
                     if(resData.data.status === 1){
@@ -268,12 +350,11 @@
                 }catch (err){
                     this.$message.error(`${err}`);
                 }
-
                 this.addFormVisible = false
             },
             async handleEdit(row){
                 try{
-                    let resData = await axios.post('/api/rule/getById',{
+                    let resData = await axios.post('',{
                         id: row.id
                     });
                     if(resData.data.status === 1){
@@ -286,10 +367,58 @@
                 }
                 this.editFormVisible = true
             },
-            
+            async forbidRule(row) {
+                try{
+                    await this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    });
+                    let resData = await axios.post('', {
+                        id: row.id
+                    });
+                    if(resData.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: '成功禁用'
+                        });
+                        window.location.reload()
+                    }else {
+                        this.$message.error(resData.data.message);
+                    }
+                }catch (err){
+                    this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                }
+            },
+            async handleEditSubmit(){
+                try{
+                    let resData = await axios.post('',{
+                        rule: this.editForm
+                    })
+                    if(resData.data.status === 1){
+                        this.$message({
+                            type: 'success',
+                            message: resData.data.message
+                        });
+                        window.location.reload()
+                    }else {
+                        this.$message.error(resData.data.message);
+                    }
+                }catch (err){
+                    this.$message.error(`异常 由于 ${err}`);
+                }
+                this.editFormVisible = false
+            },
+            handleEditCanacel(){
+                this.editFormVisible = false
+            },           
         },
         data() {
             return {
+                currentPage1: 1,
                 tableData: [{
                     id: '1',
                     chargePerson: '魏宝仁',
@@ -315,13 +444,52 @@
                     operation:'',
                 }
                 ],
+                editForm: {
+                    id:'',
+                    department: '',
+                    chargePerson: '',
+                    authType:'',
+                    isUse: '',
+                },
+                tableData1: [{
+                    monthlyTotal: 'Jan 2018',
+                    homeworkNum: '97',
+                    useTime: '996591.67(0.00)',
+                    systemPercent:'21.48 %',
+                    averNum:'55.00',
+                    averWaitTime:'9.52'
+                    }, {
+                    monthlyTotal: 'Feb 2018',
+                    homeworkNum: '92',
+                    useTime: '210116.11(0.00)',
+                    systemPercent:'13.53 %',
+                    averNum:'46.18',
+                    averWaitTime:'2.11'
+                    }, {
+                    monthlyTotal: 'Mar 2018',
+                    homeworkNum: '8',
+                    useTime: '923.58(0.00)',
+                    systemPercent:'0.14 %',
+                    averNum:'30.25',
+                    averWaitTime:'1.55'
+                    },
+                    {
+                    monthlyTotal: '年度合计',
+                    homeworkNum: '197',
+                    useTime: '1207631.36(0.00)',
+                    systemPercent:'',
+                    averNum:'',
+                    averWaitTime:''
+                    }
+                ],
+                
+                editFormVisible: false,
             };
         },
-
         head() {
             return {
                 title: 'CDMP - 云计算资源管理'
             }
-        }
+        },
     }
 </script>
