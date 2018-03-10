@@ -81,7 +81,12 @@
                                                             <el-input class="input1" v-model="repeat_password" auto-complete="off" type="password"/>
                                                         </el-form-item>
                                                         <el-form-item>
-                                                            <el-button @click="handleUserRegist" plain>注册</el-button>
+                                                            <el-row>
+                                                                <el-col :span="6" :offset="6">
+                                                                    <el-button @click="handleUserRegist" plain>注册</el-button>
+                                                                </el-col>   
+                                                            </el-row>
+                                                            
                                                         </el-form-item>
                                                     </el-form>
                                                 </el-tab-pane>
