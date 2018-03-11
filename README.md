@@ -25,11 +25,25 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 ## 项目截图 
 
+1.首页
 
+![首页](./Z_ProjectImgs/首页.png)
 
+2.设备列表
 
+![设备列表](./Z_ProjectImgs/接设备列表.png)
 
+3.设备详情
 
+![设备详情](./Z_ProjectImgs/设备详情页.png)
+
+4.预约管理
+
+![预约管理](./Z_ProjectImgs/预约管理.png)
+
+5设备管理
+
+![设备管理](./Z_ProjectImgs/后台设备.png)
 
 ## 部署 <img src="https://img.shields.io/project/deploy-v1.0.0-blue.svg"/>
 
@@ -107,7 +121,7 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
 ​			yarn install && yarn run dev
 
-6、部署环境（项目部署仍属于[测试阶段](http://chrisprosise.top/)，不能保证随时可以访问）
+6、部署环境（项目部署仍属于[测试阶段](http://120.77.87.244)，不能保证随时可以访问）
 
 ​		(1)安装 pm2
 
@@ -141,7 +155,6 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 
    ​	yarn run test
 
-2. 压力测试
 
 ## 功能完成情况 <img src="https://img.shields.io/badge/complete-v1.0.0-origin.svg"/>
 
@@ -162,8 +175,14 @@ github: https://github.com/CodeTeamOfNcst/CDMP-
 3. vuex（用于存储从nuxt处理过的req中提取的cookie，此处和官网有出入）
 4. Vue（相当好的一个框架）
 
-## 团队 <img src="https://img.shields.io/oneself/my-ff69b4.svg"/>
+## 团队 
+@ github[Code Team of NCST](https://github.com/CodeTeamOfNcst/)
+@ github[We Make Bug](https://github.com/wemakebug)
 
-404 naote Found
+如果你觉得此项目对你有帮助，不妨留个 star (! ^_^ !)
 
-## 
+##存在的bug
+1. ~~路由鉴权失败(nuxt 与 koa 结合的 后端渲染 req 对象 为 Http.request 而不是koa的context.request ?)~~ 已经解决 2018-2-9
+2. ~~cookie 设置失败（ 暂时未找到原因 ）~~ 已经解决 2018-2-9
+3. 线上环境不是最新版本
+4. 最新版本的 GraphiQL 暂未构建完毕

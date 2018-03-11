@@ -2,14 +2,19 @@
     <div>
         <div class="header_img">
             <!--<img src="../assets/img/r_bg.jpg"/>-->
-            <h1>实验设备预约管理平台</h1>
+            <h1>云计算及设备资源管理平台</h1>
         </div>
         <div class="headerlist">
             <el-row>
-                <el-col :span="6"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/">首页</nuxt-link></div></el-col>
-                <el-col :span="6"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/device">仪器列表</nuxt-link></div></el-col>
-                <el-col :span="6"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/notice">通知公告</nuxt-link></div></el-col>
-                <el-col :span="6"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/personal">个人中心</nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/">首页</nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/clcresources">云计算资源</nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/device">仪器列表</nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple"><nuxt-link class="button page" to="/notice">通知公告</nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/usedirection">平台介绍及使用 </nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/personal">个人中心</nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/download">下载中心</nuxt-link></div></el-col>
+                <el-col :span="3"><div class="headerEle grid-content bg-purple-light"><nuxt-link class="button page" to="/contact">联系我们</nuxt-link></div></el-col>
+
             </el-row>
             <!--<nuxt-link class="button page" to="/">首页</nuxt-link>-->
             <!--<nuxt-link class="button page" to="/device">仪器列表</nuxt-link>-->

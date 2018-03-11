@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="header_img">
-            <h1>实验设备预约管理平台后台</h1>
+            <h1>云计算资源及设备预约管理平台后台</h1>
             <div class="grid-content bg-purple-dark userLogout">
                 <div class="logout">
                     <el-button class="button_logout" @click="handleLogOugt">退出</el-button>
@@ -36,6 +36,11 @@
                     <div class="grid-content bg-purple-dark"><i class="el-icon-message icon"></i>消息管理</div>
                 </nuxt-link>
             </el-row>
+            <el-row class="nav_content">
+                <nuxt-link to="/admin/resources">
+                    <div class="grid-content bg-purple-dark"><i class="el-icon-service icon"></i>云计算资源管理</div>
+                </nuxt-link>
+            </el-row>
         </div>
     </div>
 </template>
@@ -49,6 +54,7 @@
         height:auto;
         overflow: hidden;
         background: #44679F;
+        /* background: black; */
     }
     .nuxt-link-exact-active{
         color: #3498db;
@@ -70,6 +76,7 @@
         height:60px;
         line-height: 60px;
         background:#44679F;
+        /* background: black; */
     }
     .userLogout p{
         padding-left: 20px;

@@ -6,6 +6,9 @@ html, body
   height: 100vh;
   margin: 0;
 }
+.el-form-item {
+  margin-bottom: 5px!important;
+}
 .el-dialog{
   width: 40%!important;
   min-width: 400px;
@@ -22,7 +25,6 @@ html, body
   float: left;
   z-index: 9999;
 }
-
 td,th{
   padding: 0px 0!important;
   font-family: 幼圆;

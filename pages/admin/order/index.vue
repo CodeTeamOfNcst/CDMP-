@@ -266,10 +266,12 @@
 </style>
 
 <script>
-    import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
+    import { Button } from 'element-ui'
     import axios from 'axios'
     export default {
-        components: {ElButton},
+        components: {
+            Button
+        },
         layout: 'admina',
         methods: {
             async handleSearch(){

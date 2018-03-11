@@ -14,6 +14,7 @@ const bodyParser = require('koa-bodyparser')
 
 const database = require('./dbconfig/dbinit')
 const router = require('./router')()
+const jwt = require('koa-jwt')
 
 async function start() {
     const app = new Koa()

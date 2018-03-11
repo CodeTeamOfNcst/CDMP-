@@ -15,7 +15,8 @@ import {
     logIn,
     checkLogIn,
     logOut,
-    regist
+    regist,
+    getUser
 } from './service/auth'
 import {
     getAllDevice,
@@ -90,6 +91,7 @@ module.exports = () => {
     router.post('/auth/regist', regist)
     router.get('/auth/checkLogin', checkLogIn);
     router.get('/auth/logOut', logOut);
+    router.get('/auth/user', getUser)
 
 
     // 设备管理相关

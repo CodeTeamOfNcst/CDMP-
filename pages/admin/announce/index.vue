@@ -154,6 +154,10 @@
         width: 100%;
         margin-top: 5px;
     }
+    tr{
+        height:20px;
+        overflow: hidden;
+    }
     th,td{
         text-align: center;
     }
@@ -203,7 +207,6 @@
 <script>
     import ElButton from "../../../node_modules/element-ui/packages/button/src/button.vue";
     import axios from 'axios'
-
     export default {
         components: { ElButton },
         layout: 'admina',
@@ -239,7 +242,6 @@
                 }catch (err){
                     this.$message.error(`${err}`);
                 }
-
                 this.addFormVisible = false
             },
             handleAddCancel(){
@@ -324,7 +326,7 @@
         data() {
             return {
                 isShow: false,
-                currentPage: 4,
+                currentPage: 1,
                 itemCounts: null,
                 centerDialogVisible: false,
                 addForm: {
@@ -381,6 +383,5 @@
             this.tableData = this.rules;
             this.itemCounts = this.counts;
         }
-
     }
 </script>

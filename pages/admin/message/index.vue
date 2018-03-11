@@ -70,6 +70,7 @@
             <div class="leftSty"></div>
             <span class="bullCont">消息管理</span>
         </div>
+        <el-row class="headerline"/>
         <div class="announceCont">
             <div class="oneline">
                 <div class="demo-input-suffix search">
@@ -301,7 +302,6 @@
                 return item.key.indexOf(query) > -1;
             },
             handleAddOpen() {
-
             },
             async handleAdd(){
                 if( this.addForm.selected_user.length !== 0){

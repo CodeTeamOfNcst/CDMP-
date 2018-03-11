@@ -12,7 +12,7 @@ exports.addDevice = async (ctx, next) => {
     let postData = ctx.request.body;
     console.log(postData);
     try {
-        if(postData.name){throw("设备名称未定义")}
+        if(!postData.name){throw("设备名称未定义")}
         let newDevice = await Device.create({
             name: postData.name,
             description: postData.describe,

@@ -8,9 +8,10 @@ import { Op } from 'sequelize'
 const ItemPerPage = 10;
 exports.addMessage = async (ctx, next) => {
     let message = ctx.request.body.message;
+    console.log(message)
     try {
-        if(!message.selected_user.lenght && 
-            !(message.selected_user.lenght === 0)) throw("未选择用户")
+        if((!message.selected_user.lenght) && 
+            (message.selected_user.lenght === 0)) throw("未选择用户")
         for (let index in message.selected_user) {
             let newMessage = await Message.create({
                 publishDate: message.publishDate,

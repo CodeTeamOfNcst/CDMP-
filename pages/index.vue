@@ -4,20 +4,22 @@
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-middle">
-                    <el-col :span="16"><div class="grid-content bg-purple">
-                        <div class="orderbefore"></div>
-                        <span class="order"> 
-                            <i class="el-icon-d-arrow-right"></i> 系统使用说明
-                        </span>
-                    </div>
-                        <el-col :span="20" :offset="2">
-                            <div class="video grid-content bg-purple">
-                                <video id="my_video_1" class="video-js vjs-default-skin" width="600px" height="300px" controls
-                                       data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
-                                    <source src="/api/video/getStream" type='video/mp4' />
-                                </video>
+                    <el-col :span="16">
+                        <div class="grid-content bg-purple">
+                            <div class="orderbefore"></div>
+                            <span class="order"> 
+                                <i class="el-icon-d-arrow-right"></i> 通知公告
+                                <!-- <span class="noticemore">更多</span> -->
+                            </span>
+                            <div class="indnotice">
+                                
+                                <div v-for="rule in rulesDetail">
+                                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a :href='"/notice/" + rule.id'>{{ rule.title }} 发布时间：{{ rule.publishDate }} </a></div></el-col>
+                                    </div>
                             </div>
-                        </el-col>
+                        </div>
+                         
+                         
                     </el-col>
                     <el-col :span="8">
                         <div class="grid-content bg-purple">
@@ -79,7 +81,12 @@
                                                             <el-input class="input1" v-model="repeat_password" auto-complete="off" type="password"/>
                                                         </el-form-item>
                                                         <el-form-item>
-                                                            <el-button @click="handleUserRegist" plain>注册</el-button>
+                                                            <el-row>
+                                                                <el-col :span="6" :offset="6">
+                                                                    <el-button @click="handleUserRegist" plain>注册</el-button>
+                                                                </el-col>   
+                                                            </el-row>
+                                                            
                                                         </el-form-item>
                                                     </el-form>
                                                 </el-tab-pane>
@@ -100,7 +107,6 @@
                         <el-row>
                             <el-col :span="16">
                                 <div class="orderbefore"></div>
-
                                 <span class="order"> <i class="el-icon-d-arrow-right"></i> 仪器展示</span>
                             </el-col>
                         <el-col :span="8">
@@ -131,14 +137,14 @@
     .el-carousel__item:nth-child(2n) {
         width:auto;
         height:auto;
-        margin-left: 110px;
+        margin-left: 170px;
         background-color: #99a9bf;
     }
 
     .el-carousel__item:nth-child(2n+1) {
         width:auto;
         height:auto;
-        margin-left: 110px;
+        margin-left: 170px;
         background-color: #d3dce6;
     }
 
@@ -233,6 +239,10 @@
     .welcome{
         margin:20px 0 0 5%;
     }
+    .indnotice{
+        width:400px;
+        height:300px;
+    }
 
 </style>
 <script>
@@ -256,7 +266,11 @@
                 animateUserName: '',
                 intervalId: 0,
                 user_messages:[],
-                img_key: null
+                img_key: null,
+                data:'学校关于放假期间仪器归还问题（2018.01.15）',
+                ruleCount: null,
+                rulesDetail: null,
+               
             }
         },
         methods: {
@@ -270,26 +284,20 @@
                 window.location.href = '/device'
             },
             async handleUserLogin(tab, event){  // 处理用户登陆
-                let user_account = this.user_account
-                let user_password = this.user_password
-                if(!user_account && !user_password) 
-                {
-                    this.$message.error("请填写用户名和密码"); 
-                    return
-                };
-                let resData = await axios.post('/api/auth/login', {
-                    account: user_account,
-                    passwd: user_password
-                })
-                if(resData.data.status === 1) {
-                    if(resData.data.user_is_admin){
-                        this.user_is_admin = true;
+                if(!this.user_account || !this.user_password){
+                    this.$message.error("请输入用户名和密码");
+                }else{
+                    let resData =  await this.$auth.login({
+                                    data: {
+                                        account: this.user_account,
+                                        passwd: this.user_password
+                                    }
+                    })
+                    if(this.$auth.state.user.account){
+                        window.location.reload()
+                    }else{
+                        this.$message.error("用户名或密码错误")
                     }
-                    this.login_show = false
-                    this.animateUserName = user_account
-                }else {
-                //登陆失败
-                    this.$message.error(resData.data.message);
                 }
             },
             async handleUserRegist(tab, event){
@@ -317,17 +325,8 @@
                 }
             },
             async handleUserLogOut(){
-                let resData = await axios.get('/api/auth/logOut');
-                if(resData.data.status === 1){
-                    this.$message({
-                        message: resData.data.message,
-                        type: 'success'
-                    });
-                    this.login_show = true
-                    window.location.reload();
-                }else{
-                    this.$message.error(resData.data.message);
-                }
+                let resData = await this.$auth.logout()
+                window.location.reload()
             },
         },
         watch: { //登陆后用户名浮动特效
@@ -346,6 +345,15 @@
             }
         },
         async mounted(){
+            await this.$auth.fetchUser()
+            console.log(this.$auth.state.user)
+            if(this.$auth.state.user){
+                this.login_show = false,
+                this.animateUserName = this.$auth.state.user.login_account;
+                if(this.$auth.state.user.scope.length === 3){
+                    this.user_is_admin = true
+                }
+            }
         },
         async asyncData(context){
             let  resData  = await axios.get(`/api/device/getAll/1`);
@@ -354,7 +362,20 @@
                 devices: resData.data.Devices,
                 deviceTypes: resData.data.DeviceTypes,
             }
+            
         },
+    //     async asyncData(context){
+    //     let resData = await axios.get('api/rule/getAll')
+    //     if(resData.data.status === 1)
+    //         return {
+    //             count: resData.data.counts,
+    //             rulesDetail: resData.data.rulesDetail
+    //         }
+    // },
+     
+    mounted(){
+        this.ruleCount = this.count;
+    },
         head() {
             return {
                 title: 'CDMP 设备预约平台'
