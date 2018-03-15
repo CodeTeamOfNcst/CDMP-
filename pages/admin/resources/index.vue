@@ -29,6 +29,15 @@
                         <el-input v-model="addForm.department" clearable />
                     </el-col>
                 </el-form-item>
+                <el-form-item label="申请起止时间">
+                    <el-date-picker
+                        v-model="value5"
+                        type="datetimerange"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :default-time="['12:00:00']">
+                    </el-date-picker>
+                </el-form-item>
                 <el-form-item label="是否禁用">
                     <el-col :span="18">
                         <el-switch v-model="addForm.isUse"/>
@@ -83,7 +92,7 @@
                                     </el-row>
                                     <el-row>
                                         <el-col :span="24">
-                                            <div class="resContent">
+                                            <div class="resContent"> 
                                                 <p>2018-01-01 00:00:00 至 2018-03-08 17:09:41 总共运行了 1601.16 小时</P>
                                                 <p>目前投入运行的CPU核数：7524</p>
                                                 <p>理论计算资源(扣除系统维护和假期停机时间 0 天)：12047127.84 CPU核小时</p>
@@ -102,7 +111,6 @@
                     <el-button v-popover:popover1>云计算资源统计</el-button>
                 </div>
             </div>
-            <!-- <div style="width:1100px;float:left;"> -->
             <div class="table">
                 <el-table
                         :data="tableData"
@@ -117,6 +125,39 @@
                             prop="chargePerson"
                             label="课题负责人"
                             width="110">
+
+
+                            <!-- //在此处验证表格中的内容如何点击显示二级页面（用于设备预约部分）疑惑点在于数据的提取 -->
+                            <!-- <template slot-scope="scope">
+                                <el-popover trigger="click" placement="top">
+                                    <h3>预约历史记录 </h3>
+                                    <el-table
+                                        :data="tableRecord"
+                                        border
+                                        style="width: 100%">
+                                        <el-table-column
+                                            prop="name"
+                                            label="姓名"
+                                            width="100">
+                                        </el-table-column>
+                                        <el-table-column
+                                            prop="date"
+                                            label="使用日期"
+                                            width="120">
+                                        </el-table-column>
+                                        <el-table-column
+                                            prop="address"
+                                            label="截止日期"
+                                            width="180">
+                                        </el-table-column>
+                                    </el-table>
+                                    <div slot="reference" class="name-wrapper">
+                                        <el-tag size="medium">姓名</el-tag>
+                                    </div>
+                                </el-popover>                         
+                            </template> -->
+
+
                     </el-table-column>
                     <el-table-column
                             prop="department"
@@ -236,33 +277,6 @@
                     <el-button  @click="handleEditCanacel">取 消</el-button>
                 </div>
             </el-dialog>
-            <!-- <div class="resStatis">
-                <el-row>
-                    <el-col :span="24">
-                        <div class="grid-content bg-purple-dark">
-                            <el-row>
-                                <el-col :span="24">
-                                    <div class="resName" >
-                                        <p>云计算资源统计</p>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row>
-                                <el-col :span="24">
-                                    <div class="resContent">
-                                        <p>2018-01-01 00:00:00 至 2018-03-08 17:09:41 总共运行了 1601.16 小时</P>
-                                        <p>目前投入运行的CPU核数：7524</p>
-                                        <p>理论计算资源(扣除系统维护和假期停机时间 0 天)：12047127.84 CPU核小时</p>
-                                        <p>用户计算资源总共使用了：6634752.43 CPU核小时</p>
-                                        <p>中心机群实际使用效率：55.07%</p>
-                                        <p>目前用户总共占用了：16.17 TB的存储空间</p>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div> -->
         </div>
     </div>
 </template>
@@ -506,6 +520,7 @@ z-index: 9999;
         },
         data() {
             return {
+                value5: '',
                 currentPage1: 1,
                 itemCounts:1,
                 addForm: {
@@ -572,15 +587,23 @@ z-index: 9999;
                     averNum:'30.25',
                     averWaitTime:'1.55'
                     },
-                    // {
-                    // monthlyTotal: '年度合计',
-                    // homeworkNum: '197',
-                    // useTime: '1207631.36(0.00)',
-                    // systemPercent:'',
-                    // averNum:'',
-                    // averWaitTime:''
-                    // }
                 ],
+
+                // tableRecord: [{
+                //     date: '2016-05-02',
+                //     name: '王小虎',
+                //     address: '2016-06-05'
+                //     }, {
+                //     date: '2016-06-11',
+                //     name: '王小虎',
+                //     address: '2016-07-12'
+                //     }, {
+                //     date: '2016-08-16',
+                //     name: '王小虎',
+                //     address: '2016-09-25'
+                //     }
+                // ],
+                
                 addFormVisible:false,            
                 editFormVisible: false,
             };
