@@ -21,12 +21,12 @@ module.exports = {
   */
   loading: { color: '#3B8070' },
   /**
-   * auth 
+   * auth
    */
   modules: [
     '@nuxtjs/auth',
-    '@nuxtjs/axios',
- ],
+    '@nuxtjs/axios'
+  ],
   auth: {
     endpoints: {
       login: { url: '/api/auth/login', method: 'post', propertyName: 'user' },
@@ -38,8 +38,8 @@ module.exports = {
       options: {
         path: '/'
       }
-    },  
-    fetchUserOnLogin:false,
+    },
+    fetchUserOnLogin: false,
     watchLoggedIn: true
   },
   /**
@@ -52,4 +52,4 @@ module.exports = {
   ** 添加插件
   */
   plugins: ['~plugins/element-ui', '~plugins/axios']
-};
+}

@@ -232,6 +232,15 @@
                             <el-input v-model="editForm.authType" clearable />
                         </el-col>
                     </el-form-item>
+                    <el-form-item label="申请起止时间">
+                        <el-date-picker
+                            v-model="value6"
+                            type="datetimerange"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期"
+                            :default-time="['12:00:00']">
+                        </el-date-picker>
+                    </el-form-item>
                     <el-form-item label="禁用标识">
                         <el-switch v-model="editForm.isUse" />
                     </el-form-item>
@@ -431,11 +440,15 @@ z-index: 9999;
             },
             async handleEdit(row){
                 try{
-                    let resData = await axios.post('',{
-                        id: row.id
+                    let resData = await axios.post('/api/apply/getById',{
+                        id: row.apply.id
                     });
                     if(resData.data.status === 1){
-                        this.editForm = resData.data.rule
+                        this.editForm.id = resData.data.apply.id;
+                        this.editForm.chargePerson = resData.data.applyUser.name;
+                        this.editForm.isUse= resData.data.apply.isUse;
+                        
+                        this.editFromVisible = true
                     }else {
                         this.$message.error(resData.data.message);
                     }
@@ -521,6 +534,7 @@ z-index: 9999;
         data() {
             return {
                 value5: '',
+                value6:'',
                 currentPage1: 1,
                 itemCounts:1,
                 addForm: {
