@@ -28,7 +28,7 @@
         width: 70%;
         margin-left:15%;
         height: 100px;
-        background: url("~assets/img/bg2.png") no-repeat left 100%;
+        /* background: url("~assets/img/bg2.png") no-repeat left 100%; */
     }
     .header_img h1{
         float: left;

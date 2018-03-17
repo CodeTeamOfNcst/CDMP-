@@ -3,8 +3,8 @@
         
         
 
-  <el-tabs :tab-position="tabPosition" type = "border-card" style="height: 700px;">
-    <el-tab-pane label="平台概况介绍">平台介绍</el-tab-pane>
+  <el-tabs :tab-position="tabPosition" type = "card" style="height: 700px;">
+    <el-tab-pane label="平台概况介绍"></el-tab-pane>
     <el-tab-pane label="平台使用说明">
         <el-row class="video">
             <el-col :span="16">
@@ -15,9 +15,9 @@
                         </span>
                     </div> -->
                     <div class="usvideo">
-                        <el-col :span="20" :offset="8">
+                        <el-col :span="20" :offset="6">
                             <div class="video grid-content bg-purple">
-                                <video id="my_video_1" class="video-js vjs-default-skin" width="600px" height="300px" controls
+                                <video id="my_video_1" class="video-js vjs-default-skin" width="800px" height="500px" controls
                                        data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'>
                                     <source src="/api/video/getStream" type='video/mp4' />
                                 </video>
@@ -38,7 +38,12 @@
         </el-row> -->
 
     </el-tab-pane>
-    <el-tab-pane label="平台使用规范">平台使用规范</el-tab-pane>
+    <el-tab-pane label="平台使用规范"> 
+        <el-row>
+
+        </el-row>
+
+    </el-tab-pane>
     <!-- <el-tab-pane label="仪器资源简介">定时任务补偿</el-tab-pane> -->
   </el-tabs>
     </div>
@@ -58,7 +63,7 @@
     } */
 
  .usvideo{
-     margin-top:100px;
+     margin-top:70px;
  }
 </style>
 <script>

@@ -1,3 +1,11 @@
-<template>
-  <h1>请联系我们</h1>
+ <template>
+  <div class="all">
+  </div>
 </template>
+<style scoped>
+.all{
+  height:720px;
+}
+</style>
+
+
