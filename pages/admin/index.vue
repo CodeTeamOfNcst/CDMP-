@@ -67,9 +67,7 @@
         </div>
         <el-row class="headerline"/>
         <div class="announceCont">
-
             <div class="oneline">
-
                 <div class="demo-input-suffix search">
                     <el-input
                             placeholder="请输入内容"
@@ -111,7 +109,13 @@
                     <el-table-column
                             prop="name"
                             label="设备名称">
-                    </el-table-column>
+
+                            <!-- //设备名称点击后显示设备的使用记录，在云资源页面详细标注 -->
+                        <!-- <template>
+                            <p>{{}}</p>
+                        </template> -->
+                        
+                    </el-table-column>                    
                     <el-table-column
                             prop="type"
                             label="设备类型">

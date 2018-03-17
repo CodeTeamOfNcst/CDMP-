@@ -29,6 +29,15 @@
                         <el-input v-model="addForm.department" clearable />
                     </el-col>
                 </el-form-item>
+                <el-form-item label="申请起止时间">
+                    <el-date-picker
+                        v-model="value5"
+                        type="datetimerange"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        :default-time="['12:00:00']">
+                    </el-date-picker>
+                </el-form-item>
                 <el-form-item label="是否禁用">
                     <el-col :span="18">
                         <el-switch v-model="addForm.isUse"/>
@@ -65,169 +74,218 @@
                 <div class="add">
                     <el-button v-popover:popover4 @click="handleAddOpen" class="addContent">添加</el-button>
                 </div>
+                <el-popover
+                    ref="popover1"
+                    placement="right"
+                    width="600"
+                    trigger="click">
+                    <div>
+                        <el-row>
+                            <el-col :span="24">
+                                <div class="grid-content bg-purple-dark cloudStatis">
+                                    <el-row>
+                                        <el-col :span="24">
+                                            <div class="resName" >
+                                                <p>云计算资源统计</p>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :span="24">
+                                            <div class="resContent"> 
+                                                <p>2018-01-01 00:00:00 至 2018-03-08 17:09:41 总共运行了 1601.16 小时</P>
+                                                <p>目前投入运行的CPU核数：7524</p>
+                                                <p>理论计算资源(扣除系统维护和假期停机时间 0 天)：12047127.84 CPU核小时</p>
+                                                <p>用户计算资源总共使用了：6634752.43 CPU核小时</p>
+                                                <p>中心机群实际使用效率：55.07%</p>
+                                                <p>目前用户总共占用了：16.17 TB的存储空间</p>
+                                            </div>
+                                        </el-col>
+                                    </el-row>
+                                </div>
+                            </el-col>
+                        </el-row>
+                    </div>
+                </el-popover>
+                <div class="resStatis">
+                    <el-button v-popover:popover1>云计算资源统计</el-button>
+                </div>
             </div>
-            <div style="width:1100px;float:left;">
-                <div class="table">
+            <div class="table">
+                <el-table
+                        :data="tableData"
+                        border
+                        style="width: 70%;">
+                    <el-table-column
+                            prop="id"
+                            label="id"
+                            width="60">
+                    </el-table-column>
+                    <el-table-column
+                            prop="chargePerson"
+                            label="课题负责人"
+                            width="110">
+
+
+                            <!-- //在此处验证表格中的内容如何点击显示二级页面（用于设备预约部分）疑惑点在于数据的提取 -->
+                            <!-- <template slot-scope="scope">
+                                <el-popover trigger="click" placement="top">
+                                    <h3>预约历史记录 </h3>
+                                    <el-table
+                                        :data="tableRecord"
+                                        border
+                                        style="width: 100%">
+                                        <el-table-column
+                                            prop="name"
+                                            label="姓名"
+                                            width="100">
+                                        </el-table-column>
+                                        <el-table-column
+                                            prop="date"
+                                            label="使用日期"
+                                            width="120">
+                                        </el-table-column>
+                                        <el-table-column
+                                            prop="address"
+                                            label="截止日期"
+                                            width="180">
+                                        </el-table-column>
+                                    </el-table>
+                                    <div slot="reference" class="name-wrapper">
+                                        <el-tag size="medium">姓名</el-tag>
+                                    </div>
+                                </el-popover>                         
+                            </template> -->
+
+
+                    </el-table-column>
+                    <el-table-column
+                            prop="department"
+                            label="所在院系"
+                            width="">
+                    </el-table-column>
+                    <el-table-column
+                            prop="timeLimit"
+                            label="机时额度"
+                            width="110">
+                    </el-table-column>
+                    <el-table-column
+                            prop="restTime"
+                            label="剩余机时"
+                            width="110">
+                    </el-table-column>
+                    <el-table-column
+                            prop="amountLimit"
+                            label="存储额度"
+                            width="110">
+                    </el-table-column>
+                    <el-table-column
+                            prop="amountUse"
+                            label="	存储使用"
+                            width="110">
+                    </el-table-column>
+                    <el-table-column
+                            prop="maxNumber"
+                            label="最大核数"
+                            width="110">
+                    </el-table-column>
+                    <el-table-column
+                            prop="useRatio"
+                            label="使用占比"
+                            width="110">
+                    </el-table-column>
+                    <el-table-column
+                            prop="operation"
+                            label="操作"
+                            width="100">
+                        <template slot-scope="scope">
+                            <el-button type="text" @click="handleEdit(scope.row)">查询</el-button>
+                            <el-button type="text" @click="forbidRule(scope.row)" style="margin-left: 5px;">禁用</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+            <div class="page">
+                <el-pagination
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    :current-page.sync="currentPage1"
+                    :page-size="100"
+                    layout="total, prev, pager, next"
+                    :total="1000">
+                </el-pagination>
+            </div>
+            <el-dialog title="目前用户计算资源" :visible.sync="editFormVisible">
+                <el-form ref="form" :model="editForm" label-width="100px">
+                    <el-form-item label="课程负责人">
+                        <el-col :span="11">
+                            <el-input v-model="editForm.chargePerson" :disabled="true"/>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="所在院系">
+                        <el-col :span="11">
+                            <el-input v-model="editForm.department" clearable />
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="授权作业类型">
+                        <el-col :span="11">
+                            <el-input v-model="editForm.authType" clearable />
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="申请起止时间">
+                        <el-date-picker
+                            v-model="value6"
+                            type="datetimerange"
+                            start-placeholder="开始日期"
+                            end-placeholder="结束日期"
+                            :default-time="['12:00:00']">
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="禁用标识">
+                        <el-switch v-model="editForm.isUse" />
+                    </el-form-item>
+                    <h3>截至到 2018-03-10 08:09:19 计算资源统计</h3>
                     <el-table
-                            :data="tableData"
-                            border
-                            style="width: 100%;">
+                        :data="tableData1"
+                        border
+                        show-summary
+                        style="width: 100%">
                         <el-table-column
-                                prop="id"
-                                label="id"
-                                width="60">
+                            prop="monthlyTotal"
+                            label="月度合计"
+                            width="90">
                         </el-table-column>
                         <el-table-column
-                                prop="chargePerson"
-                                label="课题负责人"
-                                width="110">
+                            prop="homeworkNum"
+                            label="作业数"
+                            width="70">
                         </el-table-column>
                         <el-table-column
-                                prop="department"
-                                label="所在院系"
-                                width="">
+                            prop="useTime"
+                            label="使用机时(核小时)">
                         </el-table-column>
                         <el-table-column
-                                prop="timeLimit"
-                                label="机时额度"
-                                width="110">
+                            prop="systemPercent"
+                            label="占系统百分比"
+                            width="120">
                         </el-table-column>
                         <el-table-column
-                                prop="restTime"
-                                label="剩余机时"
-                                width="110">
+                            prop="averNum"
+                            label="作业平均核数"
+                            width="120">
                         </el-table-column>
                         <el-table-column
-                                prop="amountLimit"
-                                label="存储额度"
-                                width="110">
-                        </el-table-column>
-                        <el-table-column
-                                prop="amountUse"
-                                label="	存储使用"
-                                width="110">
-                        </el-table-column>
-                        <el-table-column
-                                prop="maxNumber"
-                                label="最大核数"
-                                width="110">
-                        </el-table-column>
-                        <el-table-column
-                                prop="useRatio"
-                                label="使用占比"
-                                width="110">
-                        </el-table-column>
-                        <el-table-column
-                                prop="operation"
-                                label="操作"
-                                width="100">
-                            <template slot-scope="scope">
-                                <el-button type="text" @click="handleEdit(scope.row)">查询</el-button>
-                                <el-button type="text" @click="forbidRule(scope.row)" style="margin-left: 5px;">禁用</el-button>
-                            </template>
+                            prop="averWaitTime"
+                            label="平均等待时间(小时)"
+                            width="170">
                         </el-table-column>
                     </el-table>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="handleEditSubmit" type="primary">提 交</el-button>
+                    <el-button  @click="handleEditCanacel">取 消</el-button>
                 </div>
-                <div class="page">
-                    <el-pagination
-                        @size-change="handleSizeChange"
-                        @current-change="handleCurrentChange"
-                        :current-page.sync="currentPage1"
-                        :page-size="100"
-                        layout="total, prev, pager, next"
-                        :total="1000">
-                    </el-pagination>
-                </div>
-                <el-dialog title="目前用户计算资源" :visible.sync="editFormVisible">
-                    <el-form ref="form" :model="editForm" label-width="100px">
-                        <el-form-item label="课程负责人">
-                            <el-col :span="11">
-                                <el-input v-model="editForm.chargePerson" :disabled="true"/>
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item label="所在院系">
-                            <el-col :span="11">
-                                <el-input v-model="editForm.department" clearable />
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item label="授权作业类型">
-                            <el-col :span="11">
-                                <el-input v-model="editForm.authType" clearable />
-                            </el-col>
-                        </el-form-item>
-                        <el-form-item label="禁用标识">
-                            <el-switch v-model="editForm.isUse" />
-                        </el-form-item>
-                        <h3>截至到 2018-03-10 08:09:19 计算资源统计</h3>
-                        <el-table
-                            :data="tableData1"
-                            border
-                            show-summary
-                            style="width: 100%">
-                            <el-table-column
-                                prop="monthlyTotal"
-                                label="月度合计"
-                                width="90">
-                            </el-table-column>
-                            <el-table-column
-                                prop="homeworkNum"
-                                label="作业数"
-                                width="70">
-                            </el-table-column>
-                            <el-table-column
-                                prop="useTime"
-                                label="使用机时(核小时)">
-                            </el-table-column>
-                            <el-table-column
-                                prop="systemPercent"
-                                label="占系统百分比"
-                                width="120">
-                            </el-table-column>
-                            <el-table-column
-                                prop="averNum"
-                                label="作业平均核数"
-                                width="120">
-                            </el-table-column>
-                            <el-table-column
-                                prop="averWaitTime"
-                                label="平均等待时间(小时)"
-                                width="170">
-                            </el-table-column>
-                        </el-table>
-                    </el-form>
-                    <div slot="footer" class="dialog-footer">
-                        <el-button @click="handleEditSubmit" type="primary">提 交</el-button>
-                        <el-button  @click="handleEditCanacel">取 消</el-button>
-                    </div>
-                </el-dialog>
-            </div>
-            <div class="resStatis">
-                <el-row>
-                    <el-col :span="24">
-                        <div class="grid-content bg-purple-dark">
-                            <el-row>
-                                <el-col :span="24">
-                                    <div class="resName" >
-                                        <p>云计算资源统计</p>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                            <el-row>
-                                <el-col :span="24">
-                                    <div class="resContent">
-                                        <p>2018-01-01 00:00:00 至 2018-03-08 17:09:41 总共运行了 1601.16 小时</P>
-                                        <p>目前投入运行的CPU核数：7524</p>
-                                        <p>理论计算资源(扣除系统维护和假期停机时间 0 天)：12047127.84 CPU核小时</p>
-                                        <p>用户计算资源总共使用了：6634752.43 CPU核小时</p>
-                                        <p>中心机群实际使用效率：55.07%</p>
-                                        <p>目前用户总共占用了：16.17 TB的存储空间</p>
-                                    </div>
-                                </el-col>
-                            </el-row>
-                        </div>
-                    </el-col>
-                </el-row>
-            </div>
+            </el-dialog>
         </div>
     </div>
 </template>
@@ -272,16 +330,18 @@
     }
     .grid-content {
         min-height: 200px;
+        font-family: 幼圆;
+        font-size: 1.1em;
     }
     .el-table {
         font-size: 15px;
         color: gray;
     }
     .table{
-        width: 1100px;
+        width: 100%;
         min-height: 600px;
         /* background: gray; */
-        float: left;
+        /* float: left; */
     }
     .page{
         width: 100%;
@@ -289,7 +349,13 @@
         float: left;
     }
     .resStatis{
-        width:22%;
+        width: 10%;
+margin-left: 5px;
+min-width: 31px;
+height: 40px;
+float: left;
+z-index: 9999;
+        /* width:22%;
         min-width: 246px;
         float:right;
         margin-right:5%;
@@ -297,7 +363,7 @@
         font-family: 幼圆;
         line-height: 150%;
         background: #E9E9E5;
-        box-shadow: 1px 1px 6px gray;
+        box-shadow: 1px 1px 6px gray; */
     }
     .resName{
         height:30px;
@@ -374,11 +440,15 @@
             },
             async handleEdit(row){
                 try{
-                    let resData = await axios.post('',{
-                        id: row.id
+                    let resData = await axios.post('/api/apply/getById',{
+                        id: row.apply.id
                     });
                     if(resData.data.status === 1){
-                        this.editForm = resData.data.rule
+                        this.editForm.id = resData.data.apply.id;
+                        this.editForm.chargePerson = resData.data.applyUser.name;
+                        this.editForm.isUse= resData.data.apply.isUse;
+                        
+                        this.editFromVisible = true
                     }else {
                         this.$message.error(resData.data.message);
                     }
@@ -463,6 +533,8 @@
         },
         data() {
             return {
+                value5: '',
+                value6:'',
                 currentPage1: 1,
                 itemCounts:1,
                 addForm: {
@@ -529,15 +601,23 @@
                     averNum:'30.25',
                     averWaitTime:'1.55'
                     },
-                    // {
-                    // monthlyTotal: '年度合计',
-                    // homeworkNum: '197',
-                    // useTime: '1207631.36(0.00)',
-                    // systemPercent:'',
-                    // averNum:'',
-                    // averWaitTime:''
-                    // }
                 ],
+
+                // tableRecord: [{
+                //     date: '2016-05-02',
+                //     name: '王小虎',
+                //     address: '2016-06-05'
+                //     }, {
+                //     date: '2016-06-11',
+                //     name: '王小虎',
+                //     address: '2016-07-12'
+                //     }, {
+                //     date: '2016-08-16',
+                //     name: '王小虎',
+                //     address: '2016-09-25'
+                //     }
+                // ],
+                
                 addFormVisible:false,            
                 editFormVisible: false,
             };
