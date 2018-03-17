@@ -4,8 +4,19 @@
         
 
   <el-tabs :tab-position="tabPosition" type = "card" style="height: 700px;">
-    <el-tab-pane label="平台概况介绍"></el-tab-pane>
+    <el-tab-pane label="平台概况介绍">
+        <!-- <section class="container">  -->
+            <div class="leftSty"></div>
+            <span class="bullCont"><i class="el-icon-d-arrow-right"></i>平台概况介绍</span>
+          <!-- </section> -->
+          <el-row class="headerline"></el-row> 
+    </el-tab-pane>
     <el-tab-pane label="平台使用说明">
+        
+            <div class="leftSty"></div>
+            <span class="bullCont"><i class="el-icon-d-arrow-right"></i>平台使用说明</span>
+          
+          <el-row class="headerline"></el-row> 
         <el-row class="video">
             <el-col :span="16">
                 <!-- <div class="grid-content bg-purple">
@@ -38,15 +49,14 @@
         </el-row> -->
 
     </el-tab-pane>
-    <el-tab-pane label="平台使用规范"> 
-        <el-row>
-
-        </el-row>
-
+    <el-tab-pane label="平台使用规范">   
+        <div class="leftSty"></div>
+        <span class="bullCont"><i class="el-icon-d-arrow-right"></i>平台使用规范</span>   
+        <el-row class="headerline"></el-row>  
     </el-tab-pane>
     <!-- <el-tab-pane label="仪器资源简介">定时任务补偿</el-tab-pane> -->
   </el-tabs>
-    </div>
+</div>
     
   
 </template>
@@ -62,8 +72,11 @@
         background: #2e2f30;
     } */
 
- .usvideo{
+.usvideo{
      margin-top:70px;
+ }
+.bullCont{
+    font-size:14px;
  }
 </style>
 <script>
