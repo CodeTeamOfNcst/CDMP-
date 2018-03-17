@@ -31,19 +31,25 @@
                 </el-form-item>
                 <el-form-item label="申请起止时间">
                     <el-date-picker
-                        v-model="value5"
+                        v-model="applytime"
                         type="datetimerange"
                         start-placeholder="开始日期"
                         end-placeholder="结束日期"
                         :default-time="['12:00:00']">
                     </el-date-picker>
                 </el-form-item>
-                <el-form-item label="是否禁用">
+                <!-- <el-form-item label="是否禁用">
                     <el-col :span="18">
                         <el-switch v-model="addForm.isUse"/>
                     </el-col>
-                </el-form-item>
-
+                </el-form-item> -->
+                <el-form-item label="申请状态">
+                        <el-switch
+                            v-model="addForm.isUse"
+                            active-text="审核通过"
+                            inactive-text="审核未通过">
+                        </el-switch>
+                    </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="handleAdd">添加</el-button>
                     <el-button  @click="handleAddCancel">取消</el-button>
@@ -125,39 +131,6 @@
                             prop="chargePerson"
                             label="课题负责人"
                             width="110">
-
-
-                            <!-- //在此处验证表格中的内容如何点击显示二级页面（用于设备预约部分）疑惑点在于数据的提取 -->
-                            <!-- <template slot-scope="scope">
-                                <el-popover trigger="click" placement="top">
-                                    <h3>预约历史记录 </h3>
-                                    <el-table
-                                        :data="tableRecord"
-                                        border
-                                        style="width: 100%">
-                                        <el-table-column
-                                            prop="name"
-                                            label="姓名"
-                                            width="100">
-                                        </el-table-column>
-                                        <el-table-column
-                                            prop="date"
-                                            label="使用日期"
-                                            width="120">
-                                        </el-table-column>
-                                        <el-table-column
-                                            prop="address"
-                                            label="截止日期"
-                                            width="180">
-                                        </el-table-column>
-                                    </el-table>
-                                    <div slot="reference" class="name-wrapper">
-                                        <el-tag size="medium">姓名</el-tag>
-                                    </div>
-                                </el-popover>                         
-                            </template> -->
-
-
                     </el-table-column>
                     <el-table-column
                             prop="department"
@@ -165,21 +138,45 @@
                             width="">
                     </el-table-column>
                     <el-table-column
-                            prop="timeLimit"
-                            label="机时额度"
-                            width="110">
+                            prop="startTime"
+                            label="开始时间"
+                            width="150">
                     </el-table-column>
-                    <el-table-column
+                    <!-- <el-table-column
                             prop="restTime"
                             label="剩余机时"
                             width="110">
+                    </el-table-column> -->
+                    <el-table-column
+                            prop="endTime"
+                            label="结束时间"
+                            width="150">
                     </el-table-column>
                     <el-table-column
-                            prop="amountLimit"
-                            label="存储额度"
+                            prop="timeLimit"
+                            label="申请机时额度"
+                            width="150">
+                    </el-table-column>
+                    <el-table-column
+                            prop="isAgree"
+                            label="是否同意"
                             width="110">
                     </el-table-column>
                     <el-table-column
+                            prop="isUse"
+                            label="是否禁用"
+                            width="110">
+                    </el-table-column>
+                    <el-table-column
+                            prop="isExamine"
+                            label="审核状态"
+                            width="110">
+                        <template slot-scope="scope">
+                            <el-button type="text">待审核</el-button>
+                        </template>
+                    </el-table-column>
+                    
+                    <!-- <el-table-column
                             prop="amountUse"
                             label="	存储使用"
                             width="110">
@@ -188,18 +185,18 @@
                             prop="maxNumber"
                             label="最大核数"
                             width="110">
-                    </el-table-column>
-                    <el-table-column
+                    </el-table-column> -->
+                    <!-- <el-table-column
                             prop="useRatio"
                             label="使用占比"
                             width="110">
-                    </el-table-column>
+                    </el-table-column> -->
                     <el-table-column
                             prop="operation"
                             label="操作"
                             width="100">
                         <template slot-scope="scope">
-                            <el-button type="text" @click="handleEdit(scope.row)">查询</el-button>
+                            <el-button type="text" @click="handleEdit(scope.row)">编辑</el-button>
                             <el-button type="text" @click="forbidRule(scope.row)" style="margin-left: 5px;">禁用</el-button>
                         </template>
                     </el-table-column>
@@ -215,34 +212,59 @@
                     :total="1000">
                 </el-pagination>
             </div>
-            <el-dialog title="目前用户计算资源" :visible.sync="editFormVisible">
+            <el-dialog title="用户云计算资源" :visible.sync="editFormVisible">
                 <el-form ref="form" :model="editForm" label-width="100px">
                     <el-form-item label="课程负责人">
-                        <el-col :span="11">
+                        <el-col :span="15">
                             <el-input v-model="editForm.chargePerson" :disabled="true"/>
                         </el-col>
                     </el-form-item>
                     <el-form-item label="所在院系">
-                        <el-col :span="11">
+                        <el-col :span="15">
                             <el-input v-model="editForm.department" clearable />
                         </el-col>
                     </el-form-item>
                     <el-form-item label="授权作业类型">
-                        <el-col :span="11">
+                        <el-col :span="15">
                             <el-input v-model="editForm.authType" clearable />
                         </el-col>
                     </el-form-item>
                     <el-form-item label="申请起止时间">
                         <el-date-picker
-                            v-model="value6"
+                            v-model="editForm.applytime"
                             type="datetimerange"
                             start-placeholder="开始日期"
                             end-placeholder="结束日期"
                             :default-time="['12:00:00']">
                         </el-date-picker>
                     </el-form-item>
-                    <el-form-item label="禁用标识">
-                        <el-switch v-model="editForm.isUse" />
+                    <el-form-item label="申请状态">
+                        <el-switch
+                            v-model="editForm.status"
+                            active-text="审核通过"
+                            inactive-text="审核未通过">
+                        </el-switch>
+                    </el-form-item>
+
+                    <el-form-item label="剩余机时额度">
+                        <el-col :span="15">
+                            <el-input v-model="editForm.authType" :disabled="true"/>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="存储使用">
+                        <el-col :span="15">
+                            <el-input v-model="editForm.authType" :disabled="true"/>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="最大核数">
+                        <el-col :span="15">
+                            <el-input v-model="editForm.authType" :disabled="true"/>
+                        </el-col>
+                    </el-form-item>
+                    <el-form-item label="使用占比">
+                        <el-col :span="15">
+                            <el-input v-model="editForm.authType" :disabled="true"/>
+                        </el-col>
                     </el-form-item>
                     <h3>截至到 2018-03-10 08:09:19 计算资源统计</h3>
                     <el-table
@@ -533,15 +555,14 @@ z-index: 9999;
         },
         data() {
             return {
-                value5: '',
-                value6:'',
                 currentPage1: 1,
                 itemCounts:1,
                 addForm: {
                     user: '',
                     department: '',
                     timeLimit:'',
-                    isUse: '',
+                    applytime:'',
+                    isUse: 'false',
                 },
                 users: [
                     {
@@ -553,23 +574,23 @@ z-index: 9999;
                     id: '1',
                     chargePerson: '魏宝仁',
                     department:'生命科学院',
-                    timeLimit: '2000000.00',
-                    restTime:'8792405.88',
-                    amountLimit:'1000.00',
-                    amountUse:'880.5',
-                    maxNumber:'1400',
-                    useRatio:'18.20%',
+                    startTime: '2017-09-11',
+                    endTime:'2018-01-01',
+                    timeLimit:'20000.00',
+                    isAgree:'否',
+                    isUse:'可用',                   
                 },
                 {
                     id: '2',
                     chargePerson: '韦广红',
                     department:'物理系',
-                    timeLimit: '2000000.00',
-                    restTime:'8792405.88',
-                    amountLimit:'1000.00',
+                    startTime:'2017-12-22',
+                    endTime:'2018-01-01',
+                    timeLimit:'20000.00',
                     amountUse:'880.5',
                     maxNumber:'1400',
-                    useRatio:'18.20%',
+                    isAgree:'否',
+                    isUse:'可用',
                 }
                 ],
                 editForm: {
@@ -577,6 +598,8 @@ z-index: 9999;
                     department: '',
                     chargePerson: '',
                     authType:'',
+                    applytime:'',
+                    status: false,
                     isUse: '',
                 },
                 tableData1: [{

@@ -97,7 +97,7 @@
                         style="width: 70%;">
                     <el-table-column
                             label="申请id"
-                            width="110">
+                            width="80">
                         <template slot-scope="scope">{{ scope.row.apply.id }}</template>
                     </el-table-column>
                     <el-table-column
@@ -112,12 +112,12 @@
                     </el-table-column>
                     <el-table-column
                             label="开始使用时间"
-                            width="200">
+                            width="120">
                         <template slot-scope="scope">{{ scope.row.apply.startDate }}</template>
                     </el-table-column>
                     <el-table-column
                             label="结束使用时间"
-                            width="">
+                            width="120">
                         <template slot-scope="scope">{{ scope.row.apply.endDate }}</template>
                     </el-table-column>
                     <el-table-column
@@ -127,13 +127,20 @@
                     </el-table-column>
                     <el-table-column
                             label="是否同意"
-                            width="100">
+                            width="90">
                         <template slot-scope="scope">{{ scope.row.apply.isAgree ? '是': '否' }}</template>
                     </el-table-column>
                     <el-table-column
                             label="是否禁用"
-                            width="100">
+                            width="90">
                         <template slot-scope="scope">{{ scope.row.apply.isUse ? '可用': '禁用' }}</template>
+                    </el-table-column>
+                    <el-table-column
+                            label="审核状态"
+                            width="90">
+                        <template slot-scope="scope">
+                            <el-button type="text">{{ scope.row.apply.createdAt == scope.row.apply.updatedAt ? '待审核': '已审核' }}</el-button>
+                        </template>
                     </el-table-column>
                     <el-table-column
                             prop="operation"

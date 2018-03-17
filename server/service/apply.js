@@ -58,9 +58,8 @@ exports.deleteApplyById = async ( ctx, next ) => {
             status: 0,
             message: `禁用失败 由于 ${err}`
         }
-    }
-    
-};
+    }   
+}
 
 exports.modifyApplyById = async ( ctx, next ) => {
     let apply = ctx.request.body.apply
@@ -209,4 +208,3 @@ exports.applySearch = async (ctx, next) => {
         }
     }
 }
-
