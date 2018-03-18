@@ -326,7 +326,7 @@
             },
             async handleEdit(row) {
                 let resData = await axios.post('/api/apply/getById', {
-                    id: row.apply.id
+                    id: row.apply.id        
                 });
                 if( resData.data.status === 1){
                     this.editForm.id = resData.data.apply.id;

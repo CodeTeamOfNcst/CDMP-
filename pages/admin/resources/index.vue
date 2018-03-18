@@ -246,62 +246,65 @@
                         </el-switch>
                     </el-form-item>
 
-                    <el-form-item label="剩余机时额度">
-                        <el-col :span="15">
-                            <el-input v-model="editForm.authType" :disabled="true"/>
-                        </el-col>
-                    </el-form-item>
-                    <el-form-item label="存储使用">
-                        <el-col :span="15">
-                            <el-input v-model="editForm.authType" :disabled="true"/>
-                        </el-col>
-                    </el-form-item>
-                    <el-form-item label="最大核数">
-                        <el-col :span="15">
-                            <el-input v-model="editForm.authType" :disabled="true"/>
-                        </el-col>
-                    </el-form-item>
-                    <el-form-item label="使用占比">
-                        <el-col :span="15">
-                            <el-input v-model="editForm.authType" :disabled="true"/>
-                        </el-col>
-                    </el-form-item>
-                    <h3>截至到 2018-03-10 08:09:19 计算资源统计</h3>
-                    <el-table
-                        :data="tableData1"
-                        border
-                        show-summary
-                        style="width: 100%">
-                        <el-table-column
-                            prop="monthlyTotal"
-                            label="月度合计"
-                            width="90">
-                        </el-table-column>
-                        <el-table-column
-                            prop="homeworkNum"
-                            label="作业数"
-                            width="70">
-                        </el-table-column>
-                        <el-table-column
-                            prop="useTime"
-                            label="使用机时(核小时)">
-                        </el-table-column>
-                        <el-table-column
-                            prop="systemPercent"
-                            label="占系统百分比"
-                            width="120">
-                        </el-table-column>
-                        <el-table-column
-                            prop="averNum"
-                            label="作业平均核数"
-                            width="120">
-                        </el-table-column>
-                        <el-table-column
-                            prop="averWaitTime"
-                            label="平均等待时间(小时)"
-                            width="170">
-                        </el-table-column>
-                    </el-table>
+                    <!-- 未审核将不显示以下内容，故判断两字段是不相等 -->
+                    <template v-if="createdAt == updatedAt">
+                        <el-form-item label="剩余机时额度">
+                            <el-col :span="15">
+                                <el-input v-model="editForm.authType" :disabled="true"/>
+                            </el-col>
+                        </el-form-item>
+                        <el-form-item label="存储使用">
+                            <el-col :span="15">
+                                <el-input v-model="editForm.authType" :disabled="true"/>
+                            </el-col>
+                        </el-form-item>
+                        <el-form-item label="最大核数">
+                            <el-col :span="15">
+                                <el-input v-model="editForm.authType" :disabled="true"/>
+                            </el-col>
+                        </el-form-item>
+                        <el-form-item label="使用占比">
+                            <el-col :span="15">
+                                <el-input v-model="editForm.authType" :disabled="true"/>
+                            </el-col>
+                        </el-form-item>
+                        <h3>截至到 2018-03-10 08:09:19 计算资源统计</h3>
+                        <el-table
+                            :data="tableData1"
+                            border
+                            show-summary
+                            style="width: 100%">
+                            <el-table-column
+                                prop="monthlyTotal"
+                                label="月度合计"
+                                width="90">
+                            </el-table-column>
+                            <el-table-column
+                                prop="homeworkNum"
+                                label="作业数"
+                                width="70">
+                            </el-table-column>
+                            <el-table-column
+                                prop="useTime"
+                                label="使用机时(核小时)">
+                            </el-table-column>
+                            <el-table-column
+                                prop="systemPercent"
+                                label="占系统百分比"
+                                width="120">
+                            </el-table-column>
+                            <el-table-column
+                                prop="averNum"
+                                label="作业平均核数"
+                                width="120">
+                            </el-table-column>
+                            <el-table-column
+                                prop="averWaitTime"
+                                label="平均等待时间(小时)"
+                                width="170">
+                            </el-table-column>
+                        </el-table>
+                    </template>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="handleEditSubmit" type="primary">提 交</el-button>

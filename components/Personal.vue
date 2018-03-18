@@ -151,7 +151,7 @@
                             <el-col :span="15">
                                 <div class="grid-content bg-purple-dark format">
                                     <el-form-item label="用户邮箱">
-                            <el-input v-model="form.mail"></el-input>
+                            <el-input v-model="form.email"></el-input>
                         </el-form-item>
                                 </div>
                             </el-col>
@@ -170,6 +170,7 @@
                             <el-button>取消</el-button>
                         </el-form-item>
                     </el-form>
+
                 </el-tab-pane>        
             </el-tabs>
 
@@ -182,6 +183,21 @@
 </template>
 
 <style scoped>
+.instruName p{
+        width: 35%;
+        min-width: 73px;
+        float: left;
+        text-align: right;
+        line-height:40px;
+    }
+    .fillOutName{
+        width: 30%;
+        min-width: 214px;
+        padding: 3px;
+        float: left;
+    }
+
+
   .el-tabs__content{
         overflow: visible!important;
   }
@@ -229,9 +245,25 @@
     
     export default {
         methods: {
-            onSubmit() {
-                console.log('submit!');
+            async onSubmit(){
+                // let resData = await axios.post('/api/user/modifyUserById', {
+                //     userId: this.user.id,
+                //     account: this.form.account,
+                //     name: this.form.name,
+                //     phone: this.form.phone,
+                //     email:this.form.email
+                // })
+                // if(resData.data.status === 1){
+                //     this.$message({
+                //         message: resData.data.message,
+                //         type: 'success'
+                //     });
+                //     window.location.href = '/personal'
+                // }else{
+                //     this.$message.error(resData.data.message)
+                // }
             },
+          
             open() {
                 this.$prompt('请输入邮箱', '提示', {
                     confirmButtonText: '确定',
@@ -266,15 +298,15 @@
                         message: '已取消删除'
                     });          
                 });
-            }
+            },
         },
         data() {
-            return {
+            return {          
                 form: {
                     name: '',
                     account: '',
                     password: '',
-                    mail: '',
+                    email: '',
                     phone:'',
                 },
                 tableData: [
@@ -316,21 +348,9 @@
             }
         },
         async mounted(){
-            if(!this.$auth.state.loggedIn) 
-                window.location.href ='../login'
-            let resData = await axios.post('/api/user/getPersonal',{
-                account: this.$auth.state.user.login_account
-            })
-            if(resData.data.status === 1){
-                // console.log(resData.data.result)
-                // this.result = resData.data.result
-                // this.tableData = resData.data.result
-            }else{
-                this.$message.error('获取数据失败')
-            }
-        },
-        async asyncData(context){
-            
+            if(! this.$auth.state.loggedIn) window.location.href ='/login'
+            this.form.account = this.$auth.state.user.login_account
         }
+        
     }
 </script>
