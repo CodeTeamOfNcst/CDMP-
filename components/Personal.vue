@@ -118,7 +118,59 @@
                         </div>
                     </div> -->
                 </el-tab-pane>
-                
+                 <el-tab-pane label="个人信息">
+                    <el-form ref="form" :model="form" label-width="100px">
+                        <el-row>
+                            <el-col :span="15">
+                                <div class="grid-content bg-purple-dark format">
+                                    <el-form-item label="账号">
+                                        <el-input v-model="form.account" :disabled="true"></el-input>
+                                    </el-form-item>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="15">
+                                <div class="grid-content bg-purple-dark format">
+                                    <el-form-item label="密码">
+                            <el-input v-model="form.password" :disabled="true"></el-input>
+                        </el-form-item>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="15">
+                                <div class="grid-content bg-purple-dark format">
+                                    <el-form-item label="用户名称">
+                            <el-input v-model="form.name"></el-input>
+                        </el-form-item>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="15">
+                                <div class="grid-content bg-purple-dark format">
+                                    <el-form-item label="用户邮箱">
+                            <el-input v-model="form.mail"></el-input>
+                        </el-form-item>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row>
+                            <el-col :span="15">
+                                <div class="grid-content bg-purple-dark format">
+                                    <el-form-item label="用户手机号">
+                            <el-input v-model="form.phone"></el-input>
+                        </el-form-item>
+                                </div>
+                            </el-col>
+                        </el-row> 
+                        <el-form-item>
+                            <el-button type="primary" @click="onSubmit">保存</el-button>
+                            <el-button>取消</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-tab-pane>        
             </el-tabs>
 
 
@@ -132,6 +184,9 @@
 <style scoped>
   .el-tabs__content{
         overflow: visible!important;
+  }
+  .format{
+      margin-left:50%;
   }
   .history{
       width: 30%;
@@ -174,6 +229,9 @@
     
     export default {
         methods: {
+            onSubmit() {
+                console.log('submit!');
+            },
             open() {
                 this.$prompt('请输入邮箱', '提示', {
                     confirmButtonText: '确定',
@@ -212,6 +270,13 @@
         },
         data() {
             return {
+                form: {
+                    name: '',
+                    account: '',
+                    password: '',
+                    mail: '',
+                    phone:'',
+                },
                 tableData: [
                     {
                         startTime:'2018-01-05',
