@@ -103,6 +103,8 @@
                 </div>
             </el-col>
         </el-row>
+
+        
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-footer">

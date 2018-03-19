@@ -3,104 +3,111 @@
         <div v-if="result">
             <el-tabs :tab-position="tabPosition">
                 <el-tab-pane label="云计算资源预约记录">
-                    <el-table
-                            :data="tableData"
-                            stripe
-                            style="width: 100%">
-                        <el-table-column
-                                prop="startTime"
-                                label="开始时间"
-                                width="180"
-                                align="left">
-                        </el-table-column>
-                        <el-table-column
-                                prop="endTime"
-                                label="结束时间"
-                                width="180"
-                                align="left">
-                        </el-table-column>
-                        <el-table-column
-                                prop="applyTime"
-                                label="申请机时"
-                                width="200"
-                                align="left">
-                        </el-table-column>
-                        <el-table-column
-                                prop="restTime"
-                                label="剩余机时"
-                                width="200"
-                                align="left">
-                        </el-table-column>
-                        <el-table-column
-                                prop="signNumber"
-                                label="登录账号"
-                                width="350"
-                                align="left">
-                        </el-table-column>
-                        <el-table-column
-                                prop="operation"
-                                label="操作"
-                                width="" 
-                                align="left">
-                            <template slot-scope="scope">
-                                <el-button type="text" @click="open">查看密码</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-
-
-                     <el-table
-                            :data="tableData1"
-                            stripe
-                            style="width: 100%">
-                        <el-table-column
-                                prop="startDate"
-                                label="开始时间"
-                                width="180"
-                                align="left">
-                        </el-table-column>
-                        <el-table-column
-                                prop="endDate"
-                                label="结束时间"
-                                width="180"
-                                align="left">
-                        </el-table-column>
-                        <!-- <el-table-column
-                                prop="device.name"
-                                label="设备名称"
-                                align="left">
-                        </el-table-column> -->
-                        <el-table-column
-                                prop="applyTime"
-                                label="申请机时"
-                                width="200"
-                                align="left">
-                        </el-table-column>
-                        <el-table-column
-                                prop="restTime"
-                                label="剩余机时"
-                                width="200"
-                                align="left">
-                        </el-table-column>
-                        <el-table-column
-                                prop="status"
-                                label="预约状态"
-                                width="350"
-                                align="left">
-                        </el-table-column>
-                        <el-table-column
-                                prop="operation1"
-                                label="操作"
-                                width="" 
-                                align="left">
-                            <template slot-scope="scope">
-                                <el-button type="text" @click="open2">删除</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-
-                    <el-button type="text" style="margin-right:10px;">正在使用</el-button>--<el-button type="text">历史记录</el-button>
-                    
+                    <div v-if="chance">
+                        <el-table
+                                :data="tableData1"
+                                stripe
+                                style="width: 100%">
+                            <el-table-column
+                                    prop="startDate"
+                                    label="开始时间"
+                                    width="180"
+                                    align="left">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="endDate"
+                                    label="结束时间"
+                                    width="180"
+                                    align="left">
+                            </el-table-column>
+                            <!-- <el-table-column
+                                    prop="device.name"
+                                    label="设备名称"
+                                    align="left">
+                            </el-table-column> -->
+                            <el-table-column
+                                    prop="applyTime"
+                                    label="申请机时"
+                                    width="200"
+                                    align="left">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="restTime"
+                                    label="剩余机时"
+                                    width="200"
+                                    align="left">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="status"
+                                    label="预约状态"
+                                    width="350"
+                                    align="left">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="operation1"
+                                    label="操作"
+                                    width="" 
+                                    align="left">
+                                <template slot-scope="scope">
+                                    <el-button type="text" @click="open2">删除</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    <div v-else>
+                        <el-table
+                                :data="tableData"
+                                stripe
+                                style="width: 100%">
+                            <el-table-column
+                                    prop="startTime"
+                                    label="开始时间"
+                                    width="180"
+                                    align="left">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="endTime"
+                                    label="结束时间"
+                                    width="180"
+                                    align="left">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="applyTime"
+                                    label="申请机时"
+                                    width="200"
+                                    align="left">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="restTime"
+                                    label="剩余机时"
+                                    width="200"
+                                    align="left">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="signNumber"
+                                    label="登录账号"
+                                    width="350"
+                                    align="left">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="operation"
+                                    label="操作"
+                                    width="" 
+                                    align="left">
+                                <template slot-scope="scope">
+                                    <el-button type="text" @click="open">查看密码</el-button>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                    <!-- <el-button type="text" style="margin-right:10px;">正在使用</el-button>--<el-button type="text">历史记录</el-button> -->
+                    <el-row style="margin-top:10px;float:right;">
+                        <el-switch
+                            v-model="chance"
+                            active-text="历史记录"
+                            inactive-text="正在使用">
+                        </el-switch>
+                    </el-row>
                 </el-tab-pane>
                 <el-tab-pane label="仪器设备预约记录">
 
@@ -173,8 +180,6 @@
 
                 </el-tab-pane>        
             </el-tabs>
-
-
         </div>
         <div v-else>
             <h1>与服务器断开连接</h1>
@@ -263,7 +268,7 @@
                 //     this.$message.error(resData.data.message)
                 // }
             },
-          
+            
             open() {
                 this.$prompt('请输入邮箱', '提示', {
                     confirmButtonText: '确定',
@@ -344,13 +349,21 @@
                         deviceType: [],
                         apply: []
                     }
-                ]
+                ],
+                chance: false,
             }
         },
         async mounted(){
             if(! this.$auth.state.loggedIn) window.location.href ='/login'
-            this.form.account = this.$auth.state.user.login_account
+            this.form.account = this.$auth.state.user.login_account   
+        },
+        async asyncData({params}){
+            let resData = await axios.post('/api/user/getUserByAccount', { account: params.form.account})
+            if(resData.data.status === 1){
+                return {
+                    form: resData.data.user
+                }
+            }
         }
-        
     }
 </script>
