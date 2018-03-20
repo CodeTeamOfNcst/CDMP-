@@ -95,10 +95,24 @@
                                     width="" 
                                     align="left">
                                 <template slot-scope="scope">
-                                    <el-button type="text" @click="open">查看密码</el-button>
+                                    <el-button type="text" @click="dialogFormVisible = true">查看密码</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
+                        <el-dialog title="提示" :visible.sync="dialogFormVisible">
+                            <el-form :model="form2">
+                                <el-form-item label="登录密码" :label-width="formLabelWidth">
+                                    <el-input v-model="form2.password" clearable></el-input>
+                                </el-form-item>
+                                <el-form-item label="邮箱" :label-width="formLabelWidth">
+                                    <el-input v-model="form2.email" clearable></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <div slot="footer" class="dialog-footer">
+                                <el-button @click="dialogFormVisible = false">取 消</el-button>
+                                <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                            </div>
+                        </el-dialog>
                     </div>
                     <!-- <el-button type="text" style="margin-right:10px;">正在使用</el-button>--<el-button type="text">历史记录</el-button> -->
                     <el-row style="margin-top:10px;float:right;">
@@ -188,7 +202,10 @@
 </template>
 
 <style scoped>
-.instruName p{
+    .el-dialog{
+        width: 25% !important;
+    }
+    .instruName p{
         width: 35%;
         min-width: 73px;
         float: left;
@@ -203,46 +220,46 @@
     }
 
 
-  .el-tabs__content{
-        overflow: visible!important;
-  }
-  .format{
-      margin-left:50%;
-  }
-  .history{
-      width: 30%;
-      height:161px;
-      min-width: 287px;
-      margin-bottom: 10px;
-      margin-left: 2.5%;
-      float: left;
-      display: block;
-  }
-  img{
-      width: 40%;
-      height: 100%;
-      float: left;
-      background-size: 100% 100%;
-  }
-  .hisCont{
-      width: 60%;
+    .el-tabs__content{
+            overflow: visible!important;
+    }
+    .format{
+        margin-left:50%;
+    }
+    .history{
+        width: 30%;
+        height:161px;
+        min-width: 287px;
+        margin-bottom: 10px;
+        margin-left: 2.5%;
+        float: left;
+        display: block;
+    }
+    img{
+        width: 40%;
+        height: 100%;
+        float: left;
+        background-size: 100% 100%;
+    }
+    .hisCont{
+        width: 60%;
 
-      float: right;
-      height: 80%;
-      margin-top: 8%;
-  }
-  .hisCont p{
-      width: 100%;
-      height: 20px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-  }
-  .startTime{
-      width: 100%;
-      height: 20px;
-      margin-top: 5px;
-  }
+        float: right;
+        height: 80%;
+        margin-top: 8%;
+    }
+    .hisCont p{
+        width: 100%;
+        height: 20px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .startTime{
+        width: 100%;
+        height: 20px;
+        margin-top: 5px;
+    }
 </style>
 
 <script>
@@ -269,24 +286,24 @@
                 // }
             },
             
-            open() {
-                this.$prompt('请输入邮箱', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-                    inputErrorMessage: '邮箱格式不正确'      
-                }).then(({ value }) => {
-                    this.$message({
-                        type: 'success',
-                        message: '密码已发送至您的邮箱，请注意查收 '
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '取消输入'
-                    });       
-                });
-            },
+            // open() {
+            //     this.$prompt('请输入邮箱', '提示', {
+            //         confirmButtonText: '确定',
+            //         cancelButtonText: '取消',
+            //         inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+            //         inputErrorMessage: '邮箱格式不正确'      
+            //     }).then(({ value }) => {
+            //         this.$message({
+            //             type: 'success',
+            //             message: '密码已发送至您的邮箱，请注意查收 '
+            //         });
+            //     }).catch(() => {
+            //         this.$message({
+            //             type: 'info',
+            //             message: '取消输入'
+            //         });       
+            //     });
+            // },
             open2() {
                 this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
                     confirmButtonText: '确定',
@@ -314,6 +331,12 @@
                     email: '',
                     phone:'',
                 },
+                dialogFormVisible: false,
+                form2: {
+                    password:'',
+                    email:'',
+                },
+                formLabelWidth: '80px',
                 tableData: [
                     {
                         startTime:'2018-01-05',
@@ -357,13 +380,6 @@
             if(! this.$auth.state.loggedIn) window.location.href ='/login'
             this.form.account = this.$auth.state.user.login_account   
         },
-        async asyncData({params}){
-            let resData = await axios.post('/api/user/getUserByAccount', { account: params.form.account})
-            if(resData.data.status === 1){
-                return {
-                    form: resData.data.user
-                }
-            }
-        }
+        
     }
 </script>
