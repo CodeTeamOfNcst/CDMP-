@@ -16,6 +16,7 @@
     "@nuxtjs/auth": "^4.0.0-rc.3",
     "@nuxtjs/axios": "^5.0.0",
     "axios": "^0.17.1",
+    "bcrypt-nodejs": "^0.0.3",
     "cross-env": "^5.0.1",
     "crypto": "^1.0.1",
     "csrf": "^3.0.6",
