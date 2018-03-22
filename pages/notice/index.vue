@@ -1,18 +1,24 @@
 <template>
     <section class="container">
         <div class="headerName">
-            <div class="leftSty"></div>
             <span class="bullCont">通知公告</span>
-            
         </div>
         <el-row class="headerline"></el-row>
-        <div class="contentList">
-            <el-row class="strip">
-                <div v-for="rule in rulesDetail">
-                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a :href='"/notice/" + rule.id'>{{ rule.title }} 发布时间：{{ rule.publishDate }} </a></div></el-col>
+        <ul class="rule-list">
+            <li class="rule-item" v-for="rule in rulesDetail">
+                <a :href='"/notice/" + rule.id'>
+                    <span class="rule-item-title">{{ rule.title }}</span>
+                    <span class="rule-item-date">{{ rule.publishDate }} </span>
+                </a>
+            </li>
+            <!-- <el-row class="strip">
+                <div >
+                    <el-col :span="24">
+                        <div class="grid-content bg-purple-dark">
+                            </div></el-col>
                 </div>
-            </el-row>
-        </div>
+            </el-row> -->
+        </ul>
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark paging" >
@@ -30,22 +36,26 @@
 </template>
 
 <style scoped>
-    a{
+    a {
         text-decoration: none;
     }
-    .contentList{
-        width: 100%;
-        height:650px;
+    .rule-list {
+        padding: 5px 30px;
     }
-    .paging{
+    .rule-item {
+        overflow: hidden;
+        color: #3675a8;
+    }
+    .rule-item-title {
+        float: left;
+        margin-bottom: 10px;
+    }
+    .rule-item-date {
+        float: right;
+    }
+    .paging {
         width: 40%;
         margin-left: 30%;
-    }
-    .strip{
-        margin-left:30px;
-        width: 80%;
-        height: 35px;
-        /*border: 1px solid #2e2f30;*/
     }
     .grid-content{
         float:left;
