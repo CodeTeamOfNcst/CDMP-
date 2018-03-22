@@ -17,7 +17,7 @@ const DBHOST = '127.0.0.1';
 const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
     host: DBHOST,
     dialect: 'mysql',
-
+    operatorsAliases: false,
     pool: {
         max: 5,
         min: 10,
