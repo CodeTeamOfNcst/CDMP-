@@ -20,11 +20,6 @@
                                     width="180"
                                     align="left">
                             </el-table-column>
-                            <!-- <el-table-column
-                                    prop="device.name"
-                                    label="设备名称"
-                                    align="left">
-                            </el-table-column> -->
                             <el-table-column
                                     prop="applyTime"
                                     label="申请机时"
@@ -114,7 +109,7 @@
                             </div>
                         </el-dialog>
                     </div>
-                    <!-- <el-button type="text" style="margin-right:10px;">正在使用</el-button>--<el-button type="text">历史记录</el-button> -->
+                    
                     <el-row style="margin-top:10px;float:right;">
                         <el-switch
                             v-model="chance"
@@ -138,6 +133,12 @@
                             </div>
                         </div>
                     </div> -->
+
+
+                    <div v-for="user in usersDetail">
+                        <el-col :span="24"><div>{{ user.user.account }}</div></el-col>
+                    </div>
+                   
                 </el-tab-pane>
                  <el-tab-pane label="个人信息">
                     <el-form ref="form" :model="form" label-width="100px">
@@ -191,7 +192,6 @@
                             <el-button>取消</el-button>
                         </el-form-item>
                     </el-form>
-
                 </el-tab-pane>        
             </el-tabs>
         </div>
@@ -266,64 +266,8 @@
     import axios from 'axios'
     
     export default {
-        methods: {
-            async onSubmit(){
-                // let resData = await axios.post('/api/user/modifyUserById', {
-                //     userId: this.user.id,
-                //     account: this.form.account,
-                //     name: this.form.name,
-                //     phone: this.form.phone,
-                //     email:this.form.email
-                // })
-                // if(resData.data.status === 1){
-                //     this.$message({
-                //         message: resData.data.message,
-                //         type: 'success'
-                //     });
-                //     window.location.href = '/personal'
-                // }else{
-                //     this.$message.error(resData.data.message)
-                // }
-            },
-            
-            // open() {
-            //     this.$prompt('请输入邮箱', '提示', {
-            //         confirmButtonText: '确定',
-            //         cancelButtonText: '取消',
-            //         inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-            //         inputErrorMessage: '邮箱格式不正确'      
-            //     }).then(({ value }) => {
-            //         this.$message({
-            //             type: 'success',
-            //             message: '密码已发送至您的邮箱，请注意查收 '
-            //         });
-            //     }).catch(() => {
-            //         this.$message({
-            //             type: 'info',
-            //             message: '取消输入'
-            //         });       
-            //     });
-            // },
-            open2() {
-                this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });          
-                });
-            },
-        },
         data() {
-            return {          
+            return {     
                 form: {
                     name: '',
                     account: '',
@@ -335,7 +279,7 @@
                 form2: {
                     password:'',
                     email:'',
-                },
+                },                         
                 formLabelWidth: '80px',
                 tableData: [
                     {
@@ -376,10 +320,64 @@
                 chance: false,
             }
         },
+        
+        methods: {
+            async onSubmit(){
+                // let resData = await axios.post('/api/user/modifyUserById', {
+                //     userId: this.user.id,
+                //     account: this.form.account,
+                //     name: this.form.name,
+                //     phone: this.form.phone,
+                //     email:this.form.email
+                // })
+                // if(resData.data.status === 1){
+                //     this.$message({
+                //         message: resData.data.message,
+                //         type: 'success'
+                //     });
+                //     window.location.href = '/personal'
+                // }else{
+                //     this.$message.error(resData.data.message)
+                // }
+            },  
+            open2() {
+                this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });          
+                });
+            },      
+        },
+        async asyncData(context){
+            // api路径有问题   提取用户账号筛选出登陆者的密码等信息
+            let resData = await axios.get('api/user/getAll')         
+            if(resData.data.status === 1)
+            {
+                return {
+                    count: resData.data.counts,
+                    usersDetail: resData.data.usersDetail
+                }
+            }           
+        },
         async mounted(){
             if(! this.$auth.state.loggedIn) window.location.href ='/login'
-            this.form.account = this.$auth.state.user.login_account   
+            this.form.account = this.$auth.state.user.login_account              
         },
         
+        head(){
+            return {
+                title: 'CDMP - 个人中心'
+            }
+        },
     }
 </script>

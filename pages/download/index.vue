@@ -8,24 +8,14 @@
         <el-row class="headerline"></el-row>
         <div class="contentList">
             <el-row class="strip">
-                <div v-for="rule in rulesDetail">
-                    <el-col :span="24"><div class="grid-content bg-purple-dark"><a :href='"/notice/" + rule.id'>{{ rule.title }} 发布时间：{{ rule.publishDate }} </a></div></el-col>
+
+                <div v-for="user in usersDetail">
+                    <el-col :span="24"><div class="grid-content bg-purple-dark">{{ user.user.account }} </div></el-col>
                 </div>
+
             </el-row>
         </div>
-        <el-row>
-            <el-col :span="24">
-                <div class="grid-content bg-purple-dark paging" >
-                    <el-pagination
-                            :page-size="10"
-                            background
-                            layout="prev, pager, next"
-                            :total="ruleCount"
-                            @current-change="handlePageChange">
-                    </el-pagination>
-                </div>
-            </el-col>
-        </el-row>
+        
     </section>
    
      
@@ -67,37 +57,23 @@ import axios from 'axios'
 export default {
     data(){
         return{
-            data:'学校关于放假期间仪器归还问题（2018.01.15）',
-            ruleCount: null,
-            rulesDetail: null,
 
         }
     },
+    // 借下载中心页面提取用户数据
     async asyncData(context){
-        let resData = await axios.get('api/rule/getAll')
+        let resData = await axios.get('api/user/getAll')  
         if(resData.data.status === 1)
+        {
             return {
                 count: resData.data.counts,
-                rulesDetail: resData.data.rulesDetail
-            }
-    },
-    methods:{
-        async handlePageChange(currentPage){
-            let resData = await axios.get(`api/rule/getAll/${currentPage}`)
-            if(resData.data.status === 1){
-                this.rulesDetail = resData.data.rulesDetail
-            }else{
-                this.$message.error(resData.data.message);
-                
+                usersDetail: resData.data.usersDetail
             }
         }
     },
-    mounted(){
-        this.ruleCount = this.count;
-    },
     head(){
         return {
-            title: 'CDMP - 通知公告'
+            title: 'CDMP - 下载中心'
         }
     }
 }
