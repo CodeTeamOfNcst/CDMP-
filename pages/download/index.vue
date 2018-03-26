@@ -7,8 +7,9 @@
         </div>
         <el-row class="headerline"></el-row>
         <div class="contentList">
+            <p>暂借此地试一把提取数据(>.<)</p>
             <el-row class="strip">
-
+          
                 <div v-for="user in usersDetail">
                     <el-col :span="24"><div class="grid-content bg-purple-dark">{{ user.user.account }} </div></el-col>
                 </div>

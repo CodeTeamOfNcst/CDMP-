@@ -51,7 +51,7 @@
                     </div>
                     <div v-else>
                         <el-table
-                                :data="tableData"
+                                :data="tableData0"
                                 stripe
                                 style="width: 100%">
                             <el-table-column
@@ -121,7 +121,7 @@
                 <el-tab-pane label="仪器设备预约记录">
 
 
-                    <!-- <div v-for="data in result">
+                    <div v-for="data in result">
                         <div class="history">
                             <img :src="data.device.imgFilePath" >
                             <div class="hisCont">
@@ -132,12 +132,10 @@
                                 <div class="startTime">是否批准使用:{{data.apply.isAgree ? '是':'否'}}</div>
                             </div>
                         </div>
-                    </div> -->
-
-
-                    <div v-for="user in usersDetail">
-                        <el-col :span="24"><div>{{ user.user.account }}</div></el-col>
                     </div>
+
+
+                    
                    
                 </el-tab-pane>
                  <el-tab-pane label="个人信息">
@@ -192,6 +190,11 @@
                             <el-button>取消</el-button>
                         </el-form-item>
                     </el-form>
+
+
+                    <div v-for="user in usersDetail">
+                        <el-col :span="24"><div>{{ user.user.account }}</div></el-col>
+                    </div>
                 </el-tab-pane>        
             </el-tabs>
         </div>
@@ -202,9 +205,7 @@
 </template>
 
 <style scoped>
-    .el-dialog{
-        width: 25% !important;
-    }
+    
     .instruName p{
         width: 35%;
         min-width: 73px;
@@ -218,8 +219,6 @@
         padding: 3px;
         float: left;
     }
-
-
     .el-tabs__content{
             overflow: visible!important;
     }
@@ -281,7 +280,7 @@
                     email:'',
                 },                         
                 formLabelWidth: '80px',
-                tableData: [
+                tableData0: [
                     {
                         startTime:'2018-01-05',
                         endTime:'2018-03-31',
@@ -370,8 +369,18 @@
             }           
         },
         async mounted(){
-            if(! this.$auth.state.loggedIn) window.location.href ='/login'
-            this.form.account = this.$auth.state.user.login_account              
+            if(! this.$auth.state.loggedIn) window.location.href ='/login'   
+            let resData = await axios.post('/api/user/getPersonal',{
+                account: this.$auth.state.user.login_account
+            })
+            this.form.account = this.$auth.state.user.login_account
+            if(resData.data.status === 1){
+                console.log(resData.data.result)
+                this.result = resData.data.result
+                this.tableData = resData.data.result
+            }else{
+                this.$message.error('获取数据失败')
+            }           
         },
         
         head(){
