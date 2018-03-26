@@ -69,18 +69,50 @@
         <!-- <el-tab-pane label="中心用户">
         </el-tab-pane> -->
         <el-tab-pane label="MQTT记录">
-          <!-- <section class="container">  -->
-            <div class="leftSty"></div>
-            <span class="bullCont"><i class="el-icon-d-arrow-right"></i>MQTT记录</span>
-          <!-- </section> -->
-          <el-row class="headerline"></el-row> 
+          <el-row>
+            <el-col :span="24"><div class="grid-content bg-purple-dark">
+              <div class="leftSty"></div>
+              <span class="bullCont"><i class="el-icon-d-arrow-right"></i>MQTT记录</span>
+            </div>
+            </el-col>
+            <el-col :span="16" :offset="8">
+              <h2>物联网MQTT协议机群管理记录</h2>
+            </el-col>
+            <el-col :span="24">
+              <el-table
+                :data="tableData"
+                border
+                style="width: 100%">
+                <el-table-column
+                  prop="date"
+                  label="探测器域名"
+                  width="180">
+                </el-table-column>
+                <el-table-column
+                  prop="name"
+                  label="机房温度"
+                  width="180">
+                </el-table-column>
+                <el-table-column
+                  prop="address"
+                  label="时间戳">
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
         </el-tab-pane>
         <el-tab-pane label="资源预约">
-          <!-- <section class="container">  -->
-            <div class="leftSty"></div>
-            <span class="bullCont"><i class="el-icon-d-arrow-right"></i>资源预约</span>
-          <!-- </section> -->
-          <el-row class="headerline"></el-row> 
+          <el-row>
+            <el-col :span="24"><div class="grid-content bg-purple-dark">
+              <div class="leftSty"></div>
+              <span class="bullCont"><i class="el-icon-d-arrow-right"></i>资源预约</span>
+            </div>
+            </el-col>
+            <el-col :span="16" :offset="8">
+              <!-- <h2>物联网MQTT协议机群管理记录</h2> -->
+            </el-col>
+          </el-row>
+             
         </el-tab-pane>
 
       </el-tabs>
@@ -138,7 +170,24 @@ Vue.component(CollapseTransition.name, CollapseTransition)
     data() {
       return {
         tabPosition: 'left',
-        show1:true
+        show1:false,
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }]
       };
       
     }

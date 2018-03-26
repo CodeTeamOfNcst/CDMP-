@@ -138,7 +138,7 @@
     </div>
 </template>
 
-<style scoped>
+<style  scoped>
     .el-carousel__item:nth-child(2n) {
         width:auto;
         height:auto;
