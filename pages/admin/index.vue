@@ -210,17 +210,58 @@
     </div>
 </template>
 <style scoped>
-    .el-form-item {
-        margin-bottom: 8px;
+    .addContent{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        padding: 0px;
+    }
+    .oneline{
+        width: 100%;
+        height:60px;
+    }
+    .avatar-uploader .el-upload {
+        border: 4px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    .announceCont{
+        width: 100%;
+        margin-top: 5px;
+    }
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
+    }
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+    .deviceSelect {
+        width:72%;
     }
     .el-col-11 {
         width: 72%!important;
     }
+    .el-form-item {
+        margin-bottom: 8px;
+    }
+    .el-table {
+        font-size: 15px;
+        color: gray;
+    }
     .inputName{
         width: 72%;
-    }
-    .deviceSelect {
-        width:72%;
     }
     .mianContent{
         width: 100%;
@@ -230,23 +271,12 @@
     .textarea{
         height: 120px;
     }
-    .announceCont{
-        width: 100%;
-        margin-top: 5px;
-    }
+    
     th,td{
         text-align: center;
     }
-    .oneline{
-        width: 100%;
-        height:60px;
-    }
-    .addContent{
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        padding: 0px;
-    }
+    
+    
     .search{
         width: 15%;
         min-width: 120px;
@@ -267,10 +297,7 @@
         min-height:600px;
         height:auto;
     }
-    .el-table {
-        font-size: 15px;
-        color: gray;
-    }
+    
     table{
         max-width: 1500px;
     }
@@ -278,36 +305,21 @@
         width: 100%;
         height:50px;
     }
-    .avatar-uploader .el-upload {
-        border: 4px dashed #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-    }
-    .avatar-uploader .el-upload:hover {
-        border-color: #409EFF;
-    }
-    .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
-        text-align: center;
-    }
-    .avatar {
-        width: 178px;
-        height: 178px;
-        display: block;
-    }
+    
+    
 </style>
 
 <script>
 import axios from 'axios'
-export default {
-    layout: 'admina',
-        methods: {
+import Vue from 'vue'
+
+
+export default class indexs extends Vue {
+    layout() {
+        return 'admina'
+    }
+    methods() {
+        return {
             async handleSearch(){
                 if(! this.searchInput){
                     window.location.reload()
@@ -466,76 +478,77 @@ export default {
                     this.$message.error(resData.data.message)
                 }
             },
-        },
-        data() {
-            return {
-                currentPage:1,
-                itemCounts: null,
-                editFormLabelWidth:'100px',
-                searchInput:'',
-                deviceTypes: [
-                    {
-                        value: '选项1',
-                        label: '黄金糕'
-                    }
-                ],
-                value:'',
-                options1: [
-                    {
-                        value: '1',
-                        label: '仪器名称'
-                    }
-                ],
-                addForm: {
-                    name: '',
-                    deviceType: '',
-                    addDate: '',
-                    describe: '',
-                    needRepair: false,
-                    canApply: true,
-                    isUse: true,
-                },
-                editForm: {
+        }    
+    }
+    data() {
+        return {
+            currentPage:1,
+            itemCounts: null,
+            editFormLabelWidth:'100px',
+            searchInput:'',
+            deviceTypes: [
+                {
+                    value: '选项1',
+                    label: '黄金糕'
+                }
+            ],
+            value:'',
+            options1: [
+                {
+                    value: '1',
+                    label: '仪器名称'
+                }
+            ],
+            addForm: {
+                name: '',
+                deviceType: '',
+                addDate: '',
+                describe: '',
+                needRepair: false,
+                canApply: true,
+                isUse: true,
+            },
+            editForm: {
+                id: '',
+                name: '',
+                deviceType: '',
+                addDate: '',
+                describe: '',
+                needRepair: false,
+                canApply: true,
+                isUse: true,
+                deviceImageUrl: null,
+            },
+            tableData: [
+                {
                     id: '',
+                    date: '',
                     name: '',
-                    deviceType: '',
-                    addDate: '',
-                    describe: '',
-                    needRepair: false,
-                    canApply: true,
-                    isUse: true,
-                    deviceImageUrl: null,
-                },
-                tableData: [
-                    {
-                        id: '',
-                        date: '',
-                        name: '',
-                        disable: '',
-                        type: '',
-                        operation:'',
-                    }
-                ],
-                editFormVisibel: false,
-                addFormVisible: false,
-            };
-        },
-        async asyncData({}) {
-            let  resData  = await axios.get(`/api/device/getAll/1`);
-            return {
-                counts: resData.data.counts,
-                devices: resData.data.Devices,
-                deviceTypes: resData.data.DeviceTypes
-            }
-        },
-        head() {
-            return {
-                title: 'CDMP - 设备管理'
-            }
-        },
-        mounted(){
-            this.itemCounts = this.counts;
-            this.tableData = this.devices
+                    disable: '',
+                    type: '',
+                    operation:'',
+                }
+            ],
+            editFormVisibel: false,
+            addFormVisible: false,
+        };
+    }
+    async asyncData({}) {
+        let  resData  = await axios.get(`/api/device/getAll/1`);
+        return {
+            counts: resData.data.counts,
+            devices: resData.data.Devices,
+            deviceTypes: resData.data.DeviceTypes
         }
     }
+    head() {
+        return {
+            title: 'CDMP - 设备管理'
+        }
+    }
+    mounted(){
+        this.itemCounts = this.counts;
+        this.tableData = this.devices
+    }
+}
 </script>

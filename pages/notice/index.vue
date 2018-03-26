@@ -89,16 +89,18 @@ export default {
                 rulesDetail: resData.data.rulesDetail
             }
     },
-    methods:{
-        async handlePageChange(currentPage){
-            let resData = await axios.get(`api/rule/getAll/${currentPage}`)
-            if(resData.data.status === 1){
-                this.rulesDetail = resData.data.rulesDetail
-            }else{
-                this.$message.error(resData.data.message);
-                
+    methods() {
+        return{
+            async handlePageChange(currentPage){
+                let resData = await axios.get(`api/rule/getAll/${currentPage}`)
+                if(resData.data.status === 1){
+                    this.rulesDetail = resData.data.rulesDetail
+                }else{
+                    this.$message.error(resData.data.message);
+                    
+                }
             }
-        }
+        } 
     },
     mounted(){
         this.ruleCount = this.count;

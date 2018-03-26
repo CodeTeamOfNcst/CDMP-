@@ -3,6 +3,7 @@
         <div v-if="result">
             <el-tabs :tab-position="tabPosition">
                 <el-tab-pane label="云计算资源预约记录">
+                    <!-- 历史记录版块开始 -->
                     <div v-if="chance">
                         <el-table
                                 :data="tableData1"
@@ -49,6 +50,9 @@
                             </el-table-column>
                         </el-table>
                     </div>
+                    <!-- 历史记录版块结束 -->
+
+                    <!-- 正在使用信息开始 -->
                     <div v-else>
                         <el-table
                                 :data="tableData0"
@@ -109,7 +113,7 @@
                             </div>
                         </el-dialog>
                     </div>
-                    
+                    <!-- 正在使用信息结束 -->
                     <el-row style="margin-top:10px;float:right;">
                         <el-switch
                             v-model="chance"
@@ -134,8 +138,6 @@
                         </div>
                     </div>
 
-
-                    
                    
                 </el-tab-pane>
                  <el-tab-pane label="个人信息">
@@ -204,8 +206,7 @@
     </section>
 </template>
 
-<style scoped>
-    
+<style scoped>    
     .instruName p{
         width: 35%;
         min-width: 73px;
@@ -320,8 +321,9 @@
             }
         },
         
-        methods: {
-            async onSubmit(){
+        methods() {
+            return{
+                async onSubmit(){
                 // let resData = await axios.post('/api/user/modifyUserById', {
                 //     userId: this.user.id,
                 //     account: this.form.account,
@@ -338,24 +340,25 @@
                 // }else{
                 //     this.$message.error(resData.data.message)
                 // }
-            },  
-            open2() {
-                this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    this.$message({
-                        type: 'success',
-                        message: '删除成功!'
+                },  
+                open2() {
+                    this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$message({
+                            type: 'success',
+                            message: '删除成功!'
+                        });
+                    }).catch(() => {
+                        this.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });          
                     });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });          
-                });
-            },      
+                },   
+            }   
         },
         async asyncData(context){
             // api路径有问题   提取用户账号筛选出登陆者的密码等信息

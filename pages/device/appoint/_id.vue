@@ -126,7 +126,8 @@
 <script>
     import axios from 'axios'
     export default {
-        methods: {
+        methods() {
+            return{
                 async handleSubmit(){
                     if(!(this.vioReason) || !(this.date)){
                         this.$message.error("请填写所有信息")
@@ -148,6 +149,8 @@
                         this.$message.error(resData.data.message)
                     }
                 }
+            }
+                
         },
         data(){
             return{

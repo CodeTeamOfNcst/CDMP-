@@ -416,145 +416,148 @@ z-index: 9999;
             Button
         },
         layout: 'admina',
-        methods: {
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
-            },
-            async handleSearch(){
-                if(! this.searchInput){
-                    window.location.reload()
-                }else{
-                    let resData = await axios.post('',{
-                        search: this.searchInput
-                    })
-                    if(resData.data.status === 1){
-                        this.tableData = resData.data.result
+        methods() {
+            return{
+                handleSizeChange(val) {
+                    console.log(`每页 ${val} 条`);
+                },
+                handleCurrentChange(val) {
+                    console.log(`当前页: ${val}`);
+                },
+                async handleSearch(){
+                    if(! this.searchInput){
+                        window.location.reload()
                     }else{
+                        let resData = await axios.post('',{
+                            search: this.searchInput
+                        })
+                        if(resData.data.status === 1){
+                            this.tableData = resData.data.result
+                        }else{
+                            this.$message.error(resData.data.message)
+                        }
+                    }
+                },
+                async handleAddOpen(){
+                    let resDataUser = await axios.get('/api/user/onlyAll');
+                    if(resDataUser.data.status === 1){
+                        this.users = resDataUser.data.users;
+                    }else {
+                        this.$message.error('从服务端获取信息失败')
+                    }
+                },
+                async handleAdd(){
+                    // 之后要加上手动验证逻辑
+                    let resData = await axios.post('', {
+                        device: this.addForm
+                    });
+                    if( resData.data.status === 1){
+                        this.$message({
+                            message: resData.data.message,
+                            type: 'success'
+                        });
+                        window.location.reload()
+                    }else {
                         this.$message.error(resData.data.message)
                     }
-                }
-            },
-            async handleAddOpen(){
-                let resDataUser = await axios.get('/api/user/onlyAll');
-                if(resDataUser.data.status === 1){
-                    this.users = resDataUser.data.users;
-                }else {
-                    this.$message.error('从服务端获取信息失败')
-                }
-            },
-            async handleAdd(){
-                // 之后要加上手动验证逻辑
-                let resData = await axios.post('', {
-                    device: this.addForm
-                });
-                if( resData.data.status === 1){
-                    this.$message({
-                        message: resData.data.message,
-                        type: 'success'
-                    });
-                    window.location.reload()
-                }else {
-                    this.$message.error(resData.data.message)
-                }
-            },
-            handleAddCancel(){
-                this.addFormVisible = false
-            },
-            async handleEdit(row){
-                try{
-                    let resData = await axios.post('/api/apply/getById',{
-                        id: row.apply.id
-                    });
-                    if(resData.data.status === 1){
-                        this.editForm.id = resData.data.apply.id;
-                        this.editForm.chargePerson = resData.data.applyUser.name;
-                        this.editForm.isUse= resData.data.apply.isUse;
-                        
-                        this.editFromVisible = true
-                    }else {
-                        this.$message.error(resData.data.message);
-                    }
-                }catch(err) {
-                    this.$message.error(`异常 由于 ${err}`);
-                }
-                this.editFormVisible = true
-            },
-            async forbidRule(row) {
-                try{
-                    await this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    });
-                    let resData = await axios.post('', {
-                        id: row.id
-                    });
-                    if(resData.data.status === 1){
-                        this.$message({
-                            type: 'success',
-                            message: '成功禁用'
+                },
+                handleAddCancel(){
+                    this.addFormVisible = false
+                },
+                async handleEdit(row){
+                    try{
+                        let resData = await axios.post('/api/apply/getById',{
+                            id: row.apply.id
                         });
-                        window.location.reload()
-                    }else {
-                        this.$message.error(resData.data.message);
+                        if(resData.data.status === 1){
+                            this.editForm.id = resData.data.apply.id;
+                            this.editForm.chargePerson = resData.data.applyUser.name;
+                            this.editForm.isUse= resData.data.apply.isUse;
+                            
+                            this.editFromVisible = true
+                        }else {
+                            this.$message.error(resData.data.message);
+                        }
+                    }catch(err) {
+                        this.$message.error(`异常 由于 ${err}`);
                     }
-                }catch (err){
-                    this.$message({
-                        type: 'info',
-                        message: '已取消'
-                    });
-                }
-            },
-            async handleEditSubmit(){
-                try{
-                    let resData = await axios.post('',{
-                        rule: this.editForm
-                    })
-                    if(resData.data.status === 1){
-                        this.$message({
-                            type: 'success',
-                            message: resData.data.message
+                    this.editFormVisible = true
+                },
+                async forbidRule(row) {
+                    try{
+                        await this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
                         });
-                        window.location.reload()
-                    }else {
-                        this.$message.error(resData.data.message);
+                        let resData = await axios.post('', {
+                            id: row.id
+                        });
+                        if(resData.data.status === 1){
+                            this.$message({
+                                type: 'success',
+                                message: '成功禁用'
+                            });
+                            window.location.reload()
+                        }else {
+                            this.$message.error(resData.data.message);
+                        }
+                    }catch (err){
+                        this.$message({
+                            type: 'info',
+                            message: '已取消'
+                        });
                     }
-                }catch (err){
-                    this.$message.error(`异常 由于 ${err}`);
-                }
-                this.editFormVisible = false
-            },
-            handleEditCanacel(){
-                this.editFormVisible = false
-            },  
-            getSummaries(param) {
-                const { columns, data } = param;
-                const sums = [];
-                columns.forEach((column, index) => {
-                    if (index === 0) {
-                        sums[index] = '';
-                        return;
+                },
+                async handleEditSubmit(){
+                    try{
+                        let resData = await axios.post('',{
+                            rule: this.editForm
+                        })
+                        if(resData.data.status === 1){
+                            this.$message({
+                                type: 'success',
+                                message: resData.data.message
+                            });
+                            window.location.reload()
+                        }else {
+                            this.$message.error(resData.data.message);
+                        }
+                    }catch (err){
+                        this.$message.error(`异常 由于 ${err}`);
                     }
-                    const values = data.map(item => Number(item[column.property]));
-                    if (!values.every(value => isNaN(value))) {
-                        sums[index] = values.reduce((prev, curr) => {
-                            const value = Number(curr);
-                            if (!isNaN(value)) {
-                                return prev + curr;
-                            } else {
-                                return prev;
-                            }
-                        }, 0);
-                        sums[index] += '';
-                    } else {
-                        sums[index] = '';
-                    }
-                });
-                return sums;
-            }         
+                    this.editFormVisible = false
+                },
+                handleEditCanacel(){
+                    this.editFormVisible = false
+                },  
+                getSummaries(param) {
+                    const { columns, data } = param;
+                    const sums = [];
+                    columns.forEach((column, index) => {
+                        if (index === 0) {
+                            sums[index] = '';
+                            return;
+                        }
+                        const values = data.map(item => Number(item[column.property]));
+                        if (!values.every(value => isNaN(value))) {
+                            sums[index] = values.reduce((prev, curr) => {
+                                const value = Number(curr);
+                                if (!isNaN(value)) {
+                                    return prev + curr;
+                                } else {
+                                    return prev;
+                                }
+                            }, 0);
+                            sums[index] += '';
+                        } else {
+                            sums[index] = '';
+                        }
+                    });
+                    return sums;
+                }       
+            }
+              
         },
         data() {
             return {
