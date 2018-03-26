@@ -25,9 +25,9 @@ exports.logIn = async (ctx, next) => {
 
         const accessToken = jsonwebtoken.sign(
             {
-              login_account: user.account,
-              rand: Math.random() * 1000,
-              scope: ['test', 'user', userIsAdmin?'admin':null]
+                login_account: user.account,
+                rand: Math.random() * 1000,
+                scope: ['test', 'user', userIsAdmin?'admin':null]
             },
             'secretKey'
         )
@@ -104,7 +104,7 @@ exports.getUser = async ( ctx, next ) => {
     jsonwebtoken.verify(ctx.cookies.get('account'), 'secretKey', function (err, decoded) {
         if (!err){
              //会输出123，如果过了60秒，则有错误。
-              user = decoded
+                user = decoded
          }
     })
     ctx.body = {

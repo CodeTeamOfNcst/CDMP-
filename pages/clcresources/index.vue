@@ -1,14 +1,195 @@
 <template>
-  <div class="a">
+    <div class="all">
+      <el-tabs :tab-position="tabPosition" type = "card" style="height: 700px;">
+        <el-tab-pane label="机房环境">
+          <el-row>
+          <el-col :span="24"><div class="grid-content bg-purple-dark">
+            <div class="leftSty"></div>
+            <span class="bullCont"><i class="el-icon-d-arrow-right"></i>机房环境</span>
+          </div>
+          </el-col>
+          <el-col :span="16" :offset="5">
+            <h2>24小时内机房环境温湿度曲线（五分钟内采集的平均温湿度）</h2>
+          </el-col>
+          </el-row>
+        </el-tab-pane>
+        <el-tab-pane label="计算资源">
+          <!-- <section class="container">  -->
+            <el-row>
+              <el-col :span="24">
+                <div class="grid-content bg-purple-dark">
+                  <div class="leftSty"></div>
+                  <span class="bullCont"><i class="el-icon-d-arrow-right"></i>计算资源</span>
+                <!-- </section> -->
+                  <el-row class="headerline"></el-row>
+               </div>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="6">
+                <div class="grid-content bg-purple">
+                  <!-- <div class="node">
+                    各节点使用情况
+                  </div> -->
+                  <div class="node" @click="show1 = !show1">各节点使用情况</div>
+                  
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="grid-content bg-purple">
+                  <div class="node">
+                    作业使用情况
+                  </div>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="grid-content bg-purple">
+                  <div class="node">
+                    各机柜实时资源使用状况
+                  </div>
+                </div>
+              </el-col>
+              <el-col :span="6">
+                <div class="grid-content bg-purple">
+                  <div class="node">
+                    当月计算资源使用情况
+                  </div>
+                </div>
+              </el-col>
+            </el-row>
+            <div style="margin-top: 20px; height: 200px;">
+                    <el-collapse-transition>
+                      <div v-show="show1">
+                        <div class="transition-box">el-collapse-transition</div>
+                         
+                      </div>
+                    </el-collapse-transition>
+            </div>
+        </el-tab-pane>
+        <!-- <el-tab-pane label="中心用户">
+        </el-tab-pane> -->
+        <el-tab-pane label="MQTT记录">
+          <el-row>
+            <el-col :span="24"><div class="grid-content bg-purple-dark">
+              <div class="leftSty"></div>
+              <span class="bullCont"><i class="el-icon-d-arrow-right"></i>MQTT记录</span>
+            </div>
+            </el-col>
+            <el-col :span="16" :offset="8">
+              <h2>物联网MQTT协议机群管理记录</h2>
+            </el-col>
+            <el-col :span="24">
+              <el-table
+                :data="tableData"
+                border
+                style="width: 100%">
+                <el-table-column
+                  prop="date"
+                  label="探测器域名"
+                  width="180">
+                </el-table-column>
+                <el-table-column
+                  prop="name"
+                  label="机房温度"
+                  width="180">
+                </el-table-column>
+                <el-table-column
+                  prop="address"
+                  label="时间戳">
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+        </el-tab-pane>
+        <el-tab-pane label="资源预约">
+          <el-row>
+            <el-col :span="24"><div class="grid-content bg-purple-dark">
+              <div class="leftSty"></div>
+              <span class="bullCont"><i class="el-icon-d-arrow-right"></i>资源预约</span>
+            </div>
+            </el-col>
+            <el-col :span="16" :offset="8">
+              <!-- <h2>物联网MQTT协议机群管理记录</h2> -->
+            </el-col>
+          </el-row>
+             
+        </el-tab-pane>
 
-  </div>
+      </el-tabs>
+    </div>
 </template>
-
 <style scoped>
-.a{
-    width:200px;
-    height:200px;
-    background: red;
+.all{
+    height:auto;
+    margin-top:20px;
 }
-</style>
+/* .orderbefore{
+        width: 5px;
+        height:28px;
+        float: left;
+        background: #2e2f30;
+    } */
 
+.usvideo{
+    margin-top:100px;
+}
+.bullCont{
+  height:70%;
+  margin-bottom:10px;
+  font-size:14px;
+  margin-bottom:5px;
+}
+.node{
+  background-color: paleturquoise;
+  width:280px;
+  height:200px;
+  border-radius:8px;
+}
+.transition-box {
+    margin-bottom: 10px;
+    width: 1210px;
+    height: 200px;
+    border-radius: 4px;
+    background-color: #409EFF;
+    text-align: center;
+    color: #fff;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    margin-right: 20px;
+  }
+
+</style>
+<script>
+import 'element-ui/lib/theme-chalk/base.css';
+// collapse 展开折叠
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
+import Vue from 'vue'
+
+Vue.component(CollapseTransition.name, CollapseTransition)
+  export default {
+    data() {
+      return {
+        tabPosition: 'left',
+        show1:false,
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }]
+      };
+      
+    }
+  };
+</script>

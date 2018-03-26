@@ -8,7 +8,6 @@
                 v-model="addFromVisible">
             <el-form ref="addForm" :model="addForm" label-width="90px">
                 <el-form-item label="用户名称" >
-                    <!--<div style="width: 20%;float: left">用户名称</div>-->
                     <el-col :span="18">
                         <el-input v-model="addForm.name" clearable/>
                     </el-col>
@@ -59,6 +58,9 @@
                 </el-form-item>
             </el-form>
         </el-popover>
+
+        
+
         <div class="headerName">
             <div class="leftSty"></div>
             <span class="bullCont">用户管理</span>
@@ -88,6 +90,7 @@
                 <div class="add">
                     <el-button v-popover:popover4 class="addContent">添加</el-button>
                 </div>
+                
             </div>
             <div class="table">
                 <el-table
@@ -265,6 +268,7 @@
         },
         layout: 'admina',
         methods: {
+            
             async handleSearch(){
                 if(! this.searchInput){
                     window.location.reload()

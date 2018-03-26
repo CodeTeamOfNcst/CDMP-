@@ -3,7 +3,7 @@
         <div class="headerName">
             <div class="leftSty"></div>
             <span class="bullCont">
-                <p>通知公告></p>
+                <p>通知公告--</p>
                 <p class="bulletinName">{{title}}</p>
             </span>
         </div>
@@ -57,8 +57,6 @@ export default {
             publishDate: '',
             input3:'',
             date:[],
-
-
         }
     },
     async asyncData({ params }){

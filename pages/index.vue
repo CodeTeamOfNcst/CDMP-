@@ -4,7 +4,7 @@
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-middle">
-                    <el-col :span="16">
+                    <el-col :span="17">
                         <div class="grid-content bg-purple">
                             <div class="orderbefore"></div>
                             <span class="order"> 
@@ -21,7 +21,7 @@
                          
                          
                     </el-col>
-                    <el-col :span="8">
+                    <el-col :span="6">
                         <div class="grid-content bg-purple">
                             <el-col :span="24">
                                 <div class="login grid-content bg-purple">
@@ -58,11 +58,14 @@
                                                                         <el-input class="input1" v-model="user_password" type="password" auto-complete="off"/>
                                                                     </el-form-item>
                                                                     <el-form-item>
-                                                                        <el-row>
-                                                                            <el-col :span="6" :offset="6">
-                                                                                <el-button @click="handleUserLogin" class="userlogin">登录</el-button>
+                                                                        <el-row class="userlogin">
+                                                                            <el-col :span="6">
+                                                                                <el-button @click="handleUserLogin" >登录</el-button>
                                                                             </el-col>
-                                                                        </el-row>
+                                                                            <el-col :span="6" :offset="3">  
+                                                                                <el-button>忘记密码</el-button>
+                                                                            </el-col> 
+                                                                         </el-row>
                                                                     </el-form-item>
                                                                 </template>
                                                             </div>
@@ -77,7 +80,7 @@
                                                         <el-form-item label="密码">
                                                             <el-input class="input1" v-model="user_password" auto-complete="off" type="password"/>
                                                         </el-form-item>
-                                                        <el-form-item label="重复">
+                                                        <el-form-item label="确认">
                                                             <el-input class="input1" v-model="repeat_password" auto-complete="off" type="password"/>
                                                         </el-form-item>
                                                         <el-form-item>
@@ -100,6 +103,8 @@
                 </div>
             </el-col>
         </el-row>
+
+        
         <el-row>
             <el-col :span="24">
                 <div class="grid-content bg-purple-dark main-footer">
@@ -133,7 +138,7 @@
     </div>
 </template>
 
-<style scoped>
+<style  scoped>
     .el-carousel__item:nth-child(2n) {
         width:auto;
         height:auto;
@@ -243,6 +248,9 @@
         width:400px;
         height:300px;
     }
+.userlogin{
+    margin-top:20px;
+}
 
 </style>
 <script>
