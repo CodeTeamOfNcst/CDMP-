@@ -267,123 +267,125 @@
             Button
         },
         layout: 'admina',
-        methods: {
-            
-            async handleSearch(){
-                if(! this.searchInput){
-                    window.location.reload()
-                }else{
-                    console.log(this.searchInput)
-                    let resData = await axios.post('/api/user/search',{
-                        search: this.searchInput
-                    })
-                    if(resData.data.status === 1){
-                        this.tableData  = resData.data.result
+        methods() {
+            return{
+                async handleSearch(){
+                    if(! this.searchInput){
+                        window.location.reload()
                     }else{
-                        this.$message.error(resData.data.message)
-                    }
-                }
-            },
-            async handleAdd(){
-                if( this.addForm.password === this.addForm.repeat ){
-                    let PostData = {
-                        name: this.addForm.name,
-                        account: this.addForm.account,
-                        password: this.addForm.password,
-                        userType: this.addForm.userType,
-                        phone: this.addForm.phone,
-                        email: this.addForm.email,
-                        isUse: this.addForm.isUse,
-                    };
-                    try{
-                        let resData = await axios.post('/api/user/add', {
-                            user: PostData
+                        console.log(this.searchInput)
+                        let resData = await axios.post('/api/user/search',{
+                            search: this.searchInput
                         })
                         if(resData.data.status === 1){
-                            this.$message({
-                                type: 'success',
-                                message: resData.data.message
-                            });
-                            window.location.reload()
-                        }else {
-                            this.$message.error(resData.data.message);
+                            this.tableData  = resData.data.result
+                        }else{
+                            this.$message.error(resData.data.message)
                         }
-                    }catch (err){
-                        console.log(err)
-                        this.$message.error(`服务器异常，由于 ${err}`);
                     }
-                }else {
-                    this.$message.error('两次输入的密码不一致');
+                },
+                async handleAdd(){
+                    if( this.addForm.password === this.addForm.repeat ){
+                        let PostData = {
+                            name: this.addForm.name,
+                            account: this.addForm.account,
+                            password: this.addForm.password,
+                            userType: this.addForm.userType,
+                            phone: this.addForm.phone,
+                            email: this.addForm.email,
+                            isUse: this.addForm.isUse,
+                        };
+                        try{
+                            let resData = await axios.post('/api/user/add', {
+                                user: PostData
+                            })
+                            if(resData.data.status === 1){
+                                this.$message({
+                                    type: 'success',
+                                    message: resData.data.message
+                                });
+                                window.location.reload()
+                            }else {
+                                this.$message.error(resData.data.message);
+                            }
+                        }catch (err){
+                            console.log(err)
+                            this.$message.error(`服务器异常，由于 ${err}`);
+                        }
+                    }else {
+                        this.$message.error('两次输入的密码不一致');
+                        this.addFromVisible = false
+                    }
+                },
+                handleAddCancel(){
                     this.addFromVisible = false
-                }
-            },
-            handleAddCancel(){
-                this.addFromVisible = false
-            },
-            async handleEdit(row) {
-                let resData = await axios.post('/api/user/getById', {
-                    id: row.user.id
-                });
-                if(resData.data.status === 1){
-                    this.editForm = resData.data.user
-                    console.log(this.editForm)
-                }else {
-                    this.$message.error(resData.data.message);
-                }
-                this.editFromVisible = true
-            },
-            async handleEditSubmit(row){
-                let resData = await axios.post('/api/user/modifyById', {
-                    user: this.editForm
-                });
-                if(resData.data.status === 1){
-                    this.$message({
-                        type: 'success',
-                        message: resData.data.message
-                    })
-                    window.location.reload()
-                }else {
-                    this.$message.error(resData.data.message);
-                }
-                this.editFromVisible = false
-            },
-            handleEditCancle(){
-                this.editFromVisible = false
-            },
-            async handleDelete(row) {
-                try{
-                    await this.$confirm('此操作将失效该用户, 是否继续?', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    })
-                    let resData = await axios.post('/api/user/deleteById', {
+                },
+                async handleEdit(row) {
+                    let resData = await axios.post('/api/user/getById', {
                         id: row.user.id
-                    })
+                    });
+                    if(resData.data.status === 1){
+                        this.editForm = resData.data.user
+                        console.log(this.editForm)
+                    }else {
+                        this.$message.error(resData.data.message);
+                    }
+                    this.editFromVisible = true
+                },
+                async handleEditSubmit(row){
+                    let resData = await axios.post('/api/user/modifyById', {
+                        user: this.editForm
+                    });
                     if(resData.data.status === 1){
                         this.$message({
                             type: 'success',
-                            message: '成功禁用!'
+                            message: resData.data.message
                         })
                         window.location.reload()
                     }else {
                         this.$message.error(resData.data.message);
                     }
-                }catch (err){
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                }
-            },
-            async handleCurrentChange(val) {
-                let resData = await axios.get(`/api/user/getAll/${val}`);
-                if(resData.data.status === 1){
-                    this.tableData = resData.data.usersDetail
-                }else {
-                    this.$message.error(resData.data.message)
-                }
-            },
+                    this.editFromVisible = false
+                },
+                handleEditCancle(){
+                    this.editFromVisible = false
+                },
+                async handleDelete(row) {
+                    try{
+                        await this.$confirm('此操作将失效该用户, 是否继续?', '提示', {
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
+                        })
+                        let resData = await axios.post('/api/user/deleteById', {
+                            id: row.user.id
+                        })
+                        if(resData.data.status === 1){
+                            this.$message({
+                                type: 'success',
+                                message: '成功禁用!'
+                            })
+                            window.location.reload()
+                        }else {
+                            this.$message.error(resData.data.message);
+                        }
+                    }catch (err){
+                        this.$message({
+                            type: 'info',
+                            message: '已取消删除'
+                        });
+                    }
+                },
+                async handleCurrentChange(val) {
+                    let resData = await axios.get(`/api/user/getAll/${val}`);
+                    if(resData.data.status === 1){
+                        this.tableData = resData.data.usersDetail
+                    }else {
+                        this.$message.error(resData.data.message)
+                    }
+                },
+            }
+            
         },
         data() {
             return {

@@ -280,95 +280,72 @@
             Button
         },
         layout: 'admina',
-        methods: {
-            async handleSearch(){
-                if(! this.searchInput){
-                    window.location.reload()
-                }else{
-                    console.log(this.searchInput)
-                    let resData = await axios.post('/api/apply/search',{
-                        search: this.searchInput
-                    })
-                    if(resData.data.status === 1){
-                        this.tableData = resData.data.result
+        methods() {
+            return{
+                async handleSearch(){
+                    if(! this.searchInput){
+                        window.location.reload()
                     }else{
+                        console.log(this.searchInput)
+                        let resData = await axios.post('/api/apply/search',{
+                            search: this.searchInput
+                        })
+                        if(resData.data.status === 1){
+                            this.tableData = resData.data.result
+                        }else{
+                            this.$message.error(resData.data.message)
+                        }
+                    }
+                },
+                async handleAddOpen(){
+                    let resDataUser = await axios.get('/api/user/onlyAll');
+                    let resDataDevice = await axios.get('/api/device/onlyAll');
+                    if(resDataUser.data.status === 1 && resDataDevice.data.status === 1){
+                        this.users = resDataUser.data.users;
+                        this.devices = resDataDevice.data.devices
+                    }else {
+                        this.$message.error('从服务端获取信息失败')
+                    }
+                },
+                async handleAdd(){
+                    // 之后要加上手动验证逻辑
+                    let resData = await axios.post('api/apply/add', {
+                        device: this.addForm
+                    });
+                    if( resData.data.status === 1){
+                        this.$message({
+                            message: resData.data.message,
+                            type: 'success'
+                        });
+                        window.location.reload()
+                    }else {
                         this.$message.error(resData.data.message)
                     }
-                }
-            },
-            async handleAddOpen(){
-                let resDataUser = await axios.get('/api/user/onlyAll');
-                let resDataDevice = await axios.get('/api/device/onlyAll');
-                if(resDataUser.data.status === 1 && resDataDevice.data.status === 1){
-                    this.users = resDataUser.data.users;
-                    this.devices = resDataDevice.data.devices
-                }else {
-                    this.$message.error('从服务端获取信息失败')
-                }
-            },
-            async handleAdd(){
-                // 之后要加上手动验证逻辑
-                let resData = await axios.post('api/apply/add', {
-                    device: this.addForm
-                });
-                if( resData.data.status === 1){
-                    this.$message({
-                        message: resData.data.message,
-                        type: 'success'
+                },
+                handleAddCancel(){
+                    this.addFromVisible = false
+                },
+                async handleEdit(row) {
+                    let resData = await axios.post('/api/apply/getById', {
+                        id: row.apply.id        
                     });
-                    window.location.reload()
-                }else {
-                    this.$message.error(resData.data.message)
-                }
-            },
-            handleAddCancel(){
-                this.addFromVisible = false
-            },
-            async handleEdit(row) {
-                let resData = await axios.post('/api/apply/getById', {
-                    id: row.apply.id        
-                });
-                if( resData.data.status === 1){
-                    this.editForm.id = resData.data.apply.id;
-                    this.editForm.user = resData.data.applyUser.name;
-                    this.editForm.device = resData.data.applyDevice.name;
-                    this.editForm.date = [resData.data.apply.startDate, resData.data.apply.endDate];
-                    this.editForm.vioReason= resData.data.apply.vioReason;
-                    this.editForm.isAgree= resData.data.apply.isAgree;
-                    this.editForm.isUse= resData.data.apply.isUse;
+                    if( resData.data.status === 1){
+                        this.editForm.id = resData.data.apply.id;
+                        this.editForm.user = resData.data.applyUser.name;
+                        this.editForm.device = resData.data.applyDevice.name;
+                        this.editForm.date = [resData.data.apply.startDate, resData.data.apply.endDate];
+                        this.editForm.vioReason= resData.data.apply.vioReason;
+                        this.editForm.isAgree= resData.data.apply.isAgree;
+                        this.editForm.isUse= resData.data.apply.isUse;
 
-                    this.editFromVisible = true
-                }else {
-                    this.$message.error(resData.data.message)
-                }
-            },
-            async handleEditSubmit(){
-                let resData = await axios.post('/api/apply/modifyById', {
-                    apply: this.editForm
-                });
-                if(resData.data.status === 1){
-                    this.$message({
-                        type: 'success',
-                        message: resData.data.message
-                    });
-                    window.location.reload()
-                }else {
-                    this.$message.error(resData.data.message);
-                }
-                this.editFromVisible = false
-            },
-            handleEditCancle(){
-                this.editFromVisible = false
-            },
-            async handleDelete(row) {
-                try{
-                    await this.$confirm('此操作将禁用该用户, 是否继续?', '提示', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    });
-                    let resData = await axios.post('/api/apply/deleteById', {
-                        id: row.apply.id
+                        this.editFromVisible = true
+                    }else {
+                        this.$message.error(resData.data.message)
+                    }
+                },
+                async handleEditSubmit(){
+                    let resData = await axios.post('/api/apply/modifyById', {
+                        apply: this.editForm
                     });
                     if(resData.data.status === 1){
                         this.$message({
@@ -379,18 +356,44 @@
                     }else {
                         this.$message.error(resData.data.message);
                     }
-                }catch (err){
-                    this.$message.error('已取消');
-                }
-            },
-            async handleCurrentChange(val) {
-                let resData = await axios.get(`/api/apply/getAll/${val}`);
-                if(resData.data.status === 1){
-                    this.tableData = resData.data.applys
-                }else {
-                    this.$message.error(resData.data.message)
-                }
-            },
+                    this.editFromVisible = false
+                },
+                handleEditCancle(){
+                    this.editFromVisible = false
+                },
+                async handleDelete(row) {
+                    try{
+                        await this.$confirm('此操作将禁用该用户, 是否继续?', '提示', {
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning'
+                        });
+                        let resData = await axios.post('/api/apply/deleteById', {
+                            id: row.apply.id
+                        });
+                        if(resData.data.status === 1){
+                            this.$message({
+                                type: 'success',
+                                message: resData.data.message
+                            });
+                            window.location.reload()
+                        }else {
+                            this.$message.error(resData.data.message);
+                        }
+                    }catch (err){
+                        this.$message.error('已取消');
+                    }
+                },
+                async handleCurrentChange(val) {
+                    let resData = await axios.get(`/api/apply/getAll/${val}`);
+                    if(resData.data.status === 1){
+                        this.tableData = resData.data.applys
+                    }else {
+                        this.$message.error(resData.data.message)
+                    }
+                },
+            }
+            
         },
         data() {
             return {

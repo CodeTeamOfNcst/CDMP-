@@ -254,12 +254,11 @@
 
 </style>
 <script>
-    import axios from 'axios'
+    import axios from 'axios'    
     import { Button } from 'element-ui'
+
     export default {
-        components: {
-            Button
-        },
+        components: { Button },
         data() {
             return {
                 login_show: true,

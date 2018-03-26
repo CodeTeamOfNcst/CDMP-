@@ -124,11 +124,13 @@
     import  NuxtLink  from '../.nuxt/components/nuxt-link'
 
     export default {
-      components: { NuxtLink },
-      methods: {
-        handleLogOugt(){
-            window.location.href = '/'
-        }
+        components: { NuxtLink },
+        methods() {
+            return{
+                handleLogOugt(){
+                    window.location.href = '/'
+                }
+            }
         }
     }
 </script>
