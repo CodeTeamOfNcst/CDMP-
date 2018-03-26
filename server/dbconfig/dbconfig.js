@@ -15,7 +15,7 @@ const DBHOST = '127.0.0.1'
 const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
   host: DBHOST,
   dialect: 'mysql',
-
+  operatorsAliases: false,
   pool: {
     max: 5,
     min: 10,
@@ -23,8 +23,6 @@ const sequelize = new Sequelize(DATABASE, USERNAME, PASSWORD, {
     idle: 10000
   },
   timezone: '+08:00'
-
 })
- 
 
-module.exports = sequelize;
+module.exports = sequelize

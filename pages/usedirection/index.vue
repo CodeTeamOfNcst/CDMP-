@@ -71,9 +71,8 @@
   
 </template>
 <style scoped>
-.all{
-    height:auto;
-    margin-top:20px;
+.el-tabs {
+    border: 0;
 }
 /* .orderbefore{
         width: 5px;

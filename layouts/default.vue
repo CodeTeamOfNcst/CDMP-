@@ -22,21 +22,22 @@
 <style>
   .allBody{
     width: 100%;
-    background: #ffffff;
+    background: #f9f9f9;
   }
 
   .mainwidth{
     width: 70%;
-    margin-left: 15%;
-    background: white;
+    margin: 15px 15%;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background: #fff;
   }
-  .container
-  {
+  .container {
     margin: 0;
     width: 100%;
     text-align: center;
     overflow: hidden;
-    min-height: 800px;
+    /* min-height: 800px; */
     height: auto;
   }
   .button, .button:visited

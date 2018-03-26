@@ -83,7 +83,7 @@ exports.regist =  async (ctx, next) => {
     console.log(thisUser)
     if(thisUser){
         ctx.body = {
-            status :0,
+            status: 0,
             message: "用户已经存在"
         }
     }else{

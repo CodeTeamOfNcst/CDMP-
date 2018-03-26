@@ -2,14 +2,13 @@
     <div>
         <section class="container">
             <div class="headerName">
-                <div class="leftSty"></div>
                 <el-row :gutter="20">
-                    <el-col :span="15" class="padding">
+                    <el-col :span="15">
                         <div class="grid-content bg-purple">
                             <span class="bullCont">仪器列表</span>
                         </div>
                     </el-col>
-                    <el-col :span="8">
+                    <el-col :span="9">
                         <div class="grid-content bg-purple inputCont">
                             <div>
                                 <el-input placeholder="请输入内容" v-model="search_input" class="input-with-select">
@@ -136,9 +135,6 @@
         width: 80%;
         float: right;
         height: auto;
-    }
-    .padding{
-        padding: 0px !important;
     }
     .inputCont{
         line-height: 50px;
