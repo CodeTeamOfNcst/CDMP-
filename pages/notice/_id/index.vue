@@ -57,8 +57,6 @@ export default {
             publishDate: '',
             input3:'',
             date:[],
-
-
         }
     },
     async asyncData({ params }){

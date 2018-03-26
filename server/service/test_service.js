@@ -212,8 +212,8 @@ module.exports.findOrCreateData = async (ctx, next) => {
 
 /**
  * 尝试获取或创建的方式添加数据有巨大的 bug 懒得填坑了
- * @param { [object] } ctx 
- * @param { [object] } next 
+ * @param { [object] } ctx
+ * @param { [object] } next
  */
 exports.getOrCreateData = async (ctx, next) => {
 

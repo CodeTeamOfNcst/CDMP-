@@ -6,7 +6,7 @@ import {
 import Assert from 'assert'
 import Cors from 'koa2-cors'
 
-const path = require('path')
+
 const logger = require('koa-logger')
 const koaStatic = require('koa-static')
 const session = require('koa2-session-store')
@@ -34,7 +34,6 @@ async function start() {
         Assert.ok(false, 'Unable to connect to the database')
     }
 
-
     if (process.env.NODE_ENV === "development") {
         /**
          ** Sync DB
@@ -49,12 +48,12 @@ async function start() {
     })) //允许跨域访问
     app.use(bodyParser())
     app.use(session({
-        name: "sessid",
+        name: 'sessid',
         secret: "*2-131/*-",
         cookie: {
             maxAge: 23333 // just example
         }
-    }));
+    }))
     
     app.use(koaStatic(__dirname + '/uploads'))
     app.use(router.routes()).use(router.allowedMethods())
