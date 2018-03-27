@@ -313,8 +313,7 @@
 import axios from 'axios'
 import Vue from 'vue'
 
-
-export default class indexs extends Vue {
+export default class Index extends Vue {
     layout() {
         return 'admina'
     }

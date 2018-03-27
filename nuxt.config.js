@@ -46,6 +46,9 @@ module.exports = {
   ** 防止重复打包
   */
   build: {
+    babel: {
+      plugins: ['transform-decorators-legacy', 'transform-class-properties']
+    },
     vendor: ['axios', 'element-ui', 'moment']
   },
   /**
